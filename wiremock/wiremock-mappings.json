@@ -1,0 +1,3724 @@
+{
+  "mappings": [
+    {
+      "id": "3af53848-eb0f-4ec6-ada4-179e99341637",
+      "name": "Retrieve real-time and accurate geolocation and security information for an IPv4 or IPv6 address. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geolocation/lookup",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"ip\": \"ip\",\n  \"hostname\": \"hostname\",\n  \"location\": {\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name\": \"country_name\",\n    \"country_name_official\": \"country_name_official\",\n    \"country_capital\": \"country_capital\",\n    \"state_prov\": \"state_prov\",\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"city\": \"city\",\n    \"locality\": \"locality\",\n    \"accuracy_radius\": \"accuracy_radius\",\n    \"confidence\": \"confidence\",\n    \"dma_code\": \"dma_code\",\n    \"zipcode\": \"zipcode\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\",\n    \"is_eu\": true,\n    \"country_flag\": \"country_flag\",\n    \"geoname_id\": \"geoname_id\",\n    \"country_emoji\": \"country_emoji\"\n  },\n  \"country_metadata\": {\n    \"calling_code\": \"calling_code\",\n    \"tld\": \"tld\",\n    \"languages\": [\n      \"languages\"\n    ]\n  },\n  \"network\": {\n    \"asn\": {\n      \"as_number\": \"as_number\",\n      \"organization\": \"organization\",\n      \"country\": \"country\",\n      \"asn_name\": \"asn_name\",\n      \"type\": \"type\",\n      \"domain\": \"domain\",\n      \"date_allocated\": \"date_allocated\",\n      \"allocation_status\": \"allocation_status\",\n      \"num_of_ipv4_routes\": \"num_of_ipv4_routes\",\n      \"num_of_ipv6_routes\": \"num_of_ipv6_routes\",\n      \"rir\": \"rir\"\n    },\n    \"connection_type\": \"connection_type\",\n    \"company\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"domain\": \"domain\"\n    }\n  },\n  \"currency\": {\n    \"code\": \"PKR\",\n    \"name\": \"Pakistan Rupee\",\n    \"symbol\": \"₨\"\n  },\n  \"security\": {\n    \"threat_score\": 1.1,\n    \"is_tor\": true,\n    \"is_proxy\": true,\n    \"proxy_type\": \"proxy_type\",\n    \"proxy_provider\": \"proxy_provider\",\n    \"is_anonymous\": true,\n    \"is_known_attacker\": true,\n    \"is_spam\": true,\n    \"is_bot\": true,\n    \"is_cloud_provider\": true,\n    \"cloud_provider\": \"cloud_provider\"\n  },\n  \"abuse\": [\n    {\n      \"route\": \"route\",\n      \"country\": \"country\",\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"organization\": \"organization\",\n      \"role\": \"role\",\n      \"kind\": \"kind\",\n      \"address\": \"address\",\n      \"emails\": [\n        \"emails\"\n      ],\n      \"phone_numbers\": [\n        \"phone_numbers\"\n      ]\n    }\n  ],\n  \"time_zone\": {\n    \"name\": \"name\",\n    \"offset\": 1.1,\n    \"offset_with_dst\": 1.1,\n    \"current_time\": \"current_time\",\n    \"current_time_unix\": 1.1,\n    \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n    \"current_tz_full_name\": \"current_tz_full_name\",\n    \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n    \"standard_tz_full_name\": \"standard_tz_full_name\",\n    \"is_dst\": true,\n    \"dst_savings\": 1.1,\n    \"dst_exists\": true,\n    \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n    \"dst_tz_full_name\": \"dst_tz_full_name\",\n    \"dst_start\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    },\n    \"dst_end\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    }\n  },\n  \"user_agent\": {\n    \"user_agent_string\": \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0\",\n    \"name\": \"Firefox\",\n    \"type\": \"Browser\",\n    \"version\": \"142.0\",\n    \"version_major\": \"142\",\n    \"device\": {\n      \"name\": \"Linux Desktop\",\n      \"type\": \"Desktop\",\n      \"brand\": \"Unknown\",\n      \"cpu\": \"Intel x86_64\"\n    },\n    \"engine\": {\n      \"name\": \"Gecko\",\n      \"type\": \"Browser\",\n      \"version\": \"142.0\",\n      \"version_major\": \"142\"\n    },\n    \"operating_system\": {\n      \"name\": \"Ubuntu\",\n      \"type\": \"Desktop\",\n      \"version\": \"??\",\n      \"version_major\": \"??\",\n      \"build\": \"??\"\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3af53848-eb0f-4ec6-ada4-179e99341637",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "40506093-ef6b-49f9-849f-882903d15c43",
+      "name": "Retrieve geolocation information for multiple IP addresses in a single request. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geolocation/lookup",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"ip\": \"ip\",\n    \"hostname\": \"hostname\",\n    \"location\": {\n      \"continent_code\": \"continent_code\",\n      \"continent_name\": \"continent_name\",\n      \"country_code2\": \"country_code2\",\n      \"country_code3\": \"country_code3\",\n      \"country_name\": \"country_name\",\n      \"country_name_official\": \"country_name_official\",\n      \"country_capital\": \"country_capital\",\n      \"state_prov\": \"state_prov\",\n      \"state_code\": \"state_code\",\n      \"district\": \"district\",\n      \"city\": \"city\",\n      \"locality\": \"locality\",\n      \"accuracy_radius\": \"accuracy_radius\",\n      \"confidence\": \"confidence\",\n      \"dma_code\": \"dma_code\",\n      \"zipcode\": \"zipcode\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"is_eu\": true,\n      \"country_flag\": \"country_flag\",\n      \"geoname_id\": \"geoname_id\",\n      \"country_emoji\": \"country_emoji\"\n    },\n    \"country_metadata\": {\n      \"calling_code\": \"calling_code\",\n      \"tld\": \"tld\",\n      \"languages\": [\n        \"languages\"\n      ]\n    },\n    \"network\": {\n      \"connection_type\": \"connection_type\"\n    },\n    \"currency\": {\n      \"code\": \"PKR\",\n      \"name\": \"Pakistan Rupee\",\n      \"symbol\": \"₨\"\n    },\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_type\": \"proxy_type\",\n      \"proxy_provider\": \"proxy_provider\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_spam\": true,\n      \"is_bot\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider\": \"cloud_provider\"\n    },\n    \"abuse\": [\n      {}\n    ],\n    \"time_zone\": {\n      \"name\": \"name\",\n      \"offset\": 1.1,\n      \"offset_with_dst\": 1.1,\n      \"current_time\": \"current_time\",\n      \"current_time_unix\": 1.1,\n      \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n      \"current_tz_full_name\": \"current_tz_full_name\",\n      \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n      \"standard_tz_full_name\": \"standard_tz_full_name\",\n      \"is_dst\": true,\n      \"dst_savings\": 1.1,\n      \"dst_exists\": true,\n      \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n      \"dst_tz_full_name\": \"dst_tz_full_name\"\n    },\n    \"user_agent\": {\n      \"user_agent_string\": \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:142.0) Gecko/20100101 Firefox/142.0\",\n      \"name\": \"Firefox\",\n      \"type\": \"Browser\",\n      \"version\": \"142.0\",\n      \"version_major\": \"142\",\n      \"device\": {\n        \"name\": \"Linux Desktop\",\n        \"type\": \"Desktop\",\n        \"brand\": \"Unknown\",\n        \"cpu\": \"Intel x86_64\"\n      },\n      \"engine\": {\n        \"name\": \"Gecko\",\n        \"type\": \"Browser\",\n        \"version\": \"142.0\",\n        \"version_major\": \"142\"\n      },\n      \"operating_system\": {\n        \"name\": \"Ubuntu\",\n        \"type\": \"Desktop\",\n        \"version\": \"??\",\n        \"version_major\": \"??\",\n        \"build\": \"??\"\n      }\n    }\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "40506093-ef6b-49f9-849f-882903d15c43",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c4e9aafa-3891-412c-8af7-323ee63836d1",
+      "name": "Retrieve security information for an IP address - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/ip/security",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"ip\": \"ip\",\n  \"security\": {\n    \"threat_score\": 1.1,\n    \"is_tor\": true,\n    \"is_proxy\": true,\n    \"proxy_provider_names\": [\n      \"proxy_provider_names\"\n    ],\n    \"proxy_confidence_score\": 1.1,\n    \"proxy_last_seen\": \"proxy_last_seen\",\n    \"is_residential_proxy\": true,\n    \"is_vpn\": true,\n    \"vpn_provider_names\": [\n      \"vpn_provider_names\"\n    ],\n    \"vpn_confidence_score\": 1.1,\n    \"vpn_last_seen\": \"vpn_last_seen\",\n    \"is_relay\": true,\n    \"relay_provider_name\": \"relay_provider_name\",\n    \"is_anonymous\": true,\n    \"is_known_attacker\": true,\n    \"is_bot\": true,\n    \"is_spam\": true,\n    \"is_cloud_provider\": true,\n    \"cloud_provider_name\": \"cloud_provider_name\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c4e9aafa-3891-412c-8af7-323ee63836d1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "276fba62-47a6-433b-8b2c-67272d86ef82",
+      "name": "Retrieve security details for multiple IP addresses in a single request. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/ip/security",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"ip\": \"ip\",\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_provider_names\": [\n        \"proxy_provider_names\"\n      ],\n      \"proxy_confidence_score\": 1.1,\n      \"proxy_last_seen\": \"proxy_last_seen\",\n      \"is_residential_proxy\": true,\n      \"is_vpn\": true,\n      \"vpn_provider_names\": [\n        \"vpn_provider_names\"\n      ],\n      \"vpn_confidence_score\": 1.1,\n      \"vpn_last_seen\": \"vpn_last_seen\",\n      \"is_relay\": true,\n      \"relay_provider_name\": \"relay_provider_name\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_bot\": true,\n      \"is_spam\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider_name\": \"cloud_provider_name\"\n    }\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "276fba62-47a6-433b-8b2c-67272d86ef82",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "313cd9c7-41e0-4f8b-9c4e-05d59ebd836a",
+      "name": "Forward geocoding (address to coordinates) - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geocoder/search",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "query": {
+            "equalTo": "query"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"lat\": 1.1,\n    \"lon\": 1.1,\n    \"name\": \"name\",\n    \"category\": \"category\",\n    \"type\": \"type\",\n    \"poi\": [\n      {}\n    ],\n    \"street\": \"street\",\n    \"area\": \"area\",\n    \"postcode\": \"postcode\",\n    \"city\": \"city\",\n    \"county\": \"county\",\n    \"state_code\": \"state_code\",\n    \"state\": \"state\",\n    \"country_code\": \"country_code\",\n    \"country\": \"country\",\n    \"full_address\": \"full_address\",\n    \"bounding_box\": [\n      \"bounding_box\"\n    ]\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "313cd9c7-41e0-4f8b-9c4e-05d59ebd836a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "e2f44a1f-4b12-4852-b068-fa1d8740ea1c",
+      "name": "Reverse geocoding (coordinates to address) - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geocoder/reverse",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "lat": {
+            "equalTo": "1.1"
+          },
+          "lon": {
+            "equalTo": "1.1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"lat\": 1.1,\n  \"lon\": 1.1,\n  \"name\": \"name\",\n  \"category\": \"category\",\n  \"type\": \"type\",\n  \"poi\": [\n    {\n      \"name\": \"name\",\n      \"category\": \"category\",\n      \"type\": \"type\"\n    }\n  ],\n  \"street\": \"street\",\n  \"area\": \"area\",\n  \"postcode\": \"postcode\",\n  \"city\": \"city\",\n  \"county\": \"county\",\n  \"state_code\": \"state_code\",\n  \"state\": \"state\",\n  \"country_code\": \"country_code\",\n  \"country\": \"country\",\n  \"full_address\": \"full_address\",\n  \"bounding_box\": [\n    \"bounding_box\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e2f44a1f-4b12-4852-b068-fa1d8740ea1c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "28114763-80f1-4bad-972b-bb29e891458b",
+      "name": "Retrieve the WHOIS Data for any domain - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/whois/live",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "domainName": {
+            "equalTo": "domainName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": true,\n  \"domain_name\": \"domain_name\",\n  \"query_time\": \"2024-01-15T09:30:00Z\",\n  \"whois_server\": \"whois_server\",\n  \"domain_registered\": \"yes\",\n  \"create_date\": \"2023-01-15\",\n  \"update_date\": \"2023-01-15\",\n  \"expiry_date\": \"2023-01-15\",\n  \"domain_registrar\": {\n    \"iana_id\": \"iana_id\",\n    \"registrar_name\": \"registrar_name\",\n    \"whois_server\": \"whois_server\",\n    \"website_url\": \"website_url\",\n    \"email_address\": \"email_address\",\n    \"phone_number\": \"phone_number\"\n  },\n  \"reseller_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"registrant_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"administrative_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"technical_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"billing_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"name_servers\": [\n    \"name_servers\"\n  ],\n  \"domain_status\": [\n    \"domain_status\"\n  ],\n  \"whois_raw_domain\": \"whois_raw_domain\",\n  \"registry_data\": {\n    \"domain_name\": \"domain_name\",\n    \"query_time\": \"2024-01-15T09:30:00Z\",\n    \"whois_server\": \"whois_server\",\n    \"domain_registered\": \"yes\",\n    \"create_date\": \"2023-01-15\",\n    \"update_date\": \"2023-01-15\",\n    \"expiry_date\": \"2023-01-15\",\n    \"name_servers\": [\n      \"name_servers\"\n    ],\n    \"domain_status\": [\n      \"domain_status\"\n    ],\n    \"whois_raw_registry\": \"whois_raw_registry\",\n    \"domain_registrar\": {\n      \"iana_id\": \"iana_id\",\n      \"registrar_name\": \"registrar_name\",\n      \"whois_server\": \"whois_server\",\n      \"website_url\": \"website_url\",\n      \"email_address\": \"email_address\",\n      \"phone_number\": \"phone_number\"\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "28114763-80f1-4bad-972b-bb29e891458b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "0aafd380-c9ae-4ede-8ae2-987a6a47bdcd",
+      "name": "Retrieve WHOIS data of multiple domains in a single request - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/whois/live",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"bulk_whois_response\": [\n    {\n      \"status\": true,\n      \"domain_name\": \"domain_name\",\n      \"query_time\": \"2024-01-15T09:30:00Z\",\n      \"whois_server\": \"whois_server\",\n      \"domain_registered\": \"yes\",\n      \"create_date\": \"2023-01-15\",\n      \"update_date\": \"2023-01-15\",\n      \"expiry_date\": \"2023-01-15\",\n      \"name_servers\": [\n        \"name_servers\"\n      ],\n      \"domain_status\": [\n        \"domain_status\"\n      ],\n      \"whois_raw_domain\": \"whois_raw_domain\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "0aafd380-c9ae-4ede-8ae2-987a6a47bdcd",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "496eec8f-faf7-4402-9e11-3398b784e2c9",
+      "name": "Access the WHOIS Data for any IP - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/ip/whois/live",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "ip": {
+            "equalTo": "ip"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": true,\n  \"ip_address\": \"ip_address\",\n  \"query_time\": \"query_time\",\n  \"whois_server\": \"whois_server\",\n  \"inet_nums\": [\n    {\n      \"start_ip\": \"start_ip\",\n      \"end_ip\": \"end_ip\",\n      \"cidr\": [\n        \"cidr\"\n      ],\n      \"net_name\": \"net_name\",\n      \"net_handle\": \"net_handle\",\n      \"description\": [\n        \"description\"\n      ],\n      \"countries\": [\n        \"countries\"\n      ],\n      \"geofeed\": \"geofeed\",\n      \"latitude\": 1.1,\n      \"longitude\": 1.1,\n      \"city\": \"city\",\n      \"languages\": [\n        \"languages\"\n      ],\n      \"status\": \"status\",\n      \"organization\": \"organization\",\n      \"sponsoring_organization\": \"sponsoring_organization\",\n      \"admin_contacts\": [\n        \"admin_contacts\"\n      ],\n      \"tech_contacts\": [\n        \"tech_contacts\"\n      ],\n      \"abuse_contacts\": [\n        \"abuse_contacts\"\n      ],\n      \"remarks\": [\n        \"remarks\"\n      ],\n      \"assignment_size\": \"assignment_size\",\n      \"notify\": [\n        \"notify\"\n      ],\n      \"mnt_by\": [\n        \"mnt_by\"\n      ],\n      \"mnt_lower\": [\n        \"mnt_lower\"\n      ],\n      \"mnt_domains\": [\n        \"mnt_domains\"\n      ],\n      \"mnt_routes\": [\n        \"mnt_routes\"\n      ],\n      \"mnt_irt\": [\n        \"mnt_irt\"\n      ],\n      \"date_created\": \"date_created\",\n      \"date_updated\": \"date_updated\",\n      \"source\": \"source\",\n      \"parents\": [\n        \"parents\"\n      ]\n    }\n  ],\n  \"irt\": {\n    \"handle\": \"handle\",\n    \"address\": [\n      \"address\"\n    ],\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"district\": \"district\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country\": \"country\",\n    \"email\": [\n      \"email\"\n    ],\n    \"abuse_mailbox\": [\n      \"abuse_mailbox\"\n    ],\n    \"phone\": [\n      \"phone\"\n    ],\n    \"fax_no\": [\n      \"fax_no\"\n    ],\n    \"organizations\": [\n      \"organizations\"\n    ],\n    \"admin_contacts\": [\n      \"admin_contacts\"\n    ],\n    \"tech_contacts\": [\n      \"tech_contacts\"\n    ],\n    \"remarks\": [\n      \"remarks\"\n    ],\n    \"signature\": [\n      \"signature\"\n    ],\n    \"encryption\": [\n      \"encryption\"\n    ],\n    \"auth\": [\n      \"auth\"\n    ],\n    \"notify\": [\n      \"notify\"\n    ],\n    \"irt_nfy\": [\n      \"irt_nfy\"\n    ],\n    \"mnt_by\": [\n      \"mnt_by\"\n    ],\n    \"mnt_ref\": [\n      \"mnt_ref\"\n    ],\n    \"date_created\": \"date_created\",\n    \"date_updated\": \"date_updated\",\n    \"source\": \"source\"\n  },\n  \"organization\": {\n    \"handle\": \"handle\",\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"description\": [\n      \"description\"\n    ],\n    \"address\": [\n      \"address\"\n    ],\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"district\": \"district\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country\": [\n      \"country\"\n    ],\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"email\": [\n      \"email\"\n    ],\n    \"abuse_mailbox\": [\n      \"abuse_mailbox\"\n    ],\n    \"phone\": [\n      \"phone\"\n    ],\n    \"fax_no\": [\n      \"fax_no\"\n    ],\n    \"organizations\": [\n      \"organizations\"\n    ],\n    \"admin_contacts\": [\n      \"admin_contacts\"\n    ],\n    \"tech_contacts\": [\n      \"tech_contacts\"\n    ],\n    \"abuse_contacts\": [\n      \"abuse_contacts\"\n    ],\n    \"languages\": [\n      \"languages\"\n    ],\n    \"remarks\": [\n      \"remarks\"\n    ]\n  },\n  \"technical_contacts\": [\n    {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"email\": [\n        \"email\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"source\": \"source\"\n    }\n  ],\n  \"abuse_contacts\": [\n    {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"email\": [\n        \"email\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"source\": \"source\"\n    }\n  ],\n  \"administrative_contacts\": [\n    {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"email\": [\n        \"email\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"source\": \"source\"\n    }\n  ],\n  \"whois_raw_response\": \"whois_raw_response\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "496eec8f-faf7-4402-9e11-3398b784e2c9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "5ae4c4f5-1d62-40a1-a454-46704cb07106",
+      "name": "Get detailed ASN information, including block ranges, routing policies, contacts, and both structured and raw WHOIS data for any ASN. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/asn/whois/live",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "asn": {
+            "equalTo": "asn"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"asNumber\": \"asNumber\",\n  \"asName\": \"asName\",\n  \"orgName\": \"orgName\",\n  \"description\": \"description\",\n  \"orgHandle\": \"orgHandle\",\n  \"country\": \"country\",\n  \"domain\": \"domain\",\n  \"website\": \"website\",\n  \"allocationStatus\": \"allocationStatus\",\n  \"numOfIPv4Routes\": \"numOfIPv4Routes\",\n  \"numOfIPv6Routes\": \"numOfIPv6Routes\",\n  \"whoisHost\": \"whoisHost\",\n  \"dateAllocated\": \"2023-01-15\",\n  \"type\": \"type\",\n  \"routeObjects\": [\n    {\n      \"route\": \"route\",\n      \"origin\": \"origin\",\n      \"originName\": \"originName\",\n      \"isp\": \"isp\",\n      \"numberOfIps\": 1\n    }\n  ],\n  \"whoisResponse\": \"whoisResponse\",\n  \"downstreams\": [\n    {\n      \"asNumber\": \"asNumber\",\n      \"description\": \"description\",\n      \"country\": \"country\"\n    }\n  ],\n  \"parsedWhoisResponse\": {\n    \"status\": true,\n    \"whois_server\": \"whois_server\",\n    \"aut_nums\": [\n      {\n        \"aut_num\": \"aut_num\",\n        \"as_handle\": \"as_handle\",\n        \"as_name\": \"as_name\",\n        \"tech_contacts\": [\n          \"tech_contacts\"\n        ],\n        \"abuse_contacts\": [\n          \"abuse_contacts\"\n        ],\n        \"date_created\": \"2023-01-15\",\n        \"date_updated\": \"2023-01-15\",\n        \"source\": \"source\"\n      }\n    ],\n    \"organization\": {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"address\": [\n        \"address\"\n      ],\n      \"street\": \"street\",\n      \"city\": \"city\",\n      \"state\": \"state\",\n      \"zip_code\": \"zip_code\",\n      \"country\": [\n        \"country\"\n      ],\n      \"addressCountry\": \"addressCountry\",\n      \"date_created\": \"2023-01-15\",\n      \"date_updated\": \"2023-01-15\",\n      \"source\": \"source\"\n    },\n    \"technical_contacts\": [\n      {\n        \"handle\": \"handle\",\n        \"name\": \"name\",\n        \"email\": [\n          \"email\"\n        ]\n      }\n    ],\n    \"abuse_contacts\": [\n      {\n        \"handle\": \"handle\",\n        \"name\": \"name\",\n        \"email\": [\n          \"email\"\n        ]\n      }\n    ]\n  },\n  \"upstreams\": [\n    {\n      \"asNumber\": \"asNumber\",\n      \"description\": \"description\",\n      \"country\": \"country\"\n    }\n  ],\n  \"peers\": [\n    {\n      \"asNumber\": \"asNumber\",\n      \"description\": \"description\",\n      \"country\": \"country\"\n    }\n  ],\n  \"contacts\": {\n    \"emailContacts\": [\n      \"emailContacts\"\n    ],\n    \"abuseContacts\": [\n      \"abuseContacts\"\n    ]\n  },\n  \"legacyRoutes\": [\n    \"legacyRoutes\"\n  ],\n  \"whois_raw_response\": \"whois_raw_response\",\n  \"r_whois_raw_response\": \"r_whois_raw_response\",\n  \"query_time\": \"query_time\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5ae4c4f5-1d62-40a1-a454-46704cb07106",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "9a460a56-6003-4a04-9414-7b8d58a474da",
+      "name": "Get all the historical WHOIS records of a domain - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/whois/history",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "domainName": {
+            "equalTo": "domainName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": true,\n  \"whois\": \"historical\",\n  \"total_records\": \"total_records\",\n  \"whois_domains_historical\": [\n    {\n      \"num\": 1,\n      \"status\": true,\n      \"domain_name\": \"domain_name\",\n      \"query_time\": \"2024-01-15T09:30:00Z\",\n      \"whois_server\": \"whois_server\",\n      \"domain_registered\": \"yes\",\n      \"create_date\": \"2023-01-15\",\n      \"update_date\": \"2023-01-15\",\n      \"expiry_date\": \"2023-01-15\",\n      \"name_servers\": [\n        \"name_servers\"\n      ],\n      \"domain_status\": [\n        \"domain_status\"\n      ],\n      \"whois_raw_domain\": \"whois_raw_domain\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "9a460a56-6003-4a04-9414-7b8d58a474da",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "f20ec53d-8687-4e9c-90aa-4232c25584a7",
+      "name": "Get all the domains registered by a particular company or owner, or access the domains with specific keywords in their domain names - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/whois/reverse",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"totalResult\": 1,\n  \"totalPages\": 1,\n  \"currentPage\": 1,\n  \"whois_domains_historical\": [\n    {\n      \"num\": 1,\n      \"status\": true,\n      \"domain_name\": \"domain_name\",\n      \"query_time\": \"2024-01-15T09:30:00Z\",\n      \"whois_server\": \"whois_server\",\n      \"domain_registered\": \"yes\",\n      \"create_date\": \"2023-01-15\",\n      \"update_date\": \"2023-01-15\",\n      \"expiry_date\": \"2023-01-15\",\n      \"name_servers\": [\n        \"name_servers\"\n      ],\n      \"domain_status\": [\n        \"domain_status\"\n      ],\n      \"whois_raw_domain\": \"whois_raw_domain\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f20ec53d-8687-4e9c-90aa-4232c25584a7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "815dbaf5-9efc-42e5-b6c7-319f29ff85b7",
+      "name": "Get A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records for any hostname - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/dns/live",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "type": {
+            "hasExactly": [
+              {
+                "equalTo": "type"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": true,\n  \"queryTime\": \"2024-01-15T09:30:00Z\",\n  \"domainName\": \"domainName\",\n  \"domainRegistered\": true,\n  \"dnsTypes\": {\n    \"A\": 1.1,\n    \"AAAA\": 1.1,\n    \"CNAME\": 1.1,\n    \"MX\": 1.1,\n    \"NS\": 1.1,\n    \"SOA\": 1.1,\n    \"TXT\": 1.1,\n    \"SPF\": 1.1\n  },\n  \"dnsRecords\": [\n    {\n      \"name\": \"name\",\n      \"type\": 1,\n      \"dnsType\": \"A\",\n      \"ttl\": 1,\n      \"rawText\": \"rawText\",\n      \"rRsetType\": 1,\n      \"address\": \"address\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "815dbaf5-9efc-42e5-b6c7-319f29ff85b7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "3c390c35-b6e7-4668-8162-9a2137af86e5",
+      "name": "Retrieve A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of multiple hostnames in a single request - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/dns/live",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "type": {
+            "hasExactly": [
+              {
+                "equalTo": "type"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"bulk_dns_info\": [\n    {\n      \"status\": true,\n      \"queryTime\": \"2024-01-15T09:30:00Z\",\n      \"domainName\": \"domainName\",\n      \"domainRegistered\": true,\n      \"dnsTypes\": {},\n      \"dnsRecords\": [\n        {\n          \"name\": \"name\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 1,\n          \"rawText\": \"rawText\",\n          \"rRsetType\": 1,\n          \"address\": \"address\"\n        }\n      ]\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3c390c35-b6e7-4668-8162-9a2137af86e5",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f2b92ca4-a8fe-48e8-9de7-f82eb40bd027",
+      "name": "Get all historical A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records of a hostname - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/dns/history",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "host-name": {
+            "equalTo": "host-name"
+          },
+          "type": {
+            "hasExactly": [
+              {
+                "equalTo": "type"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"totalRecords\": 1,\n  \"totalPages\": 1,\n  \"currentPage\": 1,\n  \"historicalDnsRecords\": [\n    {\n      \"queryTime\": \"2024-01-15T09:30:00Z\",\n      \"domainName\": \"domainName\",\n      \"domainRegistered\": true,\n      \"dnsTypes\": {},\n      \"dnsRecords\": [\n        {\n          \"name\": \"name\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 1,\n          \"rawText\": \"rawText\",\n          \"rRsetType\": 1,\n          \"address\": \"address\"\n        }\n      ]\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f2b92ca4-a8fe-48e8-9de7-f82eb40bd027",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "9ecddde5-d6dd-4560-a5d4-e573805978bf",
+      "name": "Retrieve all the hostnames associated with any particular A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/dns/reverse",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "type": {
+            "equalTo": "A"
+          },
+          "value": {
+            "equalTo": "value"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"totalRecords\": 1,\n  \"totalPages\": 1,\n  \"currentPage\": 1,\n  \"reverseDnsRecords\": [\n    {\n      \"queryTime\": \"2024-01-15T09:30:00Z\",\n      \"domainName\": \"domainName\",\n      \"domainRegistered\": true,\n      \"dnsTypes\": {},\n      \"dnsRecords\": [\n        {\n          \"name\": \"name\",\n          \"type\": 1,\n          \"dnsType\": \"A\",\n          \"ttl\": 1,\n          \"rawText\": \"rawText\",\n          \"rRsetType\": 1,\n          \"address\": \"address\"\n        }\n      ]\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "9ecddde5-d6dd-4560-a5d4-e573805978bf",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "7fa0fdc1-a7a8-4aca-a7e3-1d19e18e56de",
+      "name": "Perform web scraping with custom instructions - Example for jsEnabled = true",
+      "request": {
+        "urlPathTemplate": "/v1.0/scraping",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "url": {
+            "equalTo": "https://example.com"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"extractedData\": {\n    \"html\": \"El nombre de dominio: google.sv se encuentra RegistradoNombre de dominio: google.svEstado: RegistradoContacto Administrativo: Cesar Ulises Trujillo MartínezCorreo Electrónico: admin@admindotsv.comTeléfono: 503 2284-8531Fecha Registro: 01-01-2013Fecha de vencimiento: 01-01-2026Fecha de Baja: 01-02-2026\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7fa0fdc1-a7a8-4aca-a7e3-1d19e18e56de",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "4414fe21-11d1-4504-9807-407ee540dd94",
+      "name": "Validate a single email - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/email-validation/single",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"email\": \"email\",\n  \"name\": \"name\",\n  \"reason\": \"reason\",\n  \"validEmail\": \"valid\",\n  \"validSyntax\": true,\n  \"domain\": {\n    \"name\": \"name\",\n    \"disposable\": true,\n    \"spam\": true,\n    \"free\": true,\n    \"catchAll\": true,\n    \"validDomain\": true\n  },\n  \"account\": {\n    \"role\": true,\n    \"fullMailBox\": true\n  },\n  \"dns\": {\n    \"mxRecords\": [\n      \"mxRecords\"\n    ],\n    \"aRecords\": [\n      \"aRecords\"\n    ]\n  },\n  \"ip\": \"ip\",\n  \"address\": {\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_type\": \"proxy_type\",\n      \"proxy_provider\": \"proxy_provider\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_spam\": true,\n      \"is_bot\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider\": \"cloud_provider\"\n    },\n    \"location\": {\n      \"city\": \"city\",\n      \"district\": \"district\",\n      \"confidence\": \"confidence\",\n      \"zipcode\": \"zipcode\",\n      \"state_prov\": \"state_prov\",\n      \"country_name\": \"country_name\",\n      \"continent_name\": \"continent_name\",\n      \"continent_code\": \"continent_code\",\n      \"country_code2\": \"country_code2\",\n      \"country_code3\": \"country_code3\",\n      \"country_name_official\": \"country_name_official\",\n      \"accuracy_radius\": \"accuracy_radius\",\n      \"is_eu\": true\n    },\n    \"validIpAddress\": true\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4414fe21-11d1-4504-9807-407ee540dd94",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "8ce4c835-135f-4e0b-a3a1-02b104921f53",
+      "name": "Validate multiple email addresses - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/email-validation/bulk",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"emailValidationResponses\": [\n    {\n      \"success\": true,\n      \"email\": \"email\",\n      \"name\": \"name\",\n      \"reason\": \"reason\",\n      \"validEmail\": \"valid\",\n      \"validSyntax\": true,\n      \"domain\": {\n        \"name\": \"name\",\n        \"disposable\": true,\n        \"spam\": true,\n        \"free\": true,\n        \"catchAll\": true,\n        \"validDomain\": true\n      },\n      \"account\": {\n        \"role\": true\n      },\n      \"dns\": {\n        \"mxRecords\": [\n          \"mxRecords\"\n        ]\n      },\n      \"ip\": \"ip\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8ce4c835-135f-4e0b-a3a1-02b104921f53",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "bb1b2389-7562-4dc1-a777-e734c885cdb1",
+      "name": "Validate a single phone number - International format (+ prefix) — no region needed",
+      "request": {
+        "urlPathTemplate": "/v1.0/phone/validation",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"raw_input\": {\n    \"number\": \"+14155552671\",\n    \"region\": \"US\",\n    \"dialer_region\": \"dialer_region\"\n  },\n  \"possible\": true,\n  \"valid\": true,\n  \"country_prefix\": 1,\n  \"national_number\": 4155552671,\n  \"country_code\": \"US\",\n  \"carrier\": \"Verizon Communications\",\n  \"location\": \"San Francisco, CA\",\n  \"time_zones\": [\n    \"America/Los_Angeles\"\n  ],\n  \"line_type\": \"MOBILE\",\n  \"formats\": {\n    \"E164\": \"+14155552671\",\n    \"International\": \"+1 415-555-2671\",\n    \"National\": \"(415) 555-2671\",\n    \"RFC3966\": \"tel:+1-415-555-2671\"\n  },\n  \"area_code_length\": 3,\n  \"ndc_length\": 3,\n  \"can_be_internationally_dialled\": true\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bb1b2389-7562-4dc1-a777-e734c885cdb1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "21f42cef-b4f4-4cd3-a399-083f8b4d08e7",
+      "name": "Bulk validate phone numbers - International format numbers (+ prefix) — no region needed",
+      "request": {
+        "urlPathTemplate": "/v1.0/phone/validation/bulk",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"raw_input\": {\n      \"number\": \"+14155552671\",\n      \"region\": \"US\",\n      \"dialer_region\": \"dialer_region\"\n    },\n    \"possible\": true,\n    \"valid\": true,\n    \"country_prefix\": 1,\n    \"national_number\": 4155552671,\n    \"country_code\": \"US\",\n    \"carrier\": \"Verizon Communications\",\n    \"location\": \"San Francisco, CA\",\n    \"time_zones\": [\n      \"America/Los_Angeles\"\n    ],\n    \"line_type\": \"MOBILE\",\n    \"formats\": {\n      \"E164\": \"+14155552671\",\n      \"International\": \"+1 415-555-2671\",\n      \"National\": \"(415) 555-2671\",\n      \"RFC3966\": \"tel:+1-415-555-2671\"\n    },\n    \"area_code_length\": 3,\n    \"ndc_length\": 3,\n    \"can_be_internationally_dialled\": true\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "21f42cef-b4f4-4cd3-a399-083f8b4d08e7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "5628380b-11a9-4b96-a420-74f64c7272db",
+      "name": "Retrieve the SSL certificate and any hidden information embedded within it for a domain. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/ssl/live",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "domainName": {
+            "equalTo": "domainName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"domainName\": \"domainName\",\n  \"queryTime\": \"2024-01-15T09:30:00Z\",\n  \"sslCertificates\": [\n    {\n      \"chainOrder\": \"chainOrder\",\n      \"authenticationType\": \"authenticationType\",\n      \"validityStartDate\": \"validityStartDate\",\n      \"validityEndDate\": \"validityEndDate\",\n      \"serialNumber\": \"serialNumber\",\n      \"signatureAlgorithm\": \"signatureAlgorithm\",\n      \"subject\": {\n        \"commonName\": \"commonName\"\n      },\n      \"issuer\": {\n        \"commonName\": \"commonName\"\n      },\n      \"publicKey\": {\n        \"keySize\": \"keySize\",\n        \"keyAlgorithm\": \"keyAlgorithm\",\n        \"pemRaw\": \"pemRaw\"\n      },\n      \"extensions\": {\n        \"authorityKeyIdentifier\": \"authorityKeyIdentifier\",\n        \"subjectKeyIdentifier\": \"subjectKeyIdentifier\",\n        \"keyUsages\": [\n          \"keyUsages\"\n        ],\n        \"extendedKeyUsages\": [\n          \"extendedKeyUsages\"\n        ],\n        \"authorityInfoAccess\": {\n          \"issuers\": [\n            \"issuers\"\n          ],\n          \"ocsp\": [\n            \"ocsp\"\n          ]\n        },\n        \"certificatePolicies\": {\n          \"policyId\": \"policyId\"\n        }\n      },\n      \"pemRaw\": \"pemRaw\"\n    }\n  ],\n  \"sslRaw\": \"sslRaw\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5628380b-11a9-4b96-a420-74f64c7272db",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "9b27b713-06af-40e1-be66-6ab595209fe6",
+      "name": "Retrieve all certificates from the domain to the root Certificate Authority (CA) of a domain. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/ssl/live/chain",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "domainName": {
+            "equalTo": "domainName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"domainName\": \"domainName\",\n  \"queryTime\": \"2024-01-15T09:30:00Z\",\n  \"sslCertificates\": [\n    {\n      \"chainOrder\": \"chainOrder\",\n      \"authenticationType\": \"authenticationType\",\n      \"validityStartDate\": \"validityStartDate\",\n      \"validityEndDate\": \"validityEndDate\",\n      \"serialNumber\": \"serialNumber\",\n      \"signatureAlgorithm\": \"signatureAlgorithm\",\n      \"subject\": {\n        \"commonName\": \"commonName\"\n      },\n      \"issuer\": {\n        \"commonName\": \"commonName\"\n      },\n      \"publicKey\": {\n        \"keySize\": \"keySize\",\n        \"keyAlgorithm\": \"keyAlgorithm\",\n        \"pemRaw\": \"pemRaw\"\n      },\n      \"extensions\": {\n        \"authorityKeyIdentifier\": \"authorityKeyIdentifier\",\n        \"subjectKeyIdentifier\": \"subjectKeyIdentifier\",\n        \"keyUsages\": [\n          \"keyUsages\"\n        ],\n        \"extendedKeyUsages\": [\n          \"extendedKeyUsages\"\n        ],\n        \"authorityInfoAccess\": {\n          \"issuers\": [\n            \"issuers\"\n          ],\n          \"ocsp\": [\n            \"ocsp\"\n          ]\n        },\n        \"certificatePolicies\": {\n          \"policyId\": \"policyId\"\n        }\n      },\n      \"pemRaw\": \"pemRaw\"\n    }\n  ],\n  \"sslRaw\": \"sslRaw\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "9b27b713-06af-40e1-be66-6ab595209fe6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "2e27ea46-e4f4-4313-bfb8-2498669b2d2b",
+      "name": "Check whether a domain is available for registration or not. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/availability",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "domain": {
+            "equalTo": "domain"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"domain\": \"domain\",\n  \"domainAvailability\": true,\n  \"message\": \"message\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2e27ea46-e4f4-4313-bfb8-2498669b2d2b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "df7a27b8-6e02-42c7-be3e-1c70f1ac11fa",
+      "name": "Check the availability of multiple domains in a single request. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/availability",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"bulk_domain_available_response\": [\n    {\n      \"domain\": \"domain\",\n      \"domainAvailability\": true,\n      \"status\": true\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "df7a27b8-6e02-42c7-be3e-1c70f1ac11fa",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "ef2c5684-2e52-4044-9ed8-c71d5200462f",
+      "name": "Check domain availability and receive suggestions for related domains. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/availability/suggestions",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "domain": {
+            "equalTo": "domain"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"domain_available_response\": [\n    {\n      \"domain\": \"domain\",\n      \"domainAvailability\": true,\n      \"message\": \"message\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "ef2c5684-2e52-4044-9ed8-c71d5200462f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "ba40376f-9aeb-4b92-a957-e176c8db355e",
+      "name": "Get subdomains related to the given domain name. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/subdomains/lookup",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "domain": {
+            "equalTo": "domain"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"domain\": \"domain\",\n  \"status\": true,\n  \"query_time\": \"query_time\",\n  \"current_page\": 1,\n  \"total_pages\": 1,\n  \"total_records\": 1,\n  \"subdomains\": [\n    {\n      \"subdomain\": \"subdomain\",\n      \"first_seen\": \"first_seen\",\n      \"last_seen\": \"last_seen\",\n      \"inactive_from\": \"inactive_from\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "ba40376f-9aeb-4b92-a957-e176c8db355e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "fb066f97-2bfc-4707-9188-eaf77386b321",
+      "name": "Combine multiple PDF files into one - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/merge",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fb066f97-2bfc-4707-9188-eaf77386b321",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "9af56145-7484-417f-9c7c-4a45e065c3fb",
+      "name": "Delete specific pages from a PDF - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/remove-pages",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "pages": {
+            "equalTo": "pages"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "9af56145-7484-417f-9c7c-4a45e065c3fb",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "21a889a9-d179-478e-acb3-f7a0f06ab82f",
+      "name": "Split a PDF into smaller files - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/split",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "21a889a9-d179-478e-acb3-f7a0f06ab82f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "2b818361-c1d6-4335-8d8e-c39d7d0388ee",
+      "name": "Rotate pages in a PDF - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/rotate",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "rotate": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2b818361-c1d6-4335-8d8e-c39d7d0388ee",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "32dc27df-400b-4d44-9576-08ed019ab3cc",
+      "name": "Compress a PDF file - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/compress",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "compression_level": {
+            "equalTo": "low"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "32dc27df-400b-4d44-9576-08ed019ab3cc",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "81c9d8fb-90f8-44d9-a00e-d0fae8a0a26d",
+      "name": "Extract pages from a PDF - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/extract-pages",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "pages": {
+            "equalTo": "pages"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "81c9d8fb-90f8-44d9-a00e-d0fae8a0a26d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "657b8c02-016d-49b5-8acf-48ab66cc82b9",
+      "name": "Linearize a PDF - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/linearize",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "657b8c02-016d-49b5-8acf-48ab66cc82b9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "78ffe712-489c-4959-87ec-9f34cee4ac89",
+      "name": "Add password protection to a PDF - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/encrypt",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "user_password": {
+            "equalTo": "user_password"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "78ffe712-489c-4959-87ec-9f34cee4ac89",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d59079e6-1c9a-48c6-a3aa-ddf03fb34f90",
+      "name": "Remove all encryption from a PDF - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/decrypt",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "file_password": {
+            "equalTo": "file_password"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d59079e6-1c9a-48c6-a3aa-ddf03fb34f90",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "7ef3bbb5-bb12-4da7-909e-c011ae32c78e",
+      "name": "Apply permission restrictions on a PDF file - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/restrict",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "user_password": {
+            "equalTo": "user_password"
+          },
+          "restrictions": {
+            "hasExactly": [
+              {
+                "equalTo": "print_high"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7ef3bbb5-bb12-4da7-909e-c011ae32c78e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "4054f1c3-187f-4940-b482-206db51989fc",
+      "name": "Remove permission restrictions from a PDF while keeping it encrypted. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/unrestrict",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "file_password": {
+            "equalTo": "file_password"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4054f1c3-187f-4940-b482-206db51989fc",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "6c929b6f-69ac-4c1d-a916-3e22f9a2a2a3",
+      "name": "Convert PDF to PNG - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/png",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6c929b6f-69ac-4c1d-a916-3e22f9a2a2a3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "7e5e3d94-c40c-44ee-b336-def3131d7280",
+      "name": "Convert PDF to JPG - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/jpg",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7e5e3d94-c40c-44ee-b336-def3131d7280",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "5efc1cf4-00a2-4d6e-bf7a-3669f7d1a6b5",
+      "name": "Convert a PDF file into a sequence of TIFF images. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/tif",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5efc1cf4-00a2-4d6e-bf7a-3669f7d1a6b5",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f2321a79-750d-4b78-a0f1-70174c44127d",
+      "name": "Convert PDF to BMP - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/bmp",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f2321a79-750d-4b78-a0f1-70174c44127d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "58000e9e-e2a3-495d-b967-76551fe22228",
+      "name": "Convert PDF to GIF - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/gif",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"inputIds\": [\n    \"inputIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "58000e9e-e2a3-495d-b967-76551fe22228",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "57792a16-c996-4aa2-bb42-d39e4dd821d1",
+      "name": "Upload multiple PDFs and get file IDs - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/resource/upload",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"files\": [\n    {\n      \"fileName\": \"fileName\",\n      \"fileId\": \"fileId\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "57792a16-c996-4aa2-bb42-d39e4dd821d1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "61374495-f434-4524-ae28-04d4a3498dec",
+      "name": "Download PDF resource - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/resource/download",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "resource_id": {
+            "equalTo": "resource_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "61374495-f434-4524-ae28-04d4a3498dec",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "2c234317-8e77-4c05-ac7c-7bc16d7f35ea",
+      "name": "Check PDF task status - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/task-status",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "task_id": {
+            "equalTo": "task_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"status\": \"status\",\n  \"createdAt\": \"2024-01-15T09:30:00Z\",\n  \"zipOutputUrl\": \"zipOutputUrl\",\n  \"zipFileId\": \"zipFileId\",\n  \"outputUrls\": [\n    \"outputUrls\"\n  ],\n  \"outputIds\": [\n    \"outputIds\"\n  ],\n  \"inputIds\": [\n    \"inputIds\"\n  ],\n  \"error\": \"error\",\n  \"message\": \"message\",\n  \"expiresAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2c234317-8e77-4c05-ac7c-7bc16d7f35ea",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "bdecc335-6b1f-4f7d-b09e-5944188e11bf",
+      "name": "Check file status - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/file-status",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "file_id": {
+            "equalTo": "file_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"fileId\": \"fileId\",\n  \"fileName\": \"fileName\",\n  \"fileType\": \"fileType\",\n  \"fileCreationTime\": \"2024-01-15T09:30:00Z\",\n  \"fileDeletionTime\": \"2023-01-15\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bdecc335-6b1f-4f7d-b09e-5944188e11bf",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "da9b27b5-8404-4ed5-8582-1113af94e3fe",
+      "name": "Get list of PDF files - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/files",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"files\": [\n    {\n      \"fileId\": \"fileId\",\n      \"fileName\": \"fileName\",\n      \"fileType\": \"fileType\",\n      \"fileCreationTime\": \"2024-01-15T09:30:00Z\",\n      \"fileDeletionTime\": \"2023-01-15\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "da9b27b5-8404-4ed5-8582-1113af94e3fe",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "3e4fec2d-c7ef-4f65-84ac-7310edd95616",
+      "name": "Delete a PDF file - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/file",
+        "method": "DELETE",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "file_id": {
+            "equalTo": "file_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"fileId\": \"fileId\",\n  \"success\": true,\n  \"message\": \"message\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3e4fec2d-c7ef-4f65-84ac-7310edd95616",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "578c429c-9178-49ac-8e21-f8a16086debd",
+      "name": "Build screenshots the way real users see the web — not just what fits on the screen. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/screenshot",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "url": {
+            "equalTo": "url"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "578c429c-9178-49ac-8e21-f8a16086debd",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "03617859-655d-4389-92ed-9c1c06f07a61",
+      "name": "Capture screenshots of multiple websites in a single request. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/screenshot",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": \"status\",\n  \"meta_data\": {\n    \"total_urls\": 1,\n    \"successful_urls\": 1,\n    \"failed_urls\": 1\n  },\n  \"results\": [\n    {\n      \"status\": \"status\",\n      \"error_message\": \"error_message\",\n      \"url\": {\n        \"screenshot\": \"screenshot\",\n        \"url\": \"url\",\n        \"created_at\": \"created_at\",\n        \"format\": \"format\",\n        \"ttl\": \"ttl\"\n      }\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "03617859-655d-4389-92ed-9c1c06f07a61",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e11607ca-959d-4ad7-bcee-49b239f42a1f",
+      "name": "Retrieve currency exchange rates with USD as the default base currency. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/rates/latest",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"date\": \"date\",\n  \"base\": \"base\",\n  \"rates\": {\n    \"key\": \"value\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e11607ca-959d-4ad7-bcee-49b239f42a1f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "1f8ba144-0422-4068-b8d6-d2740f5c9a2d",
+      "name": "Retrieve historical currency exchange rates for a specific date with USD as the default base currency. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/rates/historical",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "date": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"date\": \"date\",\n  \"base\": \"base\",\n  \"rates\": {\n    \"key\": \"value\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1f8ba144-0422-4068-b8d6-d2740f5c9a2d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "65aa1524-e19f-45d8-81f8-6f8a1a7aa317",
+      "name": "Convert any amount from one currency to another using the current exchange rate. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/converter/latest/prices",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "from": {
+            "equalTo": "from"
+          },
+          "to": {
+            "equalTo": "to"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"date\": \"date\",\n  \"from\": \"from\",\n  \"to\": \"to\",\n  \"rate\": \"rate\",\n  \"givenAmount\": \"givenAmount\",\n  \"convertedAmount\": \"convertedAmount\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "65aa1524-e19f-45d8-81f8-6f8a1a7aa317",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "5752b5b9-f1e6-46da-b1fb-0c2d5d266e44",
+      "name": "Convert any amount from one currency to another using the historical exchange rate for a specific date. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/converter/historical/prices",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "from": {
+            "equalTo": "from"
+          },
+          "to": {
+            "equalTo": "to"
+          },
+          "date": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"date\": \"date\",\n  \"from\": \"from\",\n  \"to\": \"to\",\n  \"rate\": \"rate\",\n  \"givenAmount\": \"givenAmount\",\n  \"convertedAmount\": \"convertedAmount\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5752b5b9-f1e6-46da-b1fb-0c2d5d266e44",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "4e348da0-9854-4a4e-97bf-fd9666cf969f",
+      "name": "Retrieve historical exchange rates for a specific duration of a currency pair. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/time-series",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "startDate": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"base\": \"base\",\n  \"historicalRatesList\": [\n    {\n      \"date\": \"date\",\n      \"rates\": {\n        \"key\": \"value\"\n      }\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4e348da0-9854-4a4e-97bf-fd9666cf969f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "8cc0add3-de39-4f29-b4e5-a83f711bd273",
+      "name": "Retrieve currency fluctuations for all specified currencies over a specific duration and base currency. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/fluctuation",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "startDate": {
+            "equalTo": "2023-01-15"
+          },
+          "base": {
+            "equalTo": "USD"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"base\": \"base\",\n  \"rateFluctuations\": {\n    \"key\": {\n      \"startRate\": \"startRate\",\n      \"endRate\": \"endRate\",\n      \"change\": \"change\",\n      \"percentChange\": \"percentChange\"\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8cc0add3-de39-4f29-b4e5-a83f711bd273",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "d7323a73-9104-4f7b-91f6-7fdb0f3ee8a1",
+      "name": "Convert any amount from one currency to the local currency based on IP address location or using the client IP address location, using the current exchange rate. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/converter/ip-to-currency",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "from": {
+            "equalTo": "from"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"date\": \"date\",\n  \"from\": \"from\",\n  \"to\": \"to\",\n  \"rate\": \"rate\",\n  \"ipAddress\": \"ipAddress\",\n  \"givenAmount\": \"givenAmount\",\n  \"convertedAmount\": \"convertedAmount\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d7323a73-9104-4f7b-91f6-7fdb0f3ee8a1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "fc4a9a14-aa34-40da-8488-4fc109470021",
+      "name": "Supported Currencies - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/supported",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"supportedCurrenciesMap\": {\n    \"key\": {\n      \"currencyCode\": \"currencyCode\",\n      \"currencyName\": \"currencyName\",\n      \"countryCode\": \"countryCode\",\n      \"countryName\": \"countryName\",\n      \"status\": \"AVAILABLE\",\n      \"availableFrom\": \"availableFrom\",\n      \"availableUntil\": \"availableUntil\",\n      \"icon\": \"icon\"\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fc4a9a14-aa34-40da-8488-4fc109470021",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "a76f3fe2-5ba5-476d-8317-2e668683ea6c",
+      "name": "Currency Symbols - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/symbols",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"currencySymbols\": {\n    \"key\": \"value\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a76f3fe2-5ba5-476d-8317-2e668683ea6c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "c52f2bec-8b25-4cc7-b72b-96d15a4968f1",
+      "name": "Currency Historical Data Limits - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/currency/historical/data/limits",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"availabilityPeriod\": {\n    \"key\": \"value\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c52f2bec-8b25-4cc7-b72b-96d15a4968f1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "30df6789-4d17-4707-936f-ca396cc22d35",
+      "name": "Get real-time prices for agricultural, energy, and metal commodities with support for custom currencies—perfect for trading apps and financial dashboards. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/commodity/rates/latest",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "symbols": {
+            "hasExactly": [
+              {
+                "equalTo": "symbols"
+              }
+            ]
+          },
+          "updates": {
+            "equalTo": "10m"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"timestamp\": 1.1,\n  \"rates\": {\n    \"key\": 1.1\n  },\n  \"metadata\": {\n    \"key\": {\n      \"unit\": \"unit\",\n      \"quote\": \"quote\"\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "30df6789-4d17-4707-936f-ca396cc22d35",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "19c225e4-8a8d-483c-9278-1ce731365a02",
+      "name": "Track historical commodity prices for gold, oil, cocoa, and more — from 1990 to today. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/commodity/rates/historical",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "date": {
+            "equalTo": "2023-01-15"
+          },
+          "symbols": {
+            "hasExactly": [
+              {
+                "equalTo": "symbols"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"timestamp\": 1.1,\n  \"metadata\": {\n    \"key\": {\n      \"unit\": \"unit\",\n      \"quote\": \"quote\"\n    }\n  },\n  \"date\": \"date\",\n  \"rates\": {\n    \"key\": {\n      \"date\": \"date\",\n      \"open\": 1.1,\n      \"high\": 1.1,\n      \"low\": 1.1,\n      \"close\": 1.1\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "19c225e4-8a8d-483c-9278-1ce731365a02",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "7f512389-ca05-4841-a51f-31f62976609a",
+      "name": "Calculate percentage price changes in commodities over any custom date range. Use the Commodity Fluctuation API for market summaries and price shift detection. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/commodity/fluctuation",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "symbols": {
+            "hasExactly": [
+              {
+                "equalTo": "symbols"
+              }
+            ]
+          },
+          "startDate": {
+            "equalTo": "2023-01-15"
+          },
+          "endDate": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"timestamp\": 1.1,\n  \"metadata\": {\n    \"key\": {\n      \"unit\": \"unit\",\n      \"quote\": \"quote\"\n    }\n  },\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"rates\": {\n    \"key\": {\n      \"startRate\": 1.1,\n      \"endRate\": 1.1,\n      \"change\": 1.1,\n      \"changePercent\": 1.1\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7f512389-ca05-4841-a51f-31f62976609a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "d41618ce-a01f-4a50-a745-b6196defc147",
+      "name": "Retrieve historical commodity prices for a specific duration of a commodity symbol. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/commodity/time-series",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "symbols": {
+            "hasExactly": [
+              {
+                "equalTo": "symbols"
+              }
+            ]
+          },
+          "startDate": {
+            "equalTo": "2023-01-15"
+          },
+          "endDate": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"timestamp\": 1.1,\n  \"metadata\": {\n    \"key\": {\n      \"unit\": \"unit\",\n      \"quote\": \"quote\"\n    }\n  },\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"rates\": {\n    \"key\": {\n      \"key\": {\n        \"open\": 1.1,\n        \"high\": 1.1,\n        \"low\": 1.1,\n        \"close\": 1.1\n      }\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d41618ce-a01f-4a50-a745-b6196defc147",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "ac73019c-9364-4b52-83e8-c6ba8841af2c",
+      "name": "Supported Commodities - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/commodity/symbols",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"symbols\": [\n    {\n      \"symbol\": \"symbol\",\n      \"name\": \"name\",\n      \"category\": \"category\",\n      \"status\": \"status\",\n      \"updateInterval\": \"PER_SECOND\",\n      \"currency\": {\n        \"code\": \"code\",\n        \"name\": \"name\",\n        \"symbol\": \"symbol\"\n      },\n      \"unit\": {\n        \"symbol\": \"symbol\",\n        \"name\": \"name\"\n      }\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "ac73019c-9364-4b52-83e8-c6ba8841af2c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "10dc5a61-0f3b-4930-a2ea-b7a53ff75a6c",
+      "name": "Get supported countries - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/vat/supported-countries",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"VAT_Supported_Countries_And_States\": [\n    {\n      \"code\": \"code\",\n      \"name\": \"name\",\n      \"states\": [\n        \"states\"\n      ]\n    },\n    {\n      \"code\": \"code\",\n      \"name\": \"name\",\n      \"states\": [\n        \"states\"\n      ]\n    },\n    {\n      \"code\": \"code\",\n      \"name\": \"name\",\n      \"states\": [\n        \"states\"\n      ]\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "10dc5a61-0f3b-4930-a2ea-b7a53ff75a6c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "1e075db2-d10e-47bf-a990-6028adec4d78",
+      "name": "Get VAT rate by IP address - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/vat/rates/ip-address",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"country\": \"DE\",\n    \"type\": \"vat\",\n    \"currency\": \"EUR\",\n    \"standard_rate\": 0.19,\n    \"reduced_rate\": [\n      0.07,\n      0\n    ],\n    \"super_reduced_rate\": [\n      0.021\n    ],\n    \"parking_rate\": 0.19,\n    \"categories\": {\n      \"broadcasting\": 0.19,\n      \"books\": 0.07,\n      \"newspapers\": 0.07,\n      \"periodicals\": 0.07\n    }\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1e075db2-d10e-47bf-a990-6028adec4d78",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "50e6de57-cae4-48a0-89b1-845a09e1f9b4",
+      "name": "Get VAT rate by country code - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/vat/rates/country",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "country": {
+            "equalTo": "country"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"country\": \"de\",\n    \"state\": \"bavaria\",\n    \"type\": \"vat\",\n    \"currency\": \"EUR\",\n    \"standard_rate\": 0.19,\n    \"reduced_rate\": [\n      0.07,\n      0\n    ],\n    \"super_reduced_rate\": [\n      0.021\n    ],\n    \"parking_rate\": 0.19,\n    \"categories\": {\n      \"broadcasting\": 0.19,\n      \"books\": 0.07,\n      \"newspapers\": 0.07,\n      \"periodicals\": 0.07\n    }\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "50e6de57-cae4-48a0-89b1-845a09e1f9b4",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "bc414701-4bc9-493f-9add-f21cab70a885",
+      "name": "Bulk VAT lookup by country - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/vat/rates/country",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"countries\": [\n    {\n      \"country\": \"de\",\n      \"state\": \"New_York\",\n      \"type\": \"vat\",\n      \"currency\": \"EUR\",\n      \"standard_rate\": 0.19,\n      \"reduced_rate\": [\n        0.07,\n        0\n      ],\n      \"super_reduced_rate\": [\n        0.021\n      ],\n      \"parking_rate\": 0.19,\n      \"categories\": {\n        \"broadcasting\": 0.19,\n        \"books\": 0.07,\n        \"newspapers\": 0.07,\n        \"periodicals\": 0.07\n      }\n    },\n    {\n      \"country\": \"United_States\",\n      \"state\": \"New_York\",\n      \"type\": \"vat\",\n      \"currency\": \"USD\",\n      \"standard_rate\": 0.04,\n      \"reduced_rate\": [\n        0.055,\n        0\n      ],\n      \"super_reduced_rate\": [\n        0.021\n      ],\n      \"parking_rate\": 0.19,\n      \"categories\": {\n        \"books\": 0.055,\n        \"newspapers\": 0.021,\n        \"periodicals\": 0.021,\n        \"broadcasting\": 0.1\n      }\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bc414701-4bc9-493f-9add-f21cab70a885",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "8ea19760-0bce-4645-849f-5d3b7a4fd317",
+      "name": "Validate EU and UK VAT number - ValidationSuccessful",
+      "request": {
+        "urlPathTemplate": "/v1.0/vat/validation",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "vatNumber": {
+            "equalTo": "vatNumber"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"country_code\": \"GB\",\n  \"vat_number\": \"289111588\",\n  \"requester_country_code\": \"GB\",\n  \"requester_vat_number\": \"288305674\",\n  \"requested_at\": \"2026-04-14T13:51:32Z\",\n  \"validation\": {\n    \"is_valid\": true,\n    \"consultation_number\": \"KNN-ARL-LTK\",\n    \"consultation_authority\": \"HMRC\"\n  },\n  \"company\": {\n    \"company_name\": \"EVENTURED LTD\",\n    \"company_address\": \"SUITE 10, BEAUFORT COURT, ADMIRALS WAY, LONDON, E14 9XL, GB\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8ea19760-0bce-4645-849f-5d3b7a4fd317",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "040094f3-6d64-4d10-b314-28c41d856d80",
+      "name": "Validate IBAN - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/iban/validation",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "iban": {
+            "equalTo": "iban"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"valid\": true,\n  \"iban\": \"GB49NWBK08609000000003\",\n  \"validation\": {\n    \"is_alpha_numeric\": true,\n    \"is_iban_supported_country\": true,\n    \"is_valid_length\": true,\n    \"is_valid_structure\": true,\n    \"is_iban_check_digit_valid\": true,\n    \"bban\": \"valid\"\n  },\n  \"bank_data\": {\n    \"bic\": \"NWBKGB2LBHM\",\n    \"bank\": \"NATIONAL WESTMINSTER BANK PLC\",\n    \"bank_code\": \"NWBK\",\n    \"branch_code\": \"branch_code\",\n    \"country\": \"United Kingdom\",\n    \"country_iso2\": \"GB\",\n    \"city\": \"BIRMINGHAM\",\n    \"address\": \"6 BRINDLEY PLACE\",\n    \"account\": \"00000003\",\n    \"sepa\": true\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "040094f3-6d64-4d10-b314-28c41d856d80",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "f43a4351-3a15-4fa1-8c47-7f34d1e102c9",
+      "name": "Find SWIFT codes - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/swift-code/finder",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  \"string\",\n  \"string\",\n  \"string\"\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f43a4351-3a15-4fa1-8c47-7f34d1e102c9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "7a0a146f-bd2f-4cbf-9450-daaf8cf97d5e",
+      "name": "Lookup SWIFT code details - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/swift-code/lookup",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "swiftCode": {
+            "equalTo": "swiftCode"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"swiftCode\": \"swiftCode\",\n  \"countryCode\": \"countryCode\",\n  \"bankAddress\": \"bankAddress\",\n  \"bankCode\": \"bankCode\",\n  \"bankName\": \"bankName\",\n  \"city\": \"city\",\n  \"country\": \"country\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7a0a146f-bd2f-4cbf-9450-daaf8cf97d5e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "9ca60410-fcd7-4b1d-a3aa-9c329e60b23e",
+      "name": "Lookup ZIP/postal codes - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/zipcode/lookup",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "code": {
+            "equalTo": "code"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"results\": [\n    {\n      \"code\": \"55270\",\n      \"country_code\": \"PK\",\n      \"region\": \"Punjab\",\n      \"region_code\": \"region_code\",\n      \"city\": \"Manga Mandi\",\n      \"locality\": \"\",\n      \"latitude\": 31.2989,\n      \"longitude\": 74.07\n    },\n    {\n      \"code\": \"55270\",\n      \"country_code\": \"PK\",\n      \"region\": \"Punjab\",\n      \"region_code\": \"region_code\",\n      \"city\": \"Lahore\",\n      \"locality\": \"Manga Mandi\",\n      \"latitude\": 31.303999,\n      \"longitude\": 74.063995\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "9ca60410-fcd7-4b1d-a3aa-9c329e60b23e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "4cd7c1b4-4dce-49a7-9e83-ecef00fc5a8e",
+      "name": "Lookup ZIP/postal codes - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/zipcode/lookup",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"results\": [\n    {\n      \"code\": \"55270\",\n      \"country_code\": \"PK\",\n      \"region\": \"Punjab\",\n      \"region_code\": \"region_code\",\n      \"city\": \"Manga Mandi\",\n      \"locality\": \"\",\n      \"latitude\": 31.2989,\n      \"longitude\": 74.07\n    },\n    {\n      \"code\": \"55270\",\n      \"country_code\": \"PK\",\n      \"region\": \"Punjab\",\n      \"region_code\": \"region_code\",\n      \"city\": \"Lahore\",\n      \"locality\": \"Manga Mandi\",\n      \"latitude\": 31.303999,\n      \"longitude\": 74.063995\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4cd7c1b4-4dce-49a7-9e83-ecef00fc5a8e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "210076f4-38ab-4fe9-81ba-c44e18f91a6d",
+      "name": "Search ZIP/postal codes by city - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/zipcode/search/city",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "city": {
+            "equalTo": "city"
+          },
+          "country": {
+            "equalTo": "country"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"total_results\": 130,\n  \"total_pages\": 1,\n  \"current_page\": 1,\n  \"current_page_size\": 130,\n  \"codes\": [\n    \"36280\",\n    \"53000\",\n    \"53100\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "210076f4-38ab-4fe9-81ba-c44e18f91a6d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "cf206874-8fd5-4618-b8fd-01de76e577f8",
+      "name": "Search ZIP codes by region - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/zipcode/search/region",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "country": {
+            "equalTo": "country"
+          },
+          "region": {
+            "equalTo": "region"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"total_results\": 130,\n  \"total_pages\": 1,\n  \"current_page\": 1,\n  \"current_page_size\": 130,\n  \"codes\": [\n    \"36280\",\n    \"53000\",\n    \"53100\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "cf206874-8fd5-4618-b8fd-01de76e577f8",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "ec2f8318-28dd-4a6a-bc35-23a8a10822fd",
+      "name": "Find ZIP/postal codes within a radius - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/zipcode/search/radius",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "radius": {
+            "equalTo": "1.1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"total_results\": 2303,\n  \"total_pages\": 5,\n  \"current_page\": 1,\n  \"current_page_size\": 500,\n  \"results\": [\n    {\n      \"code\": \"49608\",\n      \"region\": \"Punjab\",\n      \"region_code\": \"PB\",\n      \"city\": \"Tahlian Wala\",\n      \"district\": \"\",\n      \"distance\": 14.835\n    },\n    {\n      \"code\": \"49610\",\n      \"region\": \"Punjab\",\n      \"region_code\": \"PB\",\n      \"city\": \"Alliance Textile Mills\",\n      \"district\": \"\",\n      \"distance\": 14.835\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "ec2f8318-28dd-4a6a-bc35-23a8a10822fd",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "5a39257c-58e4-4368-a524-c24304be3aa1",
+      "name": "Get distance between postal codes - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/zipcode/distance",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"results_count\": \"results_count\",\n  \"results\": [\n    {\n      \"code\": \"49610\",\n      \"distance\": 14.835\n    },\n    {\n      \"code\": \"49608\",\n      \"distance\": 14.835\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5a39257c-58e4-4368-a524-c24304be3aa1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "fdf2a324-84bf-4c23-9359-0aba35cdbb57",
+      "name": "Get matching ZIP/postal code pairs within a distance - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/zipcode/distance/match",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"results_count\": \"results_count\",\n  \"results\": [\n    {\n      \"code_1\": \"49610\",\n      \"code_2\": \"55270\",\n      \"distance\": 14.835\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fdf2a324-84bf-4c23-9359-0aba35cdbb57",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "7dbd0272-7cea-4682-96f4-9025e2e48597",
+      "name": "Real-time weather conditions for any location on demand - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/weather/current",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"location\": {\n    \"continent_code\": \"AS\",\n    \"continent_name\": \"Asia\",\n    \"country_code2\": \"PK\",\n    \"country_code3\": \"PAK\",\n    \"country_name\": \"Pakistan\",\n    \"country_name_official\": \"Islamic Republic of Pakistan\",\n    \"is_eu\": false,\n    \"state_prov\": \"Punjab\",\n    \"state_code\": \"PK-PB\",\n    \"district\": \"Lahore\",\n    \"city\": \"Lahore\",\n    \"zipcode\": \"54000\",\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"locality\": \"Gulberg\",\n    \"elevation\": 1.1,\n    \"timezone\": \"Asia/Karachi\",\n    \"timezone_abbreviation\": \"GMT+5\"\n  },\n  \"current\": {\n    \"timestamp\": \"2025-09-29T17:45:00Z\",\n    \"temperature_2m\": 32.5,\n    \"relative_humidity_2m\": 61,\n    \"apparent_temperature\": 37.9,\n    \"snowfall\": 0,\n    \"rain\": 0,\n    \"showers\": 0,\n    \"precipitation\": 0,\n    \"weather_code\": 2,\n    \"cloud_cover\": 49,\n    \"pressure_msl\": 1001.9,\n    \"surface_pressure\": 977.6,\n    \"wind_speed_10m\": 4,\n    \"wind_direction_10m\": 280,\n    \"wind_gusts_10m\": 8.6,\n    \"astronomy\": {\n      \"date\": \"2025-09-29\",\n      \"mid_night\": \"23:52\",\n      \"night_end\": \"04:34\",\n      \"sunrise\": \"05:53\",\n      \"solar_noon\": \"11:52\",\n      \"sunset\": \"17:51\",\n      \"night_begin\": \"19:10\",\n      \"day_length\": \"11:58\",\n      \"sun_status\": \"-\",\n      \"moon_phase\": \"FIRST_QUARTER\",\n      \"moonrise\": \"12:41\",\n      \"moonset\": \"22:28\",\n      \"moon_status\": \"-\"\n    },\n    \"air_quality\": {\n      \"timestamp\": \"2025-09-29T17:45:00Z\",\n      \"european_aqi\": 84,\n      \"us_aqi\": 148,\n      \"pm10\": 66.2,\n      \"pm2_5\": 52.7,\n      \"carbon_monoxide\": 977,\n      \"nitrogen_dioxide\": 44.5,\n      \"sulphur_dioxide\": 20.4,\n      \"ozone\": 159,\n      \"dust\": 27,\n      \"uv_index\": 0,\n      \"aerosol_optical_depth\": 0.48,\n      \"uv_index_clear_sky\": 0\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7dbd0272-7cea-4682-96f4-9025e2e48597",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "1069c873-f7c3-4437-9dee-bdf7fc91a36d",
+      "name": "Get real-time weather data for multiple locations, coordinates, or IP addresses - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/weather/current",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"bulk\": [\n    {\n      \"location\": {\n        \"location_string\": \"lahore\",\n        \"country_name\": \"Pakistan\",\n        \"state_prov\": \"Punjab\",\n        \"city\": \"Lahore\",\n        \"locality\": \"\",\n        \"latitude\": 1.1,\n        \"longitude\": 1.1,\n        \"elevation\": 1.1,\n        \"timezone\": \"Asia/Karachi\",\n        \"timezone_abbreviation\": \"GMT+5\"\n      },\n      \"current\": {\n        \"timestamp\": \"2025-09-29T17:45:00Z\",\n        \"temperature_2m\": 32.3,\n        \"relative_humidity_2m\": 61,\n        \"apparent_temperature\": 37.6,\n        \"snowfall\": 0,\n        \"rain\": 0,\n        \"showers\": 0,\n        \"precipitation\": 0,\n        \"weather_code\": 1,\n        \"cloud_cover\": 41,\n        \"pressure_msl\": 1001.9,\n        \"surface_pressure\": 978.3,\n        \"wind_speed_10m\": 4.4,\n        \"wind_direction_10m\": 279,\n        \"wind_gusts_10m\": 10.1,\n        \"astronomy\": {\n          \"date\": \"2025-09-29\",\n          \"mid_night\": \"23:53\",\n          \"night_end\": \"04:34\",\n          \"sunrise\": \"05:53\",\n          \"solar_noon\": \"11:52\",\n          \"sunset\": \"17:51\",\n          \"night_begin\": \"19:11\",\n          \"day_length\": \"11:58\",\n          \"sun_status\": \"-\",\n          \"moon_phase\": \"FIRST_QUARTER\",\n          \"moonrise\": \"12:41\",\n          \"moonset\": \"22:28\",\n          \"moon_status\": \"-\"\n        },\n        \"air_quality\": {\n          \"timestamp\": \"2024-01-15T09:30:00Z\",\n          \"european_aqi\": 1,\n          \"us_aqi\": 1,\n          \"pm10\": 1.1,\n          \"pm2_5\": 1.1,\n          \"carbon_monoxide\": 1.1,\n          \"nitrogen_dioxide\": 1.1,\n          \"sulphur_dioxide\": 1.1,\n          \"ozone\": 1.1,\n          \"dust\": 1.1,\n          \"uv_index\": 1.1,\n          \"aerosol_optical_depth\": 1.1,\n          \"uv_index_clear_sky\": 1.1\n        }\n      }\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1069c873-f7c3-4437-9dee-bdf7fc91a36d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "3b6d6128-14e7-45f4-9683-ddaca8c80230",
+      "name": "Weather predictions from 1 to 16 days with flexible detail levels - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/weather/forecast",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"location\": {\n    \"continent_code\": \"AS\",\n    \"continent_name\": \"Asia\",\n    \"country_code2\": \"PK\",\n    \"country_code3\": \"PAK\",\n    \"country_name\": \"Pakistan\",\n    \"country_name_official\": \"Islamic Republic of Pakistan\",\n    \"is_eu\": false,\n    \"state_prov\": \"Punjab\",\n    \"state_code\": \"PK-PB\",\n    \"district\": \"Lahore\",\n    \"city\": \"Lahore\",\n    \"zipcode\": \"54000\",\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"locality\": \"Gulberg\",\n    \"elevation\": 1.1,\n    \"timezone\": \"Asia/Karachi\",\n    \"timezone_abbreviation\": \"GMT+5\"\n  },\n  \"forecast\": {\n    \"2025-09-29\": {\n      \"daily\": {\n        \"timestamp\": \"2025-09-29T00:00:00Z\",\n        \"weather_code\": 2,\n        \"temperature_2m_max\": 34.9,\n        \"temperature_2m_min\": 27.3,\n        \"temperature_2m_mean\": 30.7,\n        \"apparent_temperature_max\": 41.6,\n        \"apparent_temperature_min\": 33.4,\n        \"apparent_temperature_mean\": 36.5,\n        \"uv_index_max\": 6.65,\n        \"uv_index_clear_sky_max\": 6.65,\n        \"rain_sum\": 0,\n        \"showers_sum\": 0,\n        \"snowfall_sum\": 0,\n        \"precipitation_sum\": 0,\n        \"precipitation_probability_mean\": 4,\n        \"wind_speed_10m_max\": 5.5,\n        \"wind_speed_10m_min\": 2,\n        \"wind_speed_10m_mean\": 3.4,\n        \"wind_gusts_10m_max\": 14.4,\n        \"wind_gusts_10m_min\": 4.3,\n        \"wind_gusts_10m_mean\": 8.7,\n        \"wind_direction_10m_dominant\": 225,\n        \"shortwave_radiation_sum\": 18.16,\n        \"surface_pressure_mean\": 979.9,\n        \"pressure_msl_mean\": 1004.4,\n        \"visibility_mean\": 24140,\n        \"cloud_cover_mean\": 36,\n        \"dew_point_2m_max\": 25.2,\n        \"dew_point_2m_min\": 22.8,\n        \"dew_point_2m_mean\": 24.1,\n        \"relative_humidity_2m_max\": 86,\n        \"relative_humidity_2m_min\": 51,\n        \"relative_humidity_2m_mean\": 69,\n        \"et0_fao_evapotranspiration_sum\": 4.04\n      },\n      \"hourly\": [\n        {}\n      ],\n      \"minutely\": [\n        {}\n      ],\n      \"astronomy\": {\n        \"date\": \"2025-09-29\",\n        \"mid_night\": \"23:52\",\n        \"night_end\": \"04:34\",\n        \"sunrise\": \"05:53\",\n        \"solar_noon\": \"11:52\",\n        \"sunset\": \"17:51\",\n        \"night_begin\": \"19:10\",\n        \"day_length\": \"11:58\",\n        \"sun_status\": \"-\",\n        \"moon_phase\": \"FIRST_QUARTER\",\n        \"moonrise\": \"12:41\",\n        \"moonset\": \"22:28\",\n        \"moon_status\": \"-\"\n      }\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3b6d6128-14e7-45f4-9683-ddaca8c80230",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "47566e11-a707-4c9a-9576-f4d5cceb8438",
+      "name": "Retrieve past weather data for a specific date and location, coordinates, or IP address - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/weather/historical",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "date": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"location\": {\n    \"continent_code\": \"AS\",\n    \"continent_name\": \"Asia\",\n    \"country_code2\": \"PK\",\n    \"country_code3\": \"PAK\",\n    \"country_name\": \"Pakistan\",\n    \"country_name_official\": \"Islamic Republic of Pakistan\",\n    \"is_eu\": false,\n    \"state_prov\": \"Punjab\",\n    \"state_code\": \"PK-PB\",\n    \"district\": \"Lahore\",\n    \"city\": \"Lahore\",\n    \"zipcode\": \"54000\",\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"locality\": \"Gulberg\",\n    \"elevation\": 1.1,\n    \"timezone\": \"Asia/Karachi\",\n    \"timezone_abbreviation\": \"GMT+5\"\n  },\n  \"historical\": {\n    \"daily\": {\n      \"timestamp\": \"1940-10-10T00:00:00Z\",\n      \"weather_code\": 0,\n      \"temperature_2m_mean\": 28.1,\n      \"temperature_2m_max\": 37.8,\n      \"temperature_2m_min\": 20.2,\n      \"apparent_temperature_mean\": 25,\n      \"apparent_temperature_max\": 36.5,\n      \"apparent_temperature_min\": 16.7,\n      \"precipitation_sum\": 0,\n      \"rain_sum\": 0,\n      \"snowfall_sum\": 0,\n      \"wind_speed_10m_max\": 12.8,\n      \"wind_gusts_10m_max\": 25.6,\n      \"wind_speed_10m_mean\": 8.7,\n      \"wind_speed_10m_min\": 3.9,\n      \"wind_gusts_10m_min\": 9,\n      \"wind_gusts_10m_mean\": 16.4,\n      \"wind_direction_10m_dominant\": 80,\n      \"shortwave_radiation_sum\": 20.09,\n      \"et0_fao_evapotranspiration_sum\": 6.31,\n      \"cloud_cover_mean\": 0,\n      \"dew_point_2m_mean\": 0.1,\n      \"dew_point_2m_max\": 5.5,\n      \"dew_point_2m_min\": -3.1,\n      \"relative_humidity_2m_mean\": 18,\n      \"relative_humidity_2m_max\": 26,\n      \"relative_humidity_2m_min\": 8,\n      \"pressure_msl_mean\": 1010.2,\n      \"surface_pressure_mean\": 985.4\n    },\n    \"hourly\": [\n      {}\n    ],\n    \"astronomy\": {\n      \"date\": \"1940-10-10\",\n      \"mid_night\": \"00:19\",\n      \"night_end\": \"05:11\",\n      \"sunrise\": \"06:30\",\n      \"solar_noon\": \"12:19\",\n      \"sunset\": \"18:08\",\n      \"night_begin\": \"19:27\",\n      \"day_length\": \"11:38\",\n      \"sun_status\": \"-\",\n      \"moon_phase\": \"WAXING_GIBBOUS\",\n      \"moonrise\": \"14:39\",\n      \"moonset\": \"01:07\",\n      \"moon_status\": \"-\"\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "47566e11-a707-4c9a-9576-f4d5cceb8438",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "d8dcaad7-d8b6-460e-a7b4-465017c0795f",
+      "name": "Get historical weather data across a date range. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/weather/time-series",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "startDate": {
+            "equalTo": "2023-01-15"
+          },
+          "endDate": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"location\": {\n    \"continent_code\": \"AS\",\n    \"continent_name\": \"Asia\",\n    \"country_code2\": \"PK\",\n    \"country_code3\": \"PAK\",\n    \"country_name\": \"Pakistan\",\n    \"country_name_official\": \"Islamic Republic of Pakistan\",\n    \"is_eu\": false,\n    \"state_prov\": \"Punjab\",\n    \"state_code\": \"PK-PB\",\n    \"district\": \"Lahore\",\n    \"city\": \"Lahore\",\n    \"zipcode\": \"54000\",\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"locality\": \"Gulberg\",\n    \"elevation\": 1.1,\n    \"timezone\": \"Asia/Karachi\",\n    \"timezone_abbreviation\": \"GMT+5\"\n  },\n  \"historical\": {\n    \"2025-08-01\": {\n      \"daily\": {\n        \"timestamp\": \"2025-08-01T00:00:00Z\",\n        \"weather_code\": 63,\n        \"temperature_2m_mean\": 27.3,\n        \"temperature_2m_max\": 29.8,\n        \"temperature_2m_min\": 26,\n        \"apparent_temperature_mean\": 33.6,\n        \"apparent_temperature_max\": 36,\n        \"apparent_temperature_min\": 31.9,\n        \"precipitation_sum\": 17.8,\n        \"rain_sum\": 17.8,\n        \"snowfall_sum\": 0,\n        \"wind_speed_10m_max\": 12.2,\n        \"wind_gusts_10m_max\": 26.3,\n        \"wind_speed_10m_mean\": 7.4,\n        \"wind_speed_10m_min\": 2.2,\n        \"wind_gusts_10m_min\": 5,\n        \"wind_gusts_10m_mean\": 16.7,\n        \"wind_direction_10m_dominant\": 76,\n        \"shortwave_radiation_sum\": 7.89,\n        \"et0_fao_evapotranspiration_sum\": 1.75,\n        \"cloud_cover_mean\": 99,\n        \"dew_point_2m_mean\": 25.9,\n        \"dew_point_2m_max\": 26.5,\n        \"dew_point_2m_min\": 25.1,\n        \"relative_humidity_2m_mean\": 92,\n        \"relative_humidity_2m_max\": 97,\n        \"relative_humidity_2m_min\": 81,\n        \"pressure_msl_mean\": 999.2,\n        \"surface_pressure_mean\": 974.6\n      },\n      \"hourly\": [\n        {}\n      ],\n      \"astronomy\": {\n        \"date\": \"2025-08-01\",\n        \"mid_night\": \"00:09\",\n        \"night_end\": \"03:47\",\n        \"sunrise\": \"05:17\",\n        \"solar_noon\": \"12:08\",\n        \"sunset\": \"19:00\",\n        \"night_begin\": \"20:30\",\n        \"day_length\": \"13:43\",\n        \"sun_status\": \"-\",\n        \"moon_phase\": \"FIRST_QUARTER\",\n        \"moonrise\": \"12:17\",\n        \"moonset\": \"23:04\",\n        \"moon_status\": \"-\"\n      }\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d8dcaad7-d8b6-460e-a7b4-465017c0795f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "d02f6a4b-d7d2-4098-aec1-e5338e654e40",
+      "name": "Dive into detailed marine weather forecasts for coastal and offshore locations - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/weather/marine",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"location\": {\n    \"continent_code\": \"AS\",\n    \"continent_name\": \"Asia\",\n    \"country_code2\": \"PK\",\n    \"country_code3\": \"PAK\",\n    \"country_name\": \"Pakistan\",\n    \"country_name_official\": \"Islamic Republic of Pakistan\",\n    \"is_eu\": false,\n    \"state_prov\": \"Punjab\",\n    \"state_code\": \"PK-PB\",\n    \"district\": \"Lahore\",\n    \"city\": \"Lahore\",\n    \"zipcode\": \"54000\",\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"locality\": \"Gulberg\",\n    \"elevation\": 1.1,\n    \"timezone\": \"Asia/Karachi\",\n    \"timezone_abbreviation\": \"GMT+5\"\n  },\n  \"current\": {\n    \"timestamp\": \"2024-01-15T09:30:00Z\",\n    \"wave_height\": 1.1,\n    \"wave_direction\": 1.1,\n    \"wave_period\": 1.1,\n    \"wind_wave_height\": 1.1,\n    \"wind_wave_direction\": 1.1,\n    \"wind_wave_period\": 1.1,\n    \"swell_wave_height\": 1.1,\n    \"swell_wave_direction\": 1.1,\n    \"swell_wave_period\": 1.1,\n    \"sea_level_height_msl\": 1.1,\n    \"sea_surface_temperature\": 1.1,\n    \"ocean_current_velocity\": 1.1,\n    \"ocean_current_direction\": 1.1\n  },\n  \"forecast\": {\n    \"2025-10-01\": {\n      \"daily\": {\n        \"timestamp\": \"2025-10-01T00:00:00Z\"\n      },\n      \"hourly\": [\n        {}\n      ],\n      \"minutely\": [\n        {}\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d02f6a4b-d7d2-4098-aec1-e5338e654e40",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "0c1e415c-3336-40a0-b3ad-f58380cd3967",
+      "name": "Air pollution monitoring and quality forecasts - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/weather/air-quality",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"location\": {\n    \"continent_code\": \"AS\",\n    \"continent_name\": \"Asia\",\n    \"country_code2\": \"PK\",\n    \"country_code3\": \"PAK\",\n    \"country_name\": \"Pakistan\",\n    \"country_name_official\": \"Islamic Republic of Pakistan\",\n    \"is_eu\": false,\n    \"state_prov\": \"Punjab\",\n    \"state_code\": \"PK-PB\",\n    \"district\": \"Lahore\",\n    \"city\": \"Lahore\",\n    \"zipcode\": \"54000\",\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"locality\": \"Gulberg\",\n    \"elevation\": 1.1,\n    \"timezone\": \"Asia/Karachi\",\n    \"timezone_abbreviation\": \"GMT+5\"\n  },\n  \"current\": {\n    \"timestamp\": \"2024-01-15T09:30:00Z\",\n    \"european_aqi\": 1,\n    \"us_aqi\": 1,\n    \"pm10\": 1.1,\n    \"pm2_5\": 1.1,\n    \"carbon_monoxide\": 1.1,\n    \"nitrogen_dioxide\": 1.1,\n    \"sulphur_dioxide\": 1.1,\n    \"ozone\": 1.1,\n    \"dust\": 1.1,\n    \"uv_index\": 1.1,\n    \"aerosol_optical_depth\": 1.1,\n    \"uv_index_clear_sky\": 1.1\n  },\n  \"forecast\": {\n    \"2025-10-01\": {\n      \"hourly\": [\n        {\n          \"timestamp\": \"2025-10-01T00:00:00Z\",\n          \"pm10\": 59,\n          \"carbon_monoxide\": 1190,\n          \"pm2_5\": 54.8,\n          \"carbon_dioxide\": 465,\n          \"nitrogen_dioxide\": 31.9,\n          \"sulphur_dioxide\": 15.8,\n          \"ozone\": 84,\n          \"dust\": 9,\n          \"uv_index\": 0,\n          \"aerosol_optical_depth\": 0.56,\n          \"uv_index_clear_sky\": 0\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "0c1e415c-3336-40a0-b3ad-f58380cd3967",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "3363940c-5019-4d29-8781-98dd8bdb8205",
+      "name": "Get flood risk and river discharge forecast - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/weather/flood",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "startDate": {
+            "equalTo": "2023-01-15"
+          },
+          "endDate": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"location\": {\n    \"continent_code\": \"AS\",\n    \"continent_name\": \"Asia\",\n    \"country_code2\": \"PK\",\n    \"country_code3\": \"PAK\",\n    \"country_name\": \"Pakistan\",\n    \"country_name_official\": \"Islamic Republic of Pakistan\",\n    \"is_eu\": false,\n    \"state_prov\": \"Punjab\",\n    \"state_code\": \"PK-PB\",\n    \"district\": \"Lahore\",\n    \"city\": \"Lahore\",\n    \"zipcode\": \"54000\",\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"locality\": \"Gulberg\",\n    \"elevation\": 1.1,\n    \"timezone\": \"GMT\",\n    \"timezone_abbreviation\": \"GMT\"\n  },\n  \"forecast\": {\n    \"2025-10-01\": {\n      \"daily\": {\n        \"timestamp\": \"2025-10-01T00:00:00Z\",\n        \"river_discharge\": 0.44,\n        \"river_discharge_mean\": 0.44,\n        \"river_discharge_median\": 0.44,\n        \"river_discharge_max\": 0.49,\n        \"river_discharge_min\": 0.44,\n        \"river_discharge_p25\": 0.44,\n        \"river_discharge_p75\": 0.44\n      }\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3363940c-5019-4d29-8781-98dd8bdb8205",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "fbda9f9d-b3fd-4918-99e8-07bcbab95e28",
+      "name": "Get list of countries - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geo/countries",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"countries\": [\n    {\n      \"name\": \"name\",\n      \"iso_alpha_2\": \"iso_alpha_2\",\n      \"iso_alpha_3\": \"iso_alpha_3\",\n      \"iso_numeric\": 1,\n      \"capital\": \"capital\",\n      \"region\": \"region\",\n      \"subregion\": \"subregion\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fbda9f9d-b3fd-4918-99e8-07bcbab95e28",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "56be0655-2618-4aae-ac24-a0fb72c4742a",
+      "name": "Get GeoDB Country Details - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geo/country/details",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "country": {
+            "equalTo": "country"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"name\": \"name\",\n  \"iso_alpha_2\": \"iso_alpha_2\",\n  \"iso_alpha_3\": \"iso_alpha_3\",\n  \"iso_numeric\": 1,\n  \"phone_code\": 1,\n  \"capital\": \"capital\",\n  \"top_level_domain\": \"top_level_domain\",\n  \"native_name\": \"native_name\",\n  \"region\": \"region\",\n  \"subregion\": \"subregion\",\n  \"nationality\": \"nationality\",\n  \"flag_emoji\": \"flag_emoji\",\n  \"currency_code\": \"currency_code\",\n  \"currency_name\": \"currency_name\",\n  \"currency_symbol\": \"currency_symbol\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "56be0655-2618-4aae-ac24-a0fb72c4742a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "7a757afd-2438-43d1-8967-af2ed6580deb",
+      "name": "Get GeoDB Regions - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geo/regions",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"regions\": [\n    \"Africa\",\n    \"Asia\",\n    \"Europe\",\n    \"North America\",\n    \"South America\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7a757afd-2438-43d1-8967-af2ed6580deb",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "7d254ebd-44d2-46f2-aef0-780eb0530389",
+      "name": "Get Subregions by Region - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geo/subregions",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "region": {
+            "equalTo": "region"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"subregions\": [\n    \"Eastern Africa\",\n    \"Western Europe\",\n    \"Southern Asia\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7d254ebd-44d2-46f2-aef0-780eb0530389",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "96865b10-00a1-4ea0-8ca7-2dc147bce463",
+      "name": "Get administrative units for a country - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geo/admin-levels",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "country": {
+            "equalTo": "country"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"admin_levels\": [\n    \"admin_levels\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "96865b10-00a1-4ea0-8ca7-2dc147bce463",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "db57be1d-603e-4a55-8455-efa62bb1f1d9",
+      "name": "Get Administrative Units by Country - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geo/admin-units",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "country": {
+            "equalTo": "country"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"admin_units\": [\n    {\n      \"name\": \"name\",\n      \"admin_code\": \"admin_code\",\n      \"admin_level\": \"admin_level\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "db57be1d-603e-4a55-8455-efa62bb1f1d9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "23f0135a-3cb3-4958-adff-c772700f6d1c",
+      "name": "Get GeoDB Admin Unit Details - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geo/admin-unit/details",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "country": {
+            "equalTo": "country"
+          },
+          "admin_unit": {
+            "equalTo": "admin_unit"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"name\": \"name\",\n  \"admin_code\": \"admin_code\",\n  \"admin_level\": \"admin_level\",\n  \"iso_alpha_2\": \"iso_alpha_2\",\n  \"country_name\": \"country_name\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "23f0135a-3cb3-4958-adff-c772700f6d1c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "1207cf38-2104-492b-a518-43cbac2c089b",
+      "name": "Get Cities by Country and Admin Unit - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geo/cities",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "country": {
+            "equalTo": "country"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"cities\": [\n    {\n      \"name\": \"name\",\n      \"latitude\": 1.1,\n      \"longitude\": 1.1,\n      \"admin_unit\": {\n        \"name\": \"name\",\n        \"admin_code\": \"admin_code\",\n        \"admin_level\": \"admin_level\"\n      },\n      \"iso_alpha_2\": \"iso_alpha_2\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1207cf38-2104-492b-a518-43cbac2c089b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "4fb4d0ed-349f-413d-9aad-cbdf7df5f8cd",
+      "name": "Supported Flags - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/flags/supported",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"name\": \"name\",\n    \"iso2\": \"iso2\",\n    \"iso3\": \"iso3\"\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4fb4d0ed-349f-413d-9aad-cbdf7df5f8cd",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "948f3128-accb-4f8d-830c-1e9860903471",
+      "name": "Get Flag for Country - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/flags",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "name": {
+            "equalTo": "name"
+          },
+          "shape": {
+            "equalTo": "flat"
+          },
+          "type": {
+            "equalTo": "country"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "948f3128-accb-4f8d-830c-1e9860903471",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "0d1947c8-b979-48bb-8585-0b55933c7b88",
+      "name": "Our API delivers a wide range of date and time information, including the current time, date in multiple formats, week, month, year, and Unix timestamp. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geolocation/timezone",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"ip\": \"ip\",\n  \"location\": {\n    \"location_string\": \"location_string\",\n    \"country_name\": \"country_name\",\n    \"state_prov\": \"state_prov\",\n    \"city\": \"city\",\n    \"locality\": \"locality\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\",\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name_official\": \"country_name_official\",\n    \"is_eu\": true,\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"zipcode\": \"zipcode\"\n  },\n  \"time_zone\": {\n    \"name\": \"name\",\n    \"offset\": 1.1,\n    \"offset_with_dst\": 1.1,\n    \"date\": \"date\",\n    \"date_time\": \"date_time\",\n    \"date_time_txt\": \"date_time_txt\",\n    \"date_time_wti\": \"date_time_wti\",\n    \"date_time_ymd\": \"date_time_ymd\",\n    \"date_time_unix\": 1.1,\n    \"time_24\": \"time_24\",\n    \"time_12\": \"time_12\",\n    \"week\": 1.1,\n    \"month\": 1.1,\n    \"year\": 1.1,\n    \"year_abbr\": \"year_abbr\",\n    \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n    \"current_tz_full_name\": \"current_tz_full_name\",\n    \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n    \"standard_tz_full_name\": \"standard_tz_full_name\",\n    \"is_dst\": true,\n    \"dst_savings\": 1.1,\n    \"dst_exists\": true,\n    \"dst_start\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    },\n    \"dst_end\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    }\n  },\n  \"airport_details\": {\n    \"type\": \"type\",\n    \"name\": \"name\",\n    \"longitude\": \"longitude\",\n    \"latitude\": \"latitude\",\n    \"elevation_ft\": 1.1,\n    \"continent_code\": \"continent_code\",\n    \"country_code\": \"country_code\",\n    \"state_code\": \"state_code\",\n    \"city\": \"city\",\n    \"iata_code\": \"iata_code\",\n    \"icao_code\": \"icao_code\",\n    \"faa_code\": \"faa_code\"\n  },\n  \"lo_code_details\": {\n    \"lo_code\": \"lo_code\",\n    \"city\": \"city\",\n    \"longitude\": \"longitude\",\n    \"latitude\": \"latitude\",\n    \"state_code\": \"state_code\",\n    \"country_code\": \"country_code\",\n    \"country_name\": \"country_name\",\n    \"location_type\": \"location_type\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "0d1947c8-b979-48bb-8585-0b55933c7b88",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "604f4451-9a7f-4f41-ac10-b84a0072983a",
+      "name": "Convert any timestamp from one timezone to another using timezone names, location coordinates, or location addresses. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/timezone/converter",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"original_time\": \"2024-01-15T09:30:00Z\",\n  \"converted_time\": \"2024-01-15T09:30:00Z\",\n  \"diff_hour\": 1.1,\n  \"diff_min\": 1.1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "604f4451-9a7f-4f41-ac10-b84a0072983a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "e1fbe8da-a66d-4d94-8446-be0147a3cbb8",
+      "name": "Obtain accurate browser, device, and operating system details by parsing a User Agent String. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/user-agent/lookup",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"user_agent_string\": \"user_agent_string\",\n  \"name\": \"name\",\n  \"type\": \"type\",\n  \"version\": \"version\",\n  \"version_major\": \"version_major\",\n  \"device\": {\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"brand\": \"brand\",\n    \"cpu\": \"cpu\"\n  },\n  \"engine\": {\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"version\": \"version\",\n    \"version_major\": \"version_major\"\n  },\n  \"operating_system\": {\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"version\": \"version\",\n    \"version_major\": \"version_major\",\n    \"build\": \"build\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e1fbe8da-a66d-4d94-8446-be0147a3cbb8",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "4af28967-3f6b-4032-812c-b6ccf72b5aee",
+      "name": "Retrieve the browser, device, and operating system details of multiple user-agent strings in a single request. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/user-agent/lookup",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"user_agent_string\": \"user_agent_string\",\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"version\": \"version\",\n    \"version_major\": \"version_major\",\n    \"device\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"brand\": \"brand\",\n      \"cpu\": \"cpu\"\n    },\n    \"engine\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\"\n    },\n    \"operating_system\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\",\n      \"build\": \"build\"\n    },\n    \"message\": \"message\"\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4af28967-3f6b-4032-812c-b6ccf72b5aee",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "322207ef-2600-4205-b45e-f39c2b116a1b",
+      "name": "Extract text from images, PDFs, or ZIP archives using OCR - Single file, new_line=0",
+      "request": {
+        "urlPathTemplate": "/v1.0/ocr/predict",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "model": {
+            "equalTo": "mini-ocr-v1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"OCRText\": [\n    \"Extracted text from the image or document\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "322207ef-2600-4205-b45e-f39c2b116a1b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "62235911-2f7e-4bc9-9d4d-7ad231a72236",
+      "name": "Detect grammar errors and return flagged words with positions. - Grammar errors detected",
+      "request": {
+        "urlPathTemplate": "/v1.0/readability/grammar/detect",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"grammar_errors\": [\n    {\n      \"word\": \"is\",\n      \"offset\": 3\n    },\n    {\n      \"word\": \"need\",\n      \"offset\": 14\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "62235911-2f7e-4bc9-9d4d-7ad231a72236",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "18bfe8bc-e519-4acd-8619-805d89830a8f",
+      "name": "Automatically correct grammar and return corrected text. - Grammar corrected automatically",
+      "request": {
+        "urlPathTemplate": "/v1.0/readability/grammar/correct",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"grammar_correction\": \"The global mental health crisis is now a serious and complex problem. It needs quick and ongoing action from policymakers, healthcare workers, and the whole society.\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "18bfe8bc-e519-4acd-8619-805d89830a8f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "3c347079-711f-4e6a-ad26-dd711336e7ad",
+      "name": "Detect weak, vague, and filler words with positions. - Weak words detected",
+      "request": {
+        "urlPathTemplate": "/v1.0/readability/weak-words",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"weak_words\": [\n    {\n      \"word\": \"cannot\",\n      \"offset\": 80\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3c347079-711f-4e6a-ad26-dd711336e7ad",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "3f52d0f6-f6e3-494c-9055-9568a736f9b0",
+      "name": "Calculate readability scores, grade, and sentence-level readability. - Readability scores calculated",
+      "request": {
+        "urlPathTemplate": "/v1.0/readability/score",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"readability_scores\": {\n    \"flesch_reading_ease\": {\n      \"score\": 51.9903,\n      \"level\": \"Fairly Difficult\"\n    },\n    \"flesch_kincaid_grade\": {\n      \"score\": 9.7755,\n      \"level\": \"Grade 10\"\n    },\n    \"gunning_fog\": {\n      \"score\": 10.4623,\n      \"level\": \"Standard\"\n    },\n    \"smog_index\": {\n      \"score\": 10.8642,\n      \"level\": \"Grade 11\"\n    },\n    \"coleman_liau_index\": {\n      \"score\": 13.033,\n      \"level\": \"Grade 13\"\n    },\n    \"automated_readability_index\": {\n      \"score\": 12.0325,\n      \"level\": \"Grade 12\"\n    }\n  },\n  \"sentence_readability\": [\n    {\n      \"sentence\": \"The global mental is health crisis is now a serious and compelex problem.\",\n      \"readability_grade\": 8.9496,\n      \"readability_level\": \"Easy\"\n    }\n  ],\n  \"readability_grade\": 11.8783\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3f52d0f6-f6e3-494c-9055-9568a736f9b0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "daacd6b3-1d27-481d-9a48-2e4d69ac3b86",
+      "name": "Returns sunrise, sunset, moon phase, and celestial positions for a given location and date. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/geolocation/astronomy",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"ip\": \"ip\",\n  \"location\": {\n    \"location_string\": \"location_string\",\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name\": \"country_name\",\n    \"country_name_official\": \"country_name_official\",\n    \"is_eu\": true,\n    \"state_prov\": \"state_prov\",\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"city\": \"city\",\n    \"zipcode\": \"zipcode\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\",\n    \"locality\": \"locality\",\n    \"elevation\": \"elevation\"\n  },\n  \"astronomy\": {\n    \"time_zone\": \"time_zone\",\n    \"date\": \"date\",\n    \"current_time\": \"current_time\",\n    \"mid_night\": \"mid_night\",\n    \"night_end\": \"night_end\",\n    \"morning\": {\n      \"astronomical_twilight_begin\": \"astronomical_twilight_begin\",\n      \"astronomical_twilight_end\": \"astronomical_twilight_end\",\n      \"nautical_twilight_begin\": \"nautical_twilight_begin\",\n      \"nautical_twilight_end\": \"nautical_twilight_end\",\n      \"civil_twilight_begin\": \"civil_twilight_begin\",\n      \"civil_twilight_end\": \"civil_twilight_end\",\n      \"blue_hour_begin\": \"blue_hour_begin\",\n      \"blue_hour_end\": \"blue_hour_end\",\n      \"golden_hour_begin\": \"golden_hour_begin\",\n      \"golden_hour_end\": \"golden_hour_end\"\n    },\n    \"sunrise\": \"sunrise\",\n    \"sunset\": \"sunset\",\n    \"evening\": {\n      \"golden_hour_begin\": \"golden_hour_begin\",\n      \"golden_hour_end\": \"golden_hour_end\",\n      \"blue_hour_begin\": \"blue_hour_begin\",\n      \"blue_hour_end\": \"blue_hour_end\",\n      \"civil_twilight_begin\": \"civil_twilight_begin\",\n      \"civil_twilight_end\": \"civil_twilight_end\",\n      \"nautical_twilight_begin\": \"nautical_twilight_begin\",\n      \"nautical_twilight_end\": \"nautical_twilight_end\",\n      \"astronomical_twilight_begin\": \"astronomical_twilight_begin\",\n      \"astronomical_twilight_end\": \"astronomical_twilight_end\"\n    },\n    \"night_begin\": \"night_begin\",\n    \"sun_status\": \"sun_status\",\n    \"solar_noon\": \"solar_noon\",\n    \"day_length\": \"day_length\",\n    \"sun_altitude\": 1.1,\n    \"sun_distance\": 1.1,\n    \"sun_azimuth\": 1.1,\n    \"moon_phase\": \"moon_phase\",\n    \"moonrise\": \"moonrise\",\n    \"moonset\": \"moonset\",\n    \"moon_status\": \"moon_status\",\n    \"moon_altitude\": 1.1,\n    \"moon_distance\": 1.1,\n    \"moon_azimuth\": 1.1,\n    \"moon_parallactic_angle\": 1.1,\n    \"moon_illumination_percentage\": \"moon_illumination_percentage\",\n    \"moon_angle\": 1.1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "daacd6b3-1d27-481d-9a48-2e4d69ac3b86",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    }
+  ],
+  "meta": {
+    "total": 109
+  }
+}
