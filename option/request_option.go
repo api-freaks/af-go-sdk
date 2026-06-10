@@ -3,7 +3,7 @@
 package option
 
 import (
-	core "github.com/api-freaks/af-go-sdk/core"
+	core "github.com/api-freaks/sdk/core"
 	http "net/http"
 	url "net/url"
 )

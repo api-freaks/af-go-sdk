@@ -1,5 +1,5 @@
 # Reference
-<details><summary><code>client.GeolocationLookup() -> *afgosdk.GeolocationLookupResponse</code></summary>
+<details><summary><code>client.GeolocationLookup() -> *sdk.GeolocationLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -26,7 +26,7 @@ Get detailed geolocation data for an IP address including country, city, timezon
 <dd>
 
 ```go
-request := &afgosdk.GeolocationLookupRequest{
+request := &sdk.GeolocationLookupRequest{
         APIKey: "apiKey",
     }
 client.GeolocationLookup(
@@ -56,7 +56,7 @@ client.GeolocationLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GeolocationLookupRequestFormat` — Format of the response.
+**format:** `*sdk.GeolocationLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -72,7 +72,7 @@ client.GeolocationLookup(
 <dl>
 <dd>
 
-**lang:** `*afgosdk.GeolocationLookupRequestLang` — Response language for location fields
+**lang:** `*sdk.GeolocationLookupRequestLang` — Response language for location fields
     
 </dd>
 </dl>
@@ -108,7 +108,7 @@ client.GeolocationLookup(
 </dl>
 </details>
 
-<details><summary><code>client.BulkGeolocationLookup(request) -> []*afgosdk.BulkGeolocationLookupResponseItem</code></summary>
+<details><summary><code>client.BulkGeolocationLookup(request) -> []*sdk.BulkGeolocationLookupResponseItem</code></summary>
 <dl>
 <dd>
 
@@ -136,7 +136,7 @@ Supports up to `50,000` IP-addresses/host-names per request.
 <dd>
 
 ```go
-request := &afgosdk.BulkGeolocationLookupRequest{
+request := &sdk.BulkGeolocationLookupRequest{
         APIKey: "apiKey",
         Ips: []string{
             "ips",
@@ -169,7 +169,7 @@ client.BulkGeolocationLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkGeolocationLookupRequestFormat` — Format of the response.
+**format:** `*sdk.BulkGeolocationLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -221,7 +221,7 @@ client.BulkGeolocationLookup(
 </dl>
 </details>
 
-<details><summary><code>client.IPSecurityLookup() -> *afgosdk.IPSecurityLookupResponse</code></summary>
+<details><summary><code>client.IPSecurityLookup() -> *sdk.IPSecurityLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -248,7 +248,7 @@ Get comprehensive security information for a given IP address. Detects VPNs, pro
 <dd>
 
 ```go
-request := &afgosdk.IPSecurityLookupRequest{
+request := &sdk.IPSecurityLookupRequest{
         APIKey: "apiKey",
     }
 client.IPSecurityLookup(
@@ -278,7 +278,7 @@ client.IPSecurityLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.IPSecurityLookupRequestFormat` — Format of the response.
+**format:** `*sdk.IPSecurityLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -314,7 +314,7 @@ client.IPSecurityLookup(
 </dl>
 </details>
 
-<details><summary><code>client.BulkIPSecurityLookup(request) -> []*afgosdk.BulkIPSecurityLookupResponseItem</code></summary>
+<details><summary><code>client.BulkIPSecurityLookup(request) -> []*sdk.BulkIPSecurityLookupResponseItem</code></summary>
 <dl>
 <dd>
 
@@ -341,7 +341,7 @@ The Bulk IP Security Lookup API allows you to retrieve security details for up t
 <dd>
 
 ```go
-request := &afgosdk.BulkIPSecurityLookupRequest{
+request := &sdk.BulkIPSecurityLookupRequest{
         APIKey: "apiKey",
         Ips: []string{
             "ips",
@@ -374,7 +374,7 @@ client.BulkIPSecurityLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkIPSecurityLookupRequestFormat` — Format of the response.
+**format:** `*sdk.BulkIPSecurityLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -410,7 +410,7 @@ client.BulkIPSecurityLookup(
 </dl>
 </details>
 
-<details><summary><code>client.GeocoderSearch() -> []*afgosdk.GeocoderSearchResponseItem</code></summary>
+<details><summary><code>client.GeocoderSearch() -> []*sdk.GeocoderSearchResponseItem</code></summary>
 <dl>
 <dd>
 
@@ -437,7 +437,7 @@ Convert a given address or place name into geographic coordinates (latitude and 
 <dd>
 
 ```go
-request := &afgosdk.GeocoderSearchRequest{
+request := &sdk.GeocoderSearchRequest{
         APIKey: "apiKey",
         Query: "query",
     }
@@ -468,7 +468,7 @@ client.GeocoderSearch(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GeocoderSearchRequestFormat` — Format of the response.
+**format:** `*sdk.GeocoderSearchRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -536,7 +536,7 @@ client.GeocoderSearch(
 </dl>
 </details>
 
-<details><summary><code>client.GeocoderReverse() -> *afgosdk.GeocoderReverseResponse</code></summary>
+<details><summary><code>client.GeocoderReverse() -> *sdk.GeocoderReverseResponse</code></summary>
 <dl>
 <dd>
 
@@ -563,7 +563,7 @@ Convert geographic coordinates (latitude and longitude) into a human-readable ad
 <dd>
 
 ```go
-request := &afgosdk.GeocoderReverseRequest{
+request := &sdk.GeocoderReverseRequest{
         APIKey: "apiKey",
         Lat: 1.1,
         Lon: 1.1,
@@ -595,7 +595,7 @@ client.GeocoderReverse(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GeocoderReverseRequestFormat` — Format of the response.
+**format:** `*sdk.GeocoderReverseRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -631,7 +631,7 @@ client.GeocoderReverse(
 </dl>
 </details>
 
-<details><summary><code>client.DomainWhoisLookup() -> *afgosdk.DomainWhoisLookupResponse</code></summary>
+<details><summary><code>client.DomainWhoisLookup() -> *sdk.DomainWhoisLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -660,7 +660,7 @@ dates, nameservers, and registrant information.
 <dd>
 
 ```go
-request := &afgosdk.DomainWhoisLookupRequest{
+request := &sdk.DomainWhoisLookupRequest{
         APIKey: "apiKey",
         DomainName: "domainName",
     }
@@ -691,7 +691,7 @@ client.DomainWhoisLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainWhoisLookupRequestFormat` — Response format (defaults to json)
+**format:** `*sdk.DomainWhoisLookupRequestFormat` — Response format (defaults to json)
     
 </dd>
 </dl>
@@ -711,7 +711,7 @@ client.DomainWhoisLookup(
 </dl>
 </details>
 
-<details><summary><code>client.BulkDomainWhoisLookup(request) -> *afgosdk.BulkDomainWhoisLookupResponse</code></summary>
+<details><summary><code>client.BulkDomainWhoisLookup(request) -> *sdk.BulkDomainWhoisLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -738,7 +738,7 @@ Retrieve WHOIS information for `100 Domains per Request`.
 <dd>
 
 ```go
-request := &afgosdk.BulkDomainWhoisLookupRequest{
+request := &sdk.BulkDomainWhoisLookupRequest{
         APIKey: "apiKey",
         DomainNames: []string{
             "domainNames",
@@ -771,7 +771,7 @@ client.BulkDomainWhoisLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkDomainWhoisLookupRequestFormat` — Format of the response.
+**format:** `*sdk.BulkDomainWhoisLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -791,7 +791,7 @@ client.BulkDomainWhoisLookup(
 </dl>
 </details>
 
-<details><summary><code>client.IPWhoisLookup() -> *afgosdk.IPWhoisLookupResponse</code></summary>
+<details><summary><code>client.IPWhoisLookup() -> *sdk.IPWhoisLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -818,7 +818,7 @@ Returns WHOIS registration details for a specified IP address (IPv4 or IPv6).
 <dd>
 
 ```go
-request := &afgosdk.IPWhoisLookupRequest{
+request := &sdk.IPWhoisLookupRequest{
         APIKey: "apiKey",
         IP: "ip",
     }
@@ -849,7 +849,7 @@ client.IPWhoisLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.IPWhoisLookupRequestFormat` — Format of the response.
+**format:** `*sdk.IPWhoisLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -869,7 +869,7 @@ client.IPWhoisLookup(
 </dl>
 </details>
 
-<details><summary><code>client.AsnWhoisLookup() -> *afgosdk.AsnWhoisLookupResponse</code></summary>
+<details><summary><code>client.AsnWhoisLookup() -> *sdk.AsnWhoisLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -896,7 +896,7 @@ Returns WHOIS registration details for a specified ASN, with or without the 'as'
 <dd>
 
 ```go
-request := &afgosdk.AsnWhoisLookupRequest{
+request := &sdk.AsnWhoisLookupRequest{
         APIKey: "apiKey",
         Asn: "asn",
     }
@@ -927,7 +927,7 @@ client.AsnWhoisLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.AsnWhoisLookupRequestFormat` — Format of the response.
+**format:** `*sdk.AsnWhoisLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -947,7 +947,7 @@ client.AsnWhoisLookup(
 </dl>
 </details>
 
-<details><summary><code>client.DomainWhoisHistory() -> *afgosdk.DomainWhoisHistoryResponse</code></summary>
+<details><summary><code>client.DomainWhoisHistory() -> *sdk.DomainWhoisHistoryResponse</code></summary>
 <dl>
 <dd>
 
@@ -975,7 +975,7 @@ This endpoint provides a timeline of all recorded changes in domain registration
 <dd>
 
 ```go
-request := &afgosdk.DomainWhoisHistoryRequest{
+request := &sdk.DomainWhoisHistoryRequest{
         APIKey: "apiKey",
         DomainName: "domainName",
     }
@@ -1006,7 +1006,7 @@ client.DomainWhoisHistory(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainWhoisHistoryRequestFormat` — Format of the response.
+**format:** `*sdk.DomainWhoisHistoryRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -1026,7 +1026,7 @@ client.DomainWhoisHistory(
 </dl>
 </details>
 
-<details><summary><code>client.DomainWhoisReverse() -> *afgosdk.DomainWhoisReverseResponse</code></summary>
+<details><summary><code>client.DomainWhoisReverse() -> *sdk.DomainWhoisReverseResponse</code></summary>
 <dl>
 <dd>
 
@@ -1053,7 +1053,7 @@ Performs a reverse WHOIS search using one or more search parameters like keyword
 <dd>
 
 ```go
-request := &afgosdk.DomainWhoisReverseRequest{
+request := &sdk.DomainWhoisReverseRequest{
         APIKey: "apiKey",
     }
 client.DomainWhoisReverse(
@@ -1083,7 +1083,7 @@ client.DomainWhoisReverse(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainWhoisReverseRequestFormat` — Format of the response.
+**format:** `*sdk.DomainWhoisReverseRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -1131,7 +1131,7 @@ client.DomainWhoisReverse(
 <dl>
 <dd>
 
-**mode:** `*afgosdk.DomainWhoisReverseRequestMode` 
+**mode:** `*sdk.DomainWhoisReverseRequestMode` 
     
 </dd>
 </dl>
@@ -1151,7 +1151,7 @@ client.DomainWhoisReverse(
 </dl>
 </details>
 
-<details><summary><code>client.DomainDNSLookup() -> *afgosdk.DomainDNSLookupResponse</code></summary>
+<details><summary><code>client.DomainDNSLookup() -> *sdk.DomainDNSLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -1178,10 +1178,10 @@ Retrieve real-time DNS records for any hostname. Supports multiple record types 
 <dd>
 
 ```go
-request := &afgosdk.DomainDNSLookupRequest{
+request := &sdk.DomainDNSLookupRequest{
         APIKey: "apiKey",
         Type: []*string{
-            afgosdk.String(
+            sdk.String(
                 "type",
             ),
         },
@@ -1213,7 +1213,7 @@ client.DomainDNSLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainDNSLookupRequestFormat` — Format of the response.
+**format:** `*sdk.DomainDNSLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -1249,7 +1249,7 @@ client.DomainDNSLookup(
 </dl>
 </details>
 
-<details><summary><code>client.BulkDomainDNSLookup(request) -> *afgosdk.BulkDomainDNSLookupResponse</code></summary>
+<details><summary><code>client.BulkDomainDNSLookup(request) -> *sdk.BulkDomainDNSLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -1277,10 +1277,10 @@ and returns DNS records including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME reco
 <dd>
 
 ```go
-request := &afgosdk.BulkDomainDNSLookupRequest{
+request := &sdk.BulkDomainDNSLookupRequest{
         APIKey: "apiKey",
         Type: []*string{
-            afgosdk.String(
+            sdk.String(
                 "type",
             ),
         },
@@ -1315,7 +1315,7 @@ client.BulkDomainDNSLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkDomainDNSLookupRequestFormat` — Format of the response.
+**format:** `*sdk.BulkDomainDNSLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -1346,7 +1346,7 @@ Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
 </dl>
 </details>
 
-<details><summary><code>client.DomainDNSHistory() -> *afgosdk.DomainDNSHistoryResponse</code></summary>
+<details><summary><code>client.DomainDNSHistory() -> *sdk.DomainDNSHistoryResponse</code></summary>
 <dl>
 <dd>
 
@@ -1374,11 +1374,11 @@ including subdomains. Results are paginated with up to 100 unique records per pa
 <dd>
 
 ```go
-request := &afgosdk.DomainDNSHistoryRequest{
+request := &sdk.DomainDNSHistoryRequest{
         APIKey: "apiKey",
         HostName: "host-name",
         Type: []*string{
-            afgosdk.String(
+            sdk.String(
                 "type",
             ),
         },
@@ -1410,7 +1410,7 @@ client.DomainDNSHistory(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainDNSHistoryRequestFormat` — Format of the response.
+**format:** `*sdk.DomainDNSHistoryRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -1449,7 +1449,7 @@ Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
 </dl>
 </details>
 
-<details><summary><code>client.DomainDNSReverse() -> *afgosdk.DomainDNSReverseResponse</code></summary>
+<details><summary><code>client.DomainDNSReverse() -> *sdk.DomainDNSReverseResponse</code></summary>
 <dl>
 <dd>
 
@@ -1476,9 +1476,9 @@ Retrieve all the hostnames associated with any particular A, AAAA, MX, NS, SOA, 
 <dd>
 
 ```go
-request := &afgosdk.DomainDNSReverseRequest{
+request := &sdk.DomainDNSReverseRequest{
         APIKey: "apiKey",
-        Type: afgosdk.DomainDNSReverseRequestTypeA,
+        Type: sdk.DomainDNSReverseRequestTypeA,
         Value: "value",
     }
 client.DomainDNSReverse(
@@ -1508,7 +1508,7 @@ client.DomainDNSReverse(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainDNSReverseRequestFormat` — Format of the response.
+**format:** `*sdk.DomainDNSReverseRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -1516,7 +1516,7 @@ client.DomainDNSReverse(
 <dl>
 <dd>
 
-**type_:** `*afgosdk.DomainDNSReverseRequestType` 
+**type_:** `*sdk.DomainDNSReverseRequestType` 
 
 The type of reverse DNS lookup to perform. Determines how the value parameter is interpreted:
 - A: IPv4 CIDR block
@@ -1561,7 +1561,7 @@ The type of reverse DNS lookup to perform. Determines how the value parameter is
 </dl>
 </details>
 
-<details><summary><code>client.WebScrape(request) -> *afgosdk.WebScrapeResponse</code></summary>
+<details><summary><code>client.WebScrape(request) -> *sdk.WebScrapeResponse</code></summary>
 <dl>
 <dd>
 
@@ -1589,96 +1589,96 @@ Supports various operations like form filling, clicking, data extraction, and CA
 <dd>
 
 ```go
-request := &afgosdk.WebScrapeRequest{
+request := &sdk.WebScrapeRequest{
         APIKey: "apiKey",
         URL: "https://example.com",
-        Body: &afgosdk.WebScrapeRequestBody{
-            WebScrapeRequestBodyBlockURL: &afgosdk.WebScrapeRequestBodyBlockURL{
+        Body: &sdk.WebScrapeRequestBody{
+            WebScrapeRequestBodyBlockURL: &sdk.WebScrapeRequestBodyBlockURL{
                 BlockURL: []string{
                     "https://example.com/ads.js",
                     "https://tracker.example.com/*",
                 },
-                Cookies: []*afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
-                    &afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
+                Cookies: []*sdk.WebScrapeRequestBodyBlockURLCookiesItem{
+                    &sdk.WebScrapeRequestBodyBlockURLCookiesItem{
                         Name: "sessionid",
                         Value: "abc123",
                     },
-                    &afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
+                    &sdk.WebScrapeRequestBodyBlockURLCookiesItem{
                         Name: "user_pref",
                         Value: "darkmode",
                     },
                 },
-                Instructions: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemFill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
-                            Fill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
+                Instructions: []*sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                    &sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                        WebScrapeRequestBodyBlockURLInstructionsItemFill: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
+                            Fill: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
                                 Place: "#username",
                                 Value: "myuser",
                             },
                         },
                     },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemFill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
-                            Fill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
+                    &sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                        WebScrapeRequestBodyBlockURLInstructionsItemFill: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
+                            Fill: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
                                 Place: "#password",
                                 Value: "mypassword",
                             },
                         },
                     },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemClick: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemClick{
-                            Click: afgosdk.String(
+                    &sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                        WebScrapeRequestBodyBlockURLInstructionsItemClick: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemClick{
+                            Click: sdk.String(
                                 "#loginButton",
                             ),
                         },
                     },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemWait: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemWait{
-                            Wait: afgosdk.Int(
+                    &sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                        WebScrapeRequestBodyBlockURLInstructionsItemWait: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemWait{
+                            Wait: sdk.Int(
                                 2000,
                             ),
                         },
                     },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemExtract: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemExtract{
-                            Extract: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemExtractExtract{
-                                HTML: afgosdk.String(
+                    &sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                        WebScrapeRequestBodyBlockURLInstructionsItemExtract: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemExtract{
+                            Extract: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemExtractExtract{
+                                HTML: sdk.String(
                                     "#profile",
                                 ),
-                                Text: afgosdk.String(
+                                Text: sdk.String(
                                     "#welcome-message",
                                 ),
-                                UserData: afgosdk.String(
+                                UserData: sdk.String(
                                     "#user-info",
                                 ),
                             },
                         },
                     },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemBlockElement: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemBlockElement{
+                    &sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                        WebScrapeRequestBodyBlockURLInstructionsItemBlockElement: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemBlockElement{
                             BlockElement: []string{
                                 ".ad-banner",
                                 "//div[@class='popup']",
                             },
                         },
                     },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha{
-                            GeneralImageCaptcha: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
-                                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
-                                    ImagePath: afgosdk.String(
+                    &sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                        WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha{
+                            GeneralImageCaptcha: []*sdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
+                                &sdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
+                                    ImagePath: sdk.String(
                                         "#captcha-img",
                                     ),
-                                    TextField: afgosdk.String(
+                                    TextField: sdk.String(
                                         "#captcha-input",
                                     ),
-                                    ImageUpdatePath: afgosdk.String(
+                                    ImageUpdatePath: sdk.String(
                                         "#refresh-captcha",
                                     ),
-                                    CaptchaFailedPath: afgosdk.String(
+                                    CaptchaFailedPath: sdk.String(
                                         "#captcha-error",
                                     ),
-                                    Model: afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItemModelMiniOcrV1.Ptr(),
+                                    Model: sdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItemModelMiniOcrV1.Ptr(),
                                 },
                             },
                         },
@@ -1714,7 +1714,7 @@ client.WebScrape(
 <dl>
 <dd>
 
-**format:** `*afgosdk.WebScrapeRequestFormat` — Response format returned by the API.
+**format:** `*sdk.WebScrapeRequestFormat` — Response format returned by the API.
     
 </dd>
 </dl>
@@ -1751,7 +1751,7 @@ Set  `true` to handle websites with JavaScript. Set `false` to handle static htm
 <dl>
 <dd>
 
-**proxy:** `*afgosdk.WebScrapeRequestProxy` — Use proxy for requests
+**proxy:** `*sdk.WebScrapeRequestProxy` — Use proxy for requests
     
 </dd>
 </dl>
@@ -1811,7 +1811,7 @@ if true user can provide captcha instructions in the instructions to solve image
 <dl>
 <dd>
 
-**request:** `*afgosdk.WebScrapeRequestBody` 
+**request:** `*sdk.WebScrapeRequestBody` 
     
 </dd>
 </dl>
@@ -1823,7 +1823,7 @@ if true user can provide captcha instructions in the instructions to solve image
 </dl>
 </details>
 
-<details><summary><code>client.EmailValidate(request) -> *afgosdk.EmailValidateResponse</code></summary>
+<details><summary><code>client.EmailValidate(request) -> *sdk.EmailValidateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1850,7 +1850,7 @@ Validates a single email address and returns result.
 <dd>
 
 ```go
-request := &afgosdk.EmailValidateRequest{
+request := &sdk.EmailValidateRequest{
         APIKey: "apiKey",
         Email: "email",
     }
@@ -1881,7 +1881,7 @@ client.EmailValidate(
 <dl>
 <dd>
 
-**format:** `*afgosdk.EmailValidateRequestFormat` — Format of the response
+**format:** `*sdk.EmailValidateRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -1917,7 +1917,7 @@ client.EmailValidate(
 </dl>
 </details>
 
-<details><summary><code>client.BulkEmailValidate(request) -> *afgosdk.BulkEmailValidateResponse</code></summary>
+<details><summary><code>client.BulkEmailValidate(request) -> *sdk.BulkEmailValidateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1944,10 +1944,10 @@ Validates a bulk of email addresses and returns result for each. Maximum `10` em
 <dd>
 
 ```go
-request := &afgosdk.BulkEmailValidateRequest{
+request := &sdk.BulkEmailValidateRequest{
         APIKey: "apiKey",
-        EmailData: []*afgosdk.BulkEmailValidateRequestEmailDataItem{
-            &afgosdk.BulkEmailValidateRequestEmailDataItem{
+        EmailData: []*sdk.BulkEmailValidateRequestEmailDataItem{
+            &sdk.BulkEmailValidateRequestEmailDataItem{
                 Email: "email",
             },
         },
@@ -1979,7 +1979,7 @@ client.BulkEmailValidate(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkEmailValidateRequestFormat` — Format of the response
+**format:** `*sdk.BulkEmailValidateRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -1987,7 +1987,7 @@ client.BulkEmailValidate(
 <dl>
 <dd>
 
-**emailData:** `[]*afgosdk.BulkEmailValidateRequestEmailDataItem` — Array of email objects for bulk validation
+**emailData:** `[]*sdk.BulkEmailValidateRequestEmailDataItem` — Array of email objects for bulk validation
     
 </dd>
 </dl>
@@ -1999,7 +1999,7 @@ client.BulkEmailValidate(
 </dl>
 </details>
 
-<details><summary><code>client.PhoneValidate(request) -> *afgosdk.PhoneValidateResponse</code></summary>
+<details><summary><code>client.PhoneValidate(request) -> *sdk.PhoneValidateResponse</code></summary>
 <dl>
 <dd>
 
@@ -2026,7 +2026,7 @@ Validates a single phone number and returns detailed metadata including carrier,
 <dd>
 
 ```go
-request := &afgosdk.PhoneValidateRequest{
+request := &sdk.PhoneValidateRequest{
         APIKey: "apiKey",
         Number: "+14155552671",
     }
@@ -2057,7 +2057,7 @@ client.PhoneValidate(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PhoneValidateRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object. If not provided, the API defaults to JSON format.
+**format:** `*sdk.PhoneValidateRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object. If not provided, the API defaults to JSON format.
     
 </dd>
 </dl>
@@ -2093,7 +2093,7 @@ client.PhoneValidate(
 </dl>
 </details>
 
-<details><summary><code>client.BulkPhoneValidate(request) -> []*afgosdk.BulkPhoneValidateResponseItem</code></summary>
+<details><summary><code>client.BulkPhoneValidate(request) -> []*sdk.BulkPhoneValidateResponseItem</code></summary>
 <dl>
 <dd>
 
@@ -2120,16 +2120,16 @@ Validates up to 100 phone numbers in a single request. Each number is processed 
 <dd>
 
 ```go
-request := &afgosdk.BulkPhoneValidateRequest{
+request := &sdk.BulkPhoneValidateRequest{
         APIKey: "apiKey",
-        Numbers: []*afgosdk.BulkPhoneValidateRequestNumbersItem{
-            &afgosdk.BulkPhoneValidateRequestNumbersItem{
+        Numbers: []*sdk.BulkPhoneValidateRequestNumbersItem{
+            &sdk.BulkPhoneValidateRequestNumbersItem{
                 Number: "+14155552671",
             },
-            &afgosdk.BulkPhoneValidateRequestNumbersItem{
+            &sdk.BulkPhoneValidateRequestNumbersItem{
                 Number: "+447911123456",
             },
-            &afgosdk.BulkPhoneValidateRequestNumbersItem{
+            &sdk.BulkPhoneValidateRequestNumbersItem{
                 Number: "+919876543210",
             },
         },
@@ -2161,7 +2161,7 @@ client.BulkPhoneValidate(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkPhoneValidateRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object. If not provided, the API defaults to JSON format.
+**format:** `*sdk.BulkPhoneValidateRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object. If not provided, the API defaults to JSON format.
     
 </dd>
 </dl>
@@ -2169,7 +2169,7 @@ client.BulkPhoneValidate(
 <dl>
 <dd>
 
-**numbers:** `[]*afgosdk.BulkPhoneValidateRequestNumbersItem` — Array of phone number objects. Maximum 100 per request.
+**numbers:** `[]*sdk.BulkPhoneValidateRequestNumbersItem` — Array of phone number objects. Maximum 100 per request.
     
 </dd>
 </dl>
@@ -2181,7 +2181,7 @@ client.BulkPhoneValidate(
 </dl>
 </details>
 
-<details><summary><code>client.DomainSslLookup() -> *afgosdk.DomainSslLookupResponse</code></summary>
+<details><summary><code>client.DomainSslLookup() -> *sdk.DomainSslLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -2209,7 +2209,7 @@ This endpoint provides detailed information about the SSL certificate including 
 <dd>
 
 ```go
-request := &afgosdk.DomainSslLookupRequest{
+request := &sdk.DomainSslLookupRequest{
         APIKey: "apiKey",
         DomainName: "domainName",
     }
@@ -2240,7 +2240,7 @@ client.DomainSslLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainSslLookupRequestFormat` — Format of the response.
+**format:** `*sdk.DomainSslLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -2268,7 +2268,7 @@ client.DomainSslLookup(
 </dl>
 </details>
 
-<details><summary><code>client.DomainSslChainLookup() -> *afgosdk.DomainSslChainLookupResponse</code></summary>
+<details><summary><code>client.DomainSslChainLookup() -> *sdk.DomainSslChainLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -2296,7 +2296,7 @@ This endpoint provides comprehensive information about each certificate in the c
 <dd>
 
 ```go
-request := &afgosdk.DomainSslChainLookupRequest{
+request := &sdk.DomainSslChainLookupRequest{
         APIKey: "apiKey",
         DomainName: "domainName",
     }
@@ -2327,7 +2327,7 @@ client.DomainSslChainLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainSslChainLookupRequestFormat` — Format of the response.
+**format:** `*sdk.DomainSslChainLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -2355,7 +2355,7 @@ client.DomainSslChainLookup(
 </dl>
 </details>
 
-<details><summary><code>client.DomainAvailabilityCheck() -> *afgosdk.DomainAvailabilityCheckResponse</code></summary>
+<details><summary><code>client.DomainAvailabilityCheck() -> *sdk.DomainAvailabilityCheckResponse</code></summary>
 <dl>
 <dd>
 
@@ -2382,7 +2382,7 @@ The Domain Search API is designed to simplify the process of finding available d
 <dd>
 
 ```go
-request := &afgosdk.DomainAvailabilityCheckRequest{
+request := &sdk.DomainAvailabilityCheckRequest{
         APIKey: "apiKey",
         Domain: "domain",
     }
@@ -2413,7 +2413,7 @@ client.DomainAvailabilityCheck(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainAvailabilityCheckRequestFormat` — Format of the response.
+**format:** `*sdk.DomainAvailabilityCheckRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -2429,7 +2429,7 @@ client.DomainAvailabilityCheck(
 <dl>
 <dd>
 
-**source:** `*afgosdk.DomainAvailabilityCheckRequestSource` — Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
+**source:** `*sdk.DomainAvailabilityCheckRequestSource` — Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
     
 </dd>
 </dl>
@@ -2441,7 +2441,7 @@ client.DomainAvailabilityCheck(
 </dl>
 </details>
 
-<details><summary><code>client.BulkDomainAvailabilityCheck(request) -> *afgosdk.BulkDomainAvailabilityCheckResponse</code></summary>
+<details><summary><code>client.BulkDomainAvailabilityCheck(request) -> *sdk.BulkDomainAvailabilityCheckResponse</code></summary>
 <dl>
 <dd>
 
@@ -2468,7 +2468,7 @@ Perform Bulk Domain Availability checks using a list of domains. Supports upto `
 <dd>
 
 ```go
-request := &afgosdk.BulkDomainAvailabilityCheckRequest{
+request := &sdk.BulkDomainAvailabilityCheckRequest{
         APIKey: "apiKey",
         DomainNames: []string{
             "domainNames",
@@ -2501,7 +2501,7 @@ client.BulkDomainAvailabilityCheck(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkDomainAvailabilityCheckRequestFormat` — Format of the response.
+**format:** `*sdk.BulkDomainAvailabilityCheckRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -2509,7 +2509,7 @@ client.BulkDomainAvailabilityCheck(
 <dl>
 <dd>
 
-**source:** `*afgosdk.BulkDomainAvailabilityCheckRequestSource` — Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
+**source:** `*sdk.BulkDomainAvailabilityCheckRequestSource` — Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
     
 </dd>
 </dl>
@@ -2529,7 +2529,7 @@ client.BulkDomainAvailabilityCheck(
 </dl>
 </details>
 
-<details><summary><code>client.DomainAvailabilitySuggestions() -> *afgosdk.DomainAvailabilitySuggestionsResponse</code></summary>
+<details><summary><code>client.DomainAvailabilitySuggestions() -> *sdk.DomainAvailabilitySuggestionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -2556,7 +2556,7 @@ The Domain Search API is designed to simplify the process of finding available d
 <dd>
 
 ```go
-request := &afgosdk.DomainAvailabilitySuggestionsRequest{
+request := &sdk.DomainAvailabilitySuggestionsRequest{
         APIKey: "apiKey",
         Domain: "domain",
     }
@@ -2587,7 +2587,7 @@ client.DomainAvailabilitySuggestions(
 <dl>
 <dd>
 
-**format:** `*afgosdk.DomainAvailabilitySuggestionsRequestFormat` — Format of the response.
+**format:** `*sdk.DomainAvailabilitySuggestionsRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -2603,7 +2603,7 @@ client.DomainAvailabilitySuggestions(
 <dl>
 <dd>
 
-**source:** `*afgosdk.DomainAvailabilitySuggestionsRequestSource` — Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
+**source:** `*sdk.DomainAvailabilitySuggestionsRequestSource` — Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
     
 </dd>
 </dl>
@@ -2623,7 +2623,7 @@ client.DomainAvailabilitySuggestions(
 </dl>
 </details>
 
-<details><summary><code>client.SubdomainsLookup() -> *afgosdk.SubdomainsLookupResponse</code></summary>
+<details><summary><code>client.SubdomainsLookup() -> *sdk.SubdomainsLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -2650,7 +2650,7 @@ The Subdomain Lookup API is designed to retrieve subdomains related to the given
 <dd>
 
 ```go
-request := &afgosdk.SubdomainsLookupRequest{
+request := &sdk.SubdomainsLookupRequest{
         APIKey: "apiKey",
         Domain: "domain",
     }
@@ -2681,7 +2681,7 @@ client.SubdomainsLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.SubdomainsLookupRequestFormat` — Format of the response.
+**format:** `*sdk.SubdomainsLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -2713,7 +2713,7 @@ client.SubdomainsLookup(
 <dl>
 <dd>
 
-**status:** `*afgosdk.SubdomainsLookupRequestStatus` — Filter subdomains by status (active or inactive).
+**status:** `*sdk.SubdomainsLookupRequestStatus` — Filter subdomains by status (active or inactive).
     
 </dd>
 </dl>
@@ -2733,7 +2733,7 @@ client.SubdomainsLookup(
 </dl>
 </details>
 
-<details><summary><code>client.PdfMerge(request) -> *afgosdk.PdfMergeResponse</code></summary>
+<details><summary><code>client.PdfMerge(request) -> *sdk.PdfMergeResponse</code></summary>
 <dl>
 <dd>
 
@@ -2760,7 +2760,7 @@ This API merges multiple PDF files into a single PDF, in the order they are prov
 <dd>
 
 ```go
-request := &afgosdk.PdfMergeRequest{
+request := &sdk.PdfMergeRequest{
         APIKey: "apiKey",
     }
 client.PdfMerge(
@@ -2790,7 +2790,7 @@ client.PdfMerge(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfMergeRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfMergeRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -2850,7 +2850,7 @@ client.PdfMerge(
 </dl>
 </details>
 
-<details><summary><code>client.PdfRemovePages(request) -> *afgosdk.PdfRemovePagesResponse</code></summary>
+<details><summary><code>client.PdfRemovePages(request) -> *sdk.PdfRemovePagesResponse</code></summary>
 <dl>
 <dd>
 
@@ -2877,7 +2877,7 @@ This API removes a selection or range of pages from a PDF file.
 <dd>
 
 ```go
-request := &afgosdk.PdfRemovePagesRequest{
+request := &sdk.PdfRemovePagesRequest{
         APIKey: "apiKey",
         Pages: "pages",
         File: strings.NewReader(
@@ -2911,7 +2911,7 @@ client.PdfRemovePages(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfRemovePagesRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfRemovePagesRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -2979,7 +2979,7 @@ client.PdfRemovePages(
 </dl>
 </details>
 
-<details><summary><code>client.PdfSplit(request) -> *afgosdk.PdfSplitResponse</code></summary>
+<details><summary><code>client.PdfSplit(request) -> *sdk.PdfSplitResponse</code></summary>
 <dl>
 <dd>
 
@@ -3006,7 +3006,7 @@ This API splits a PDF into multiple parts based on specified page numbers or ran
 <dd>
 
 ```go
-request := &afgosdk.PdfSplitRequest{
+request := &sdk.PdfSplitRequest{
         APIKey: "apiKey",
         File: strings.NewReader(
             "",
@@ -3039,7 +3039,7 @@ client.PdfSplit(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfSplitRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfSplitRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -3127,7 +3127,7 @@ Invalid example: "1,odd" (mixing a keyword other than "last" with specific pages
 </dl>
 </details>
 
-<details><summary><code>client.PdfRotate(request) -> *afgosdk.PdfRotateResponse</code></summary>
+<details><summary><code>client.PdfRotate(request) -> *sdk.PdfRotateResponse</code></summary>
 <dl>
 <dd>
 
@@ -3154,7 +3154,7 @@ This API rotates pages of a PDF by a specified angle (in multiples of 90 degrees
 <dd>
 
 ```go
-request := &afgosdk.PdfRotateRequest{
+request := &sdk.PdfRotateRequest{
         APIKey: "apiKey",
         Rotate: 1,
         File: strings.NewReader(
@@ -3188,7 +3188,7 @@ client.PdfRotate(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfRotateRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfRotateRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -3264,7 +3264,7 @@ client.PdfRotate(
 </dl>
 </details>
 
-<details><summary><code>client.PdfCompress(request) -> *afgosdk.PdfCompressResponse</code></summary>
+<details><summary><code>client.PdfCompress(request) -> *sdk.PdfCompressResponse</code></summary>
 <dl>
 <dd>
 
@@ -3291,9 +3291,9 @@ This API compresses a given PDF file to reduce its file size.
 <dd>
 
 ```go
-request := &afgosdk.PdfCompressRequest{
+request := &sdk.PdfCompressRequest{
         APIKey: "apiKey",
-        CompressionLevel: afgosdk.PdfCompressRequestCompressionLevelLow,
+        CompressionLevel: sdk.PdfCompressRequestCompressionLevelLow,
         File: strings.NewReader(
             "",
         ),
@@ -3325,7 +3325,7 @@ client.PdfCompress(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfCompressRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfCompressRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -3349,7 +3349,7 @@ client.PdfCompress(
 <dl>
 <dd>
 
-**compressionLevel:** `*afgosdk.PdfCompressRequestCompressionLevel` — Controls how aggressively the PDF is compressed. Lower levels preserve more quality, while higher levels reduce file size more.
+**compressionLevel:** `*sdk.PdfCompressRequestCompressionLevel` — Controls how aggressively the PDF is compressed. Lower levels preserve more quality, while higher levels reduce file size more.
     
 </dd>
 </dl>
@@ -3393,7 +3393,7 @@ client.PdfCompress(
 </dl>
 </details>
 
-<details><summary><code>client.PdfExtractPages(request) -> *afgosdk.PdfExtractPagesResponse</code></summary>
+<details><summary><code>client.PdfExtractPages(request) -> *sdk.PdfExtractPagesResponse</code></summary>
 <dl>
 <dd>
 
@@ -3420,7 +3420,7 @@ This API extracts specific pages or page ranges from a PDF file and returns them
 <dd>
 
 ```go
-request := &afgosdk.PdfExtractPagesRequest{
+request := &sdk.PdfExtractPagesRequest{
         APIKey: "apiKey",
         Pages: "pages",
         File: strings.NewReader(
@@ -3454,7 +3454,7 @@ client.PdfExtractPages(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfExtractPagesRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfExtractPagesRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -3530,7 +3530,7 @@ client.PdfExtractPages(
 </dl>
 </details>
 
-<details><summary><code>client.PdfLinearize(request) -> *afgosdk.PdfLinearizeResponse</code></summary>
+<details><summary><code>client.PdfLinearize(request) -> *sdk.PdfLinearizeResponse</code></summary>
 <dl>
 <dd>
 
@@ -3557,7 +3557,7 @@ API endpoint that linearizes any given PDF, restructuring it for faster loading 
 <dd>
 
 ```go
-request := &afgosdk.PdfLinearizeRequest{
+request := &sdk.PdfLinearizeRequest{
         APIKey: "apiKey",
         File: strings.NewReader(
             "",
@@ -3590,7 +3590,7 @@ client.PdfLinearize(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfLinearizeRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfLinearizeRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -3650,7 +3650,7 @@ client.PdfLinearize(
 </dl>
 </details>
 
-<details><summary><code>client.PdfEncrypt(request) -> *afgosdk.PdfEncryptResponse</code></summary>
+<details><summary><code>client.PdfEncrypt(request) -> *sdk.PdfEncryptResponse</code></summary>
 <dl>
 <dd>
 
@@ -3677,7 +3677,7 @@ This API encrypts a PDF file by setting a password required to open it.
 <dd>
 
 ```go
-request := &afgosdk.PdfEncryptRequest{
+request := &sdk.PdfEncryptRequest{
         APIKey: "apiKey",
         UserPassword: "user_password",
         File: strings.NewReader(
@@ -3711,7 +3711,7 @@ client.PdfEncrypt(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfEncryptRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfEncryptRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -3795,7 +3795,7 @@ client.PdfEncrypt(
 </dl>
 </details>
 
-<details><summary><code>client.PdfDecrypt(request) -> *afgosdk.PdfDecryptResponse</code></summary>
+<details><summary><code>client.PdfDecrypt(request) -> *sdk.PdfDecryptResponse</code></summary>
 <dl>
 <dd>
 
@@ -3822,7 +3822,7 @@ This API decrypts PDF files, removing all encryption, including open passwords a
 <dd>
 
 ```go
-request := &afgosdk.PdfDecryptRequest{
+request := &sdk.PdfDecryptRequest{
         APIKey: "apiKey",
         FilePassword: "file_password",
         File: strings.NewReader(
@@ -3856,7 +3856,7 @@ client.PdfDecrypt(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfDecryptRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfDecryptRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -3924,7 +3924,7 @@ client.PdfDecrypt(
 </dl>
 </details>
 
-<details><summary><code>client.PdfRestrict(request) -> *afgosdk.PdfRestrictResponse</code></summary>
+<details><summary><code>client.PdfRestrict(request) -> *sdk.PdfRestrictResponse</code></summary>
 <dl>
 <dd>
 
@@ -3951,11 +3951,11 @@ This API applies permission restrictions on a PDF file, such as disabling printi
 <dd>
 
 ```go
-request := &afgosdk.PdfRestrictRequest{
+request := &sdk.PdfRestrictRequest{
         APIKey: "apiKey",
         UserPassword: "user_password",
-        Restrictions: []*afgosdk.PdfRestrictRequestRestrictionsItem{
-            afgosdk.PdfRestrictRequestRestrictionsItemPrintHigh.Ptr(),
+        Restrictions: []*sdk.PdfRestrictRequestRestrictionsItem{
+            sdk.PdfRestrictRequestRestrictionsItemPrintHigh.Ptr(),
         },
         File: strings.NewReader(
             "",
@@ -3988,7 +3988,7 @@ client.PdfRestrict(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfRestrictRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfRestrictRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -4044,7 +4044,7 @@ client.PdfRestrict(
 <dl>
 <dd>
 
-**restrictions:** `*afgosdk.PdfRestrictRequestRestrictionsItem` 
+**restrictions:** `*sdk.PdfRestrictRequestRestrictionsItem` 
 
 A comma-separated list of restrictions to apply to the PDF. These define what the end-user is *not* allowed to do with the PDF. Available options are:
 
@@ -4092,7 +4092,7 @@ A comma-separated list of restrictions to apply to the PDF. These define what th
 </dl>
 </details>
 
-<details><summary><code>client.PdfUnrestrict(request) -> *afgosdk.PdfUnrestrictResponse</code></summary>
+<details><summary><code>client.PdfUnrestrict(request) -> *sdk.PdfUnrestrictResponse</code></summary>
 <dl>
 <dd>
 
@@ -4119,7 +4119,7 @@ This API removes permission restrictions from a PDF while keeping it encrypted. 
 <dd>
 
 ```go
-request := &afgosdk.PdfUnrestrictRequest{
+request := &sdk.PdfUnrestrictRequest{
         APIKey: "apiKey",
         FilePassword: "file_password",
         File: strings.NewReader(
@@ -4153,7 +4153,7 @@ client.PdfUnrestrict(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfUnrestrictRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfUnrestrictRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -4237,7 +4237,7 @@ client.PdfUnrestrict(
 </dl>
 </details>
 
-<details><summary><code>client.PdfConvertToPng(request) -> *afgosdk.PdfConvertToPngResponse</code></summary>
+<details><summary><code>client.PdfConvertToPng(request) -> *sdk.PdfConvertToPngResponse</code></summary>
 <dl>
 <dd>
 
@@ -4264,7 +4264,7 @@ This API converts a given PDF file into a sequence of PNG images.
 <dd>
 
 ```go
-request := &afgosdk.PdfConvertToPngRequest{
+request := &sdk.PdfConvertToPngRequest{
         APIKey: "apiKey",
         File: strings.NewReader(
             "",
@@ -4297,7 +4297,7 @@ client.PdfConvertToPng(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfConvertToPngRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfConvertToPngRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -4353,7 +4353,7 @@ client.PdfConvertToPng(
 <dl>
 <dd>
 
-**profile:** `*afgosdk.PdfConvertToPngRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
+**profile:** `*sdk.PdfConvertToPngRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
     
 </dd>
 </dl>
@@ -4389,7 +4389,7 @@ client.PdfConvertToPng(
 </dl>
 </details>
 
-<details><summary><code>client.PdfConvertToJpg(request) -> *afgosdk.PdfConvertToJpgResponse</code></summary>
+<details><summary><code>client.PdfConvertToJpg(request) -> *sdk.PdfConvertToJpgResponse</code></summary>
 <dl>
 <dd>
 
@@ -4416,7 +4416,7 @@ This API converts a given PDF file into a sequence of JPG images.
 <dd>
 
 ```go
-request := &afgosdk.PdfConvertToJpgRequest{
+request := &sdk.PdfConvertToJpgRequest{
         APIKey: "apiKey",
         File: strings.NewReader(
             "",
@@ -4449,7 +4449,7 @@ client.PdfConvertToJpg(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfConvertToJpgRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfConvertToJpgRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -4513,7 +4513,7 @@ client.PdfConvertToJpg(
 <dl>
 <dd>
 
-**profile:** `*afgosdk.PdfConvertToJpgRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
+**profile:** `*sdk.PdfConvertToJpgRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
     
 </dd>
 </dl>
@@ -4549,7 +4549,7 @@ client.PdfConvertToJpg(
 </dl>
 </details>
 
-<details><summary><code>client.PdfConvertToTiff(request) -> *afgosdk.PdfConvertToTiffResponse</code></summary>
+<details><summary><code>client.PdfConvertToTiff(request) -> *sdk.PdfConvertToTiffResponse</code></summary>
 <dl>
 <dd>
 
@@ -4576,7 +4576,7 @@ This API converts a given PDF file into a sequence of TIFF images. The output im
 <dd>
 
 ```go
-request := &afgosdk.PdfConvertToTiffRequest{
+request := &sdk.PdfConvertToTiffRequest{
         APIKey: "apiKey",
         File: strings.NewReader(
             "",
@@ -4609,7 +4609,7 @@ client.PdfConvertToTiff(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfConvertToTiffRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfConvertToTiffRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -4665,7 +4665,7 @@ client.PdfConvertToTiff(
 <dl>
 <dd>
 
-**profile:** `*afgosdk.PdfConvertToTiffRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
+**profile:** `*sdk.PdfConvertToTiffRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
     
 </dd>
 </dl>
@@ -4701,7 +4701,7 @@ client.PdfConvertToTiff(
 </dl>
 </details>
 
-<details><summary><code>client.PdfConvertToBmp(request) -> *afgosdk.PdfConvertToBmpResponse</code></summary>
+<details><summary><code>client.PdfConvertToBmp(request) -> *sdk.PdfConvertToBmpResponse</code></summary>
 <dl>
 <dd>
 
@@ -4728,7 +4728,7 @@ Converts a PDF file to a BMP image.
 <dd>
 
 ```go
-request := &afgosdk.PdfConvertToBmpRequest{
+request := &sdk.PdfConvertToBmpRequest{
         APIKey: "apiKey",
         File: strings.NewReader(
             "",
@@ -4761,7 +4761,7 @@ client.PdfConvertToBmp(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfConvertToBmpRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfConvertToBmpRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -4817,7 +4817,7 @@ client.PdfConvertToBmp(
 <dl>
 <dd>
 
-**profile:** `*afgosdk.PdfConvertToBmpRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
+**profile:** `*sdk.PdfConvertToBmpRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
     
 </dd>
 </dl>
@@ -4853,7 +4853,7 @@ client.PdfConvertToBmp(
 </dl>
 </details>
 
-<details><summary><code>client.PdfConvertToGif(request) -> *afgosdk.PdfConvertToGifResponse</code></summary>
+<details><summary><code>client.PdfConvertToGif(request) -> *sdk.PdfConvertToGifResponse</code></summary>
 <dl>
 <dd>
 
@@ -4880,7 +4880,7 @@ This API converts a given PDF file into a sequence of GIF images.
 <dd>
 
 ```go
-request := &afgosdk.PdfConvertToGifRequest{
+request := &sdk.PdfConvertToGifRequest{
         APIKey: "apiKey",
         File: strings.NewReader(
             "",
@@ -4913,7 +4913,7 @@ client.PdfConvertToGif(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfConvertToGifRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfConvertToGifRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -4969,7 +4969,7 @@ client.PdfConvertToGif(
 <dl>
 <dd>
 
-**profile:** `*afgosdk.PdfConvertToGifRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
+**profile:** `*sdk.PdfConvertToGifRequestProfile` — Specifies the color profile for the output PNG images. Acceptable values: bw (1-bit black & white, smallest size, no grayscale or color), gray (8-bit grayscale), rgb (24-bit RGB color, default), rgba (32-bit RGB color with alpha channel for transparency), 4-bit (4-bit indexed color, up to 16 colors, smaller size), or 8-bit (8-bit indexed color, up to 256 colors).
     
 </dd>
 </dl>
@@ -5005,7 +5005,7 @@ client.PdfConvertToGif(
 </dl>
 </details>
 
-<details><summary><code>client.PdfUploadResources(request) -> *afgosdk.PdfUploadResourcesResponse</code></summary>
+<details><summary><code>client.PdfUploadResources(request) -> *sdk.PdfUploadResourcesResponse</code></summary>
 <dl>
 <dd>
 
@@ -5032,7 +5032,7 @@ This API uploads multiple PDF files to the API Freaks server and generates their
 <dd>
 
 ```go
-request := &afgosdk.PdfUploadResourcesRequest{
+request := &sdk.PdfUploadResourcesRequest{
         APIKey: "apiKey",
     }
 client.PdfUploadResources(
@@ -5062,7 +5062,7 @@ client.PdfUploadResources(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfUploadResourcesRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfUploadResourcesRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -5101,7 +5101,7 @@ This API downloads PDF files or ZIP archives from the server using their unique 
 <dd>
 
 ```go
-request := &afgosdk.PdfDownloadResourceRequest{
+request := &sdk.PdfDownloadResourceRequest{
         APIKey: "apiKey",
         ResourceID: "resource_id",
     }
@@ -5132,7 +5132,7 @@ client.PdfDownloadResource(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfDownloadResourceRequestFormat` 
+**format:** `*sdk.PdfDownloadResourceRequestFormat` 
     
 </dd>
 </dl>
@@ -5152,7 +5152,7 @@ client.PdfDownloadResource(
 </dl>
 </details>
 
-<details><summary><code>client.PdfGetTaskStatus() -> *afgosdk.PdfGetTaskStatusResponse</code></summary>
+<details><summary><code>client.PdfGetTaskStatus() -> *sdk.PdfGetTaskStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -5179,7 +5179,7 @@ This API checks the status of a previously initiated PDF processing task using i
 <dd>
 
 ```go
-request := &afgosdk.PdfGetTaskStatusRequest{
+request := &sdk.PdfGetTaskStatusRequest{
         APIKey: "apiKey",
         TaskID: "task_id",
     }
@@ -5210,7 +5210,7 @@ client.PdfGetTaskStatus(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfGetTaskStatusRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfGetTaskStatusRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -5230,7 +5230,7 @@ client.PdfGetTaskStatus(
 </dl>
 </details>
 
-<details><summary><code>client.PdfGetFileStatus() -> *afgosdk.PdfGetFileStatusResponse</code></summary>
+<details><summary><code>client.PdfGetFileStatus() -> *sdk.PdfGetFileStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -5257,7 +5257,7 @@ This API checks the status of a PDF file using its unique file ID, providing inf
 <dd>
 
 ```go
-request := &afgosdk.PdfGetFileStatusRequest{
+request := &sdk.PdfGetFileStatusRequest{
         APIKey: "apiKey",
         FileID: "file_id",
     }
@@ -5288,7 +5288,7 @@ client.PdfGetFileStatus(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfGetFileStatusRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfGetFileStatusRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -5308,7 +5308,7 @@ client.PdfGetFileStatus(
 </dl>
 </details>
 
-<details><summary><code>client.PdfListFiles() -> *afgosdk.PdfListFilesResponse</code></summary>
+<details><summary><code>client.PdfListFiles() -> *sdk.PdfListFilesResponse</code></summary>
 <dl>
 <dd>
 
@@ -5335,7 +5335,7 @@ This API retrieves a list of all PDF files uploaded and generated by a specific 
 <dd>
 
 ```go
-request := &afgosdk.PdfListFilesRequest{
+request := &sdk.PdfListFilesRequest{
         APIKey: "apiKey",
     }
 client.PdfListFiles(
@@ -5365,7 +5365,7 @@ client.PdfListFiles(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfListFilesRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfListFilesRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -5377,7 +5377,7 @@ client.PdfListFiles(
 </dl>
 </details>
 
-<details><summary><code>client.PdfDeleteFile() -> *afgosdk.PdfDeleteFileResponse</code></summary>
+<details><summary><code>client.PdfDeleteFile() -> *sdk.PdfDeleteFileResponse</code></summary>
 <dl>
 <dd>
 
@@ -5404,7 +5404,7 @@ This API deletes a PDF file using its unique file ID.
 <dd>
 
 ```go
-request := &afgosdk.PdfDeleteFileRequest{
+request := &sdk.PdfDeleteFileRequest{
         APIKey: "apiKey",
         FileID: "file_id",
     }
@@ -5435,7 +5435,7 @@ client.PdfDeleteFile(
 <dl>
 <dd>
 
-**format:** `*afgosdk.PdfDeleteFileRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+**format:** `*sdk.PdfDeleteFileRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     
 </dd>
 </dl>
@@ -5483,7 +5483,7 @@ Supports multiple output formats including JSON, image, GIF, MP4, and WebM.
 <dd>
 
 ```go
-request := &afgosdk.ScreenshotCaptureRequest{
+request := &sdk.ScreenshotCaptureRequest{
         APIKey: "apiKey",
         URL: "url",
     }
@@ -5514,7 +5514,7 @@ client.ScreenshotCapture(
 <dl>
 <dd>
 
-**output:** `*afgosdk.ScreenshotCaptureRequestOutput` — Output format for screenshot results
+**output:** `*sdk.ScreenshotCaptureRequestOutput` — Output format for screenshot results
     
 </dd>
 </dl>
@@ -5522,7 +5522,7 @@ client.ScreenshotCapture(
 <dl>
 <dd>
 
-**fileType:** `*afgosdk.ScreenshotCaptureRequestFileType` — File type for screenshot output
+**fileType:** `*sdk.ScreenshotCaptureRequestFileType` — File type for screenshot output
     
 </dd>
 </dl>
@@ -5690,7 +5690,7 @@ client.ScreenshotCapture(
 <dl>
 <dd>
 
-**waitForEvent:** `*afgosdk.ScreenshotCaptureRequestWaitForEvent` — Wait for a specific load event before capturing the screenshot.
+**waitForEvent:** `*sdk.ScreenshotCaptureRequestWaitForEvent` — Wait for a specific load event before capturing the screenshot.
     
 </dd>
 </dl>
@@ -5931,7 +5931,7 @@ Avoid using spaces or special characters; use hyphens or underscores to separate
 <dl>
 <dd>
 
-**scrollSpeed:** `*afgosdk.ScreenshotCaptureRequestScrollSpeed` — Speed of scrolling during the screenshot.
+**scrollSpeed:** `*sdk.ScreenshotCaptureRequestScrollSpeed` — Speed of scrolling during the screenshot.
     
 </dd>
 </dl>
@@ -6079,7 +6079,7 @@ Avoid using spaces or special characters; use hyphens or underscores to separate
 </dl>
 </details>
 
-<details><summary><code>client.BulkScreenshotCapture(request) -> *afgosdk.BulkScreenshotCaptureResponse</code></summary>
+<details><summary><code>client.BulkScreenshotCapture(request) -> *sdk.BulkScreenshotCaptureResponse</code></summary>
 <dl>
 <dd>
 
@@ -6107,10 +6107,10 @@ Our Bulk Screenshot API allows you to capture screenshots of multiple webpages s
 <dd>
 
 ```go
-request := &afgosdk.BulkScreenshotCaptureRequest{
+request := &sdk.BulkScreenshotCaptureRequest{
         APIKey: "apiKey",
-        URLs: []*afgosdk.BulkScreenshotCaptureRequestURLsItem{
-            &afgosdk.BulkScreenshotCaptureRequestURLsItem{
+        URLs: []*sdk.BulkScreenshotCaptureRequestURLsItem{
+            &sdk.BulkScreenshotCaptureRequestURLsItem{
                 URL: "url",
             },
         },
@@ -6142,7 +6142,7 @@ client.BulkScreenshotCapture(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkScreenshotCaptureRequestFormat` 
+**format:** `*sdk.BulkScreenshotCaptureRequestFormat` 
     
 </dd>
 </dl>
@@ -6150,7 +6150,7 @@ client.BulkScreenshotCapture(
 <dl>
 <dd>
 
-**urls:** `[]*afgosdk.BulkScreenshotCaptureRequestURLsItem` — List of website URLs to capture screenshots of
+**urls:** `[]*sdk.BulkScreenshotCaptureRequestURLsItem` — List of website URLs to capture screenshots of
     
 </dd>
 </dl>
@@ -6162,7 +6162,7 @@ client.BulkScreenshotCapture(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencyLatestRates() -> *afgosdk.CurrencyLatestRatesResponse</code></summary>
+<details><summary><code>client.CurrencyLatestRates() -> *sdk.CurrencyLatestRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -6189,7 +6189,7 @@ Get live forex rates for all world currencies with customizable update frequency
 <dd>
 
 ```go
-request := &afgosdk.CurrencyLatestRatesRequest{
+request := &sdk.CurrencyLatestRatesRequest{
         APIKey: "apiKey",
     }
 client.CurrencyLatestRates(
@@ -6219,7 +6219,7 @@ client.CurrencyLatestRates(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencyLatestRatesRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencyLatestRatesRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -6243,7 +6243,7 @@ client.CurrencyLatestRates(
 <dl>
 <dd>
 
-**updates:** `*afgosdk.CurrencyLatestRatesRequestUpdates` — Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
+**updates:** `*sdk.CurrencyLatestRatesRequestUpdates` — Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
     
 </dd>
 </dl>
@@ -6255,7 +6255,7 @@ client.CurrencyLatestRates(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencyHistoricalRates() -> *afgosdk.CurrencyHistoricalRatesResponse</code></summary>
+<details><summary><code>client.CurrencyHistoricalRates() -> *sdk.CurrencyHistoricalRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -6282,9 +6282,9 @@ Get historical exchange rates for any specific date
 <dd>
 
 ```go
-request := &afgosdk.CurrencyHistoricalRatesRequest{
+request := &sdk.CurrencyHistoricalRatesRequest{
         APIKey: "apiKey",
-        Date: afgosdk.MustParseDate(
+        Date: sdk.MustParseDate(
             "2023-01-15",
         ),
     }
@@ -6315,7 +6315,7 @@ client.CurrencyHistoricalRates(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencyHistoricalRatesRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencyHistoricalRatesRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -6351,7 +6351,7 @@ client.CurrencyHistoricalRates(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencyConvertLatest() -> *afgosdk.CurrencyConvertLatestResponse</code></summary>
+<details><summary><code>client.CurrencyConvertLatest() -> *sdk.CurrencyConvertLatestResponse</code></summary>
 <dl>
 <dd>
 
@@ -6378,7 +6378,7 @@ Convert amount between currencies using the latest exchange rates
 <dd>
 
 ```go
-request := &afgosdk.CurrencyConvertLatestRequest{
+request := &sdk.CurrencyConvertLatestRequest{
         APIKey: "apiKey",
         From: "from",
         To: "to",
@@ -6410,7 +6410,7 @@ client.CurrencyConvertLatest(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencyConvertLatestRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencyConvertLatestRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -6442,7 +6442,7 @@ client.CurrencyConvertLatest(
 <dl>
 <dd>
 
-**updates:** `*afgosdk.CurrencyConvertLatestRequestUpdates` — Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
+**updates:** `*sdk.CurrencyConvertLatestRequestUpdates` — Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
     
 </dd>
 </dl>
@@ -6454,7 +6454,7 @@ client.CurrencyConvertLatest(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencyConvertHistorical() -> *afgosdk.CurrencyConvertHistoricalResponse</code></summary>
+<details><summary><code>client.CurrencyConvertHistorical() -> *sdk.CurrencyConvertHistoricalResponse</code></summary>
 <dl>
 <dd>
 
@@ -6481,11 +6481,11 @@ Convert amount between currencies using historical rates
 <dd>
 
 ```go
-request := &afgosdk.CurrencyConvertHistoricalRequest{
+request := &sdk.CurrencyConvertHistoricalRequest{
         APIKey: "apiKey",
         From: "from",
         To: "to",
-        Date: afgosdk.MustParseDate(
+        Date: sdk.MustParseDate(
             "2023-01-15",
         ),
     }
@@ -6516,7 +6516,7 @@ client.CurrencyConvertHistorical(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencyConvertHistoricalRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencyConvertHistoricalRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -6560,7 +6560,7 @@ client.CurrencyConvertHistorical(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencyTimeSeries() -> *afgosdk.CurrencyTimeSeriesResponse</code></summary>
+<details><summary><code>client.CurrencyTimeSeries() -> *sdk.CurrencyTimeSeriesResponse</code></summary>
 <dl>
 <dd>
 
@@ -6587,9 +6587,9 @@ Get exchange rates for a time range
 <dd>
 
 ```go
-request := &afgosdk.CurrencyTimeSeriesRequest{
+request := &sdk.CurrencyTimeSeriesRequest{
         APIKey: "apiKey",
-        StartDate: afgosdk.MustParseDate(
+        StartDate: sdk.MustParseDate(
             "2023-01-15",
         ),
     }
@@ -6620,7 +6620,7 @@ client.CurrencyTimeSeries(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencyTimeSeriesRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencyTimeSeriesRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -6664,7 +6664,7 @@ client.CurrencyTimeSeries(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencyFluctuation() -> *afgosdk.CurrencyFluctuationResponse</code></summary>
+<details><summary><code>client.CurrencyFluctuation() -> *sdk.CurrencyFluctuationResponse</code></summary>
 <dl>
 <dd>
 
@@ -6691,12 +6691,12 @@ Get currency fluctuation data for a time period
 <dd>
 
 ```go
-request := &afgosdk.CurrencyFluctuationRequest{
+request := &sdk.CurrencyFluctuationRequest{
         APIKey: "apiKey",
-        StartDate: afgosdk.MustParseDate(
+        StartDate: sdk.MustParseDate(
             "2023-01-15",
         ),
-        Base: afgosdk.String(
+        Base: sdk.String(
             "USD",
         ),
     }
@@ -6727,7 +6727,7 @@ client.CurrencyFluctuation(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencyFluctuationRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencyFluctuationRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -6771,7 +6771,7 @@ client.CurrencyFluctuation(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencyConvertByIP() -> *afgosdk.CurrencyConvertByIPResponse</code></summary>
+<details><summary><code>client.CurrencyConvertByIP() -> *sdk.CurrencyConvertByIPResponse</code></summary>
 <dl>
 <dd>
 
@@ -6798,7 +6798,7 @@ Convert amount using user's location
 <dd>
 
 ```go
-request := &afgosdk.CurrencyConvertByIPRequest{
+request := &sdk.CurrencyConvertByIPRequest{
         APIKey: "apiKey",
         From: "from",
     }
@@ -6829,7 +6829,7 @@ client.CurrencyConvertByIP(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencyConvertByIPRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencyConvertByIPRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -6837,7 +6837,7 @@ client.CurrencyConvertByIP(
 <dl>
 <dd>
 
-**updates:** `*afgosdk.CurrencyConvertByIPRequestUpdates` — Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
+**updates:** `*sdk.CurrencyConvertByIPRequestUpdates` — Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
     
 </dd>
 </dl>
@@ -6873,7 +6873,7 @@ client.CurrencyConvertByIP(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencySupported() -> *afgosdk.CurrencySupportedResponse</code></summary>
+<details><summary><code>client.CurrencySupported() -> *sdk.CurrencySupportedResponse</code></summary>
 <dl>
 <dd>
 
@@ -6900,7 +6900,7 @@ Get list of all supported currencies with their metadata
 <dd>
 
 ```go
-request := &afgosdk.CurrencySupportedRequest{
+request := &sdk.CurrencySupportedRequest{
         APIKey: "apiKey",
     }
 client.CurrencySupported(
@@ -6930,7 +6930,7 @@ client.CurrencySupported(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencySupportedRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencySupportedRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -6942,7 +6942,7 @@ client.CurrencySupported(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencySymbols() -> *afgosdk.CurrencySymbolsResponse</code></summary>
+<details><summary><code>client.CurrencySymbols() -> *sdk.CurrencySymbolsResponse</code></summary>
 <dl>
 <dd>
 
@@ -6969,7 +6969,7 @@ Get currency symbols and codes
 <dd>
 
 ```go
-request := &afgosdk.CurrencySymbolsRequest{
+request := &sdk.CurrencySymbolsRequest{
         APIKey: "apiKey",
     }
 client.CurrencySymbols(
@@ -6999,7 +6999,7 @@ client.CurrencySymbols(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencySymbolsRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencySymbolsRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -7011,7 +7011,7 @@ client.CurrencySymbols(
 </dl>
 </details>
 
-<details><summary><code>client.CurrencyHistoricalLimits() -> *afgosdk.CurrencyHistoricalLimitsResponse</code></summary>
+<details><summary><code>client.CurrencyHistoricalLimits() -> *sdk.CurrencyHistoricalLimitsResponse</code></summary>
 <dl>
 <dd>
 
@@ -7038,7 +7038,7 @@ Get information about historical data availability and limits
 <dd>
 
 ```go
-request := &afgosdk.CurrencyHistoricalLimitsRequest{
+request := &sdk.CurrencyHistoricalLimitsRequest{
         APIKey: "apiKey",
     }
 client.CurrencyHistoricalLimits(
@@ -7068,7 +7068,7 @@ client.CurrencyHistoricalLimits(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrencyHistoricalLimitsRequestFormat` — Format of the response.
+**format:** `*sdk.CurrencyHistoricalLimitsRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -7080,7 +7080,7 @@ client.CurrencyHistoricalLimits(
 </dl>
 </details>
 
-<details><summary><code>client.CommodityLatestRates() -> *afgosdk.CommodityLatestRatesResponse</code></summary>
+<details><summary><code>client.CommodityLatestRates() -> *sdk.CommodityLatestRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7107,14 +7107,14 @@ Get live commodity rates with customizable update frequency
 <dd>
 
 ```go
-request := &afgosdk.CommodityLatestRatesRequest{
+request := &sdk.CommodityLatestRatesRequest{
         APIKey: "apiKey",
         Symbols: []*string{
-            afgosdk.String(
+            sdk.String(
                 "symbols",
             ),
         },
-        Updates: afgosdk.CommodityLatestRatesRequestUpdatesTenM,
+        Updates: sdk.CommodityLatestRatesRequestUpdatesTenM,
     }
 client.CommodityLatestRates(
         context.TODO(),
@@ -7143,7 +7143,7 @@ client.CommodityLatestRates(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CommodityLatestRatesRequestFormat` — Format of the Response
+**format:** `*sdk.CommodityLatestRatesRequestFormat` — Format of the Response
     
 </dd>
 </dl>
@@ -7159,7 +7159,7 @@ client.CommodityLatestRates(
 <dl>
 <dd>
 
-**updates:** `*afgosdk.CommodityLatestRatesRequestUpdates` — Exchange rates update period. Possible values are: (1) `10m` - 10 minute update (2) `1m` - 1 minute update **Required**
+**updates:** `*sdk.CommodityLatestRatesRequestUpdates` — Exchange rates update period. Possible values are: (1) `10m` - 10 minute update (2) `1m` - 1 minute update **Required**
     
 </dd>
 </dl>
@@ -7179,7 +7179,7 @@ client.CommodityLatestRates(
 </dl>
 </details>
 
-<details><summary><code>client.CommodityHistoricalRates() -> *afgosdk.CommodityHistoricalRatesResponse</code></summary>
+<details><summary><code>client.CommodityHistoricalRates() -> *sdk.CommodityHistoricalRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7206,13 +7206,13 @@ Get historical commodity rates for a specific date
 <dd>
 
 ```go
-request := &afgosdk.CommodityHistoricalRatesRequest{
+request := &sdk.CommodityHistoricalRatesRequest{
         APIKey: "apiKey",
-        Date: afgosdk.MustParseDate(
+        Date: sdk.MustParseDate(
             "2023-01-15",
         ),
         Symbols: []*string{
-            afgosdk.String(
+            sdk.String(
                 "symbols",
             ),
         },
@@ -7244,7 +7244,7 @@ client.CommodityHistoricalRates(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CommodityHistoricalRatesRequestFormat` — Format of the response.
+**format:** `*sdk.CommodityHistoricalRatesRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -7272,7 +7272,7 @@ client.CommodityHistoricalRates(
 </dl>
 </details>
 
-<details><summary><code>client.CommodityFluctuation() -> *afgosdk.CommodityFluctuationResponse</code></summary>
+<details><summary><code>client.CommodityFluctuation() -> *sdk.CommodityFluctuationResponse</code></summary>
 <dl>
 <dd>
 
@@ -7299,17 +7299,17 @@ Get commodity price fluctuation data for a time period
 <dd>
 
 ```go
-request := &afgosdk.CommodityFluctuationRequest{
+request := &sdk.CommodityFluctuationRequest{
         APIKey: "apiKey",
         Symbols: []*string{
-            afgosdk.String(
+            sdk.String(
                 "symbols",
             ),
         },
-        StartDate: afgosdk.MustParseDate(
+        StartDate: sdk.MustParseDate(
             "2023-01-15",
         ),
-        EndDate: afgosdk.MustParseDate(
+        EndDate: sdk.MustParseDate(
             "2023-01-15",
         ),
     }
@@ -7340,7 +7340,7 @@ client.CommodityFluctuation(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CommodityFluctuationRequestFormat` — Format of the response.
+**format:** `*sdk.CommodityFluctuationRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -7376,7 +7376,7 @@ client.CommodityFluctuation(
 </dl>
 </details>
 
-<details><summary><code>client.CommodityTimeSeries() -> *afgosdk.CommodityTimeSeriesResponse</code></summary>
+<details><summary><code>client.CommodityTimeSeries() -> *sdk.CommodityTimeSeriesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7403,17 +7403,17 @@ Get commodity rates for a time range
 <dd>
 
 ```go
-request := &afgosdk.CommodityTimeSeriesRequest{
+request := &sdk.CommodityTimeSeriesRequest{
         APIKey: "apiKey",
         Symbols: []*string{
-            afgosdk.String(
+            sdk.String(
                 "symbols",
             ),
         },
-        StartDate: afgosdk.MustParseDate(
+        StartDate: sdk.MustParseDate(
             "2023-01-15",
         ),
-        EndDate: afgosdk.MustParseDate(
+        EndDate: sdk.MustParseDate(
             "2023-01-15",
         ),
     }
@@ -7444,7 +7444,7 @@ client.CommodityTimeSeries(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CommodityTimeSeriesRequestFormat` — Format of the response.
+**format:** `*sdk.CommodityTimeSeriesRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -7480,7 +7480,7 @@ client.CommodityTimeSeries(
 </dl>
 </details>
 
-<details><summary><code>client.CommoditySymbols() -> *afgosdk.CommoditySymbolsResponse</code></summary>
+<details><summary><code>client.CommoditySymbols() -> *sdk.CommoditySymbolsResponse</code></summary>
 <dl>
 <dd>
 
@@ -7507,7 +7507,7 @@ Get list of supported commodities
 <dd>
 
 ```go
-request := &afgosdk.CommoditySymbolsRequest{
+request := &sdk.CommoditySymbolsRequest{
         APIKey: "apiKey",
     }
 client.CommoditySymbols(
@@ -7537,7 +7537,7 @@ client.CommoditySymbols(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CommoditySymbolsRequestFormat` — Format of the response.
+**format:** `*sdk.CommoditySymbolsRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -7549,7 +7549,7 @@ client.CommoditySymbols(
 </dl>
 </details>
 
-<details><summary><code>client.VatSupportedCountries() -> *afgosdk.VatSupportedCountriesResponse</code></summary>
+<details><summary><code>client.VatSupportedCountries() -> *sdk.VatSupportedCountriesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7576,7 +7576,7 @@ Retrieves a list of supported countries.
 <dd>
 
 ```go
-request := &afgosdk.VatSupportedCountriesRequest{
+request := &sdk.VatSupportedCountriesRequest{
         APIKey: "apiKey",
     }
 client.VatSupportedCountries(
@@ -7606,7 +7606,7 @@ client.VatSupportedCountries(
 <dl>
 <dd>
 
-**format:** `*afgosdk.VatSupportedCountriesRequestFormat` — Format of the response. Default is JSON.
+**format:** `*sdk.VatSupportedCountriesRequestFormat` — Format of the response. Default is JSON.
     
 </dd>
 </dl>
@@ -7614,7 +7614,7 @@ client.VatSupportedCountries(
 <dl>
 <dd>
 
-**type_:** `*afgosdk.VatSupportedCountriesRequestType` — Type of supported country. Supported values: IBAN, SWIFT, VAT. By default, it returns all supported countries for all types.
+**type_:** `*sdk.VatSupportedCountriesRequestType` — Type of supported country. Supported values: IBAN, SWIFT, VAT. By default, it returns all supported countries for all types.
     
 </dd>
 </dl>
@@ -7626,7 +7626,7 @@ client.VatSupportedCountries(
 </dl>
 </details>
 
-<details><summary><code>client.VatRateByIP() -> []*afgosdk.VatRateByIPResponseItem</code></summary>
+<details><summary><code>client.VatRateByIP() -> []*sdk.VatRateByIPResponseItem</code></summary>
 <dl>
 <dd>
 
@@ -7653,7 +7653,7 @@ Fetches VAT rate based on the specified or originating IP address.
 <dd>
 
 ```go
-request := &afgosdk.VatRateByIPRequest{
+request := &sdk.VatRateByIPRequest{
         APIKey: "apiKey",
     }
 client.VatRateByIP(
@@ -7683,7 +7683,7 @@ client.VatRateByIP(
 <dl>
 <dd>
 
-**format:** `*afgosdk.VatRateByIPRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
+**format:** `*sdk.VatRateByIPRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
     
 </dd>
 </dl>
@@ -7703,7 +7703,7 @@ client.VatRateByIP(
 </dl>
 </details>
 
-<details><summary><code>client.VatRateByCountry() -> []*afgosdk.VatRateByCountryResponseItem</code></summary>
+<details><summary><code>client.VatRateByCountry() -> []*sdk.VatRateByCountryResponseItem</code></summary>
 <dl>
 <dd>
 
@@ -7730,7 +7730,7 @@ Fetches VAT rates for a single country or state provided via query parameters.
 <dd>
 
 ```go
-request := &afgosdk.VatRateByCountryRequest{
+request := &sdk.VatRateByCountryRequest{
         APIKey: "apiKey",
         Country: "country",
     }
@@ -7761,7 +7761,7 @@ client.VatRateByCountry(
 <dl>
 <dd>
 
-**format:** `*afgosdk.VatRateByCountryRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
+**format:** `*sdk.VatRateByCountryRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
     
 </dd>
 </dl>
@@ -7789,7 +7789,7 @@ client.VatRateByCountry(
 </dl>
 </details>
 
-<details><summary><code>client.BulkVatRateByCountry(request) -> *afgosdk.BulkVatRateByCountryResponse</code></summary>
+<details><summary><code>client.BulkVatRateByCountry(request) -> *sdk.BulkVatRateByCountryResponse</code></summary>
 <dl>
 <dd>
 
@@ -7816,15 +7816,15 @@ Retrieves VAT details for multiple countries or country-state combinations in a 
 <dd>
 
 ```go
-request := &afgosdk.BulkVatRateByCountryRequest{
+request := &sdk.BulkVatRateByCountryRequest{
         APIKey: "apiKey",
-        Countries: []*afgosdk.BulkVatRateByCountryRequestCountriesItem{
-            &afgosdk.BulkVatRateByCountryRequestCountriesItem{
+        Countries: []*sdk.BulkVatRateByCountryRequestCountriesItem{
+            &sdk.BulkVatRateByCountryRequestCountriesItem{
                 Country: "PAK",
             },
-            &afgosdk.BulkVatRateByCountryRequestCountriesItem{
+            &sdk.BulkVatRateByCountryRequestCountriesItem{
                 Country: "United_States",
-                State: afgosdk.String(
+                State: sdk.String(
                     "New_York",
                 ),
             },
@@ -7857,7 +7857,7 @@ client.BulkVatRateByCountry(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkVatRateByCountryRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
+**format:** `*sdk.BulkVatRateByCountryRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
     
 </dd>
 </dl>
@@ -7865,7 +7865,7 @@ client.BulkVatRateByCountry(
 <dl>
 <dd>
 
-**countries:** `[]*afgosdk.BulkVatRateByCountryRequestCountriesItem` 
+**countries:** `[]*sdk.BulkVatRateByCountryRequestCountriesItem` 
     
 </dd>
 </dl>
@@ -7877,7 +7877,7 @@ client.BulkVatRateByCountry(
 </dl>
 </details>
 
-<details><summary><code>client.VatValidate() -> *afgosdk.VatValidateResponse</code></summary>
+<details><summary><code>client.VatValidate() -> *sdk.VatValidateResponse</code></summary>
 <dl>
 <dd>
 
@@ -7904,7 +7904,7 @@ Validates an EU or UK VAT number and returns registration status details.
 <dd>
 
 ```go
-request := &afgosdk.VatValidateRequest{
+request := &sdk.VatValidateRequest{
         APIKey: "apiKey",
         VatNumber: "vatNumber",
     }
@@ -7935,7 +7935,7 @@ client.VatValidate(
 <dl>
 <dd>
 
-**format:** `*afgosdk.VatValidateRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
+**format:** `*sdk.VatValidateRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
     
 </dd>
 </dl>
@@ -7963,7 +7963,7 @@ client.VatValidate(
 </dl>
 </details>
 
-<details><summary><code>client.IbanValidate() -> *afgosdk.IbanValidateResponse</code></summary>
+<details><summary><code>client.IbanValidate() -> *sdk.IbanValidateResponse</code></summary>
 <dl>
 <dd>
 
@@ -7990,7 +7990,7 @@ Checks an IBAN for structural validity, checksum accuracy, and bank metadata.
 <dd>
 
 ```go
-request := &afgosdk.IbanValidateRequest{
+request := &sdk.IbanValidateRequest{
         APIKey: "apiKey",
         Iban: "iban",
     }
@@ -8021,7 +8021,7 @@ client.IbanValidate(
 <dl>
 <dd>
 
-**format:** `*afgosdk.IbanValidateRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
+**format:** `*sdk.IbanValidateRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
     
 </dd>
 </dl>
@@ -8068,7 +8068,7 @@ Fetches SWIFT codes for a given country, bank, and city.
 <dd>
 
 ```go
-request := &afgosdk.SwiftCodeFindRequest{
+request := &sdk.SwiftCodeFindRequest{
         APIKey: "apiKey",
     }
 client.SwiftCodeFind(
@@ -8098,7 +8098,7 @@ client.SwiftCodeFind(
 <dl>
 <dd>
 
-**format:** `*afgosdk.SwiftCodeFindRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
+**format:** `*sdk.SwiftCodeFindRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
     
 </dd>
 </dl>
@@ -8134,7 +8134,7 @@ client.SwiftCodeFind(
 </dl>
 </details>
 
-<details><summary><code>client.SwiftCodeLookup() -> *afgosdk.SwiftCodeLookupResponse</code></summary>
+<details><summary><code>client.SwiftCodeLookup() -> *sdk.SwiftCodeLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -8161,7 +8161,7 @@ Fetches detailed information about a SWIFT code.
 <dd>
 
 ```go
-request := &afgosdk.SwiftCodeLookupRequest{
+request := &sdk.SwiftCodeLookupRequest{
         APIKey: "apiKey",
         SwiftCode: "swiftCode",
     }
@@ -8192,7 +8192,7 @@ client.SwiftCodeLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.SwiftCodeLookupRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
+**format:** `*sdk.SwiftCodeLookupRequestFormat` — Specify the desired response format. Options: 'json' (default) or 'xml'.
     
 </dd>
 </dl>
@@ -8212,7 +8212,7 @@ client.SwiftCodeLookup(
 </dl>
 </details>
 
-<details><summary><code>client.ZipcodeLookup() -> *afgosdk.ZipcodeLookupResponse</code></summary>
+<details><summary><code>client.ZipcodeLookup() -> *sdk.ZipcodeLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -8225,7 +8225,7 @@ client.SwiftCodeLookup(
 <dd>
 
 ```go
-request := &afgosdk.ZipcodeLookupRequest{
+request := &sdk.ZipcodeLookupRequest{
         APIKey: "apiKey",
         Code: "code",
     }
@@ -8256,7 +8256,7 @@ client.ZipcodeLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.ZipcodeLookupRequestFormat` — Format of the response.
+**format:** `*sdk.ZipcodeLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -8284,7 +8284,7 @@ client.ZipcodeLookup(
 </dl>
 </details>
 
-<details><summary><code>client.BulkZipcodeLookup(request) -> *afgosdk.BulkZipcodeLookupResponse</code></summary>
+<details><summary><code>client.BulkZipcodeLookup(request) -> *sdk.BulkZipcodeLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -8311,7 +8311,7 @@ Validates a bulk of ZIP/postal codes and returns result for each. Maximum `100` 
 <dd>
 
 ```go
-request := &afgosdk.BulkZipcodeLookupRequest{
+request := &sdk.BulkZipcodeLookupRequest{
         APIKey: "apiKey",
         Codes: []string{
             "codes",
@@ -8344,7 +8344,7 @@ client.BulkZipcodeLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkZipcodeLookupRequestFormat` — Format of the response.
+**format:** `*sdk.BulkZipcodeLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -8372,7 +8372,7 @@ client.BulkZipcodeLookup(
 </dl>
 </details>
 
-<details><summary><code>client.ZipcodeSearchByCity() -> *afgosdk.ZipcodeSearchByCityResponse</code></summary>
+<details><summary><code>client.ZipcodeSearchByCity() -> *sdk.ZipcodeSearchByCityResponse</code></summary>
 <dl>
 <dd>
 
@@ -8385,7 +8385,7 @@ client.BulkZipcodeLookup(
 <dd>
 
 ```go
-request := &afgosdk.ZipcodeSearchByCityRequest{
+request := &sdk.ZipcodeSearchByCityRequest{
         APIKey: "apiKey",
         City: "city",
         Country: "country",
@@ -8417,7 +8417,7 @@ client.ZipcodeSearchByCity(
 <dl>
 <dd>
 
-**format:** `*afgosdk.ZipcodeSearchByCityRequestFormat` — Format of the response.
+**format:** `*sdk.ZipcodeSearchByCityRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -8461,7 +8461,7 @@ client.ZipcodeSearchByCity(
 </dl>
 </details>
 
-<details><summary><code>client.ZipcodeSearchByRegion() -> *afgosdk.ZipcodeSearchByRegionResponse</code></summary>
+<details><summary><code>client.ZipcodeSearchByRegion() -> *sdk.ZipcodeSearchByRegionResponse</code></summary>
 <dl>
 <dd>
 
@@ -8474,7 +8474,7 @@ client.ZipcodeSearchByCity(
 <dd>
 
 ```go
-request := &afgosdk.ZipcodeSearchByRegionRequest{
+request := &sdk.ZipcodeSearchByRegionRequest{
         APIKey: "apiKey",
         Country: "country",
         Region: "region",
@@ -8506,7 +8506,7 @@ client.ZipcodeSearchByRegion(
 <dl>
 <dd>
 
-**format:** `*afgosdk.ZipcodeSearchByRegionRequestFormat` — Format of the response.
+**format:** `*sdk.ZipcodeSearchByRegionRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -8542,7 +8542,7 @@ client.ZipcodeSearchByRegion(
 </dl>
 </details>
 
-<details><summary><code>client.ZipcodeSearchByRadius() -> *afgosdk.ZipcodeSearchByRadiusResponse</code></summary>
+<details><summary><code>client.ZipcodeSearchByRadius() -> *sdk.ZipcodeSearchByRadiusResponse</code></summary>
 <dl>
 <dd>
 
@@ -8555,7 +8555,7 @@ client.ZipcodeSearchByRegion(
 <dd>
 
 ```go
-request := &afgosdk.ZipcodeSearchByRadiusRequest{
+request := &sdk.ZipcodeSearchByRadiusRequest{
         APIKey: "apiKey",
         Radius: 1.1,
     }
@@ -8586,7 +8586,7 @@ client.ZipcodeSearchByRadius(
 <dl>
 <dd>
 
-**format:** `*afgosdk.ZipcodeSearchByRadiusRequestFormat` — Format of the response.
+**format:** `*sdk.ZipcodeSearchByRadiusRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -8634,7 +8634,7 @@ client.ZipcodeSearchByRadius(
 <dl>
 <dd>
 
-**unit:** `*afgosdk.ZipcodeSearchByRadiusRequestUnit` — Supported distance units are m, km, mi, ft, yd, in.
+**unit:** `*sdk.ZipcodeSearchByRadiusRequestUnit` — Supported distance units are m, km, mi, ft, yd, in.
     
 </dd>
 </dl>
@@ -8654,7 +8654,7 @@ client.ZipcodeSearchByRadius(
 </dl>
 </details>
 
-<details><summary><code>client.ZipcodeDistance(request) -> *afgosdk.ZipcodeDistanceResponse</code></summary>
+<details><summary><code>client.ZipcodeDistance(request) -> *sdk.ZipcodeDistanceResponse</code></summary>
 <dl>
 <dd>
 
@@ -8681,7 +8681,7 @@ Get distance between postal codes. Maximum `100` postal codes per request.
 <dd>
 
 ```go
-request := &afgosdk.ZipcodeDistanceRequest{
+request := &sdk.ZipcodeDistanceRequest{
         APIKey: "apiKey",
         Compare: []string{
             "compare",
@@ -8715,7 +8715,7 @@ client.ZipcodeDistance(
 <dl>
 <dd>
 
-**format:** `*afgosdk.ZipcodeDistanceRequestFormat` — Format of the response.
+**format:** `*sdk.ZipcodeDistanceRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -8763,7 +8763,7 @@ client.ZipcodeDistance(
 <dl>
 <dd>
 
-**unit:** `*afgosdk.ZipcodeDistanceRequestUnit` — Supported distance units are m, km, mi, ft, yd, in.
+**unit:** `*sdk.ZipcodeDistanceRequestUnit` — Supported distance units are m, km, mi, ft, yd, in.
     
 </dd>
 </dl>
@@ -8775,7 +8775,7 @@ client.ZipcodeDistance(
 </dl>
 </details>
 
-<details><summary><code>client.ZipcodeDistanceMatch(request) -> *afgosdk.ZipcodeDistanceMatchResponse</code></summary>
+<details><summary><code>client.ZipcodeDistanceMatch(request) -> *sdk.ZipcodeDistanceMatchResponse</code></summary>
 <dl>
 <dd>
 
@@ -8802,7 +8802,7 @@ Get matching ZIP/postal code pairs within a specified distance. Maximum `100` po
 <dd>
 
 ```go
-request := &afgosdk.ZipcodeDistanceMatchRequest{
+request := &sdk.ZipcodeDistanceMatchRequest{
         APIKey: "apiKey",
         Codes: []string{
             "codes",
@@ -8836,7 +8836,7 @@ client.ZipcodeDistanceMatch(
 <dl>
 <dd>
 
-**format:** `*afgosdk.ZipcodeDistanceMatchRequestFormat` — Format of the response.
+**format:** `*sdk.ZipcodeDistanceMatchRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -8868,7 +8868,7 @@ client.ZipcodeDistanceMatch(
 <dl>
 <dd>
 
-**unit:** `*afgosdk.ZipcodeDistanceMatchRequestUnit` — Supported distance units are m, km, mi, ft, yd, in.
+**unit:** `*sdk.ZipcodeDistanceMatchRequestUnit` — Supported distance units are m, km, mi, ft, yd, in.
     
 </dd>
 </dl>
@@ -8880,7 +8880,7 @@ client.ZipcodeDistanceMatch(
 </dl>
 </details>
 
-<details><summary><code>client.CurrentWeather() -> *afgosdk.CurrentWeatherResponse</code></summary>
+<details><summary><code>client.CurrentWeather() -> *sdk.CurrentWeatherResponse</code></summary>
 <dl>
 <dd>
 
@@ -8907,7 +8907,7 @@ Get current weather data including temperature, humidity, precipitation, wind co
 <dd>
 
 ```go
-request := &afgosdk.CurrentWeatherRequest{
+request := &sdk.CurrentWeatherRequest{
         APIKey: "apiKey",
     }
 client.CurrentWeather(
@@ -8937,7 +8937,7 @@ client.CurrentWeather(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrentWeatherRequestFormat` — Response format returned by the API.
+**format:** `*sdk.CurrentWeatherRequestFormat` — Response format returned by the API.
     
 </dd>
 </dl>
@@ -8989,7 +8989,7 @@ client.CurrentWeather(
 </dl>
 </details>
 
-<details><summary><code>client.BulkCurrentWeather(request) -> *afgosdk.BulkCurrentWeatherResponse</code></summary>
+<details><summary><code>client.BulkCurrentWeather(request) -> *sdk.BulkCurrentWeatherResponse</code></summary>
 <dl>
 <dd>
 
@@ -9016,29 +9016,29 @@ Retrieve current weather conditions for up to `50 locations` in a single request
 <dd>
 
 ```go
-request := &afgosdk.BulkCurrentWeatherRequest{
+request := &sdk.BulkCurrentWeatherRequest{
         APIKey: "apiKey",
-        Locations: []*afgosdk.BulkCurrentWeatherRequestLocationsItem{
-            &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-                Location: afgosdk.String(
+        Locations: []*sdk.BulkCurrentWeatherRequestLocationsItem{
+            &sdk.BulkCurrentWeatherRequestLocationsItem{
+                Location: sdk.String(
                     "lahore",
                 ),
             },
-            &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-                Lat: afgosdk.Float64(
+            &sdk.BulkCurrentWeatherRequestLocationsItem{
+                Lat: sdk.Float64(
                     32.5,
                 ),
-                Long: afgosdk.Float64(
+                Long: sdk.Float64(
                     74.5,
                 ),
             },
-            &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-                IP: afgosdk.String(
+            &sdk.BulkCurrentWeatherRequestLocationsItem{
+                IP: sdk.String(
                     "8.8.8.8",
                 ),
             },
-            &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-                Location: afgosdk.String(
+            &sdk.BulkCurrentWeatherRequestLocationsItem{
+                Location: sdk.String(
                     "seoul",
                 ),
             },
@@ -9071,7 +9071,7 @@ client.BulkCurrentWeather(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkCurrentWeatherRequestFormat` — Response format returned by the API.
+**format:** `*sdk.BulkCurrentWeatherRequestFormat` — Response format returned by the API.
     
 </dd>
 </dl>
@@ -9087,7 +9087,7 @@ client.BulkCurrentWeather(
 <dl>
 <dd>
 
-**locations:** `[]*afgosdk.BulkCurrentWeatherRequestLocationsItem` — Array of locations to fetch weather data for
+**locations:** `[]*sdk.BulkCurrentWeatherRequestLocationsItem` — Array of locations to fetch weather data for
     
 </dd>
 </dl>
@@ -9099,7 +9099,7 @@ client.BulkCurrentWeather(
 </dl>
 </details>
 
-<details><summary><code>client.WeatherForecast() -> *afgosdk.WeatherForecastResponse</code></summary>
+<details><summary><code>client.WeatherForecast() -> *sdk.WeatherForecastResponse</code></summary>
 <dl>
 <dd>
 
@@ -9126,7 +9126,7 @@ Access comprehensive weather forecasts with customizable precision - choose from
 <dd>
 
 ```go
-request := &afgosdk.WeatherForecastRequest{
+request := &sdk.WeatherForecastRequest{
         APIKey: "apiKey",
     }
 client.WeatherForecast(
@@ -9156,7 +9156,7 @@ client.WeatherForecast(
 <dl>
 <dd>
 
-**format:** `*afgosdk.WeatherForecastRequestFormat` — Response format returned by the API.
+**format:** `*sdk.WeatherForecastRequestFormat` — Response format returned by the API.
     
 </dd>
 </dl>
@@ -9220,7 +9220,7 @@ client.WeatherForecast(
 <dl>
 <dd>
 
-**precision:** `*afgosdk.WeatherForecastRequestPrecision` — Precision of the forecast data.
+**precision:** `*sdk.WeatherForecastRequestPrecision` — Precision of the forecast data.
     
 </dd>
 </dl>
@@ -9240,7 +9240,7 @@ client.WeatherForecast(
 </dl>
 </details>
 
-<details><summary><code>client.HistoricalWeather() -> *afgosdk.HistoricalWeatherResponse</code></summary>
+<details><summary><code>client.HistoricalWeather() -> *sdk.HistoricalWeatherResponse</code></summary>
 <dl>
 <dd>
 
@@ -9267,9 +9267,9 @@ Access past weather conditions for specific dates with records going back to 194
 <dd>
 
 ```go
-request := &afgosdk.HistoricalWeatherRequest{
+request := &sdk.HistoricalWeatherRequest{
         APIKey: "apiKey",
-        Date: afgosdk.MustParseDate(
+        Date: sdk.MustParseDate(
             "2023-01-15",
         ),
     }
@@ -9300,7 +9300,7 @@ client.HistoricalWeather(
 <dl>
 <dd>
 
-**format:** `*afgosdk.HistoricalWeatherRequestFormat` — Response format returned by the API.
+**format:** `*sdk.HistoricalWeatherRequestFormat` — Response format returned by the API.
     
 </dd>
 </dl>
@@ -9348,7 +9348,7 @@ client.HistoricalWeather(
 <dl>
 <dd>
 
-**precision:** `*afgosdk.HistoricalWeatherRequestPrecision` — Precision of the historical data. **Note:** 'daily' returns daily aggregates, 'hourly' returns hourly data.
+**precision:** `*sdk.HistoricalWeatherRequestPrecision` — Precision of the historical data. **Note:** 'daily' returns daily aggregates, 'hourly' returns hourly data.
     
 </dd>
 </dl>
@@ -9368,7 +9368,7 @@ client.HistoricalWeather(
 </dl>
 </details>
 
-<details><summary><code>client.WeatherTimeSeries() -> *afgosdk.WeatherTimeSeriesResponse</code></summary>
+<details><summary><code>client.WeatherTimeSeries() -> *sdk.WeatherTimeSeriesResponse</code></summary>
 <dl>
 <dd>
 
@@ -9395,12 +9395,12 @@ Pull historical weather information for date ranges up to 90 days (daily data) o
 <dd>
 
 ```go
-request := &afgosdk.WeatherTimeSeriesRequest{
+request := &sdk.WeatherTimeSeriesRequest{
         APIKey: "apiKey",
-        StartDate: afgosdk.MustParseDate(
+        StartDate: sdk.MustParseDate(
             "2023-01-15",
         ),
-        EndDate: afgosdk.MustParseDate(
+        EndDate: sdk.MustParseDate(
             "2023-01-15",
         ),
     }
@@ -9431,7 +9431,7 @@ client.WeatherTimeSeries(
 <dl>
 <dd>
 
-**format:** `*afgosdk.WeatherTimeSeriesRequestFormat` — Response format returned by the API.
+**format:** `*sdk.WeatherTimeSeriesRequestFormat` — Response format returned by the API.
     
 </dd>
 </dl>
@@ -9487,7 +9487,7 @@ client.WeatherTimeSeries(
 <dl>
 <dd>
 
-**precision:** `*afgosdk.WeatherTimeSeriesRequestPrecision` — Precision of the data.
+**precision:** `*sdk.WeatherTimeSeriesRequestPrecision` — Precision of the data.
     
 </dd>
 </dl>
@@ -9507,7 +9507,7 @@ client.WeatherTimeSeries(
 </dl>
 </details>
 
-<details><summary><code>client.MarineWeather() -> *afgosdk.MarineWeatherResponse</code></summary>
+<details><summary><code>client.MarineWeather() -> *sdk.MarineWeatherResponse</code></summary>
 <dl>
 <dd>
 
@@ -9534,7 +9534,7 @@ Provides hourly forecasts of marine conditions including wave heights, wave dire
 <dd>
 
 ```go
-request := &afgosdk.MarineWeatherRequest{
+request := &sdk.MarineWeatherRequest{
         APIKey: "apiKey",
     }
 client.MarineWeather(
@@ -9564,7 +9564,7 @@ client.MarineWeather(
 <dl>
 <dd>
 
-**format:** `*afgosdk.MarineWeatherRequestFormat` — Response format returned by the API.
+**format:** `*sdk.MarineWeatherRequestFormat` — Response format returned by the API.
     
 </dd>
 </dl>
@@ -9620,7 +9620,7 @@ client.MarineWeather(
 <dl>
 <dd>
 
-**precision:** `*afgosdk.MarineWeatherRequestPrecision` — Precision of the marine data.
+**precision:** `*sdk.MarineWeatherRequestPrecision` — Precision of the marine data.
     
 </dd>
 </dl>
@@ -9640,7 +9640,7 @@ client.MarineWeather(
 </dl>
 </details>
 
-<details><summary><code>client.AirQuality() -> *afgosdk.AirQualityResponse</code></summary>
+<details><summary><code>client.AirQuality() -> *sdk.AirQualityResponse</code></summary>
 <dl>
 <dd>
 
@@ -9667,7 +9667,7 @@ Monitor and predict air quality conditions using European and US AQI standards. 
 <dd>
 
 ```go
-request := &afgosdk.AirQualityRequest{
+request := &sdk.AirQualityRequest{
         APIKey: "apiKey",
     }
 client.AirQuality(
@@ -9697,7 +9697,7 @@ client.AirQuality(
 <dl>
 <dd>
 
-**format:** `*afgosdk.AirQualityRequestFormat` — Response format returned by the API.
+**format:** `*sdk.AirQualityRequestFormat` — Response format returned by the API.
     
 </dd>
 </dl>
@@ -9753,7 +9753,7 @@ client.AirQuality(
 <dl>
 <dd>
 
-**precision:** `*afgosdk.AirQualityRequestPrecision` — Only hourly precision is supported; returns hourly AQI data for the selected date range.
+**precision:** `*sdk.AirQualityRequestPrecision` — Only hourly precision is supported; returns hourly AQI data for the selected date range.
     
 </dd>
 </dl>
@@ -9773,7 +9773,7 @@ client.AirQuality(
 </dl>
 </details>
 
-<details><summary><code>client.FloodForecast() -> *afgosdk.FloodForecastResponse</code></summary>
+<details><summary><code>client.FloodForecast() -> *sdk.FloodForecastResponse</code></summary>
 <dl>
 <dd>
 
@@ -9800,12 +9800,12 @@ Provides flood forecast data for a given location, including river discharge met
 <dd>
 
 ```go
-request := &afgosdk.FloodForecastRequest{
+request := &sdk.FloodForecastRequest{
         APIKey: "apiKey",
-        StartDate: afgosdk.MustParseDate(
+        StartDate: sdk.MustParseDate(
             "2023-01-15",
         ),
-        EndDate: afgosdk.MustParseDate(
+        EndDate: sdk.MustParseDate(
             "2023-01-15",
         ),
     }
@@ -9836,7 +9836,7 @@ client.FloodForecast(
 <dl>
 <dd>
 
-**format:** `*afgosdk.FloodForecastRequestFormat` — Response format returned by the API.
+**format:** `*sdk.FloodForecastRequestFormat` — Response format returned by the API.
     
 </dd>
 </dl>
@@ -9892,7 +9892,7 @@ client.FloodForecast(
 <dl>
 <dd>
 
-**precision:** `*afgosdk.FloodForecastRequestPrecision` — Only daily precision is supported; returns flood forecast data for the selected date range.
+**precision:** `*sdk.FloodForecastRequestPrecision` — Only daily precision is supported; returns flood forecast data for the selected date range.
     
 </dd>
 </dl>
@@ -9912,7 +9912,7 @@ client.FloodForecast(
 </dl>
 </details>
 
-<details><summary><code>client.GetCountries() -> *afgosdk.GetCountriesResponse</code></summary>
+<details><summary><code>client.GetCountries() -> *sdk.GetCountriesResponse</code></summary>
 <dl>
 <dd>
 
@@ -9939,7 +9939,7 @@ Retrieve countries, optionally filtered by region or subregion.
 <dd>
 
 ```go
-request := &afgosdk.GetCountriesRequest{
+request := &sdk.GetCountriesRequest{
         APIKey: "apiKey",
     }
 client.GetCountries(
@@ -9969,7 +9969,7 @@ client.GetCountries(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GetCountriesRequestFormat` — Format of the response
+**format:** `*sdk.GetCountriesRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -9997,7 +9997,7 @@ client.GetCountries(
 </dl>
 </details>
 
-<details><summary><code>client.GetCountryDetails() -> *afgosdk.GetCountryDetailsResponse</code></summary>
+<details><summary><code>client.GetCountryDetails() -> *sdk.GetCountryDetailsResponse</code></summary>
 <dl>
 <dd>
 
@@ -10010,7 +10010,7 @@ client.GetCountries(
 <dd>
 
 ```go
-request := &afgosdk.GetCountryDetailsRequest{
+request := &sdk.GetCountryDetailsRequest{
         APIKey: "apiKey",
         Country: "country",
     }
@@ -10041,7 +10041,7 @@ client.GetCountryDetails(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GetCountryDetailsRequestFormat` — Format of the response
+**format:** `*sdk.GetCountryDetailsRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -10061,7 +10061,7 @@ client.GetCountryDetails(
 </dl>
 </details>
 
-<details><summary><code>client.GetRegions() -> *afgosdk.GetRegionsResponse</code></summary>
+<details><summary><code>client.GetRegions() -> *sdk.GetRegionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -10074,7 +10074,7 @@ client.GetCountryDetails(
 <dd>
 
 ```go
-request := &afgosdk.GetRegionsRequest{
+request := &sdk.GetRegionsRequest{
         APIKey: "apiKey",
     }
 client.GetRegions(
@@ -10104,7 +10104,7 @@ client.GetRegions(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GetRegionsRequestFormat` — Format of the response
+**format:** `*sdk.GetRegionsRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -10116,7 +10116,7 @@ client.GetRegions(
 </dl>
 </details>
 
-<details><summary><code>client.GetSubregions() -> *afgosdk.GetSubregionsResponse</code></summary>
+<details><summary><code>client.GetSubregions() -> *sdk.GetSubregionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -10129,7 +10129,7 @@ client.GetRegions(
 <dd>
 
 ```go
-request := &afgosdk.GetSubregionsRequest{
+request := &sdk.GetSubregionsRequest{
         APIKey: "apiKey",
         Region: "region",
     }
@@ -10160,7 +10160,7 @@ client.GetSubregions(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GetSubregionsRequestFormat` — Format of the response
+**format:** `*sdk.GetSubregionsRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -10180,7 +10180,7 @@ client.GetSubregions(
 </dl>
 </details>
 
-<details><summary><code>client.GetAdminLevels() -> *afgosdk.GetAdminLevelsResponse</code></summary>
+<details><summary><code>client.GetAdminLevels() -> *sdk.GetAdminLevelsResponse</code></summary>
 <dl>
 <dd>
 
@@ -10207,7 +10207,7 @@ Retrieve administrative units based on ISO 3166-1 alpha-2 country code.
 <dd>
 
 ```go
-request := &afgosdk.GetAdminLevelsRequest{
+request := &sdk.GetAdminLevelsRequest{
         APIKey: "apiKey",
         Country: "country",
     }
@@ -10238,7 +10238,7 @@ client.GetAdminLevels(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GetAdminLevelsRequestFormat` — Format of the response
+**format:** `*sdk.GetAdminLevelsRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -10258,7 +10258,7 @@ client.GetAdminLevels(
 </dl>
 </details>
 
-<details><summary><code>client.GetAdminUnits() -> *afgosdk.GetAdminUnitsResponse</code></summary>
+<details><summary><code>client.GetAdminUnits() -> *sdk.GetAdminUnitsResponse</code></summary>
 <dl>
 <dd>
 
@@ -10285,7 +10285,7 @@ Retrieve administrative divisions for a given country using ISO 3166-1 alpha-2 c
 <dd>
 
 ```go
-request := &afgosdk.GetAdminUnitsRequest{
+request := &sdk.GetAdminUnitsRequest{
         APIKey: "apiKey",
         Country: "country",
     }
@@ -10316,7 +10316,7 @@ client.GetAdminUnits(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GetAdminUnitsRequestFormat` — Format of the response.
+**format:** `*sdk.GetAdminUnitsRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -10344,7 +10344,7 @@ client.GetAdminUnits(
 </dl>
 </details>
 
-<details><summary><code>client.GetAdminUnitDetails() -> *afgosdk.GetAdminUnitDetailsResponse</code></summary>
+<details><summary><code>client.GetAdminUnitDetails() -> *sdk.GetAdminUnitDetailsResponse</code></summary>
 <dl>
 <dd>
 
@@ -10371,7 +10371,7 @@ Retrieve detailed administrative unit information by country and optionally filt
 <dd>
 
 ```go
-request := &afgosdk.GetAdminUnitDetailsRequest{
+request := &sdk.GetAdminUnitDetailsRequest{
         APIKey: "apiKey",
         Country: "country",
         AdminUnit: "admin_unit",
@@ -10403,7 +10403,7 @@ client.GetAdminUnitDetails(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GetAdminUnitDetailsRequestFormat` — Format of the response.
+**format:** `*sdk.GetAdminUnitDetailsRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -10431,7 +10431,7 @@ client.GetAdminUnitDetails(
 </dl>
 </details>
 
-<details><summary><code>client.GetCities() -> *afgosdk.GetCitiesResponse</code></summary>
+<details><summary><code>client.GetCities() -> *sdk.GetCitiesResponse</code></summary>
 <dl>
 <dd>
 
@@ -10458,7 +10458,7 @@ Retrieve a list of cities within a country, optionally filtered by an administra
 <dd>
 
 ```go
-request := &afgosdk.GetCitiesRequest{
+request := &sdk.GetCitiesRequest{
         APIKey: "apiKey",
         Country: "country",
     }
@@ -10489,7 +10489,7 @@ client.GetCities(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GetCitiesRequestFormat` — Format of the response.
+**format:** `*sdk.GetCitiesRequestFormat` — Format of the response.
     
 </dd>
 </dl>
@@ -10517,7 +10517,7 @@ client.GetCities(
 </dl>
 </details>
 
-<details><summary><code>client.GetSupportedFlags() -> []*afgosdk.GetSupportedFlagsResponseItem</code></summary>
+<details><summary><code>client.GetSupportedFlags() -> []*sdk.GetSupportedFlagsResponseItem</code></summary>
 <dl>
 <dd>
 
@@ -10544,7 +10544,7 @@ Get list of all supported flags with their metadata
 <dd>
 
 ```go
-request := &afgosdk.GetSupportedFlagsRequest{
+request := &sdk.GetSupportedFlagsRequest{
         APIKey: "apiKey",
     }
 client.GetSupportedFlags(
@@ -10605,11 +10605,11 @@ Retrieve the flag for a specific country
 <dd>
 
 ```go
-request := &afgosdk.GetFlagsRequest{
+request := &sdk.GetFlagsRequest{
         APIKey: "apiKey",
         Name: "name",
-        Shape: afgosdk.GetFlagsRequestShapeFlat,
-        Type: afgosdk.GetFlagsRequestTypeCountry,
+        Shape: sdk.GetFlagsRequestShapeFlat,
+        Type: sdk.GetFlagsRequestTypeCountry,
     }
 client.GetFlags(
         context.TODO(),
@@ -10646,7 +10646,7 @@ client.GetFlags(
 <dl>
 <dd>
 
-**shape:** `*afgosdk.GetFlagsRequestShape` — Flag shape. One of: `'flat'` or `'round'`.
+**shape:** `*sdk.GetFlagsRequestShape` — Flag shape. One of: `'flat'` or `'round'`.
     
 </dd>
 </dl>
@@ -10654,7 +10654,7 @@ client.GetFlags(
 <dl>
 <dd>
 
-**format:** `*afgosdk.GetFlagsRequestFormat` — Flag format. Applicable only for PNG or WEBP formats. Default is png.
+**format:** `*sdk.GetFlagsRequestFormat` — Flag format. Applicable only for PNG or WEBP formats. Default is png.
     
 </dd>
 </dl>
@@ -10662,7 +10662,7 @@ client.GetFlags(
 <dl>
 <dd>
 
-**size:** `*afgosdk.GetFlagsRequestSize` — Flag size in pixels. Valid options: `16px`, `24px`, `32px`, `48px`, `64px`. Applicable only for PNG or WEBP formats.
+**size:** `*sdk.GetFlagsRequestSize` — Flag size in pixels. Valid options: `16px`, `24px`, `32px`, `48px`, `64px`. Applicable only for PNG or WEBP formats.
     
 </dd>
 </dl>
@@ -10670,7 +10670,7 @@ client.GetFlags(
 <dl>
 <dd>
 
-**type_:** `*afgosdk.GetFlagsRequestType` — Type of flag. One of: `country` or `organization`.
+**type_:** `*sdk.GetFlagsRequestType` — Type of flag. One of: `country` or `organization`.
     
 </dd>
 </dl>
@@ -10682,7 +10682,7 @@ client.GetFlags(
 </dl>
 </details>
 
-<details><summary><code>client.TimezoneLookup() -> *afgosdk.TimezoneLookupResponse</code></summary>
+<details><summary><code>client.TimezoneLookup() -> *sdk.TimezoneLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -10709,7 +10709,7 @@ Retrieve current time, date, and timezone-related information by specifying a ti
 <dd>
 
 ```go
-request := &afgosdk.TimezoneLookupRequest{
+request := &sdk.TimezoneLookupRequest{
         APIKey: "apiKey",
     }
 client.TimezoneLookup(
@@ -10739,7 +10739,7 @@ client.TimezoneLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.TimezoneLookupRequestFormat` — Format of the response
+**format:** `*sdk.TimezoneLookupRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -10787,7 +10787,7 @@ client.TimezoneLookup(
 <dl>
 <dd>
 
-**lang:** `*afgosdk.TimezoneLookupRequestLang` — Language code for response localization (default is "en").
+**lang:** `*sdk.TimezoneLookupRequestLang` — Language code for response localization (default is "en").
     
 </dd>
 </dl>
@@ -10823,7 +10823,7 @@ client.TimezoneLookup(
 </dl>
 </details>
 
-<details><summary><code>client.TimezoneConvert() -> *afgosdk.TimezoneConvertResponse</code></summary>
+<details><summary><code>client.TimezoneConvert() -> *sdk.TimezoneConvertResponse</code></summary>
 <dl>
 <dd>
 
@@ -10850,7 +10850,7 @@ Converts a given time from one timezone to another using various input types lik
 <dd>
 
 ```go
-request := &afgosdk.TimezoneConvertRequest{
+request := &sdk.TimezoneConvertRequest{
         APIKey: "apiKey",
     }
 client.TimezoneConvert(
@@ -10880,7 +10880,7 @@ client.TimezoneConvert(
 <dl>
 <dd>
 
-**format:** `*afgosdk.TimezoneConvertRequestFormat` — Format of the response .
+**format:** `*sdk.TimezoneConvertRequestFormat` — Format of the response .
     
 </dd>
 </dl>
@@ -11012,7 +11012,7 @@ client.TimezoneConvert(
 </dl>
 </details>
 
-<details><summary><code>client.UserAgentLookup() -> *afgosdk.UserAgentLookupResponse</code></summary>
+<details><summary><code>client.UserAgentLookup() -> *sdk.UserAgentLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -11039,7 +11039,7 @@ Parse User Agent string to get detailed browser, device, and operating system in
 <dd>
 
 ```go
-request := &afgosdk.UserAgentLookupRequest{
+request := &sdk.UserAgentLookupRequest{
         APIKey: "apiKey",
     }
 client.UserAgentLookup(
@@ -11069,7 +11069,7 @@ client.UserAgentLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.UserAgentLookupRequestFormat` — Format of the response
+**format:** `*sdk.UserAgentLookupRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -11081,7 +11081,7 @@ client.UserAgentLookup(
 </dl>
 </details>
 
-<details><summary><code>client.BulkUserAgentLookup(request) -> []*afgosdk.BulkUserAgentLookupResponseItem</code></summary>
+<details><summary><code>client.BulkUserAgentLookup(request) -> []*sdk.BulkUserAgentLookupResponseItem</code></summary>
 <dl>
 <dd>
 
@@ -11108,7 +11108,7 @@ Parse up to `50,000 User-Agent strings` at once in a single request.
 <dd>
 
 ```go
-request := &afgosdk.BulkUserAgentLookupRequest{
+request := &sdk.BulkUserAgentLookupRequest{
         APIKey: "apiKey",
         UaStrings: []string{
             "uaStrings",
@@ -11141,7 +11141,7 @@ client.BulkUserAgentLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkUserAgentLookupRequestFormat` — Format of the response
+**format:** `*sdk.BulkUserAgentLookupRequestFormat` — Format of the response
     
 </dd>
 </dl>
@@ -11161,7 +11161,7 @@ client.BulkUserAgentLookup(
 </dl>
 </details>
 
-<details><summary><code>client.OcrPredict(request) -> *afgosdk.OcrPredictResponse</code></summary>
+<details><summary><code>client.OcrPredict(request) -> *sdk.OcrPredictResponse</code></summary>
 <dl>
 <dd>
 
@@ -11196,10 +11196,10 @@ Perform Optical Character Recognition (OCR) on images, PDFs, or ZIP archives. Su
 <dd>
 
 ```go
-request := &afgosdk.OcrPredictRequest{
+request := &sdk.OcrPredictRequest{
         APIKey: "apiKey",
-        Model: afgosdk.OcrPredictRequestModelMiniOcrV1,
-        OcrPredictRequestModel: afgosdk.OcrPredictRequestModelMiniOcrV1,
+        Model: sdk.OcrPredictRequestModelMiniOcrV1,
+        OcrPredictRequestModel: sdk.OcrPredictRequestModelMiniOcrV1,
     }
 client.OcrPredict(
         context.TODO(),
@@ -11236,7 +11236,7 @@ client.OcrPredict(
 <dl>
 <dd>
 
-**model:** `*afgosdk.OcrPredictRequestModel` — OCR model to use.
+**model:** `*sdk.OcrPredictRequestModel` — OCR model to use.
     
 </dd>
 </dl>
@@ -11276,7 +11276,7 @@ client.OcrPredict(
 <dl>
 <dd>
 
-**ocrPredictRequestModel:** `*afgosdk.OcrPredictRequestModel` — OCR model to use. `mini-ocr-v1` for CAPTCHA OCR, `ocr-v1` for general OCR
+**ocrPredictRequestModel:** `*sdk.OcrPredictRequestModel` — OCR model to use. `mini-ocr-v1` for CAPTCHA OCR, `ocr-v1` for general OCR
     
 </dd>
 </dl>
@@ -11312,7 +11312,7 @@ client.OcrPredict(
 </dl>
 </details>
 
-<details><summary><code>client.GrammarDetect(request) -> *afgosdk.GrammarDetectResponse</code></summary>
+<details><summary><code>client.GrammarDetect(request) -> *sdk.GrammarDetectResponse</code></summary>
 <dl>
 <dd>
 
@@ -11339,7 +11339,7 @@ Analyze text for grammar errors and return the exact words flagged as grammatica
 <dd>
 
 ```go
-request := &afgosdk.GrammarDetectRequest{
+request := &sdk.GrammarDetectRequest{
         APIKey: "apiKey",
         Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
     }
@@ -11382,7 +11382,7 @@ client.GrammarDetect(
 </dl>
 </details>
 
-<details><summary><code>client.GrammarCorrect(request) -> *afgosdk.GrammarCorrectResponse</code></summary>
+<details><summary><code>client.GrammarCorrect(request) -> *sdk.GrammarCorrectResponse</code></summary>
 <dl>
 <dd>
 
@@ -11409,7 +11409,7 @@ Submit text with grammatical issues and receive a clean grammar-corrected result
 <dd>
 
 ```go
-request := &afgosdk.GrammarCorrectRequest{
+request := &sdk.GrammarCorrectRequest{
         APIKey: "apiKey",
         Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
     }
@@ -11452,7 +11452,7 @@ client.GrammarCorrect(
 </dl>
 </details>
 
-<details><summary><code>client.WeakWordsDetect(request) -> *afgosdk.WeakWordsDetectResponse</code></summary>
+<details><summary><code>client.WeakWordsDetect(request) -> *sdk.WeakWordsDetectResponse</code></summary>
 <dl>
 <dd>
 
@@ -11479,7 +11479,7 @@ Analyze text and return weak, vague, or filler words with zero-based word positi
 <dd>
 
 ```go
-request := &afgosdk.WeakWordsDetectRequest{
+request := &sdk.WeakWordsDetectRequest{
         APIKey: "apiKey",
         Text: "Many people cannot get the support they need to handle their conditions well.",
     }
@@ -11522,7 +11522,7 @@ client.WeakWordsDetect(
 </dl>
 </details>
 
-<details><summary><code>client.ReadabilityScore(request) -> *afgosdk.ReadabilityScoreResponse</code></summary>
+<details><summary><code>client.ReadabilityScore(request) -> *sdk.ReadabilityScoreResponse</code></summary>
 <dl>
 <dd>
 
@@ -11549,7 +11549,7 @@ Analyze text readability using industry-standard formulas including Flesch Readi
 <dd>
 
 ```go
-request := &afgosdk.ReadabilityScoreRequest{
+request := &sdk.ReadabilityScoreRequest{
         APIKey: "apiKey",
         Text: "The global mental is health crisis is now a serious and compelex problem. It needs quick and ongoing action from policymakers, healthcare workers, and the whole society.",
     }
@@ -11580,7 +11580,7 @@ client.ReadabilityScore(
 <dl>
 <dd>
 
-**target:** `*afgosdk.ReadabilityScoreRequestTarget` — Target audience used to tune sentence difficulty levels
+**target:** `*sdk.ReadabilityScoreRequestTarget` — Target audience used to tune sentence difficulty levels
     
 </dd>
 </dl>
@@ -11608,7 +11608,7 @@ client.ReadabilityScore(
 </dl>
 </details>
 
-<details><summary><code>client.AstronomyLookup() -> *afgosdk.AstronomyLookupResponse</code></summary>
+<details><summary><code>client.AstronomyLookup() -> *sdk.AstronomyLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -11635,7 +11635,7 @@ Retrieve sunrise and sunset times, current position of the moon, and other relat
 <dd>
 
 ```go
-request := &afgosdk.AstronomyLookupRequest{
+request := &sdk.AstronomyLookupRequest{
         APIKey: "apiKey",
     }
 client.AstronomyLookup(
@@ -11665,7 +11665,7 @@ client.AstronomyLookup(
 <dl>
 <dd>
 
-**format:** `*afgosdk.AstronomyLookupRequestFormat` — Format of the response.
+**format:** `*sdk.AstronomyLookupRequestFormat` — Format of the response.
     
 </dd>
 </dl>

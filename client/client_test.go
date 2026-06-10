@@ -3,7 +3,7 @@
 package client
 
 import (
-	option "github.com/api-freaks/af-go-sdk/option"
+	option "github.com/api-freaks/sdk/option"
 	assert "github.com/stretchr/testify/assert"
 	http "net/http"
 	testing "testing"

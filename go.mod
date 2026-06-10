@@ -1,4 +1,4 @@
-module github.com/api-freaks/af-go-sdk
+module github.com/api-freaks/sdk
 
 go 1.21
 

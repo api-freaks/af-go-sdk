@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	sdk "github.com/api-freaks/af-go-sdk"
-	"github.com/api-freaks/af-go-sdk/client"
+	sdk "github.com/api-freaks/sdk"
+	"github.com/api-freaks/sdk/client"
 )
 
 func main() {
