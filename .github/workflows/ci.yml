@@ -1,0 +1,81 @@
+name: ci
+
+on: [push]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Check formatting
+        run: test -z "$(gofmt -l .)"
+
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Compile
+        run: go test ./... -run TestDoesNotExist
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Start WireMock
+        run: |
+          docker run -d \
+            --name wiremock \
+            -p 8080:8080 \
+            -v "${{ github.workspace }}/wiremock/wiremock-mappings.json:/home/wiremock/mappings/wiremock-mappings.json" \
+            wiremock/wiremock:3.9.1 \
+            --verbose
+
+      - name: Wait for WireMock
+        run: |
+          for i in {1..30}; do
+            if curl -fsS http://localhost:8080/__admin/health; then
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs wiremock
+          exit 1
+
+      - name: Test
+        env:
+          WIREMOCK_URL: http://localhost:8080
+        run: go test ./...
