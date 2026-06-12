@@ -12,7 +12,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/api-freaks/sdk/core"
+	"github.com/api-freaks/af-go-sdk/core"
 )
 
 const (

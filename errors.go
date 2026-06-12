@@ -4,7 +4,7 @@ package api
 
 import (
 	json "encoding/json"
-	core "github.com/api-freaks/sdk/core"
+	core "github.com/api-freaks/af-go-sdk/core"
 )
 
 // Bad Request

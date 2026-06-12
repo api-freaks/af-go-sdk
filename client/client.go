@@ -6,10 +6,10 @@ import (
 	context "context"
 	io "io"
 
-	sdk "github.com/api-freaks/sdk"
-	core "github.com/api-freaks/sdk/core"
-	internal "github.com/api-freaks/sdk/internal"
-	option "github.com/api-freaks/sdk/option"
+	afgosdk "github.com/api-freaks/af-go-sdk"
+	core "github.com/api-freaks/af-go-sdk/core"
+	internal "github.com/api-freaks/af-go-sdk/internal"
+	option "github.com/api-freaks/af-go-sdk/option"
 )
 
 type Client struct {
@@ -39,9 +39,9 @@ func NewClient(opts ...option.RequestOption) *Client {
 // Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information
 func (c *Client) GeolocationLookup(
 	ctx context.Context,
-	request *sdk.GeolocationLookupRequest,
+	request *afgosdk.GeolocationLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.GeolocationLookupResponse, error) {
+) (*afgosdk.GeolocationLookupResponse, error) {
 	response, err := c.WithRawResponse.GeolocationLookup(
 		ctx,
 		request,
@@ -57,9 +57,9 @@ func (c *Client) GeolocationLookup(
 // Supports up to `50,000` IP-addresses/host-names per request.
 func (c *Client) BulkGeolocationLookup(
 	ctx context.Context,
-	request *sdk.BulkGeolocationLookupRequest,
+	request *afgosdk.BulkGeolocationLookupRequest,
 	opts ...option.RequestOption,
-) ([]*sdk.BulkGeolocationLookupResponseItem, error) {
+) ([]*afgosdk.BulkGeolocationLookupResponseItem, error) {
 	response, err := c.WithRawResponse.BulkGeolocationLookup(
 		ctx,
 		request,
@@ -74,9 +74,9 @@ func (c *Client) BulkGeolocationLookup(
 // Get comprehensive security information for a given IP address. Detects VPNs, proxies, Tor nodes, and other security threats.
 func (c *Client) IPSecurityLookup(
 	ctx context.Context,
-	request *sdk.IPSecurityLookupRequest,
+	request *afgosdk.IPSecurityLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.IPSecurityLookupResponse, error) {
+) (*afgosdk.IPSecurityLookupResponse, error) {
 	response, err := c.WithRawResponse.IPSecurityLookup(
 		ctx,
 		request,
@@ -91,9 +91,9 @@ func (c *Client) IPSecurityLookup(
 // The Bulk IP Security Lookup API allows you to retrieve security details for up to `50,000` IP-addresses in a single request.
 func (c *Client) BulkIPSecurityLookup(
 	ctx context.Context,
-	request *sdk.BulkIPSecurityLookupRequest,
+	request *afgosdk.BulkIPSecurityLookupRequest,
 	opts ...option.RequestOption,
-) ([]*sdk.BulkIPSecurityLookupResponseItem, error) {
+) ([]*afgosdk.BulkIPSecurityLookupResponseItem, error) {
 	response, err := c.WithRawResponse.BulkIPSecurityLookup(
 		ctx,
 		request,
@@ -108,9 +108,9 @@ func (c *Client) BulkIPSecurityLookup(
 // Convert a given address or place name into geographic coordinates (latitude and longitude).
 func (c *Client) GeocoderSearch(
 	ctx context.Context,
-	request *sdk.GeocoderSearchRequest,
+	request *afgosdk.GeocoderSearchRequest,
 	opts ...option.RequestOption,
-) ([]*sdk.GeocoderSearchResponseItem, error) {
+) ([]*afgosdk.GeocoderSearchResponseItem, error) {
 	response, err := c.WithRawResponse.GeocoderSearch(
 		ctx,
 		request,
@@ -125,9 +125,9 @@ func (c *Client) GeocoderSearch(
 // Convert geographic coordinates (latitude and longitude) into a human-readable address or place name.
 func (c *Client) GeocoderReverse(
 	ctx context.Context,
-	request *sdk.GeocoderReverseRequest,
+	request *afgosdk.GeocoderReverseRequest,
 	opts ...option.RequestOption,
-) (*sdk.GeocoderReverseResponse, error) {
+) (*afgosdk.GeocoderReverseResponse, error) {
 	response, err := c.WithRawResponse.GeocoderReverse(
 		ctx,
 		request,
@@ -144,9 +144,9 @@ func (c *Client) GeocoderReverse(
 // dates, nameservers, and registrant information.
 func (c *Client) DomainWhoisLookup(
 	ctx context.Context,
-	request *sdk.DomainWhoisLookupRequest,
+	request *afgosdk.DomainWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainWhoisLookupResponse, error) {
+) (*afgosdk.DomainWhoisLookupResponse, error) {
 	response, err := c.WithRawResponse.DomainWhoisLookup(
 		ctx,
 		request,
@@ -161,9 +161,9 @@ func (c *Client) DomainWhoisLookup(
 // Retrieve WHOIS information for `100 Domains per Request`.
 func (c *Client) BulkDomainWhoisLookup(
 	ctx context.Context,
-	request *sdk.BulkDomainWhoisLookupRequest,
+	request *afgosdk.BulkDomainWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.BulkDomainWhoisLookupResponse, error) {
+) (*afgosdk.BulkDomainWhoisLookupResponse, error) {
 	response, err := c.WithRawResponse.BulkDomainWhoisLookup(
 		ctx,
 		request,
@@ -178,9 +178,9 @@ func (c *Client) BulkDomainWhoisLookup(
 // Returns WHOIS registration details for a specified IP address (IPv4 or IPv6).
 func (c *Client) IPWhoisLookup(
 	ctx context.Context,
-	request *sdk.IPWhoisLookupRequest,
+	request *afgosdk.IPWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.IPWhoisLookupResponse, error) {
+) (*afgosdk.IPWhoisLookupResponse, error) {
 	response, err := c.WithRawResponse.IPWhoisLookup(
 		ctx,
 		request,
@@ -195,9 +195,9 @@ func (c *Client) IPWhoisLookup(
 // Returns WHOIS registration details for a specified ASN, with or without the 'as' prefix.
 func (c *Client) AsnWhoisLookup(
 	ctx context.Context,
-	request *sdk.AsnWhoisLookupRequest,
+	request *afgosdk.AsnWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.AsnWhoisLookupResponse, error) {
+) (*afgosdk.AsnWhoisLookupResponse, error) {
 	response, err := c.WithRawResponse.AsnWhoisLookup(
 		ctx,
 		request,
@@ -213,9 +213,9 @@ func (c *Client) AsnWhoisLookup(
 // This endpoint provides a timeline of all recorded changes in domain registration information.
 func (c *Client) DomainWhoisHistory(
 	ctx context.Context,
-	request *sdk.DomainWhoisHistoryRequest,
+	request *afgosdk.DomainWhoisHistoryRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainWhoisHistoryResponse, error) {
+) (*afgosdk.DomainWhoisHistoryResponse, error) {
 	response, err := c.WithRawResponse.DomainWhoisHistory(
 		ctx,
 		request,
@@ -230,9 +230,9 @@ func (c *Client) DomainWhoisHistory(
 // Performs a reverse WHOIS search using one or more search parameters like keyword, email, owner, or company.
 func (c *Client) DomainWhoisReverse(
 	ctx context.Context,
-	request *sdk.DomainWhoisReverseRequest,
+	request *afgosdk.DomainWhoisReverseRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainWhoisReverseResponse, error) {
+) (*afgosdk.DomainWhoisReverseResponse, error) {
 	response, err := c.WithRawResponse.DomainWhoisReverse(
 		ctx,
 		request,
@@ -247,9 +247,9 @@ func (c *Client) DomainWhoisReverse(
 // Retrieve real-time DNS records for any hostname. Supports multiple record types including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records.
 func (c *Client) DomainDNSLookup(
 	ctx context.Context,
-	request *sdk.DomainDNSLookupRequest,
+	request *afgosdk.DomainDNSLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainDNSLookupResponse, error) {
+) (*afgosdk.DomainDNSLookupResponse, error) {
 	response, err := c.WithRawResponse.DomainDNSLookup(
 		ctx,
 		request,
@@ -265,9 +265,9 @@ func (c *Client) DomainDNSLookup(
 // and returns DNS records including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records.
 func (c *Client) BulkDomainDNSLookup(
 	ctx context.Context,
-	request *sdk.BulkDomainDNSLookupRequest,
+	request *afgosdk.BulkDomainDNSLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.BulkDomainDNSLookupResponse, error) {
+) (*afgosdk.BulkDomainDNSLookupResponse, error) {
 	response, err := c.WithRawResponse.BulkDomainDNSLookup(
 		ctx,
 		request,
@@ -283,9 +283,9 @@ func (c *Client) BulkDomainDNSLookup(
 // including subdomains. Results are paginated with up to 100 unique records per page.
 func (c *Client) DomainDNSHistory(
 	ctx context.Context,
-	request *sdk.DomainDNSHistoryRequest,
+	request *afgosdk.DomainDNSHistoryRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainDNSHistoryResponse, error) {
+) (*afgosdk.DomainDNSHistoryResponse, error) {
 	response, err := c.WithRawResponse.DomainDNSHistory(
 		ctx,
 		request,
@@ -300,9 +300,9 @@ func (c *Client) DomainDNSHistory(
 // Retrieve all the hostnames associated with any particular A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records. For instance, you can access all the hostnames hosted on any IP/CIDR notation, all the domain names using Cloudflare name servers, and all the domain names using Google Mailbox
 func (c *Client) DomainDNSReverse(
 	ctx context.Context,
-	request *sdk.DomainDNSReverseRequest,
+	request *afgosdk.DomainDNSReverseRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainDNSReverseResponse, error) {
+) (*afgosdk.DomainDNSReverseResponse, error) {
 	response, err := c.WithRawResponse.DomainDNSReverse(
 		ctx,
 		request,
@@ -318,9 +318,9 @@ func (c *Client) DomainDNSReverse(
 // Supports various operations like form filling, clicking, data extraction, and CAPTCHA solving.
 func (c *Client) WebScrape(
 	ctx context.Context,
-	request *sdk.WebScrapeRequest,
+	request *afgosdk.WebScrapeRequest,
 	opts ...option.RequestOption,
-) (*sdk.WebScrapeResponse, error) {
+) (*afgosdk.WebScrapeResponse, error) {
 	response, err := c.WithRawResponse.WebScrape(
 		ctx,
 		request,
@@ -335,9 +335,9 @@ func (c *Client) WebScrape(
 // Validates a single email address and returns result.
 func (c *Client) EmailValidate(
 	ctx context.Context,
-	request *sdk.EmailValidateRequest,
+	request *afgosdk.EmailValidateRequest,
 	opts ...option.RequestOption,
-) (*sdk.EmailValidateResponse, error) {
+) (*afgosdk.EmailValidateResponse, error) {
 	response, err := c.WithRawResponse.EmailValidate(
 		ctx,
 		request,
@@ -352,9 +352,9 @@ func (c *Client) EmailValidate(
 // Validates a bulk of email addresses and returns result for each. Maximum `10` email addresses per request.
 func (c *Client) BulkEmailValidate(
 	ctx context.Context,
-	request *sdk.BulkEmailValidateRequest,
+	request *afgosdk.BulkEmailValidateRequest,
 	opts ...option.RequestOption,
-) (*sdk.BulkEmailValidateResponse, error) {
+) (*afgosdk.BulkEmailValidateResponse, error) {
 	response, err := c.WithRawResponse.BulkEmailValidate(
 		ctx,
 		request,
@@ -369,9 +369,9 @@ func (c *Client) BulkEmailValidate(
 // Validates a single phone number and returns detailed metadata including carrier, line type, geolocation, time zones, and standardized formats.
 func (c *Client) PhoneValidate(
 	ctx context.Context,
-	request *sdk.PhoneValidateRequest,
+	request *afgosdk.PhoneValidateRequest,
 	opts ...option.RequestOption,
-) (*sdk.PhoneValidateResponse, error) {
+) (*afgosdk.PhoneValidateResponse, error) {
 	response, err := c.WithRawResponse.PhoneValidate(
 		ctx,
 		request,
@@ -386,9 +386,9 @@ func (c *Client) PhoneValidate(
 // Validates up to 100 phone numbers in a single request. Each number is processed independently — invalid entries return per-number errors without affecting the rest of the batch.
 func (c *Client) BulkPhoneValidate(
 	ctx context.Context,
-	request *sdk.BulkPhoneValidateRequest,
+	request *afgosdk.BulkPhoneValidateRequest,
 	opts ...option.RequestOption,
-) ([]*sdk.BulkPhoneValidateResponseItem, error) {
+) ([]*afgosdk.BulkPhoneValidateResponseItem, error) {
 	response, err := c.WithRawResponse.BulkPhoneValidate(
 		ctx,
 		request,
@@ -404,9 +404,9 @@ func (c *Client) BulkPhoneValidate(
 // This endpoint provides detailed information about the SSL certificate including expiry dates, issuer details, and encryption methods.
 func (c *Client) DomainSslLookup(
 	ctx context.Context,
-	request *sdk.DomainSslLookupRequest,
+	request *afgosdk.DomainSslLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainSslLookupResponse, error) {
+) (*afgosdk.DomainSslLookupResponse, error) {
 	response, err := c.WithRawResponse.DomainSslLookup(
 		ctx,
 		request,
@@ -422,9 +422,9 @@ func (c *Client) DomainSslLookup(
 // This endpoint provides comprehensive information about each certificate in the chain.
 func (c *Client) DomainSslChainLookup(
 	ctx context.Context,
-	request *sdk.DomainSslChainLookupRequest,
+	request *afgosdk.DomainSslChainLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainSslChainLookupResponse, error) {
+) (*afgosdk.DomainSslChainLookupResponse, error) {
 	response, err := c.WithRawResponse.DomainSslChainLookup(
 		ctx,
 		request,
@@ -439,9 +439,9 @@ func (c *Client) DomainSslChainLookup(
 // The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
 func (c *Client) DomainAvailabilityCheck(
 	ctx context.Context,
-	request *sdk.DomainAvailabilityCheckRequest,
+	request *afgosdk.DomainAvailabilityCheckRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainAvailabilityCheckResponse, error) {
+) (*afgosdk.DomainAvailabilityCheckResponse, error) {
 	response, err := c.WithRawResponse.DomainAvailabilityCheck(
 		ctx,
 		request,
@@ -456,9 +456,9 @@ func (c *Client) DomainAvailabilityCheck(
 // Perform Bulk Domain Availability checks using a list of domains. Supports upto `100 Domains Per Request`.
 func (c *Client) BulkDomainAvailabilityCheck(
 	ctx context.Context,
-	request *sdk.BulkDomainAvailabilityCheckRequest,
+	request *afgosdk.BulkDomainAvailabilityCheckRequest,
 	opts ...option.RequestOption,
-) (*sdk.BulkDomainAvailabilityCheckResponse, error) {
+) (*afgosdk.BulkDomainAvailabilityCheckResponse, error) {
 	response, err := c.WithRawResponse.BulkDomainAvailabilityCheck(
 		ctx,
 		request,
@@ -473,9 +473,9 @@ func (c *Client) BulkDomainAvailabilityCheck(
 // The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
 func (c *Client) DomainAvailabilitySuggestions(
 	ctx context.Context,
-	request *sdk.DomainAvailabilitySuggestionsRequest,
+	request *afgosdk.DomainAvailabilitySuggestionsRequest,
 	opts ...option.RequestOption,
-) (*sdk.DomainAvailabilitySuggestionsResponse, error) {
+) (*afgosdk.DomainAvailabilitySuggestionsResponse, error) {
 	response, err := c.WithRawResponse.DomainAvailabilitySuggestions(
 		ctx,
 		request,
@@ -490,9 +490,9 @@ func (c *Client) DomainAvailabilitySuggestions(
 // The Subdomain Lookup API is designed to retrieve subdomains related to the given domain name. It helps you explore subdomains that are available for registration or usage.
 func (c *Client) SubdomainsLookup(
 	ctx context.Context,
-	request *sdk.SubdomainsLookupRequest,
+	request *afgosdk.SubdomainsLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.SubdomainsLookupResponse, error) {
+) (*afgosdk.SubdomainsLookupResponse, error) {
 	response, err := c.WithRawResponse.SubdomainsLookup(
 		ctx,
 		request,
@@ -507,9 +507,9 @@ func (c *Client) SubdomainsLookup(
 // This API merges multiple PDF files into a single PDF, in the order they are provided
 func (c *Client) PdfMerge(
 	ctx context.Context,
-	request *sdk.PdfMergeRequest,
+	request *afgosdk.PdfMergeRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfMergeResponse, error) {
+) (*afgosdk.PdfMergeResponse, error) {
 	response, err := c.WithRawResponse.PdfMerge(
 		ctx,
 		request,
@@ -524,9 +524,9 @@ func (c *Client) PdfMerge(
 // This API removes a selection or range of pages from a PDF file.
 func (c *Client) PdfRemovePages(
 	ctx context.Context,
-	request *sdk.PdfRemovePagesRequest,
+	request *afgosdk.PdfRemovePagesRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfRemovePagesResponse, error) {
+) (*afgosdk.PdfRemovePagesResponse, error) {
 	response, err := c.WithRawResponse.PdfRemovePages(
 		ctx,
 		request,
@@ -541,9 +541,9 @@ func (c *Client) PdfRemovePages(
 // This API splits a PDF into multiple parts based on specified page numbers or ranges.
 func (c *Client) PdfSplit(
 	ctx context.Context,
-	request *sdk.PdfSplitRequest,
+	request *afgosdk.PdfSplitRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfSplitResponse, error) {
+) (*afgosdk.PdfSplitResponse, error) {
 	response, err := c.WithRawResponse.PdfSplit(
 		ctx,
 		request,
@@ -558,9 +558,9 @@ func (c *Client) PdfSplit(
 // This API rotates pages of a PDF by a specified angle (in multiples of 90 degrees).
 func (c *Client) PdfRotate(
 	ctx context.Context,
-	request *sdk.PdfRotateRequest,
+	request *afgosdk.PdfRotateRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfRotateResponse, error) {
+) (*afgosdk.PdfRotateResponse, error) {
 	response, err := c.WithRawResponse.PdfRotate(
 		ctx,
 		request,
@@ -575,9 +575,9 @@ func (c *Client) PdfRotate(
 // This API compresses a given PDF file to reduce its file size.
 func (c *Client) PdfCompress(
 	ctx context.Context,
-	request *sdk.PdfCompressRequest,
+	request *afgosdk.PdfCompressRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfCompressResponse, error) {
+) (*afgosdk.PdfCompressResponse, error) {
 	response, err := c.WithRawResponse.PdfCompress(
 		ctx,
 		request,
@@ -592,9 +592,9 @@ func (c *Client) PdfCompress(
 // This API extracts specific pages or page ranges from a PDF file and returns them as a new PDF.
 func (c *Client) PdfExtractPages(
 	ctx context.Context,
-	request *sdk.PdfExtractPagesRequest,
+	request *afgosdk.PdfExtractPagesRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfExtractPagesResponse, error) {
+) (*afgosdk.PdfExtractPagesResponse, error) {
 	response, err := c.WithRawResponse.PdfExtractPages(
 		ctx,
 		request,
@@ -609,9 +609,9 @@ func (c *Client) PdfExtractPages(
 // API endpoint that linearizes any given PDF, restructuring it for faster loading and page-by-page viewing in web browsers.
 func (c *Client) PdfLinearize(
 	ctx context.Context,
-	request *sdk.PdfLinearizeRequest,
+	request *afgosdk.PdfLinearizeRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfLinearizeResponse, error) {
+) (*afgosdk.PdfLinearizeResponse, error) {
 	response, err := c.WithRawResponse.PdfLinearize(
 		ctx,
 		request,
@@ -626,9 +626,9 @@ func (c *Client) PdfLinearize(
 // This API encrypts a PDF file by setting a password required to open it.
 func (c *Client) PdfEncrypt(
 	ctx context.Context,
-	request *sdk.PdfEncryptRequest,
+	request *afgosdk.PdfEncryptRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfEncryptResponse, error) {
+) (*afgosdk.PdfEncryptResponse, error) {
 	response, err := c.WithRawResponse.PdfEncrypt(
 		ctx,
 		request,
@@ -643,9 +643,9 @@ func (c *Client) PdfEncrypt(
 // This API decrypts PDF files, removing all encryption, including open passwords and permission restrictions.
 func (c *Client) PdfDecrypt(
 	ctx context.Context,
-	request *sdk.PdfDecryptRequest,
+	request *afgosdk.PdfDecryptRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfDecryptResponse, error) {
+) (*afgosdk.PdfDecryptResponse, error) {
 	response, err := c.WithRawResponse.PdfDecrypt(
 		ctx,
 		request,
@@ -660,9 +660,9 @@ func (c *Client) PdfDecrypt(
 // This API applies permission restrictions on a PDF file, such as disabling printing, copying, or editing. This can include password protection to enforce restrictions.
 func (c *Client) PdfRestrict(
 	ctx context.Context,
-	request *sdk.PdfRestrictRequest,
+	request *afgosdk.PdfRestrictRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfRestrictResponse, error) {
+) (*afgosdk.PdfRestrictResponse, error) {
 	response, err := c.WithRawResponse.PdfRestrict(
 		ctx,
 		request,
@@ -677,9 +677,9 @@ func (c *Client) PdfRestrict(
 // This API removes permission restrictions from a PDF while keeping it encrypted. If you want to remove all security (including encryption), use the `/pdf/decrypt` endpoint instead.
 func (c *Client) PdfUnrestrict(
 	ctx context.Context,
-	request *sdk.PdfUnrestrictRequest,
+	request *afgosdk.PdfUnrestrictRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfUnrestrictResponse, error) {
+) (*afgosdk.PdfUnrestrictResponse, error) {
 	response, err := c.WithRawResponse.PdfUnrestrict(
 		ctx,
 		request,
@@ -694,9 +694,9 @@ func (c *Client) PdfUnrestrict(
 // This API converts a given PDF file into a sequence of PNG images.
 func (c *Client) PdfConvertToPng(
 	ctx context.Context,
-	request *sdk.PdfConvertToPngRequest,
+	request *afgosdk.PdfConvertToPngRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfConvertToPngResponse, error) {
+) (*afgosdk.PdfConvertToPngResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToPng(
 		ctx,
 		request,
@@ -711,9 +711,9 @@ func (c *Client) PdfConvertToPng(
 // This API converts a given PDF file into a sequence of JPG images.
 func (c *Client) PdfConvertToJpg(
 	ctx context.Context,
-	request *sdk.PdfConvertToJpgRequest,
+	request *afgosdk.PdfConvertToJpgRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfConvertToJpgResponse, error) {
+) (*afgosdk.PdfConvertToJpgResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToJpg(
 		ctx,
 		request,
@@ -728,9 +728,9 @@ func (c *Client) PdfConvertToJpg(
 // This API converts a given PDF file into a sequence of TIFF images. The output images can be saved as a single TIFF file, or as a sequence of TIFF files.
 func (c *Client) PdfConvertToTiff(
 	ctx context.Context,
-	request *sdk.PdfConvertToTiffRequest,
+	request *afgosdk.PdfConvertToTiffRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfConvertToTiffResponse, error) {
+) (*afgosdk.PdfConvertToTiffResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToTiff(
 		ctx,
 		request,
@@ -745,9 +745,9 @@ func (c *Client) PdfConvertToTiff(
 // Converts a PDF file to a BMP image.
 func (c *Client) PdfConvertToBmp(
 	ctx context.Context,
-	request *sdk.PdfConvertToBmpRequest,
+	request *afgosdk.PdfConvertToBmpRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfConvertToBmpResponse, error) {
+) (*afgosdk.PdfConvertToBmpResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToBmp(
 		ctx,
 		request,
@@ -762,9 +762,9 @@ func (c *Client) PdfConvertToBmp(
 // This API converts a given PDF file into a sequence of GIF images.
 func (c *Client) PdfConvertToGif(
 	ctx context.Context,
-	request *sdk.PdfConvertToGifRequest,
+	request *afgosdk.PdfConvertToGifRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfConvertToGifResponse, error) {
+) (*afgosdk.PdfConvertToGifResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToGif(
 		ctx,
 		request,
@@ -779,9 +779,9 @@ func (c *Client) PdfConvertToGif(
 // This API uploads multiple PDF files to the API Freaks server and generates their unique file IDs.
 func (c *Client) PdfUploadResources(
 	ctx context.Context,
-	request *sdk.PdfUploadResourcesRequest,
+	request *afgosdk.PdfUploadResourcesRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfUploadResourcesResponse, error) {
+) (*afgosdk.PdfUploadResourcesResponse, error) {
 	response, err := c.WithRawResponse.PdfUploadResources(
 		ctx,
 		request,
@@ -796,9 +796,9 @@ func (c *Client) PdfUploadResources(
 // This API uploads PDF files to the API Freaks server in binary format.
 func (c *Client) PdfUploadBinary(
 	ctx context.Context,
-	request *sdk.PdfUploadBinaryRequest,
+	request *afgosdk.PdfUploadBinaryRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfUploadBinaryResponse, error) {
+) (*afgosdk.PdfUploadBinaryResponse, error) {
 	response, err := c.WithRawResponse.PdfUploadBinary(
 		ctx,
 		request,
@@ -813,7 +813,7 @@ func (c *Client) PdfUploadBinary(
 // This API downloads PDF files or ZIP archives from the server using their unique resource ID.
 func (c *Client) PdfDownloadResource(
 	ctx context.Context,
-	request *sdk.PdfDownloadResourceRequest,
+	request *afgosdk.PdfDownloadResourceRequest,
 	opts ...option.RequestOption,
 ) (io.Reader, error) {
 	response, err := c.WithRawResponse.PdfDownloadResource(
@@ -830,9 +830,9 @@ func (c *Client) PdfDownloadResource(
 // This API checks the status of a previously initiated PDF processing task using its unique task ID.
 func (c *Client) PdfGetTaskStatus(
 	ctx context.Context,
-	request *sdk.PdfGetTaskStatusRequest,
+	request *afgosdk.PdfGetTaskStatusRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfGetTaskStatusResponse, error) {
+) (*afgosdk.PdfGetTaskStatusResponse, error) {
 	response, err := c.WithRawResponse.PdfGetTaskStatus(
 		ctx,
 		request,
@@ -847,9 +847,9 @@ func (c *Client) PdfGetTaskStatus(
 // This API checks the status of a PDF file using its unique file ID, providing information about its creation and potential deletion time.
 func (c *Client) PdfGetFileStatus(
 	ctx context.Context,
-	request *sdk.PdfGetFileStatusRequest,
+	request *afgosdk.PdfGetFileStatusRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfGetFileStatusResponse, error) {
+) (*afgosdk.PdfGetFileStatusResponse, error) {
 	response, err := c.WithRawResponse.PdfGetFileStatus(
 		ctx,
 		request,
@@ -864,9 +864,9 @@ func (c *Client) PdfGetFileStatus(
 // This API retrieves a list of all PDF files uploaded and generated by a specific user. Please note that if the user is part of an organization, only the Organization Administrator can access this endpoint. Organization Members cannot access this endpoint.
 func (c *Client) PdfListFiles(
 	ctx context.Context,
-	request *sdk.PdfListFilesRequest,
+	request *afgosdk.PdfListFilesRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfListFilesResponse, error) {
+) (*afgosdk.PdfListFilesResponse, error) {
 	response, err := c.WithRawResponse.PdfListFiles(
 		ctx,
 		request,
@@ -881,9 +881,9 @@ func (c *Client) PdfListFiles(
 // This API deletes a PDF file using its unique file ID.
 func (c *Client) PdfDeleteFile(
 	ctx context.Context,
-	request *sdk.PdfDeleteFileRequest,
+	request *afgosdk.PdfDeleteFileRequest,
 	opts ...option.RequestOption,
-) (*sdk.PdfDeleteFileResponse, error) {
+) (*afgosdk.PdfDeleteFileResponse, error) {
 	response, err := c.WithRawResponse.PdfDeleteFile(
 		ctx,
 		request,
@@ -899,7 +899,7 @@ func (c *Client) PdfDeleteFile(
 // Supports multiple output formats including JSON, image, GIF, MP4, and WebM.
 func (c *Client) ScreenshotCapture(
 	ctx context.Context,
-	request *sdk.ScreenshotCaptureRequest,
+	request *afgosdk.ScreenshotCaptureRequest,
 	opts ...option.RequestOption,
 ) (io.Reader, error) {
 	response, err := c.WithRawResponse.ScreenshotCapture(
@@ -918,9 +918,9 @@ func (c *Client) ScreenshotCapture(
 //	Maximum `50 URLs` per request.
 func (c *Client) BulkScreenshotCapture(
 	ctx context.Context,
-	request *sdk.BulkScreenshotCaptureRequest,
+	request *afgosdk.BulkScreenshotCaptureRequest,
 	opts ...option.RequestOption,
-) (*sdk.BulkScreenshotCaptureResponse, error) {
+) (*afgosdk.BulkScreenshotCaptureResponse, error) {
 	response, err := c.WithRawResponse.BulkScreenshotCapture(
 		ctx,
 		request,
@@ -935,9 +935,9 @@ func (c *Client) BulkScreenshotCapture(
 // Get live forex rates for all world currencies with customizable update frequency
 func (c *Client) CurrencyLatestRates(
 	ctx context.Context,
-	request *sdk.CurrencyLatestRatesRequest,
+	request *afgosdk.CurrencyLatestRatesRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencyLatestRatesResponse, error) {
+) (*afgosdk.CurrencyLatestRatesResponse, error) {
 	response, err := c.WithRawResponse.CurrencyLatestRates(
 		ctx,
 		request,
@@ -952,9 +952,9 @@ func (c *Client) CurrencyLatestRates(
 // Get historical exchange rates for any specific date
 func (c *Client) CurrencyHistoricalRates(
 	ctx context.Context,
-	request *sdk.CurrencyHistoricalRatesRequest,
+	request *afgosdk.CurrencyHistoricalRatesRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencyHistoricalRatesResponse, error) {
+) (*afgosdk.CurrencyHistoricalRatesResponse, error) {
 	response, err := c.WithRawResponse.CurrencyHistoricalRates(
 		ctx,
 		request,
@@ -969,9 +969,9 @@ func (c *Client) CurrencyHistoricalRates(
 // Convert amount between currencies using the latest exchange rates
 func (c *Client) CurrencyConvertLatest(
 	ctx context.Context,
-	request *sdk.CurrencyConvertLatestRequest,
+	request *afgosdk.CurrencyConvertLatestRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencyConvertLatestResponse, error) {
+) (*afgosdk.CurrencyConvertLatestResponse, error) {
 	response, err := c.WithRawResponse.CurrencyConvertLatest(
 		ctx,
 		request,
@@ -986,9 +986,9 @@ func (c *Client) CurrencyConvertLatest(
 // Convert amount between currencies using historical rates
 func (c *Client) CurrencyConvertHistorical(
 	ctx context.Context,
-	request *sdk.CurrencyConvertHistoricalRequest,
+	request *afgosdk.CurrencyConvertHistoricalRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencyConvertHistoricalResponse, error) {
+) (*afgosdk.CurrencyConvertHistoricalResponse, error) {
 	response, err := c.WithRawResponse.CurrencyConvertHistorical(
 		ctx,
 		request,
@@ -1003,9 +1003,9 @@ func (c *Client) CurrencyConvertHistorical(
 // Get exchange rates for a time range
 func (c *Client) CurrencyTimeSeries(
 	ctx context.Context,
-	request *sdk.CurrencyTimeSeriesRequest,
+	request *afgosdk.CurrencyTimeSeriesRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencyTimeSeriesResponse, error) {
+) (*afgosdk.CurrencyTimeSeriesResponse, error) {
 	response, err := c.WithRawResponse.CurrencyTimeSeries(
 		ctx,
 		request,
@@ -1020,9 +1020,9 @@ func (c *Client) CurrencyTimeSeries(
 // Get currency fluctuation data for a time period
 func (c *Client) CurrencyFluctuation(
 	ctx context.Context,
-	request *sdk.CurrencyFluctuationRequest,
+	request *afgosdk.CurrencyFluctuationRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencyFluctuationResponse, error) {
+) (*afgosdk.CurrencyFluctuationResponse, error) {
 	response, err := c.WithRawResponse.CurrencyFluctuation(
 		ctx,
 		request,
@@ -1037,9 +1037,9 @@ func (c *Client) CurrencyFluctuation(
 // Convert amount using user's location
 func (c *Client) CurrencyConvertByIP(
 	ctx context.Context,
-	request *sdk.CurrencyConvertByIPRequest,
+	request *afgosdk.CurrencyConvertByIPRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencyConvertByIPResponse, error) {
+) (*afgosdk.CurrencyConvertByIPResponse, error) {
 	response, err := c.WithRawResponse.CurrencyConvertByIP(
 		ctx,
 		request,
@@ -1054,9 +1054,9 @@ func (c *Client) CurrencyConvertByIP(
 // Get list of all supported currencies with their metadata
 func (c *Client) CurrencySupported(
 	ctx context.Context,
-	request *sdk.CurrencySupportedRequest,
+	request *afgosdk.CurrencySupportedRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencySupportedResponse, error) {
+) (*afgosdk.CurrencySupportedResponse, error) {
 	response, err := c.WithRawResponse.CurrencySupported(
 		ctx,
 		request,
@@ -1071,9 +1071,9 @@ func (c *Client) CurrencySupported(
 // Get currency symbols and codes
 func (c *Client) CurrencySymbols(
 	ctx context.Context,
-	request *sdk.CurrencySymbolsRequest,
+	request *afgosdk.CurrencySymbolsRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencySymbolsResponse, error) {
+) (*afgosdk.CurrencySymbolsResponse, error) {
 	response, err := c.WithRawResponse.CurrencySymbols(
 		ctx,
 		request,
@@ -1088,9 +1088,9 @@ func (c *Client) CurrencySymbols(
 // Get information about historical data availability and limits
 func (c *Client) CurrencyHistoricalLimits(
 	ctx context.Context,
-	request *sdk.CurrencyHistoricalLimitsRequest,
+	request *afgosdk.CurrencyHistoricalLimitsRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrencyHistoricalLimitsResponse, error) {
+) (*afgosdk.CurrencyHistoricalLimitsResponse, error) {
 	response, err := c.WithRawResponse.CurrencyHistoricalLimits(
 		ctx,
 		request,
@@ -1105,9 +1105,9 @@ func (c *Client) CurrencyHistoricalLimits(
 // Get live commodity rates with customizable update frequency
 func (c *Client) CommodityLatestRates(
 	ctx context.Context,
-	request *sdk.CommodityLatestRatesRequest,
+	request *afgosdk.CommodityLatestRatesRequest,
 	opts ...option.RequestOption,
-) (*sdk.CommodityLatestRatesResponse, error) {
+) (*afgosdk.CommodityLatestRatesResponse, error) {
 	response, err := c.WithRawResponse.CommodityLatestRates(
 		ctx,
 		request,
@@ -1122,9 +1122,9 @@ func (c *Client) CommodityLatestRates(
 // Get historical commodity rates for a specific date
 func (c *Client) CommodityHistoricalRates(
 	ctx context.Context,
-	request *sdk.CommodityHistoricalRatesRequest,
+	request *afgosdk.CommodityHistoricalRatesRequest,
 	opts ...option.RequestOption,
-) (*sdk.CommodityHistoricalRatesResponse, error) {
+) (*afgosdk.CommodityHistoricalRatesResponse, error) {
 	response, err := c.WithRawResponse.CommodityHistoricalRates(
 		ctx,
 		request,
@@ -1139,9 +1139,9 @@ func (c *Client) CommodityHistoricalRates(
 // Get commodity price fluctuation data for a time period
 func (c *Client) CommodityFluctuation(
 	ctx context.Context,
-	request *sdk.CommodityFluctuationRequest,
+	request *afgosdk.CommodityFluctuationRequest,
 	opts ...option.RequestOption,
-) (*sdk.CommodityFluctuationResponse, error) {
+) (*afgosdk.CommodityFluctuationResponse, error) {
 	response, err := c.WithRawResponse.CommodityFluctuation(
 		ctx,
 		request,
@@ -1156,9 +1156,9 @@ func (c *Client) CommodityFluctuation(
 // Get commodity rates for a time range
 func (c *Client) CommodityTimeSeries(
 	ctx context.Context,
-	request *sdk.CommodityTimeSeriesRequest,
+	request *afgosdk.CommodityTimeSeriesRequest,
 	opts ...option.RequestOption,
-) (*sdk.CommodityTimeSeriesResponse, error) {
+) (*afgosdk.CommodityTimeSeriesResponse, error) {
 	response, err := c.WithRawResponse.CommodityTimeSeries(
 		ctx,
 		request,
@@ -1173,9 +1173,9 @@ func (c *Client) CommodityTimeSeries(
 // Get list of supported commodities
 func (c *Client) CommoditySymbols(
 	ctx context.Context,
-	request *sdk.CommoditySymbolsRequest,
+	request *afgosdk.CommoditySymbolsRequest,
 	opts ...option.RequestOption,
-) (*sdk.CommoditySymbolsResponse, error) {
+) (*afgosdk.CommoditySymbolsResponse, error) {
 	response, err := c.WithRawResponse.CommoditySymbols(
 		ctx,
 		request,
@@ -1190,9 +1190,9 @@ func (c *Client) CommoditySymbols(
 // Retrieves a list of supported countries.
 func (c *Client) VatSupportedCountries(
 	ctx context.Context,
-	request *sdk.VatSupportedCountriesRequest,
+	request *afgosdk.VatSupportedCountriesRequest,
 	opts ...option.RequestOption,
-) (*sdk.VatSupportedCountriesResponse, error) {
+) (*afgosdk.VatSupportedCountriesResponse, error) {
 	response, err := c.WithRawResponse.VatSupportedCountries(
 		ctx,
 		request,
@@ -1207,9 +1207,9 @@ func (c *Client) VatSupportedCountries(
 // Fetches VAT rate based on the specified or originating IP address.
 func (c *Client) VatRateByIP(
 	ctx context.Context,
-	request *sdk.VatRateByIPRequest,
+	request *afgosdk.VatRateByIPRequest,
 	opts ...option.RequestOption,
-) ([]*sdk.VatRateByIPResponseItem, error) {
+) ([]*afgosdk.VatRateByIPResponseItem, error) {
 	response, err := c.WithRawResponse.VatRateByIP(
 		ctx,
 		request,
@@ -1224,9 +1224,9 @@ func (c *Client) VatRateByIP(
 // Fetches VAT rates for a single country or state provided via query parameters.
 func (c *Client) VatRateByCountry(
 	ctx context.Context,
-	request *sdk.VatRateByCountryRequest,
+	request *afgosdk.VatRateByCountryRequest,
 	opts ...option.RequestOption,
-) ([]*sdk.VatRateByCountryResponseItem, error) {
+) ([]*afgosdk.VatRateByCountryResponseItem, error) {
 	response, err := c.WithRawResponse.VatRateByCountry(
 		ctx,
 		request,
@@ -1241,9 +1241,9 @@ func (c *Client) VatRateByCountry(
 // Retrieves VAT details for multiple countries or country-state combinations in a single request. Maximum of `100` entries per request are allowed.
 func (c *Client) BulkVatRateByCountry(
 	ctx context.Context,
-	request *sdk.BulkVatRateByCountryRequest,
+	request *afgosdk.BulkVatRateByCountryRequest,
 	opts ...option.RequestOption,
-) (*sdk.BulkVatRateByCountryResponse, error) {
+) (*afgosdk.BulkVatRateByCountryResponse, error) {
 	response, err := c.WithRawResponse.BulkVatRateByCountry(
 		ctx,
 		request,
@@ -1258,9 +1258,9 @@ func (c *Client) BulkVatRateByCountry(
 // Validates an EU or UK VAT number and returns registration status details.
 func (c *Client) VatValidate(
 	ctx context.Context,
-	request *sdk.VatValidateRequest,
+	request *afgosdk.VatValidateRequest,
 	opts ...option.RequestOption,
-) (*sdk.VatValidateResponse, error) {
+) (*afgosdk.VatValidateResponse, error) {
 	response, err := c.WithRawResponse.VatValidate(
 		ctx,
 		request,
@@ -1275,9 +1275,9 @@ func (c *Client) VatValidate(
 // Checks an IBAN for structural validity, checksum accuracy, and bank metadata.
 func (c *Client) IbanValidate(
 	ctx context.Context,
-	request *sdk.IbanValidateRequest,
+	request *afgosdk.IbanValidateRequest,
 	opts ...option.RequestOption,
-) (*sdk.IbanValidateResponse, error) {
+) (*afgosdk.IbanValidateResponse, error) {
 	response, err := c.WithRawResponse.IbanValidate(
 		ctx,
 		request,
@@ -1292,7 +1292,7 @@ func (c *Client) IbanValidate(
 // Fetches SWIFT codes for a given country, bank, and city.
 func (c *Client) SwiftCodeFind(
 	ctx context.Context,
-	request *sdk.SwiftCodeFindRequest,
+	request *afgosdk.SwiftCodeFindRequest,
 	opts ...option.RequestOption,
 ) ([]string, error) {
 	response, err := c.WithRawResponse.SwiftCodeFind(
@@ -1309,9 +1309,9 @@ func (c *Client) SwiftCodeFind(
 // Fetches detailed information about a SWIFT code.
 func (c *Client) SwiftCodeLookup(
 	ctx context.Context,
-	request *sdk.SwiftCodeLookupRequest,
+	request *afgosdk.SwiftCodeLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.SwiftCodeLookupResponse, error) {
+) (*afgosdk.SwiftCodeLookupResponse, error) {
 	response, err := c.WithRawResponse.SwiftCodeLookup(
 		ctx,
 		request,
@@ -1325,9 +1325,9 @@ func (c *Client) SwiftCodeLookup(
 
 func (c *Client) ZipcodeLookup(
 	ctx context.Context,
-	request *sdk.ZipcodeLookupRequest,
+	request *afgosdk.ZipcodeLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.ZipcodeLookupResponse, error) {
+) (*afgosdk.ZipcodeLookupResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeLookup(
 		ctx,
 		request,
@@ -1342,9 +1342,9 @@ func (c *Client) ZipcodeLookup(
 // Validates a bulk of ZIP/postal codes and returns result for each. Maximum `100` ZIP/postal codes per request.
 func (c *Client) BulkZipcodeLookup(
 	ctx context.Context,
-	request *sdk.BulkZipcodeLookupRequest,
+	request *afgosdk.BulkZipcodeLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.BulkZipcodeLookupResponse, error) {
+) (*afgosdk.BulkZipcodeLookupResponse, error) {
 	response, err := c.WithRawResponse.BulkZipcodeLookup(
 		ctx,
 		request,
@@ -1358,9 +1358,9 @@ func (c *Client) BulkZipcodeLookup(
 
 func (c *Client) ZipcodeSearchByCity(
 	ctx context.Context,
-	request *sdk.ZipcodeSearchByCityRequest,
+	request *afgosdk.ZipcodeSearchByCityRequest,
 	opts ...option.RequestOption,
-) (*sdk.ZipcodeSearchByCityResponse, error) {
+) (*afgosdk.ZipcodeSearchByCityResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeSearchByCity(
 		ctx,
 		request,
@@ -1374,9 +1374,9 @@ func (c *Client) ZipcodeSearchByCity(
 
 func (c *Client) ZipcodeSearchByRegion(
 	ctx context.Context,
-	request *sdk.ZipcodeSearchByRegionRequest,
+	request *afgosdk.ZipcodeSearchByRegionRequest,
 	opts ...option.RequestOption,
-) (*sdk.ZipcodeSearchByRegionResponse, error) {
+) (*afgosdk.ZipcodeSearchByRegionResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeSearchByRegion(
 		ctx,
 		request,
@@ -1390,9 +1390,9 @@ func (c *Client) ZipcodeSearchByRegion(
 
 func (c *Client) ZipcodeSearchByRadius(
 	ctx context.Context,
-	request *sdk.ZipcodeSearchByRadiusRequest,
+	request *afgosdk.ZipcodeSearchByRadiusRequest,
 	opts ...option.RequestOption,
-) (*sdk.ZipcodeSearchByRadiusResponse, error) {
+) (*afgosdk.ZipcodeSearchByRadiusResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeSearchByRadius(
 		ctx,
 		request,
@@ -1407,9 +1407,9 @@ func (c *Client) ZipcodeSearchByRadius(
 // Get distance between postal codes. Maximum `100` postal codes per request.
 func (c *Client) ZipcodeDistance(
 	ctx context.Context,
-	request *sdk.ZipcodeDistanceRequest,
+	request *afgosdk.ZipcodeDistanceRequest,
 	opts ...option.RequestOption,
-) (*sdk.ZipcodeDistanceResponse, error) {
+) (*afgosdk.ZipcodeDistanceResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeDistance(
 		ctx,
 		request,
@@ -1424,9 +1424,9 @@ func (c *Client) ZipcodeDistance(
 // Get matching ZIP/postal code pairs within a specified distance. Maximum `100` postal codes per request.
 func (c *Client) ZipcodeDistanceMatch(
 	ctx context.Context,
-	request *sdk.ZipcodeDistanceMatchRequest,
+	request *afgosdk.ZipcodeDistanceMatchRequest,
 	opts ...option.RequestOption,
-) (*sdk.ZipcodeDistanceMatchResponse, error) {
+) (*afgosdk.ZipcodeDistanceMatchResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeDistanceMatch(
 		ctx,
 		request,
@@ -1441,9 +1441,9 @@ func (c *Client) ZipcodeDistanceMatch(
 // Get current weather data including temperature, humidity, precipitation, wind conditions, atmospheric pressure, and air quality for any location. Accepts city names, coordinates, or IP addresses. Also includes astronomy data and timezone-aware timestamps.
 func (c *Client) CurrentWeather(
 	ctx context.Context,
-	request *sdk.CurrentWeatherRequest,
+	request *afgosdk.CurrentWeatherRequest,
 	opts ...option.RequestOption,
-) (*sdk.CurrentWeatherResponse, error) {
+) (*afgosdk.CurrentWeatherResponse, error) {
 	response, err := c.WithRawResponse.CurrentWeather(
 		ctx,
 		request,
@@ -1458,9 +1458,9 @@ func (c *Client) CurrentWeather(
 // Retrieve current weather conditions for up to `50 locations` in a single request. A maximum of 50 locations (city names, IP addresses, or geographic coordinates) can be included in the request body.
 func (c *Client) BulkCurrentWeather(
 	ctx context.Context,
-	request *sdk.BulkCurrentWeatherRequest,
+	request *afgosdk.BulkCurrentWeatherRequest,
 	opts ...option.RequestOption,
-) (*sdk.BulkCurrentWeatherResponse, error) {
+) (*afgosdk.BulkCurrentWeatherResponse, error) {
 	response, err := c.WithRawResponse.BulkCurrentWeather(
 		ctx,
 		request,
@@ -1475,9 +1475,9 @@ func (c *Client) BulkCurrentWeather(
 // Access comprehensive weather forecasts with customizable precision - choose from daily overviews, hourly breakdowns, or even minute-by-minute data. Configure your date ranges or use the default 7-day forecast for standard weather planning.
 func (c *Client) WeatherForecast(
 	ctx context.Context,
-	request *sdk.WeatherForecastRequest,
+	request *afgosdk.WeatherForecastRequest,
 	opts ...option.RequestOption,
-) (*sdk.WeatherForecastResponse, error) {
+) (*afgosdk.WeatherForecastResponse, error) {
 	response, err := c.WithRawResponse.WeatherForecast(
 		ctx,
 		request,
@@ -1492,9 +1492,9 @@ func (c *Client) WeatherForecast(
 // Access past weather conditions for specific dates with records going back to 1940. Retrieve comprehensive historical data with both daily and hourly precision options.
 func (c *Client) HistoricalWeather(
 	ctx context.Context,
-	request *sdk.HistoricalWeatherRequest,
+	request *afgosdk.HistoricalWeatherRequest,
 	opts ...option.RequestOption,
-) (*sdk.HistoricalWeatherResponse, error) {
+) (*afgosdk.HistoricalWeatherResponse, error) {
 	response, err := c.WithRawResponse.HistoricalWeather(
 		ctx,
 		request,
@@ -1509,9 +1509,9 @@ func (c *Client) HistoricalWeather(
 // Pull historical weather information for date ranges up to 90 days (daily data) or 7 days (hourly data). Get consistent formatting across your specified date range with reliable historical weather patterns.
 func (c *Client) WeatherTimeSeries(
 	ctx context.Context,
-	request *sdk.WeatherTimeSeriesRequest,
+	request *afgosdk.WeatherTimeSeriesRequest,
 	opts ...option.RequestOption,
-) (*sdk.WeatherTimeSeriesResponse, error) {
+) (*afgosdk.WeatherTimeSeriesResponse, error) {
 	response, err := c.WithRawResponse.WeatherTimeSeries(
 		ctx,
 		request,
@@ -1526,9 +1526,9 @@ func (c *Client) WeatherTimeSeries(
 // Provides hourly forecasts of marine conditions including wave heights, wave directions, wave periods, swell info, sea surface temperatures, and ocean currents. Supports multiple geographical points and returns daily max wave statistics for up to 7 days. Ideal for maritime planning, navigation, and coastal activities.
 func (c *Client) MarineWeather(
 	ctx context.Context,
-	request *sdk.MarineWeatherRequest,
+	request *afgosdk.MarineWeatherRequest,
 	opts ...option.RequestOption,
-) (*sdk.MarineWeatherResponse, error) {
+) (*afgosdk.MarineWeatherResponse, error) {
 	response, err := c.WithRawResponse.MarineWeather(
 		ctx,
 		request,
@@ -1543,9 +1543,9 @@ func (c *Client) MarineWeather(
 // Monitor and predict air quality conditions using European and US AQI standards. Track pollutant concentrations including PM10, PM2.5, carbon monoxide, nitrogen dioxide, sulfur dioxide, ozone, and dust particles. Get current readings plus hourly forecasts up to 5 days ahead, complete with UV index and aerosol measurements for comprehensive air quality assessment.
 func (c *Client) AirQuality(
 	ctx context.Context,
-	request *sdk.AirQualityRequest,
+	request *afgosdk.AirQualityRequest,
 	opts ...option.RequestOption,
-) (*sdk.AirQualityResponse, error) {
+) (*afgosdk.AirQualityResponse, error) {
 	response, err := c.WithRawResponse.AirQuality(
 		ctx,
 		request,
@@ -1560,9 +1560,9 @@ func (c *Client) AirQuality(
 // Provides flood forecast data for a given location, including river discharge metrics such as mean, median, maximum, minimum, and percentile values (p25, p75). Requires a startDate and endDate, with the date range limited to 16 days. Location can be specified using city name, latitude/longitude, or IP address.
 func (c *Client) FloodForecast(
 	ctx context.Context,
-	request *sdk.FloodForecastRequest,
+	request *afgosdk.FloodForecastRequest,
 	opts ...option.RequestOption,
-) (*sdk.FloodForecastResponse, error) {
+) (*afgosdk.FloodForecastResponse, error) {
 	response, err := c.WithRawResponse.FloodForecast(
 		ctx,
 		request,
@@ -1577,9 +1577,9 @@ func (c *Client) FloodForecast(
 // Retrieve countries, optionally filtered by region or subregion.
 func (c *Client) GetCountries(
 	ctx context.Context,
-	request *sdk.GetCountriesRequest,
+	request *afgosdk.GetCountriesRequest,
 	opts ...option.RequestOption,
-) (*sdk.GetCountriesResponse, error) {
+) (*afgosdk.GetCountriesResponse, error) {
 	response, err := c.WithRawResponse.GetCountries(
 		ctx,
 		request,
@@ -1593,9 +1593,9 @@ func (c *Client) GetCountries(
 
 func (c *Client) GetCountryDetails(
 	ctx context.Context,
-	request *sdk.GetCountryDetailsRequest,
+	request *afgosdk.GetCountryDetailsRequest,
 	opts ...option.RequestOption,
-) (*sdk.GetCountryDetailsResponse, error) {
+) (*afgosdk.GetCountryDetailsResponse, error) {
 	response, err := c.WithRawResponse.GetCountryDetails(
 		ctx,
 		request,
@@ -1609,9 +1609,9 @@ func (c *Client) GetCountryDetails(
 
 func (c *Client) GetRegions(
 	ctx context.Context,
-	request *sdk.GetRegionsRequest,
+	request *afgosdk.GetRegionsRequest,
 	opts ...option.RequestOption,
-) (*sdk.GetRegionsResponse, error) {
+) (*afgosdk.GetRegionsResponse, error) {
 	response, err := c.WithRawResponse.GetRegions(
 		ctx,
 		request,
@@ -1625,9 +1625,9 @@ func (c *Client) GetRegions(
 
 func (c *Client) GetSubregions(
 	ctx context.Context,
-	request *sdk.GetSubregionsRequest,
+	request *afgosdk.GetSubregionsRequest,
 	opts ...option.RequestOption,
-) (*sdk.GetSubregionsResponse, error) {
+) (*afgosdk.GetSubregionsResponse, error) {
 	response, err := c.WithRawResponse.GetSubregions(
 		ctx,
 		request,
@@ -1642,9 +1642,9 @@ func (c *Client) GetSubregions(
 // Retrieve administrative units based on ISO 3166-1 alpha-2 country code.
 func (c *Client) GetAdminLevels(
 	ctx context.Context,
-	request *sdk.GetAdminLevelsRequest,
+	request *afgosdk.GetAdminLevelsRequest,
 	opts ...option.RequestOption,
-) (*sdk.GetAdminLevelsResponse, error) {
+) (*afgosdk.GetAdminLevelsResponse, error) {
 	response, err := c.WithRawResponse.GetAdminLevels(
 		ctx,
 		request,
@@ -1659,9 +1659,9 @@ func (c *Client) GetAdminLevels(
 // Retrieve administrative divisions for a given country using ISO 3166-1 alpha-2 country codes. You can optionally filter by administrative levels.
 func (c *Client) GetAdminUnits(
 	ctx context.Context,
-	request *sdk.GetAdminUnitsRequest,
+	request *afgosdk.GetAdminUnitsRequest,
 	opts ...option.RequestOption,
-) (*sdk.GetAdminUnitsResponse, error) {
+) (*afgosdk.GetAdminUnitsResponse, error) {
 	response, err := c.WithRawResponse.GetAdminUnits(
 		ctx,
 		request,
@@ -1676,9 +1676,9 @@ func (c *Client) GetAdminUnits(
 // Retrieve detailed administrative unit information by country and optionally filtered by admin code.
 func (c *Client) GetAdminUnitDetails(
 	ctx context.Context,
-	request *sdk.GetAdminUnitDetailsRequest,
+	request *afgosdk.GetAdminUnitDetailsRequest,
 	opts ...option.RequestOption,
-) (*sdk.GetAdminUnitDetailsResponse, error) {
+) (*afgosdk.GetAdminUnitDetailsResponse, error) {
 	response, err := c.WithRawResponse.GetAdminUnitDetails(
 		ctx,
 		request,
@@ -1693,9 +1693,9 @@ func (c *Client) GetAdminUnitDetails(
 // Retrieve a list of cities within a country, optionally filtered by an administrative unit code.
 func (c *Client) GetCities(
 	ctx context.Context,
-	request *sdk.GetCitiesRequest,
+	request *afgosdk.GetCitiesRequest,
 	opts ...option.RequestOption,
-) (*sdk.GetCitiesResponse, error) {
+) (*afgosdk.GetCitiesResponse, error) {
 	response, err := c.WithRawResponse.GetCities(
 		ctx,
 		request,
@@ -1710,9 +1710,9 @@ func (c *Client) GetCities(
 // Get list of all supported flags with their metadata
 func (c *Client) GetSupportedFlags(
 	ctx context.Context,
-	request *sdk.GetSupportedFlagsRequest,
+	request *afgosdk.GetSupportedFlagsRequest,
 	opts ...option.RequestOption,
-) ([]*sdk.GetSupportedFlagsResponseItem, error) {
+) ([]*afgosdk.GetSupportedFlagsResponseItem, error) {
 	response, err := c.WithRawResponse.GetSupportedFlags(
 		ctx,
 		request,
@@ -1727,7 +1727,7 @@ func (c *Client) GetSupportedFlags(
 // Retrieve the flag for a specific country
 func (c *Client) GetFlags(
 	ctx context.Context,
-	request *sdk.GetFlagsRequest,
+	request *afgosdk.GetFlagsRequest,
 	opts ...option.RequestOption,
 ) (io.Reader, error) {
 	response, err := c.WithRawResponse.GetFlags(
@@ -1744,9 +1744,9 @@ func (c *Client) GetFlags(
 // Retrieve current time, date, and timezone-related information by specifying a timezone name, location address, location coordinates, IP address, or use the client IP address if no parameter is passed.
 func (c *Client) TimezoneLookup(
 	ctx context.Context,
-	request *sdk.TimezoneLookupRequest,
+	request *afgosdk.TimezoneLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.TimezoneLookupResponse, error) {
+) (*afgosdk.TimezoneLookupResponse, error) {
 	response, err := c.WithRawResponse.TimezoneLookup(
 		ctx,
 		request,
@@ -1761,9 +1761,9 @@ func (c *Client) TimezoneLookup(
 // Converts a given time from one timezone to another using various input types like timezone name, coordinates, location, or codes.
 func (c *Client) TimezoneConvert(
 	ctx context.Context,
-	request *sdk.TimezoneConvertRequest,
+	request *afgosdk.TimezoneConvertRequest,
 	opts ...option.RequestOption,
-) (*sdk.TimezoneConvertResponse, error) {
+) (*afgosdk.TimezoneConvertResponse, error) {
 	response, err := c.WithRawResponse.TimezoneConvert(
 		ctx,
 		request,
@@ -1778,9 +1778,9 @@ func (c *Client) TimezoneConvert(
 // Parse User Agent string to get detailed browser, device, and operating system information
 func (c *Client) UserAgentLookup(
 	ctx context.Context,
-	request *sdk.UserAgentLookupRequest,
+	request *afgosdk.UserAgentLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.UserAgentLookupResponse, error) {
+) (*afgosdk.UserAgentLookupResponse, error) {
 	response, err := c.WithRawResponse.UserAgentLookup(
 		ctx,
 		request,
@@ -1795,9 +1795,9 @@ func (c *Client) UserAgentLookup(
 // Parse up to `50,000 User-Agent strings` at once in a single request.
 func (c *Client) BulkUserAgentLookup(
 	ctx context.Context,
-	request *sdk.BulkUserAgentLookupRequest,
+	request *afgosdk.BulkUserAgentLookupRequest,
 	opts ...option.RequestOption,
-) ([]*sdk.BulkUserAgentLookupResponseItem, error) {
+) ([]*afgosdk.BulkUserAgentLookupResponseItem, error) {
 	response, err := c.WithRawResponse.BulkUserAgentLookup(
 		ctx,
 		request,
@@ -1820,9 +1820,9 @@ func (c *Client) BulkUserAgentLookup(
 //   - `zone`
 func (c *Client) OcrPredict(
 	ctx context.Context,
-	request *sdk.OcrPredictRequest,
+	request *afgosdk.OcrPredictRequest,
 	opts ...option.RequestOption,
-) (*sdk.OcrPredictResponse, error) {
+) (*afgosdk.OcrPredictResponse, error) {
 	response, err := c.WithRawResponse.OcrPredict(
 		ctx,
 		request,
@@ -1837,9 +1837,9 @@ func (c *Client) OcrPredict(
 // Analyze text for grammar errors and return the exact words flagged as grammatically incorrect with zero-based word positions.
 func (c *Client) GrammarDetect(
 	ctx context.Context,
-	request *sdk.GrammarDetectRequest,
+	request *afgosdk.GrammarDetectRequest,
 	opts ...option.RequestOption,
-) (*sdk.GrammarDetectResponse, error) {
+) (*afgosdk.GrammarDetectResponse, error) {
 	response, err := c.WithRawResponse.GrammarDetect(
 		ctx,
 		request,
@@ -1854,9 +1854,9 @@ func (c *Client) GrammarDetect(
 // Submit text with grammatical issues and receive a clean grammar-corrected result for proofreading and content workflows.
 func (c *Client) GrammarCorrect(
 	ctx context.Context,
-	request *sdk.GrammarCorrectRequest,
+	request *afgosdk.GrammarCorrectRequest,
 	opts ...option.RequestOption,
-) (*sdk.GrammarCorrectResponse, error) {
+) (*afgosdk.GrammarCorrectResponse, error) {
 	response, err := c.WithRawResponse.GrammarCorrect(
 		ctx,
 		request,
@@ -1871,9 +1871,9 @@ func (c *Client) GrammarCorrect(
 // Analyze text and return weak, vague, or filler words with zero-based word positions to help writers produce clearer and more concise content.
 func (c *Client) WeakWordsDetect(
 	ctx context.Context,
-	request *sdk.WeakWordsDetectRequest,
+	request *afgosdk.WeakWordsDetectRequest,
 	opts ...option.RequestOption,
-) (*sdk.WeakWordsDetectResponse, error) {
+) (*afgosdk.WeakWordsDetectResponse, error) {
 	response, err := c.WithRawResponse.WeakWordsDetect(
 		ctx,
 		request,
@@ -1888,9 +1888,9 @@ func (c *Client) WeakWordsDetect(
 // Analyze text readability using industry-standard formulas including Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog Index, SMOG Index, Coleman-Liau Index, and Automated Readability Index.
 func (c *Client) ReadabilityScore(
 	ctx context.Context,
-	request *sdk.ReadabilityScoreRequest,
+	request *afgosdk.ReadabilityScoreRequest,
 	opts ...option.RequestOption,
-) (*sdk.ReadabilityScoreResponse, error) {
+) (*afgosdk.ReadabilityScoreResponse, error) {
 	response, err := c.WithRawResponse.ReadabilityScore(
 		ctx,
 		request,
@@ -1905,9 +1905,9 @@ func (c *Client) ReadabilityScore(
 // Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
 func (c *Client) AstronomyLookup(
 	ctx context.Context,
-	request *sdk.AstronomyLookupRequest,
+	request *afgosdk.AstronomyLookupRequest,
 	opts ...option.RequestOption,
-) (*sdk.AstronomyLookupResponse, error) {
+) (*afgosdk.AstronomyLookupResponse, error) {
 	response, err := c.WithRawResponse.AstronomyLookup(
 		ctx,
 		request,

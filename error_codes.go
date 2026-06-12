@@ -3,8 +3,8 @@
 package api
 
 import (
-	core "github.com/api-freaks/sdk/core"
-	internal "github.com/api-freaks/sdk/internal"
+	core "github.com/api-freaks/af-go-sdk/core"
+	internal "github.com/api-freaks/af-go-sdk/internal"
 )
 
 var ErrorCodes internal.ErrorCodes = internal.ErrorCodes{

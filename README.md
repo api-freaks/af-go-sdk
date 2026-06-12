@@ -1,40 +1,41 @@
 # Apifreaks Go SDK
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Apifreaks%2FGo)
-[![Go Reference](https://pkg.go.dev/badge/github.com/api-freaks/sdk.svg)](https://pkg.go.dev/github.com/api-freaks/sdk)
+[![Go Reference](https://pkg.go.dev/badge/github.com/api-freaks/af-go-sdk.svg)](https://pkg.go.dev/github.com/api-freaks/af-go-sdk)
 
 The Apifreaks Go library provides convenient access to the Apifreaks APIs from Go.
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Reference](#reference)
-- [Usage](#usage)
-- [Environments](#environments)
-- [Errors](#errors)
-- [Request Types](#request-types)
-- [Raw Responses](#raw-responses)
-- [Advanced](#advanced)
-  - [Retries](#retries)
-  - [Timeouts](#timeouts)
-  - [Additional Headers](#additional-headers)
-  - [Additional Query String Parameters](#additional-query-string-parameters)
-- [Contributing](#contributing)
+* [Installation](#installation)
+* [Reference](#reference)
+* [Usage](#usage)
+* [Environments](#environments)
+* [Errors](#errors)
+* [Request Types](#request-types)
+* [Raw Responses](#raw-responses)
+* [Advanced](#advanced)
+
+  * [Retries](#retries)
+  * [Timeouts](#timeouts)
+  * [Additional Headers](#additional-headers)
+  * [Additional Query String Parameters](#additional-query-string-parameters)
+* [Contributing](#contributing)
 
 ## Installation
 
 Install the SDK with:
 
 ```sh
-go get github.com/api-freaks/sdk
+go get github.com/api-freaks/af-go-sdk
 ```
 
 Then import the SDK in your Go code:
 
 ```go
 import (
-    sdk "github.com/api-freaks/sdk"
-    "github.com/api-freaks/sdk/client"
+    sdk "github.com/api-freaks/af-go-sdk"
+    "github.com/api-freaks/af-go-sdk/client"
 )
 ```
 
@@ -54,8 +55,8 @@ import (
     "fmt"
     "log"
 
-    sdk "github.com/api-freaks/sdk"
-    "github.com/api-freaks/sdk/client"
+    sdk "github.com/api-freaks/af-go-sdk"
+    "github.com/api-freaks/af-go-sdk/client"
 )
 
 func main() {
@@ -86,8 +87,8 @@ import (
     "fmt"
     "log"
 
-    sdk "github.com/api-freaks/sdk"
-    "github.com/api-freaks/sdk/client"
+    sdk "github.com/api-freaks/af-go-sdk"
+    "github.com/api-freaks/af-go-sdk/client"
 )
 
 func main() {
@@ -118,8 +119,8 @@ import (
     "fmt"
     "log"
 
-    sdk "github.com/api-freaks/sdk"
-    "github.com/api-freaks/sdk/client"
+    sdk "github.com/api-freaks/af-go-sdk"
+    "github.com/api-freaks/af-go-sdk/client"
 )
 
 func main() {
@@ -151,9 +152,9 @@ This SDK allows you to configure different environments for API requests.
 package main
 
 import (
-    sdk "github.com/api-freaks/sdk"
-    "github.com/api-freaks/sdk/client"
-    "github.com/api-freaks/sdk/option"
+    sdk "github.com/api-freaks/af-go-sdk"
+    "github.com/api-freaks/af-go-sdk/client"
+    "github.com/api-freaks/af-go-sdk/option"
 )
 
 func main() {
@@ -178,9 +179,9 @@ import (
     "fmt"
     "log"
 
-    sdk "github.com/api-freaks/sdk"
-    "github.com/api-freaks/sdk/client"
-    "github.com/api-freaks/sdk/core"
+    sdk "github.com/api-freaks/af-go-sdk"
+    "github.com/api-freaks/af-go-sdk/client"
+    "github.com/api-freaks/af-go-sdk/core"
 )
 
 func main() {
@@ -218,7 +219,7 @@ func main() {
 The SDK exports all request types as Go structs from the root package. Import the root package and pass request structs into the client methods.
 
 ```go
-import sdk "github.com/api-freaks/sdk"
+import sdk "github.com/api-freaks/af-go-sdk"
 
 request := &sdk.GeolocationLookupRequest{
     APIKey: "your_api_key",
@@ -298,8 +299,8 @@ import (
     "net/http"
     "time"
 
-    "github.com/api-freaks/sdk/client"
-    "github.com/api-freaks/sdk/option"
+    "github.com/api-freaks/af-go-sdk/client"
+    "github.com/api-freaks/af-go-sdk/option"
 )
 
 func main() {

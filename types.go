@@ -5,7 +5,7 @@ package api
 import (
 	json "encoding/json"
 	fmt "fmt"
-	internal "github.com/api-freaks/sdk/internal"
+	internal "github.com/api-freaks/af-go-sdk/internal"
 	io "io"
 	big "math/big"
 	url "net/url"

@@ -11,9 +11,9 @@ import (
 	strings "strings"
 	testing "testing"
 
-	sdk "github.com/api-freaks/sdk"
-	client "github.com/api-freaks/sdk/client"
-	option "github.com/api-freaks/sdk/option"
+	afgosdk "github.com/api-freaks/af-go-sdk"
+	client "github.com/api-freaks/af-go-sdk/client"
+	option "github.com/api-freaks/af-go-sdk/option"
 	require "github.com/stretchr/testify/require"
 )
 
@@ -88,7 +88,7 @@ func TestGeolocationLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GeolocationLookupRequest{
+	request := &afgosdk.GeolocationLookupRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.GeolocationLookup(
@@ -113,7 +113,7 @@ func TestBulkGeolocationLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkGeolocationLookupRequest{
+	request := &afgosdk.BulkGeolocationLookupRequest{
 		APIKey: "apiKey",
 		Ips: []string{
 			"ips",
@@ -141,7 +141,7 @@ func TestIPSecurityLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.IPSecurityLookupRequest{
+	request := &afgosdk.IPSecurityLookupRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.IPSecurityLookup(
@@ -166,7 +166,7 @@ func TestBulkIPSecurityLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkIPSecurityLookupRequest{
+	request := &afgosdk.BulkIPSecurityLookupRequest{
 		APIKey: "apiKey",
 		Ips: []string{
 			"ips",
@@ -194,7 +194,7 @@ func TestGeocoderSearchWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GeocoderSearchRequest{
+	request := &afgosdk.GeocoderSearchRequest{
 		APIKey: "apiKey",
 		Query:  "query",
 	}
@@ -220,7 +220,7 @@ func TestGeocoderReverseWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GeocoderReverseRequest{
+	request := &afgosdk.GeocoderReverseRequest{
 		APIKey: "apiKey",
 		Lat:    1.1,
 		Lon:    1.1,
@@ -247,7 +247,7 @@ func TestDomainWhoisLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainWhoisLookupRequest{
+	request := &afgosdk.DomainWhoisLookupRequest{
 		APIKey:     "apiKey",
 		DomainName: "domainName",
 	}
@@ -273,7 +273,7 @@ func TestBulkDomainWhoisLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkDomainWhoisLookupRequest{
+	request := &afgosdk.BulkDomainWhoisLookupRequest{
 		APIKey: "apiKey",
 		DomainNames: []string{
 			"domainNames",
@@ -301,7 +301,7 @@ func TestIPWhoisLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.IPWhoisLookupRequest{
+	request := &afgosdk.IPWhoisLookupRequest{
 		APIKey: "apiKey",
 		IP:     "ip",
 	}
@@ -327,7 +327,7 @@ func TestAsnWhoisLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.AsnWhoisLookupRequest{
+	request := &afgosdk.AsnWhoisLookupRequest{
 		APIKey: "apiKey",
 		Asn:    "asn",
 	}
@@ -353,7 +353,7 @@ func TestDomainWhoisHistoryWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainWhoisHistoryRequest{
+	request := &afgosdk.DomainWhoisHistoryRequest{
 		APIKey:     "apiKey",
 		DomainName: "domainName",
 	}
@@ -379,7 +379,7 @@ func TestDomainWhoisReverseWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainWhoisReverseRequest{
+	request := &afgosdk.DomainWhoisReverseRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.DomainWhoisReverse(
@@ -404,10 +404,10 @@ func TestDomainDNSLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainDNSLookupRequest{
+	request := &afgosdk.DomainDNSLookupRequest{
 		APIKey: "apiKey",
 		Type: []*string{
-			sdk.String(
+			afgosdk.String(
 				"type",
 			),
 		},
@@ -434,10 +434,10 @@ func TestBulkDomainDNSLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkDomainDNSLookupRequest{
+	request := &afgosdk.BulkDomainDNSLookupRequest{
 		APIKey: "apiKey",
 		Type: []*string{
-			sdk.String(
+			afgosdk.String(
 				"type",
 			),
 		},
@@ -467,11 +467,11 @@ func TestDomainDNSHistoryWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainDNSHistoryRequest{
+	request := &afgosdk.DomainDNSHistoryRequest{
 		APIKey:   "apiKey",
 		HostName: "host-name",
 		Type: []*string{
-			sdk.String(
+			afgosdk.String(
 				"type",
 			),
 		},
@@ -498,9 +498,9 @@ func TestDomainDNSReverseWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainDNSReverseRequest{
+	request := &afgosdk.DomainDNSReverseRequest{
 		APIKey: "apiKey",
-		Type:   sdk.DomainDNSReverseRequestTypeA,
+		Type:   afgosdk.DomainDNSReverseRequestTypeA,
 		Value:  "value",
 	}
 	_, invocationErr := client.DomainDNSReverse(
@@ -525,96 +525,96 @@ func TestWebScrapeWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.WebScrapeRequest{
+	request := &afgosdk.WebScrapeRequest{
 		APIKey: "apiKey",
 		URL:    "https://example.com",
-		Body: &sdk.WebScrapeRequestBody{
-			WebScrapeRequestBodyBlockURL: &sdk.WebScrapeRequestBodyBlockURL{
+		Body: &afgosdk.WebScrapeRequestBody{
+			WebScrapeRequestBodyBlockURL: &afgosdk.WebScrapeRequestBodyBlockURL{
 				BlockURL: []string{
 					"https://example.com/ads.js",
 					"https://tracker.example.com/*",
 				},
-				Cookies: []*sdk.WebScrapeRequestBodyBlockURLCookiesItem{
-					&sdk.WebScrapeRequestBodyBlockURLCookiesItem{
+				Cookies: []*afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
+					&afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
 						Name:  "sessionid",
 						Value: "abc123",
 					},
-					&sdk.WebScrapeRequestBodyBlockURLCookiesItem{
+					&afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
 						Name:  "user_pref",
 						Value: "darkmode",
 					},
 				},
-				Instructions: []*sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-					&sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemFill: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
-							Fill: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
+				Instructions: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+						WebScrapeRequestBodyBlockURLInstructionsItemFill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
+							Fill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
 								Place: "#username",
 								Value: "myuser",
 							},
 						},
 					},
-					&sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemFill: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
-							Fill: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+						WebScrapeRequestBodyBlockURLInstructionsItemFill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
+							Fill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
 								Place: "#password",
 								Value: "mypassword",
 							},
 						},
 					},
-					&sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemClick: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemClick{
-							Click: sdk.String(
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+						WebScrapeRequestBodyBlockURLInstructionsItemClick: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemClick{
+							Click: afgosdk.String(
 								"#loginButton",
 							),
 						},
 					},
-					&sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemWait: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemWait{
-							Wait: sdk.Int(
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+						WebScrapeRequestBodyBlockURLInstructionsItemWait: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemWait{
+							Wait: afgosdk.Int(
 								2000,
 							),
 						},
 					},
-					&sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemExtract: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemExtract{
-							Extract: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemExtractExtract{
-								HTML: sdk.String(
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+						WebScrapeRequestBodyBlockURLInstructionsItemExtract: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemExtract{
+							Extract: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemExtractExtract{
+								HTML: afgosdk.String(
 									"#profile",
 								),
-								Text: sdk.String(
+								Text: afgosdk.String(
 									"#welcome-message",
 								),
-								UserData: sdk.String(
+								UserData: afgosdk.String(
 									"#user-info",
 								),
 							},
 						},
 					},
-					&sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemBlockElement: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemBlockElement{
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+						WebScrapeRequestBodyBlockURLInstructionsItemBlockElement: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemBlockElement{
 							BlockElement: []string{
 								".ad-banner",
 								"//div[@class='popup']",
 							},
 						},
 					},
-					&sdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha: &sdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha{
-							GeneralImageCaptcha: []*sdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
-								&sdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
-									ImagePath: sdk.String(
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+						WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha{
+							GeneralImageCaptcha: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
+								&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
+									ImagePath: afgosdk.String(
 										"#captcha-img",
 									),
-									TextField: sdk.String(
+									TextField: afgosdk.String(
 										"#captcha-input",
 									),
-									ImageUpdatePath: sdk.String(
+									ImageUpdatePath: afgosdk.String(
 										"#refresh-captcha",
 									),
-									CaptchaFailedPath: sdk.String(
+									CaptchaFailedPath: afgosdk.String(
 										"#captcha-error",
 									),
-									Model: sdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItemModelMiniOcrV1.Ptr(),
+									Model: afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItemModelMiniOcrV1.Ptr(),
 								},
 							},
 						},
@@ -645,7 +645,7 @@ func TestEmailValidateWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.EmailValidateRequest{
+	request := &afgosdk.EmailValidateRequest{
 		APIKey: "apiKey",
 		Email:  "email",
 	}
@@ -671,10 +671,10 @@ func TestBulkEmailValidateWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkEmailValidateRequest{
+	request := &afgosdk.BulkEmailValidateRequest{
 		APIKey: "apiKey",
-		EmailData: []*sdk.BulkEmailValidateRequestEmailDataItem{
-			&sdk.BulkEmailValidateRequestEmailDataItem{
+		EmailData: []*afgosdk.BulkEmailValidateRequestEmailDataItem{
+			&afgosdk.BulkEmailValidateRequestEmailDataItem{
 				Email: "email",
 			},
 		},
@@ -701,7 +701,7 @@ func TestPhoneValidateWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PhoneValidateRequest{
+	request := &afgosdk.PhoneValidateRequest{
 		APIKey: "apiKey",
 		Number: "+14155552671",
 	}
@@ -727,16 +727,16 @@ func TestBulkPhoneValidateWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkPhoneValidateRequest{
+	request := &afgosdk.BulkPhoneValidateRequest{
 		APIKey: "apiKey",
-		Numbers: []*sdk.BulkPhoneValidateRequestNumbersItem{
-			&sdk.BulkPhoneValidateRequestNumbersItem{
+		Numbers: []*afgosdk.BulkPhoneValidateRequestNumbersItem{
+			&afgosdk.BulkPhoneValidateRequestNumbersItem{
 				Number: "+14155552671",
 			},
-			&sdk.BulkPhoneValidateRequestNumbersItem{
+			&afgosdk.BulkPhoneValidateRequestNumbersItem{
 				Number: "+447911123456",
 			},
-			&sdk.BulkPhoneValidateRequestNumbersItem{
+			&afgosdk.BulkPhoneValidateRequestNumbersItem{
 				Number: "+919876543210",
 			},
 		},
@@ -763,7 +763,7 @@ func TestDomainSslLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainSslLookupRequest{
+	request := &afgosdk.DomainSslLookupRequest{
 		APIKey:     "apiKey",
 		DomainName: "domainName",
 	}
@@ -789,7 +789,7 @@ func TestDomainSslChainLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainSslChainLookupRequest{
+	request := &afgosdk.DomainSslChainLookupRequest{
 		APIKey:     "apiKey",
 		DomainName: "domainName",
 	}
@@ -815,7 +815,7 @@ func TestDomainAvailabilityCheckWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainAvailabilityCheckRequest{
+	request := &afgosdk.DomainAvailabilityCheckRequest{
 		APIKey: "apiKey",
 		Domain: "domain",
 	}
@@ -841,7 +841,7 @@ func TestBulkDomainAvailabilityCheckWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkDomainAvailabilityCheckRequest{
+	request := &afgosdk.BulkDomainAvailabilityCheckRequest{
 		APIKey: "apiKey",
 		DomainNames: []string{
 			"domainNames",
@@ -869,7 +869,7 @@ func TestDomainAvailabilitySuggestionsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.DomainAvailabilitySuggestionsRequest{
+	request := &afgosdk.DomainAvailabilitySuggestionsRequest{
 		APIKey: "apiKey",
 		Domain: "domain",
 	}
@@ -895,7 +895,7 @@ func TestSubdomainsLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.SubdomainsLookupRequest{
+	request := &afgosdk.SubdomainsLookupRequest{
 		APIKey: "apiKey",
 		Domain: "domain",
 	}
@@ -921,7 +921,7 @@ func TestPdfMergeWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfMergeRequest{
+	request := &afgosdk.PdfMergeRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.PdfMerge(
@@ -946,7 +946,7 @@ func TestPdfRemovePagesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfRemovePagesRequest{
+	request := &afgosdk.PdfRemovePagesRequest{
 		APIKey: "apiKey",
 		Pages:  "pages",
 		File: strings.NewReader(
@@ -975,7 +975,7 @@ func TestPdfSplitWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfSplitRequest{
+	request := &afgosdk.PdfSplitRequest{
 		APIKey: "apiKey",
 		File: strings.NewReader(
 			"",
@@ -1003,7 +1003,7 @@ func TestPdfRotateWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfRotateRequest{
+	request := &afgosdk.PdfRotateRequest{
 		APIKey: "apiKey",
 		Rotate: 1,
 		File: strings.NewReader(
@@ -1032,9 +1032,9 @@ func TestPdfCompressWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfCompressRequest{
+	request := &afgosdk.PdfCompressRequest{
 		APIKey:           "apiKey",
-		CompressionLevel: sdk.PdfCompressRequestCompressionLevelLow,
+		CompressionLevel: afgosdk.PdfCompressRequestCompressionLevelLow,
 		File: strings.NewReader(
 			"",
 		),
@@ -1061,7 +1061,7 @@ func TestPdfExtractPagesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfExtractPagesRequest{
+	request := &afgosdk.PdfExtractPagesRequest{
 		APIKey: "apiKey",
 		Pages:  "pages",
 		File: strings.NewReader(
@@ -1090,7 +1090,7 @@ func TestPdfLinearizeWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfLinearizeRequest{
+	request := &afgosdk.PdfLinearizeRequest{
 		APIKey: "apiKey",
 		File: strings.NewReader(
 			"",
@@ -1118,7 +1118,7 @@ func TestPdfEncryptWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfEncryptRequest{
+	request := &afgosdk.PdfEncryptRequest{
 		APIKey:       "apiKey",
 		UserPassword: "user_password",
 		File: strings.NewReader(
@@ -1147,7 +1147,7 @@ func TestPdfDecryptWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfDecryptRequest{
+	request := &afgosdk.PdfDecryptRequest{
 		APIKey:       "apiKey",
 		FilePassword: "file_password",
 		File: strings.NewReader(
@@ -1176,11 +1176,11 @@ func TestPdfRestrictWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfRestrictRequest{
+	request := &afgosdk.PdfRestrictRequest{
 		APIKey:       "apiKey",
 		UserPassword: "user_password",
-		Restrictions: []*sdk.PdfRestrictRequestRestrictionsItem{
-			sdk.PdfRestrictRequestRestrictionsItemPrintHigh.Ptr(),
+		Restrictions: []*afgosdk.PdfRestrictRequestRestrictionsItem{
+			afgosdk.PdfRestrictRequestRestrictionsItemPrintHigh.Ptr(),
 		},
 		File: strings.NewReader(
 			"",
@@ -1208,7 +1208,7 @@ func TestPdfUnrestrictWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfUnrestrictRequest{
+	request := &afgosdk.PdfUnrestrictRequest{
 		APIKey:       "apiKey",
 		FilePassword: "file_password",
 		File: strings.NewReader(
@@ -1237,7 +1237,7 @@ func TestPdfConvertToPngWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfConvertToPngRequest{
+	request := &afgosdk.PdfConvertToPngRequest{
 		APIKey: "apiKey",
 		File: strings.NewReader(
 			"",
@@ -1265,7 +1265,7 @@ func TestPdfConvertToJpgWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfConvertToJpgRequest{
+	request := &afgosdk.PdfConvertToJpgRequest{
 		APIKey: "apiKey",
 		File: strings.NewReader(
 			"",
@@ -1293,7 +1293,7 @@ func TestPdfConvertToTiffWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfConvertToTiffRequest{
+	request := &afgosdk.PdfConvertToTiffRequest{
 		APIKey: "apiKey",
 		File: strings.NewReader(
 			"",
@@ -1321,7 +1321,7 @@ func TestPdfConvertToBmpWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfConvertToBmpRequest{
+	request := &afgosdk.PdfConvertToBmpRequest{
 		APIKey: "apiKey",
 		File: strings.NewReader(
 			"",
@@ -1349,7 +1349,7 @@ func TestPdfConvertToGifWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfConvertToGifRequest{
+	request := &afgosdk.PdfConvertToGifRequest{
 		APIKey: "apiKey",
 		File: strings.NewReader(
 			"",
@@ -1377,7 +1377,7 @@ func TestPdfUploadResourcesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfUploadResourcesRequest{
+	request := &afgosdk.PdfUploadResourcesRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.PdfUploadResources(
@@ -1402,7 +1402,7 @@ func TestPdfDownloadResourceWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfDownloadResourceRequest{
+	request := &afgosdk.PdfDownloadResourceRequest{
 		APIKey:     "apiKey",
 		ResourceID: "resource_id",
 	}
@@ -1428,7 +1428,7 @@ func TestPdfGetTaskStatusWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfGetTaskStatusRequest{
+	request := &afgosdk.PdfGetTaskStatusRequest{
 		APIKey: "apiKey",
 		TaskID: "task_id",
 	}
@@ -1454,7 +1454,7 @@ func TestPdfGetFileStatusWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfGetFileStatusRequest{
+	request := &afgosdk.PdfGetFileStatusRequest{
 		APIKey: "apiKey",
 		FileID: "file_id",
 	}
@@ -1480,7 +1480,7 @@ func TestPdfListFilesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfListFilesRequest{
+	request := &afgosdk.PdfListFilesRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.PdfListFiles(
@@ -1505,7 +1505,7 @@ func TestPdfDeleteFileWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.PdfDeleteFileRequest{
+	request := &afgosdk.PdfDeleteFileRequest{
 		APIKey: "apiKey",
 		FileID: "file_id",
 	}
@@ -1531,7 +1531,7 @@ func TestScreenshotCaptureWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.ScreenshotCaptureRequest{
+	request := &afgosdk.ScreenshotCaptureRequest{
 		APIKey: "apiKey",
 		URL:    "url",
 	}
@@ -1557,10 +1557,10 @@ func TestBulkScreenshotCaptureWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkScreenshotCaptureRequest{
+	request := &afgosdk.BulkScreenshotCaptureRequest{
 		APIKey: "apiKey",
-		URLs: []*sdk.BulkScreenshotCaptureRequestURLsItem{
-			&sdk.BulkScreenshotCaptureRequestURLsItem{
+		URLs: []*afgosdk.BulkScreenshotCaptureRequestURLsItem{
+			&afgosdk.BulkScreenshotCaptureRequestURLsItem{
 				URL: "url",
 			},
 		},
@@ -1587,7 +1587,7 @@ func TestCurrencyLatestRatesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencyLatestRatesRequest{
+	request := &afgosdk.CurrencyLatestRatesRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.CurrencyLatestRates(
@@ -1612,9 +1612,9 @@ func TestCurrencyHistoricalRatesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencyHistoricalRatesRequest{
+	request := &afgosdk.CurrencyHistoricalRatesRequest{
 		APIKey: "apiKey",
-		Date: sdk.MustParseDate(
+		Date: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
 	}
@@ -1640,7 +1640,7 @@ func TestCurrencyConvertLatestWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencyConvertLatestRequest{
+	request := &afgosdk.CurrencyConvertLatestRequest{
 		APIKey: "apiKey",
 		From:   "from",
 		To:     "to",
@@ -1667,11 +1667,11 @@ func TestCurrencyConvertHistoricalWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencyConvertHistoricalRequest{
+	request := &afgosdk.CurrencyConvertHistoricalRequest{
 		APIKey: "apiKey",
 		From:   "from",
 		To:     "to",
-		Date: sdk.MustParseDate(
+		Date: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
 	}
@@ -1697,9 +1697,9 @@ func TestCurrencyTimeSeriesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencyTimeSeriesRequest{
+	request := &afgosdk.CurrencyTimeSeriesRequest{
 		APIKey: "apiKey",
-		StartDate: sdk.MustParseDate(
+		StartDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
 	}
@@ -1725,12 +1725,12 @@ func TestCurrencyFluctuationWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencyFluctuationRequest{
+	request := &afgosdk.CurrencyFluctuationRequest{
 		APIKey: "apiKey",
-		StartDate: sdk.MustParseDate(
+		StartDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
-		Base: sdk.String(
+		Base: afgosdk.String(
 			"USD",
 		),
 	}
@@ -1756,7 +1756,7 @@ func TestCurrencyConvertByIPWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencyConvertByIPRequest{
+	request := &afgosdk.CurrencyConvertByIPRequest{
 		APIKey: "apiKey",
 		From:   "from",
 	}
@@ -1782,7 +1782,7 @@ func TestCurrencySupportedWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencySupportedRequest{
+	request := &afgosdk.CurrencySupportedRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.CurrencySupported(
@@ -1807,7 +1807,7 @@ func TestCurrencySymbolsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencySymbolsRequest{
+	request := &afgosdk.CurrencySymbolsRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.CurrencySymbols(
@@ -1832,7 +1832,7 @@ func TestCurrencyHistoricalLimitsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrencyHistoricalLimitsRequest{
+	request := &afgosdk.CurrencyHistoricalLimitsRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.CurrencyHistoricalLimits(
@@ -1857,14 +1857,14 @@ func TestCommodityLatestRatesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CommodityLatestRatesRequest{
+	request := &afgosdk.CommodityLatestRatesRequest{
 		APIKey: "apiKey",
 		Symbols: []*string{
-			sdk.String(
+			afgosdk.String(
 				"symbols",
 			),
 		},
-		Updates: sdk.CommodityLatestRatesRequestUpdatesTenM,
+		Updates: afgosdk.CommodityLatestRatesRequestUpdatesTenM,
 	}
 	_, invocationErr := client.CommodityLatestRates(
 		context.TODO(),
@@ -1888,13 +1888,13 @@ func TestCommodityHistoricalRatesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CommodityHistoricalRatesRequest{
+	request := &afgosdk.CommodityHistoricalRatesRequest{
 		APIKey: "apiKey",
-		Date: sdk.MustParseDate(
+		Date: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
 		Symbols: []*string{
-			sdk.String(
+			afgosdk.String(
 				"symbols",
 			),
 		},
@@ -1921,17 +1921,17 @@ func TestCommodityFluctuationWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CommodityFluctuationRequest{
+	request := &afgosdk.CommodityFluctuationRequest{
 		APIKey: "apiKey",
 		Symbols: []*string{
-			sdk.String(
+			afgosdk.String(
 				"symbols",
 			),
 		},
-		StartDate: sdk.MustParseDate(
+		StartDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
-		EndDate: sdk.MustParseDate(
+		EndDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
 	}
@@ -1957,17 +1957,17 @@ func TestCommodityTimeSeriesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CommodityTimeSeriesRequest{
+	request := &afgosdk.CommodityTimeSeriesRequest{
 		APIKey: "apiKey",
 		Symbols: []*string{
-			sdk.String(
+			afgosdk.String(
 				"symbols",
 			),
 		},
-		StartDate: sdk.MustParseDate(
+		StartDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
-		EndDate: sdk.MustParseDate(
+		EndDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
 	}
@@ -1993,7 +1993,7 @@ func TestCommoditySymbolsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CommoditySymbolsRequest{
+	request := &afgosdk.CommoditySymbolsRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.CommoditySymbols(
@@ -2018,7 +2018,7 @@ func TestVatSupportedCountriesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.VatSupportedCountriesRequest{
+	request := &afgosdk.VatSupportedCountriesRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.VatSupportedCountries(
@@ -2043,7 +2043,7 @@ func TestVatRateByIPWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.VatRateByIPRequest{
+	request := &afgosdk.VatRateByIPRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.VatRateByIP(
@@ -2068,7 +2068,7 @@ func TestVatRateByCountryWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.VatRateByCountryRequest{
+	request := &afgosdk.VatRateByCountryRequest{
 		APIKey:  "apiKey",
 		Country: "country",
 	}
@@ -2094,15 +2094,15 @@ func TestBulkVatRateByCountryWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkVatRateByCountryRequest{
+	request := &afgosdk.BulkVatRateByCountryRequest{
 		APIKey: "apiKey",
-		Countries: []*sdk.BulkVatRateByCountryRequestCountriesItem{
-			&sdk.BulkVatRateByCountryRequestCountriesItem{
+		Countries: []*afgosdk.BulkVatRateByCountryRequestCountriesItem{
+			&afgosdk.BulkVatRateByCountryRequestCountriesItem{
 				Country: "PAK",
 			},
-			&sdk.BulkVatRateByCountryRequestCountriesItem{
+			&afgosdk.BulkVatRateByCountryRequestCountriesItem{
 				Country: "United_States",
-				State: sdk.String(
+				State: afgosdk.String(
 					"New_York",
 				),
 			},
@@ -2130,7 +2130,7 @@ func TestVatValidateWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.VatValidateRequest{
+	request := &afgosdk.VatValidateRequest{
 		APIKey:    "apiKey",
 		VatNumber: "vatNumber",
 	}
@@ -2156,7 +2156,7 @@ func TestIbanValidateWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.IbanValidateRequest{
+	request := &afgosdk.IbanValidateRequest{
 		APIKey: "apiKey",
 		Iban:   "iban",
 	}
@@ -2182,7 +2182,7 @@ func TestSwiftCodeFindWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.SwiftCodeFindRequest{
+	request := &afgosdk.SwiftCodeFindRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.SwiftCodeFind(
@@ -2207,7 +2207,7 @@ func TestSwiftCodeLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.SwiftCodeLookupRequest{
+	request := &afgosdk.SwiftCodeLookupRequest{
 		APIKey:    "apiKey",
 		SwiftCode: "swiftCode",
 	}
@@ -2233,7 +2233,7 @@ func TestZipcodeLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.ZipcodeLookupRequest{
+	request := &afgosdk.ZipcodeLookupRequest{
 		APIKey: "apiKey",
 		Code:   "code",
 	}
@@ -2259,7 +2259,7 @@ func TestBulkZipcodeLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkZipcodeLookupRequest{
+	request := &afgosdk.BulkZipcodeLookupRequest{
 		APIKey: "apiKey",
 		Codes: []string{
 			"codes",
@@ -2287,7 +2287,7 @@ func TestZipcodeSearchByCityWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.ZipcodeSearchByCityRequest{
+	request := &afgosdk.ZipcodeSearchByCityRequest{
 		APIKey:  "apiKey",
 		City:    "city",
 		Country: "country",
@@ -2314,7 +2314,7 @@ func TestZipcodeSearchByRegionWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.ZipcodeSearchByRegionRequest{
+	request := &afgosdk.ZipcodeSearchByRegionRequest{
 		APIKey:  "apiKey",
 		Country: "country",
 		Region:  "region",
@@ -2341,7 +2341,7 @@ func TestZipcodeSearchByRadiusWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.ZipcodeSearchByRadiusRequest{
+	request := &afgosdk.ZipcodeSearchByRadiusRequest{
 		APIKey: "apiKey",
 		Radius: 1.1,
 	}
@@ -2367,7 +2367,7 @@ func TestZipcodeDistanceWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.ZipcodeDistanceRequest{
+	request := &afgosdk.ZipcodeDistanceRequest{
 		APIKey: "apiKey",
 		Compare: []string{
 			"compare",
@@ -2396,7 +2396,7 @@ func TestZipcodeDistanceMatchWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.ZipcodeDistanceMatchRequest{
+	request := &afgosdk.ZipcodeDistanceMatchRequest{
 		APIKey: "apiKey",
 		Codes: []string{
 			"codes",
@@ -2425,7 +2425,7 @@ func TestCurrentWeatherWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.CurrentWeatherRequest{
+	request := &afgosdk.CurrentWeatherRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.CurrentWeather(
@@ -2450,29 +2450,29 @@ func TestBulkCurrentWeatherWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkCurrentWeatherRequest{
+	request := &afgosdk.BulkCurrentWeatherRequest{
 		APIKey: "apiKey",
-		Locations: []*sdk.BulkCurrentWeatherRequestLocationsItem{
-			&sdk.BulkCurrentWeatherRequestLocationsItem{
-				Location: sdk.String(
+		Locations: []*afgosdk.BulkCurrentWeatherRequestLocationsItem{
+			&afgosdk.BulkCurrentWeatherRequestLocationsItem{
+				Location: afgosdk.String(
 					"lahore",
 				),
 			},
-			&sdk.BulkCurrentWeatherRequestLocationsItem{
-				Lat: sdk.Float64(
+			&afgosdk.BulkCurrentWeatherRequestLocationsItem{
+				Lat: afgosdk.Float64(
 					32.5,
 				),
-				Long: sdk.Float64(
+				Long: afgosdk.Float64(
 					74.5,
 				),
 			},
-			&sdk.BulkCurrentWeatherRequestLocationsItem{
-				IP: sdk.String(
+			&afgosdk.BulkCurrentWeatherRequestLocationsItem{
+				IP: afgosdk.String(
 					"8.8.8.8",
 				),
 			},
-			&sdk.BulkCurrentWeatherRequestLocationsItem{
-				Location: sdk.String(
+			&afgosdk.BulkCurrentWeatherRequestLocationsItem{
+				Location: afgosdk.String(
 					"seoul",
 				),
 			},
@@ -2500,7 +2500,7 @@ func TestWeatherForecastWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.WeatherForecastRequest{
+	request := &afgosdk.WeatherForecastRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.WeatherForecast(
@@ -2525,9 +2525,9 @@ func TestHistoricalWeatherWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.HistoricalWeatherRequest{
+	request := &afgosdk.HistoricalWeatherRequest{
 		APIKey: "apiKey",
-		Date: sdk.MustParseDate(
+		Date: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
 	}
@@ -2553,12 +2553,12 @@ func TestWeatherTimeSeriesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.WeatherTimeSeriesRequest{
+	request := &afgosdk.WeatherTimeSeriesRequest{
 		APIKey: "apiKey",
-		StartDate: sdk.MustParseDate(
+		StartDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
-		EndDate: sdk.MustParseDate(
+		EndDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
 	}
@@ -2584,7 +2584,7 @@ func TestMarineWeatherWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.MarineWeatherRequest{
+	request := &afgosdk.MarineWeatherRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.MarineWeather(
@@ -2609,7 +2609,7 @@ func TestAirQualityWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.AirQualityRequest{
+	request := &afgosdk.AirQualityRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.AirQuality(
@@ -2634,12 +2634,12 @@ func TestFloodForecastWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.FloodForecastRequest{
+	request := &afgosdk.FloodForecastRequest{
 		APIKey: "apiKey",
-		StartDate: sdk.MustParseDate(
+		StartDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
-		EndDate: sdk.MustParseDate(
+		EndDate: afgosdk.MustParseDate(
 			"2023-01-15",
 		),
 	}
@@ -2665,7 +2665,7 @@ func TestGetCountriesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetCountriesRequest{
+	request := &afgosdk.GetCountriesRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.GetCountries(
@@ -2690,7 +2690,7 @@ func TestGetCountryDetailsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetCountryDetailsRequest{
+	request := &afgosdk.GetCountryDetailsRequest{
 		APIKey:  "apiKey",
 		Country: "country",
 	}
@@ -2716,7 +2716,7 @@ func TestGetRegionsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetRegionsRequest{
+	request := &afgosdk.GetRegionsRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.GetRegions(
@@ -2741,7 +2741,7 @@ func TestGetSubregionsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetSubregionsRequest{
+	request := &afgosdk.GetSubregionsRequest{
 		APIKey: "apiKey",
 		Region: "region",
 	}
@@ -2767,7 +2767,7 @@ func TestGetAdminLevelsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetAdminLevelsRequest{
+	request := &afgosdk.GetAdminLevelsRequest{
 		APIKey:  "apiKey",
 		Country: "country",
 	}
@@ -2793,7 +2793,7 @@ func TestGetAdminUnitsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetAdminUnitsRequest{
+	request := &afgosdk.GetAdminUnitsRequest{
 		APIKey:  "apiKey",
 		Country: "country",
 	}
@@ -2819,7 +2819,7 @@ func TestGetAdminUnitDetailsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetAdminUnitDetailsRequest{
+	request := &afgosdk.GetAdminUnitDetailsRequest{
 		APIKey:    "apiKey",
 		Country:   "country",
 		AdminUnit: "admin_unit",
@@ -2846,7 +2846,7 @@ func TestGetCitiesWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetCitiesRequest{
+	request := &afgosdk.GetCitiesRequest{
 		APIKey:  "apiKey",
 		Country: "country",
 	}
@@ -2872,7 +2872,7 @@ func TestGetSupportedFlagsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetSupportedFlagsRequest{
+	request := &afgosdk.GetSupportedFlagsRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.GetSupportedFlags(
@@ -2897,11 +2897,11 @@ func TestGetFlagsWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GetFlagsRequest{
+	request := &afgosdk.GetFlagsRequest{
 		APIKey: "apiKey",
 		Name:   "name",
-		Shape:  sdk.GetFlagsRequestShapeFlat,
-		Type:   sdk.GetFlagsRequestTypeCountry,
+		Shape:  afgosdk.GetFlagsRequestShapeFlat,
+		Type:   afgosdk.GetFlagsRequestTypeCountry,
 	}
 	_, invocationErr := client.GetFlags(
 		context.TODO(),
@@ -2925,7 +2925,7 @@ func TestTimezoneLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.TimezoneLookupRequest{
+	request := &afgosdk.TimezoneLookupRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.TimezoneLookup(
@@ -2950,7 +2950,7 @@ func TestTimezoneConvertWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.TimezoneConvertRequest{
+	request := &afgosdk.TimezoneConvertRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.TimezoneConvert(
@@ -2975,7 +2975,7 @@ func TestUserAgentLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.UserAgentLookupRequest{
+	request := &afgosdk.UserAgentLookupRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.UserAgentLookup(
@@ -3000,7 +3000,7 @@ func TestBulkUserAgentLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.BulkUserAgentLookupRequest{
+	request := &afgosdk.BulkUserAgentLookupRequest{
 		APIKey: "apiKey",
 		UaStrings: []string{
 			"uaStrings",
@@ -3028,10 +3028,10 @@ func TestOcrPredictWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.OcrPredictRequest{
+	request := &afgosdk.OcrPredictRequest{
 		APIKey:                 "apiKey",
-		Model:                  sdk.OcrPredictRequestModelMiniOcrV1,
-		OcrPredictRequestModel: sdk.OcrPredictRequestModelMiniOcrV1,
+		Model:                  afgosdk.OcrPredictRequestModelMiniOcrV1,
+		OcrPredictRequestModel: afgosdk.OcrPredictRequestModelMiniOcrV1,
 	}
 	_, invocationErr := client.OcrPredict(
 		context.TODO(),
@@ -3055,7 +3055,7 @@ func TestGrammarDetectWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GrammarDetectRequest{
+	request := &afgosdk.GrammarDetectRequest{
 		APIKey: "apiKey",
 		Text:   "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
 	}
@@ -3081,7 +3081,7 @@ func TestGrammarCorrectWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.GrammarCorrectRequest{
+	request := &afgosdk.GrammarCorrectRequest{
 		APIKey: "apiKey",
 		Text:   "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
 	}
@@ -3107,7 +3107,7 @@ func TestWeakWordsDetectWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.WeakWordsDetectRequest{
+	request := &afgosdk.WeakWordsDetectRequest{
 		APIKey: "apiKey",
 		Text:   "Many people cannot get the support they need to handle their conditions well.",
 	}
@@ -3133,7 +3133,7 @@ func TestReadabilityScoreWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.ReadabilityScoreRequest{
+	request := &afgosdk.ReadabilityScoreRequest{
 		APIKey: "apiKey",
 		Text:   "The global mental is health crisis is now a serious and compelex problem. It needs quick and ongoing action from policymakers, healthcare workers, and the whole society.",
 	}
@@ -3159,7 +3159,7 @@ func TestAstronomyLookupWithWireMock(
 	client := client.NewClient(
 		option.WithBaseURL(WireMockBaseURL),
 	)
-	request := &sdk.AstronomyLookupRequest{
+	request := &afgosdk.AstronomyLookupRequest{
 		APIKey: "apiKey",
 	}
 	_, invocationErr := client.AstronomyLookup(

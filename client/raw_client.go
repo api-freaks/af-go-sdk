@@ -8,10 +8,10 @@ import (
 	io "io"
 	http "net/http"
 
-	sdk "github.com/api-freaks/sdk"
-	core "github.com/api-freaks/sdk/core"
-	internal "github.com/api-freaks/sdk/internal"
-	option "github.com/api-freaks/sdk/option"
+	afgosdk "github.com/api-freaks/af-go-sdk"
+	core "github.com/api-freaks/af-go-sdk/core"
+	internal "github.com/api-freaks/af-go-sdk/internal"
+	option "github.com/api-freaks/af-go-sdk/option"
 )
 
 type RawClient struct {
@@ -36,9 +36,9 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 
 func (r *RawClient) GeolocationLookup(
 	ctx context.Context,
-	request *sdk.GeolocationLookupRequest,
+	request *afgosdk.GeolocationLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GeolocationLookupResponse], error) {
+) (*core.Response[*afgosdk.GeolocationLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -57,7 +57,7 @@ func (r *RawClient) GeolocationLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GeolocationLookupResponse
+	var response *afgosdk.GeolocationLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -70,13 +70,13 @@ func (r *RawClient) GeolocationLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GeolocationLookupResponse]{
+	return &core.Response[*afgosdk.GeolocationLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -85,9 +85,9 @@ func (r *RawClient) GeolocationLookup(
 
 func (r *RawClient) BulkGeolocationLookup(
 	ctx context.Context,
-	request *sdk.BulkGeolocationLookupRequest,
+	request *afgosdk.BulkGeolocationLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[[]*sdk.BulkGeolocationLookupResponseItem], error) {
+) (*core.Response[[]*afgosdk.BulkGeolocationLookupResponseItem], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -107,7 +107,7 @@ func (r *RawClient) BulkGeolocationLookup(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response []*sdk.BulkGeolocationLookupResponseItem
+	var response []*afgosdk.BulkGeolocationLookupResponseItem
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -121,13 +121,13 @@ func (r *RawClient) BulkGeolocationLookup(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[[]*sdk.BulkGeolocationLookupResponseItem]{
+	return &core.Response[[]*afgosdk.BulkGeolocationLookupResponseItem]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -136,9 +136,9 @@ func (r *RawClient) BulkGeolocationLookup(
 
 func (r *RawClient) IPSecurityLookup(
 	ctx context.Context,
-	request *sdk.IPSecurityLookupRequest,
+	request *afgosdk.IPSecurityLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.IPSecurityLookupResponse], error) {
+) (*core.Response[*afgosdk.IPSecurityLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -157,7 +157,7 @@ func (r *RawClient) IPSecurityLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.IPSecurityLookupResponse
+	var response *afgosdk.IPSecurityLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -170,13 +170,13 @@ func (r *RawClient) IPSecurityLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.IPSecurityLookupResponse]{
+	return &core.Response[*afgosdk.IPSecurityLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -185,9 +185,9 @@ func (r *RawClient) IPSecurityLookup(
 
 func (r *RawClient) BulkIPSecurityLookup(
 	ctx context.Context,
-	request *sdk.BulkIPSecurityLookupRequest,
+	request *afgosdk.BulkIPSecurityLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[[]*sdk.BulkIPSecurityLookupResponseItem], error) {
+) (*core.Response[[]*afgosdk.BulkIPSecurityLookupResponseItem], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -207,7 +207,7 @@ func (r *RawClient) BulkIPSecurityLookup(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response []*sdk.BulkIPSecurityLookupResponseItem
+	var response []*afgosdk.BulkIPSecurityLookupResponseItem
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -221,13 +221,13 @@ func (r *RawClient) BulkIPSecurityLookup(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[[]*sdk.BulkIPSecurityLookupResponseItem]{
+	return &core.Response[[]*afgosdk.BulkIPSecurityLookupResponseItem]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -236,9 +236,9 @@ func (r *RawClient) BulkIPSecurityLookup(
 
 func (r *RawClient) GeocoderSearch(
 	ctx context.Context,
-	request *sdk.GeocoderSearchRequest,
+	request *afgosdk.GeocoderSearchRequest,
 	opts ...option.RequestOption,
-) (*core.Response[[]*sdk.GeocoderSearchResponseItem], error) {
+) (*core.Response[[]*afgosdk.GeocoderSearchResponseItem], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -261,7 +261,7 @@ func (r *RawClient) GeocoderSearch(
 		headers.Add("Accept-Language", *request.AcceptLanguage)
 	}
 
-	var response []*sdk.GeocoderSearchResponseItem
+	var response []*afgosdk.GeocoderSearchResponseItem
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -274,13 +274,13 @@ func (r *RawClient) GeocoderSearch(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[[]*sdk.GeocoderSearchResponseItem]{
+	return &core.Response[[]*afgosdk.GeocoderSearchResponseItem]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -289,9 +289,9 @@ func (r *RawClient) GeocoderSearch(
 
 func (r *RawClient) GeocoderReverse(
 	ctx context.Context,
-	request *sdk.GeocoderReverseRequest,
+	request *afgosdk.GeocoderReverseRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GeocoderReverseResponse], error) {
+) (*core.Response[*afgosdk.GeocoderReverseResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -314,7 +314,7 @@ func (r *RawClient) GeocoderReverse(
 		headers.Add("Accept-Language", *request.AcceptLanguage)
 	}
 
-	var response *sdk.GeocoderReverseResponse
+	var response *afgosdk.GeocoderReverseResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -327,13 +327,13 @@ func (r *RawClient) GeocoderReverse(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GeocoderReverseResponse]{
+	return &core.Response[*afgosdk.GeocoderReverseResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -342,9 +342,9 @@ func (r *RawClient) GeocoderReverse(
 
 func (r *RawClient) DomainWhoisLookup(
 	ctx context.Context,
-	request *sdk.DomainWhoisLookupRequest,
+	request *afgosdk.DomainWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainWhoisLookupResponse], error) {
+) (*core.Response[*afgosdk.DomainWhoisLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -363,7 +363,7 @@ func (r *RawClient) DomainWhoisLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainWhoisLookupResponse
+	var response *afgosdk.DomainWhoisLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -376,13 +376,13 @@ func (r *RawClient) DomainWhoisLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainWhoisLookupResponse]{
+	return &core.Response[*afgosdk.DomainWhoisLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -391,9 +391,9 @@ func (r *RawClient) DomainWhoisLookup(
 
 func (r *RawClient) BulkDomainWhoisLookup(
 	ctx context.Context,
-	request *sdk.BulkDomainWhoisLookupRequest,
+	request *afgosdk.BulkDomainWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.BulkDomainWhoisLookupResponse], error) {
+) (*core.Response[*afgosdk.BulkDomainWhoisLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -413,7 +413,7 @@ func (r *RawClient) BulkDomainWhoisLookup(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.BulkDomainWhoisLookupResponse
+	var response *afgosdk.BulkDomainWhoisLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -427,13 +427,13 @@ func (r *RawClient) BulkDomainWhoisLookup(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.BulkDomainWhoisLookupResponse]{
+	return &core.Response[*afgosdk.BulkDomainWhoisLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -442,9 +442,9 @@ func (r *RawClient) BulkDomainWhoisLookup(
 
 func (r *RawClient) IPWhoisLookup(
 	ctx context.Context,
-	request *sdk.IPWhoisLookupRequest,
+	request *afgosdk.IPWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.IPWhoisLookupResponse], error) {
+) (*core.Response[*afgosdk.IPWhoisLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -463,7 +463,7 @@ func (r *RawClient) IPWhoisLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.IPWhoisLookupResponse
+	var response *afgosdk.IPWhoisLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -476,13 +476,13 @@ func (r *RawClient) IPWhoisLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.IPWhoisLookupResponse]{
+	return &core.Response[*afgosdk.IPWhoisLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -491,9 +491,9 @@ func (r *RawClient) IPWhoisLookup(
 
 func (r *RawClient) AsnWhoisLookup(
 	ctx context.Context,
-	request *sdk.AsnWhoisLookupRequest,
+	request *afgosdk.AsnWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.AsnWhoisLookupResponse], error) {
+) (*core.Response[*afgosdk.AsnWhoisLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -512,7 +512,7 @@ func (r *RawClient) AsnWhoisLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.AsnWhoisLookupResponse
+	var response *afgosdk.AsnWhoisLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -525,13 +525,13 @@ func (r *RawClient) AsnWhoisLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.AsnWhoisLookupResponse]{
+	return &core.Response[*afgosdk.AsnWhoisLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -540,9 +540,9 @@ func (r *RawClient) AsnWhoisLookup(
 
 func (r *RawClient) DomainWhoisHistory(
 	ctx context.Context,
-	request *sdk.DomainWhoisHistoryRequest,
+	request *afgosdk.DomainWhoisHistoryRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainWhoisHistoryResponse], error) {
+) (*core.Response[*afgosdk.DomainWhoisHistoryResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -561,7 +561,7 @@ func (r *RawClient) DomainWhoisHistory(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainWhoisHistoryResponse
+	var response *afgosdk.DomainWhoisHistoryResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -574,13 +574,13 @@ func (r *RawClient) DomainWhoisHistory(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainWhoisHistoryResponse]{
+	return &core.Response[*afgosdk.DomainWhoisHistoryResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -589,9 +589,9 @@ func (r *RawClient) DomainWhoisHistory(
 
 func (r *RawClient) DomainWhoisReverse(
 	ctx context.Context,
-	request *sdk.DomainWhoisReverseRequest,
+	request *afgosdk.DomainWhoisReverseRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainWhoisReverseResponse], error) {
+) (*core.Response[*afgosdk.DomainWhoisReverseResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -610,7 +610,7 @@ func (r *RawClient) DomainWhoisReverse(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainWhoisReverseResponse
+	var response *afgosdk.DomainWhoisReverseResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -623,13 +623,13 @@ func (r *RawClient) DomainWhoisReverse(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainWhoisReverseResponse]{
+	return &core.Response[*afgosdk.DomainWhoisReverseResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -638,9 +638,9 @@ func (r *RawClient) DomainWhoisReverse(
 
 func (r *RawClient) DomainDNSLookup(
 	ctx context.Context,
-	request *sdk.DomainDNSLookupRequest,
+	request *afgosdk.DomainDNSLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainDNSLookupResponse], error) {
+) (*core.Response[*afgosdk.DomainDNSLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -659,7 +659,7 @@ func (r *RawClient) DomainDNSLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainDNSLookupResponse
+	var response *afgosdk.DomainDNSLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -672,13 +672,13 @@ func (r *RawClient) DomainDNSLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainDNSLookupResponse]{
+	return &core.Response[*afgosdk.DomainDNSLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -687,9 +687,9 @@ func (r *RawClient) DomainDNSLookup(
 
 func (r *RawClient) BulkDomainDNSLookup(
 	ctx context.Context,
-	request *sdk.BulkDomainDNSLookupRequest,
+	request *afgosdk.BulkDomainDNSLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.BulkDomainDNSLookupResponse], error) {
+) (*core.Response[*afgosdk.BulkDomainDNSLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -709,7 +709,7 @@ func (r *RawClient) BulkDomainDNSLookup(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.BulkDomainDNSLookupResponse
+	var response *afgosdk.BulkDomainDNSLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -723,13 +723,13 @@ func (r *RawClient) BulkDomainDNSLookup(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.BulkDomainDNSLookupResponse]{
+	return &core.Response[*afgosdk.BulkDomainDNSLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -738,9 +738,9 @@ func (r *RawClient) BulkDomainDNSLookup(
 
 func (r *RawClient) DomainDNSHistory(
 	ctx context.Context,
-	request *sdk.DomainDNSHistoryRequest,
+	request *afgosdk.DomainDNSHistoryRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainDNSHistoryResponse], error) {
+) (*core.Response[*afgosdk.DomainDNSHistoryResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -759,7 +759,7 @@ func (r *RawClient) DomainDNSHistory(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainDNSHistoryResponse
+	var response *afgosdk.DomainDNSHistoryResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -772,13 +772,13 @@ func (r *RawClient) DomainDNSHistory(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainDNSHistoryResponse]{
+	return &core.Response[*afgosdk.DomainDNSHistoryResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -787,9 +787,9 @@ func (r *RawClient) DomainDNSHistory(
 
 func (r *RawClient) DomainDNSReverse(
 	ctx context.Context,
-	request *sdk.DomainDNSReverseRequest,
+	request *afgosdk.DomainDNSReverseRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainDNSReverseResponse], error) {
+) (*core.Response[*afgosdk.DomainDNSReverseResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -808,7 +808,7 @@ func (r *RawClient) DomainDNSReverse(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainDNSReverseResponse
+	var response *afgosdk.DomainDNSReverseResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -821,13 +821,13 @@ func (r *RawClient) DomainDNSReverse(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainDNSReverseResponse]{
+	return &core.Response[*afgosdk.DomainDNSReverseResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -836,9 +836,9 @@ func (r *RawClient) DomainDNSReverse(
 
 func (r *RawClient) WebScrape(
 	ctx context.Context,
-	request *sdk.WebScrapeRequest,
+	request *afgosdk.WebScrapeRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.WebScrapeResponse], error) {
+) (*core.Response[*afgosdk.WebScrapeResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -858,7 +858,7 @@ func (r *RawClient) WebScrape(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.WebScrapeResponse
+	var response *afgosdk.WebScrapeResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -872,13 +872,13 @@ func (r *RawClient) WebScrape(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.WebScrapeResponse]{
+	return &core.Response[*afgosdk.WebScrapeResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -887,9 +887,9 @@ func (r *RawClient) WebScrape(
 
 func (r *RawClient) EmailValidate(
 	ctx context.Context,
-	request *sdk.EmailValidateRequest,
+	request *afgosdk.EmailValidateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.EmailValidateResponse], error) {
+) (*core.Response[*afgosdk.EmailValidateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -909,7 +909,7 @@ func (r *RawClient) EmailValidate(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.EmailValidateResponse
+	var response *afgosdk.EmailValidateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -923,13 +923,13 @@ func (r *RawClient) EmailValidate(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.EmailValidateResponse]{
+	return &core.Response[*afgosdk.EmailValidateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -938,9 +938,9 @@ func (r *RawClient) EmailValidate(
 
 func (r *RawClient) BulkEmailValidate(
 	ctx context.Context,
-	request *sdk.BulkEmailValidateRequest,
+	request *afgosdk.BulkEmailValidateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.BulkEmailValidateResponse], error) {
+) (*core.Response[*afgosdk.BulkEmailValidateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -960,7 +960,7 @@ func (r *RawClient) BulkEmailValidate(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.BulkEmailValidateResponse
+	var response *afgosdk.BulkEmailValidateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -974,13 +974,13 @@ func (r *RawClient) BulkEmailValidate(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.BulkEmailValidateResponse]{
+	return &core.Response[*afgosdk.BulkEmailValidateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -989,9 +989,9 @@ func (r *RawClient) BulkEmailValidate(
 
 func (r *RawClient) PhoneValidate(
 	ctx context.Context,
-	request *sdk.PhoneValidateRequest,
+	request *afgosdk.PhoneValidateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PhoneValidateResponse], error) {
+) (*core.Response[*afgosdk.PhoneValidateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1011,7 +1011,7 @@ func (r *RawClient) PhoneValidate(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.PhoneValidateResponse
+	var response *afgosdk.PhoneValidateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1025,13 +1025,13 @@ func (r *RawClient) PhoneValidate(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PhoneValidateResponse]{
+	return &core.Response[*afgosdk.PhoneValidateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1040,9 +1040,9 @@ func (r *RawClient) PhoneValidate(
 
 func (r *RawClient) BulkPhoneValidate(
 	ctx context.Context,
-	request *sdk.BulkPhoneValidateRequest,
+	request *afgosdk.BulkPhoneValidateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[[]*sdk.BulkPhoneValidateResponseItem], error) {
+) (*core.Response[[]*afgosdk.BulkPhoneValidateResponseItem], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1062,7 +1062,7 @@ func (r *RawClient) BulkPhoneValidate(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response []*sdk.BulkPhoneValidateResponseItem
+	var response []*afgosdk.BulkPhoneValidateResponseItem
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1076,13 +1076,13 @@ func (r *RawClient) BulkPhoneValidate(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[[]*sdk.BulkPhoneValidateResponseItem]{
+	return &core.Response[[]*afgosdk.BulkPhoneValidateResponseItem]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1091,9 +1091,9 @@ func (r *RawClient) BulkPhoneValidate(
 
 func (r *RawClient) DomainSslLookup(
 	ctx context.Context,
-	request *sdk.DomainSslLookupRequest,
+	request *afgosdk.DomainSslLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainSslLookupResponse], error) {
+) (*core.Response[*afgosdk.DomainSslLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1112,7 +1112,7 @@ func (r *RawClient) DomainSslLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainSslLookupResponse
+	var response *afgosdk.DomainSslLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1125,13 +1125,13 @@ func (r *RawClient) DomainSslLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainSslLookupResponse]{
+	return &core.Response[*afgosdk.DomainSslLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1140,9 +1140,9 @@ func (r *RawClient) DomainSslLookup(
 
 func (r *RawClient) DomainSslChainLookup(
 	ctx context.Context,
-	request *sdk.DomainSslChainLookupRequest,
+	request *afgosdk.DomainSslChainLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainSslChainLookupResponse], error) {
+) (*core.Response[*afgosdk.DomainSslChainLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1161,7 +1161,7 @@ func (r *RawClient) DomainSslChainLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainSslChainLookupResponse
+	var response *afgosdk.DomainSslChainLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1174,13 +1174,13 @@ func (r *RawClient) DomainSslChainLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainSslChainLookupResponse]{
+	return &core.Response[*afgosdk.DomainSslChainLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1189,9 +1189,9 @@ func (r *RawClient) DomainSslChainLookup(
 
 func (r *RawClient) DomainAvailabilityCheck(
 	ctx context.Context,
-	request *sdk.DomainAvailabilityCheckRequest,
+	request *afgosdk.DomainAvailabilityCheckRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainAvailabilityCheckResponse], error) {
+) (*core.Response[*afgosdk.DomainAvailabilityCheckResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1210,7 +1210,7 @@ func (r *RawClient) DomainAvailabilityCheck(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainAvailabilityCheckResponse
+	var response *afgosdk.DomainAvailabilityCheckResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1223,13 +1223,13 @@ func (r *RawClient) DomainAvailabilityCheck(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainAvailabilityCheckResponse]{
+	return &core.Response[*afgosdk.DomainAvailabilityCheckResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1238,9 +1238,9 @@ func (r *RawClient) DomainAvailabilityCheck(
 
 func (r *RawClient) BulkDomainAvailabilityCheck(
 	ctx context.Context,
-	request *sdk.BulkDomainAvailabilityCheckRequest,
+	request *afgosdk.BulkDomainAvailabilityCheckRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.BulkDomainAvailabilityCheckResponse], error) {
+) (*core.Response[*afgosdk.BulkDomainAvailabilityCheckResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1260,7 +1260,7 @@ func (r *RawClient) BulkDomainAvailabilityCheck(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.BulkDomainAvailabilityCheckResponse
+	var response *afgosdk.BulkDomainAvailabilityCheckResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1274,13 +1274,13 @@ func (r *RawClient) BulkDomainAvailabilityCheck(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.BulkDomainAvailabilityCheckResponse]{
+	return &core.Response[*afgosdk.BulkDomainAvailabilityCheckResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1289,9 +1289,9 @@ func (r *RawClient) BulkDomainAvailabilityCheck(
 
 func (r *RawClient) DomainAvailabilitySuggestions(
 	ctx context.Context,
-	request *sdk.DomainAvailabilitySuggestionsRequest,
+	request *afgosdk.DomainAvailabilitySuggestionsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.DomainAvailabilitySuggestionsResponse], error) {
+) (*core.Response[*afgosdk.DomainAvailabilitySuggestionsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1310,7 +1310,7 @@ func (r *RawClient) DomainAvailabilitySuggestions(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.DomainAvailabilitySuggestionsResponse
+	var response *afgosdk.DomainAvailabilitySuggestionsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1323,13 +1323,13 @@ func (r *RawClient) DomainAvailabilitySuggestions(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.DomainAvailabilitySuggestionsResponse]{
+	return &core.Response[*afgosdk.DomainAvailabilitySuggestionsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1338,9 +1338,9 @@ func (r *RawClient) DomainAvailabilitySuggestions(
 
 func (r *RawClient) SubdomainsLookup(
 	ctx context.Context,
-	request *sdk.SubdomainsLookupRequest,
+	request *afgosdk.SubdomainsLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.SubdomainsLookupResponse], error) {
+) (*core.Response[*afgosdk.SubdomainsLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1359,7 +1359,7 @@ func (r *RawClient) SubdomainsLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.SubdomainsLookupResponse
+	var response *afgosdk.SubdomainsLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1372,13 +1372,13 @@ func (r *RawClient) SubdomainsLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.SubdomainsLookupResponse]{
+	return &core.Response[*afgosdk.SubdomainsLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1387,9 +1387,9 @@ func (r *RawClient) SubdomainsLookup(
 
 func (r *RawClient) PdfMerge(
 	ctx context.Context,
-	request *sdk.PdfMergeRequest,
+	request *afgosdk.PdfMergeRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfMergeResponse], error) {
+) (*core.Response[*afgosdk.PdfMergeResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1423,7 +1423,7 @@ func (r *RawClient) PdfMerge(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfMergeResponse
+	var response *afgosdk.PdfMergeResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1437,13 +1437,13 @@ func (r *RawClient) PdfMerge(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfMergeResponse]{
+	return &core.Response[*afgosdk.PdfMergeResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1452,9 +1452,9 @@ func (r *RawClient) PdfMerge(
 
 func (r *RawClient) PdfRemovePages(
 	ctx context.Context,
-	request *sdk.PdfRemovePagesRequest,
+	request *afgosdk.PdfRemovePagesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfRemovePagesResponse], error) {
+) (*core.Response[*afgosdk.PdfRemovePagesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1488,7 +1488,7 @@ func (r *RawClient) PdfRemovePages(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfRemovePagesResponse
+	var response *afgosdk.PdfRemovePagesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1502,13 +1502,13 @@ func (r *RawClient) PdfRemovePages(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfRemovePagesResponse]{
+	return &core.Response[*afgosdk.PdfRemovePagesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1517,9 +1517,9 @@ func (r *RawClient) PdfRemovePages(
 
 func (r *RawClient) PdfSplit(
 	ctx context.Context,
-	request *sdk.PdfSplitRequest,
+	request *afgosdk.PdfSplitRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfSplitResponse], error) {
+) (*core.Response[*afgosdk.PdfSplitResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1553,7 +1553,7 @@ func (r *RawClient) PdfSplit(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfSplitResponse
+	var response *afgosdk.PdfSplitResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1567,13 +1567,13 @@ func (r *RawClient) PdfSplit(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfSplitResponse]{
+	return &core.Response[*afgosdk.PdfSplitResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1582,9 +1582,9 @@ func (r *RawClient) PdfSplit(
 
 func (r *RawClient) PdfRotate(
 	ctx context.Context,
-	request *sdk.PdfRotateRequest,
+	request *afgosdk.PdfRotateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfRotateResponse], error) {
+) (*core.Response[*afgosdk.PdfRotateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1618,7 +1618,7 @@ func (r *RawClient) PdfRotate(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfRotateResponse
+	var response *afgosdk.PdfRotateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1632,13 +1632,13 @@ func (r *RawClient) PdfRotate(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfRotateResponse]{
+	return &core.Response[*afgosdk.PdfRotateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1647,9 +1647,9 @@ func (r *RawClient) PdfRotate(
 
 func (r *RawClient) PdfCompress(
 	ctx context.Context,
-	request *sdk.PdfCompressRequest,
+	request *afgosdk.PdfCompressRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfCompressResponse], error) {
+) (*core.Response[*afgosdk.PdfCompressResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1683,7 +1683,7 @@ func (r *RawClient) PdfCompress(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfCompressResponse
+	var response *afgosdk.PdfCompressResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1697,13 +1697,13 @@ func (r *RawClient) PdfCompress(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfCompressResponse]{
+	return &core.Response[*afgosdk.PdfCompressResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1712,9 +1712,9 @@ func (r *RawClient) PdfCompress(
 
 func (r *RawClient) PdfExtractPages(
 	ctx context.Context,
-	request *sdk.PdfExtractPagesRequest,
+	request *afgosdk.PdfExtractPagesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfExtractPagesResponse], error) {
+) (*core.Response[*afgosdk.PdfExtractPagesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1748,7 +1748,7 @@ func (r *RawClient) PdfExtractPages(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfExtractPagesResponse
+	var response *afgosdk.PdfExtractPagesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1762,13 +1762,13 @@ func (r *RawClient) PdfExtractPages(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfExtractPagesResponse]{
+	return &core.Response[*afgosdk.PdfExtractPagesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1777,9 +1777,9 @@ func (r *RawClient) PdfExtractPages(
 
 func (r *RawClient) PdfLinearize(
 	ctx context.Context,
-	request *sdk.PdfLinearizeRequest,
+	request *afgosdk.PdfLinearizeRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfLinearizeResponse], error) {
+) (*core.Response[*afgosdk.PdfLinearizeResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1813,7 +1813,7 @@ func (r *RawClient) PdfLinearize(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfLinearizeResponse
+	var response *afgosdk.PdfLinearizeResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1827,13 +1827,13 @@ func (r *RawClient) PdfLinearize(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfLinearizeResponse]{
+	return &core.Response[*afgosdk.PdfLinearizeResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1842,9 +1842,9 @@ func (r *RawClient) PdfLinearize(
 
 func (r *RawClient) PdfEncrypt(
 	ctx context.Context,
-	request *sdk.PdfEncryptRequest,
+	request *afgosdk.PdfEncryptRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfEncryptResponse], error) {
+) (*core.Response[*afgosdk.PdfEncryptResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1878,7 +1878,7 @@ func (r *RawClient) PdfEncrypt(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfEncryptResponse
+	var response *afgosdk.PdfEncryptResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1892,13 +1892,13 @@ func (r *RawClient) PdfEncrypt(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfEncryptResponse]{
+	return &core.Response[*afgosdk.PdfEncryptResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1907,9 +1907,9 @@ func (r *RawClient) PdfEncrypt(
 
 func (r *RawClient) PdfDecrypt(
 	ctx context.Context,
-	request *sdk.PdfDecryptRequest,
+	request *afgosdk.PdfDecryptRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfDecryptResponse], error) {
+) (*core.Response[*afgosdk.PdfDecryptResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -1943,7 +1943,7 @@ func (r *RawClient) PdfDecrypt(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfDecryptResponse
+	var response *afgosdk.PdfDecryptResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -1957,13 +1957,13 @@ func (r *RawClient) PdfDecrypt(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfDecryptResponse]{
+	return &core.Response[*afgosdk.PdfDecryptResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -1972,9 +1972,9 @@ func (r *RawClient) PdfDecrypt(
 
 func (r *RawClient) PdfRestrict(
 	ctx context.Context,
-	request *sdk.PdfRestrictRequest,
+	request *afgosdk.PdfRestrictRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfRestrictResponse], error) {
+) (*core.Response[*afgosdk.PdfRestrictResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2008,7 +2008,7 @@ func (r *RawClient) PdfRestrict(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfRestrictResponse
+	var response *afgosdk.PdfRestrictResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2022,13 +2022,13 @@ func (r *RawClient) PdfRestrict(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfRestrictResponse]{
+	return &core.Response[*afgosdk.PdfRestrictResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2037,9 +2037,9 @@ func (r *RawClient) PdfRestrict(
 
 func (r *RawClient) PdfUnrestrict(
 	ctx context.Context,
-	request *sdk.PdfUnrestrictRequest,
+	request *afgosdk.PdfUnrestrictRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfUnrestrictResponse], error) {
+) (*core.Response[*afgosdk.PdfUnrestrictResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2073,7 +2073,7 @@ func (r *RawClient) PdfUnrestrict(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfUnrestrictResponse
+	var response *afgosdk.PdfUnrestrictResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2087,13 +2087,13 @@ func (r *RawClient) PdfUnrestrict(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfUnrestrictResponse]{
+	return &core.Response[*afgosdk.PdfUnrestrictResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2102,9 +2102,9 @@ func (r *RawClient) PdfUnrestrict(
 
 func (r *RawClient) PdfConvertToPng(
 	ctx context.Context,
-	request *sdk.PdfConvertToPngRequest,
+	request *afgosdk.PdfConvertToPngRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfConvertToPngResponse], error) {
+) (*core.Response[*afgosdk.PdfConvertToPngResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2138,7 +2138,7 @@ func (r *RawClient) PdfConvertToPng(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfConvertToPngResponse
+	var response *afgosdk.PdfConvertToPngResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2152,13 +2152,13 @@ func (r *RawClient) PdfConvertToPng(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfConvertToPngResponse]{
+	return &core.Response[*afgosdk.PdfConvertToPngResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2167,9 +2167,9 @@ func (r *RawClient) PdfConvertToPng(
 
 func (r *RawClient) PdfConvertToJpg(
 	ctx context.Context,
-	request *sdk.PdfConvertToJpgRequest,
+	request *afgosdk.PdfConvertToJpgRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfConvertToJpgResponse], error) {
+) (*core.Response[*afgosdk.PdfConvertToJpgResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2203,7 +2203,7 @@ func (r *RawClient) PdfConvertToJpg(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfConvertToJpgResponse
+	var response *afgosdk.PdfConvertToJpgResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2217,13 +2217,13 @@ func (r *RawClient) PdfConvertToJpg(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfConvertToJpgResponse]{
+	return &core.Response[*afgosdk.PdfConvertToJpgResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2232,9 +2232,9 @@ func (r *RawClient) PdfConvertToJpg(
 
 func (r *RawClient) PdfConvertToTiff(
 	ctx context.Context,
-	request *sdk.PdfConvertToTiffRequest,
+	request *afgosdk.PdfConvertToTiffRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfConvertToTiffResponse], error) {
+) (*core.Response[*afgosdk.PdfConvertToTiffResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2268,7 +2268,7 @@ func (r *RawClient) PdfConvertToTiff(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfConvertToTiffResponse
+	var response *afgosdk.PdfConvertToTiffResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2282,13 +2282,13 @@ func (r *RawClient) PdfConvertToTiff(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfConvertToTiffResponse]{
+	return &core.Response[*afgosdk.PdfConvertToTiffResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2297,9 +2297,9 @@ func (r *RawClient) PdfConvertToTiff(
 
 func (r *RawClient) PdfConvertToBmp(
 	ctx context.Context,
-	request *sdk.PdfConvertToBmpRequest,
+	request *afgosdk.PdfConvertToBmpRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfConvertToBmpResponse], error) {
+) (*core.Response[*afgosdk.PdfConvertToBmpResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2333,7 +2333,7 @@ func (r *RawClient) PdfConvertToBmp(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfConvertToBmpResponse
+	var response *afgosdk.PdfConvertToBmpResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2347,13 +2347,13 @@ func (r *RawClient) PdfConvertToBmp(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfConvertToBmpResponse]{
+	return &core.Response[*afgosdk.PdfConvertToBmpResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2362,9 +2362,9 @@ func (r *RawClient) PdfConvertToBmp(
 
 func (r *RawClient) PdfConvertToGif(
 	ctx context.Context,
-	request *sdk.PdfConvertToGifRequest,
+	request *afgosdk.PdfConvertToGifRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfConvertToGifResponse], error) {
+) (*core.Response[*afgosdk.PdfConvertToGifResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2398,7 +2398,7 @@ func (r *RawClient) PdfConvertToGif(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfConvertToGifResponse
+	var response *afgosdk.PdfConvertToGifResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2412,13 +2412,13 @@ func (r *RawClient) PdfConvertToGif(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfConvertToGifResponse]{
+	return &core.Response[*afgosdk.PdfConvertToGifResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2427,9 +2427,9 @@ func (r *RawClient) PdfConvertToGif(
 
 func (r *RawClient) PdfUploadResources(
 	ctx context.Context,
-	request *sdk.PdfUploadResourcesRequest,
+	request *afgosdk.PdfUploadResourcesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfUploadResourcesResponse], error) {
+) (*core.Response[*afgosdk.PdfUploadResourcesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2459,7 +2459,7 @@ func (r *RawClient) PdfUploadResources(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *sdk.PdfUploadResourcesResponse
+	var response *afgosdk.PdfUploadResourcesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2473,13 +2473,13 @@ func (r *RawClient) PdfUploadResources(
 			Client:          options.HTTPClient,
 			Request:         writer.Buffer(),
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfUploadResourcesResponse]{
+	return &core.Response[*afgosdk.PdfUploadResourcesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2488,9 +2488,9 @@ func (r *RawClient) PdfUploadResources(
 
 func (r *RawClient) PdfUploadBinary(
 	ctx context.Context,
-	request *sdk.PdfUploadBinaryRequest,
+	request *afgosdk.PdfUploadBinaryRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfUploadBinaryResponse], error) {
+) (*core.Response[*afgosdk.PdfUploadBinaryResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2510,7 +2510,7 @@ func (r *RawClient) PdfUploadBinary(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/octet-stream")
-	var response *sdk.PdfUploadBinaryResponse
+	var response *afgosdk.PdfUploadBinaryResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2524,13 +2524,13 @@ func (r *RawClient) PdfUploadBinary(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfUploadBinaryResponse]{
+	return &core.Response[*afgosdk.PdfUploadBinaryResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2539,7 +2539,7 @@ func (r *RawClient) PdfUploadBinary(
 
 func (r *RawClient) PdfDownloadResource(
 	ctx context.Context,
-	request *sdk.PdfDownloadResourceRequest,
+	request *afgosdk.PdfDownloadResourceRequest,
 	opts ...option.RequestOption,
 ) (*core.Response[io.Reader], error) {
 	options := core.NewRequestOptions(opts...)
@@ -2573,7 +2573,7 @@ func (r *RawClient) PdfDownloadResource(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
@@ -2588,9 +2588,9 @@ func (r *RawClient) PdfDownloadResource(
 
 func (r *RawClient) PdfGetTaskStatus(
 	ctx context.Context,
-	request *sdk.PdfGetTaskStatusRequest,
+	request *afgosdk.PdfGetTaskStatusRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfGetTaskStatusResponse], error) {
+) (*core.Response[*afgosdk.PdfGetTaskStatusResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2609,7 +2609,7 @@ func (r *RawClient) PdfGetTaskStatus(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PdfGetTaskStatusResponse
+	var response *afgosdk.PdfGetTaskStatusResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2622,13 +2622,13 @@ func (r *RawClient) PdfGetTaskStatus(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfGetTaskStatusResponse]{
+	return &core.Response[*afgosdk.PdfGetTaskStatusResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2637,9 +2637,9 @@ func (r *RawClient) PdfGetTaskStatus(
 
 func (r *RawClient) PdfGetFileStatus(
 	ctx context.Context,
-	request *sdk.PdfGetFileStatusRequest,
+	request *afgosdk.PdfGetFileStatusRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfGetFileStatusResponse], error) {
+) (*core.Response[*afgosdk.PdfGetFileStatusResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2658,7 +2658,7 @@ func (r *RawClient) PdfGetFileStatus(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PdfGetFileStatusResponse
+	var response *afgosdk.PdfGetFileStatusResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2671,13 +2671,13 @@ func (r *RawClient) PdfGetFileStatus(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfGetFileStatusResponse]{
+	return &core.Response[*afgosdk.PdfGetFileStatusResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2686,9 +2686,9 @@ func (r *RawClient) PdfGetFileStatus(
 
 func (r *RawClient) PdfListFiles(
 	ctx context.Context,
-	request *sdk.PdfListFilesRequest,
+	request *afgosdk.PdfListFilesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfListFilesResponse], error) {
+) (*core.Response[*afgosdk.PdfListFilesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2707,7 +2707,7 @@ func (r *RawClient) PdfListFiles(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PdfListFilesResponse
+	var response *afgosdk.PdfListFilesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2720,13 +2720,13 @@ func (r *RawClient) PdfListFiles(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfListFilesResponse]{
+	return &core.Response[*afgosdk.PdfListFilesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2735,9 +2735,9 @@ func (r *RawClient) PdfListFiles(
 
 func (r *RawClient) PdfDeleteFile(
 	ctx context.Context,
-	request *sdk.PdfDeleteFileRequest,
+	request *afgosdk.PdfDeleteFileRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.PdfDeleteFileResponse], error) {
+) (*core.Response[*afgosdk.PdfDeleteFileResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2756,7 +2756,7 @@ func (r *RawClient) PdfDeleteFile(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.PdfDeleteFileResponse
+	var response *afgosdk.PdfDeleteFileResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2769,13 +2769,13 @@ func (r *RawClient) PdfDeleteFile(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.PdfDeleteFileResponse]{
+	return &core.Response[*afgosdk.PdfDeleteFileResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2784,7 +2784,7 @@ func (r *RawClient) PdfDeleteFile(
 
 func (r *RawClient) ScreenshotCapture(
 	ctx context.Context,
-	request *sdk.ScreenshotCaptureRequest,
+	request *afgosdk.ScreenshotCaptureRequest,
 	opts ...option.RequestOption,
 ) (*core.Response[io.Reader], error) {
 	options := core.NewRequestOptions(opts...)
@@ -2818,7 +2818,7 @@ func (r *RawClient) ScreenshotCapture(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
@@ -2833,9 +2833,9 @@ func (r *RawClient) ScreenshotCapture(
 
 func (r *RawClient) BulkScreenshotCapture(
 	ctx context.Context,
-	request *sdk.BulkScreenshotCaptureRequest,
+	request *afgosdk.BulkScreenshotCaptureRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.BulkScreenshotCaptureResponse], error) {
+) (*core.Response[*afgosdk.BulkScreenshotCaptureResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2855,7 +2855,7 @@ func (r *RawClient) BulkScreenshotCapture(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.BulkScreenshotCaptureResponse
+	var response *afgosdk.BulkScreenshotCaptureResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2869,13 +2869,13 @@ func (r *RawClient) BulkScreenshotCapture(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.BulkScreenshotCaptureResponse]{
+	return &core.Response[*afgosdk.BulkScreenshotCaptureResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2884,9 +2884,9 @@ func (r *RawClient) BulkScreenshotCapture(
 
 func (r *RawClient) CurrencyLatestRates(
 	ctx context.Context,
-	request *sdk.CurrencyLatestRatesRequest,
+	request *afgosdk.CurrencyLatestRatesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencyLatestRatesResponse], error) {
+) (*core.Response[*afgosdk.CurrencyLatestRatesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2905,7 +2905,7 @@ func (r *RawClient) CurrencyLatestRates(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencyLatestRatesResponse
+	var response *afgosdk.CurrencyLatestRatesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2918,13 +2918,13 @@ func (r *RawClient) CurrencyLatestRates(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencyLatestRatesResponse]{
+	return &core.Response[*afgosdk.CurrencyLatestRatesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2933,9 +2933,9 @@ func (r *RawClient) CurrencyLatestRates(
 
 func (r *RawClient) CurrencyHistoricalRates(
 	ctx context.Context,
-	request *sdk.CurrencyHistoricalRatesRequest,
+	request *afgosdk.CurrencyHistoricalRatesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencyHistoricalRatesResponse], error) {
+) (*core.Response[*afgosdk.CurrencyHistoricalRatesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -2954,7 +2954,7 @@ func (r *RawClient) CurrencyHistoricalRates(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencyHistoricalRatesResponse
+	var response *afgosdk.CurrencyHistoricalRatesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -2967,13 +2967,13 @@ func (r *RawClient) CurrencyHistoricalRates(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencyHistoricalRatesResponse]{
+	return &core.Response[*afgosdk.CurrencyHistoricalRatesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -2982,9 +2982,9 @@ func (r *RawClient) CurrencyHistoricalRates(
 
 func (r *RawClient) CurrencyConvertLatest(
 	ctx context.Context,
-	request *sdk.CurrencyConvertLatestRequest,
+	request *afgosdk.CurrencyConvertLatestRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencyConvertLatestResponse], error) {
+) (*core.Response[*afgosdk.CurrencyConvertLatestResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3003,7 +3003,7 @@ func (r *RawClient) CurrencyConvertLatest(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencyConvertLatestResponse
+	var response *afgosdk.CurrencyConvertLatestResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3016,13 +3016,13 @@ func (r *RawClient) CurrencyConvertLatest(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencyConvertLatestResponse]{
+	return &core.Response[*afgosdk.CurrencyConvertLatestResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3031,9 +3031,9 @@ func (r *RawClient) CurrencyConvertLatest(
 
 func (r *RawClient) CurrencyConvertHistorical(
 	ctx context.Context,
-	request *sdk.CurrencyConvertHistoricalRequest,
+	request *afgosdk.CurrencyConvertHistoricalRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencyConvertHistoricalResponse], error) {
+) (*core.Response[*afgosdk.CurrencyConvertHistoricalResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3052,7 +3052,7 @@ func (r *RawClient) CurrencyConvertHistorical(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencyConvertHistoricalResponse
+	var response *afgosdk.CurrencyConvertHistoricalResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3065,13 +3065,13 @@ func (r *RawClient) CurrencyConvertHistorical(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencyConvertHistoricalResponse]{
+	return &core.Response[*afgosdk.CurrencyConvertHistoricalResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3080,9 +3080,9 @@ func (r *RawClient) CurrencyConvertHistorical(
 
 func (r *RawClient) CurrencyTimeSeries(
 	ctx context.Context,
-	request *sdk.CurrencyTimeSeriesRequest,
+	request *afgosdk.CurrencyTimeSeriesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencyTimeSeriesResponse], error) {
+) (*core.Response[*afgosdk.CurrencyTimeSeriesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3101,7 +3101,7 @@ func (r *RawClient) CurrencyTimeSeries(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencyTimeSeriesResponse
+	var response *afgosdk.CurrencyTimeSeriesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3114,13 +3114,13 @@ func (r *RawClient) CurrencyTimeSeries(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencyTimeSeriesResponse]{
+	return &core.Response[*afgosdk.CurrencyTimeSeriesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3129,9 +3129,9 @@ func (r *RawClient) CurrencyTimeSeries(
 
 func (r *RawClient) CurrencyFluctuation(
 	ctx context.Context,
-	request *sdk.CurrencyFluctuationRequest,
+	request *afgosdk.CurrencyFluctuationRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencyFluctuationResponse], error) {
+) (*core.Response[*afgosdk.CurrencyFluctuationResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3150,7 +3150,7 @@ func (r *RawClient) CurrencyFluctuation(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencyFluctuationResponse
+	var response *afgosdk.CurrencyFluctuationResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3163,13 +3163,13 @@ func (r *RawClient) CurrencyFluctuation(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencyFluctuationResponse]{
+	return &core.Response[*afgosdk.CurrencyFluctuationResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3178,9 +3178,9 @@ func (r *RawClient) CurrencyFluctuation(
 
 func (r *RawClient) CurrencyConvertByIP(
 	ctx context.Context,
-	request *sdk.CurrencyConvertByIPRequest,
+	request *afgosdk.CurrencyConvertByIPRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencyConvertByIPResponse], error) {
+) (*core.Response[*afgosdk.CurrencyConvertByIPResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3199,7 +3199,7 @@ func (r *RawClient) CurrencyConvertByIP(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencyConvertByIPResponse
+	var response *afgosdk.CurrencyConvertByIPResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3212,13 +3212,13 @@ func (r *RawClient) CurrencyConvertByIP(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencyConvertByIPResponse]{
+	return &core.Response[*afgosdk.CurrencyConvertByIPResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3227,9 +3227,9 @@ func (r *RawClient) CurrencyConvertByIP(
 
 func (r *RawClient) CurrencySupported(
 	ctx context.Context,
-	request *sdk.CurrencySupportedRequest,
+	request *afgosdk.CurrencySupportedRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencySupportedResponse], error) {
+) (*core.Response[*afgosdk.CurrencySupportedResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3248,7 +3248,7 @@ func (r *RawClient) CurrencySupported(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencySupportedResponse
+	var response *afgosdk.CurrencySupportedResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3261,13 +3261,13 @@ func (r *RawClient) CurrencySupported(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencySupportedResponse]{
+	return &core.Response[*afgosdk.CurrencySupportedResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3276,9 +3276,9 @@ func (r *RawClient) CurrencySupported(
 
 func (r *RawClient) CurrencySymbols(
 	ctx context.Context,
-	request *sdk.CurrencySymbolsRequest,
+	request *afgosdk.CurrencySymbolsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencySymbolsResponse], error) {
+) (*core.Response[*afgosdk.CurrencySymbolsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3297,7 +3297,7 @@ func (r *RawClient) CurrencySymbols(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencySymbolsResponse
+	var response *afgosdk.CurrencySymbolsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3310,13 +3310,13 @@ func (r *RawClient) CurrencySymbols(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencySymbolsResponse]{
+	return &core.Response[*afgosdk.CurrencySymbolsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3325,9 +3325,9 @@ func (r *RawClient) CurrencySymbols(
 
 func (r *RawClient) CurrencyHistoricalLimits(
 	ctx context.Context,
-	request *sdk.CurrencyHistoricalLimitsRequest,
+	request *afgosdk.CurrencyHistoricalLimitsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrencyHistoricalLimitsResponse], error) {
+) (*core.Response[*afgosdk.CurrencyHistoricalLimitsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3346,7 +3346,7 @@ func (r *RawClient) CurrencyHistoricalLimits(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrencyHistoricalLimitsResponse
+	var response *afgosdk.CurrencyHistoricalLimitsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3359,13 +3359,13 @@ func (r *RawClient) CurrencyHistoricalLimits(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrencyHistoricalLimitsResponse]{
+	return &core.Response[*afgosdk.CurrencyHistoricalLimitsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3374,9 +3374,9 @@ func (r *RawClient) CurrencyHistoricalLimits(
 
 func (r *RawClient) CommodityLatestRates(
 	ctx context.Context,
-	request *sdk.CommodityLatestRatesRequest,
+	request *afgosdk.CommodityLatestRatesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CommodityLatestRatesResponse], error) {
+) (*core.Response[*afgosdk.CommodityLatestRatesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3395,7 +3395,7 @@ func (r *RawClient) CommodityLatestRates(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CommodityLatestRatesResponse
+	var response *afgosdk.CommodityLatestRatesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3408,13 +3408,13 @@ func (r *RawClient) CommodityLatestRates(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CommodityLatestRatesResponse]{
+	return &core.Response[*afgosdk.CommodityLatestRatesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3423,9 +3423,9 @@ func (r *RawClient) CommodityLatestRates(
 
 func (r *RawClient) CommodityHistoricalRates(
 	ctx context.Context,
-	request *sdk.CommodityHistoricalRatesRequest,
+	request *afgosdk.CommodityHistoricalRatesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CommodityHistoricalRatesResponse], error) {
+) (*core.Response[*afgosdk.CommodityHistoricalRatesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3444,7 +3444,7 @@ func (r *RawClient) CommodityHistoricalRates(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CommodityHistoricalRatesResponse
+	var response *afgosdk.CommodityHistoricalRatesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3457,13 +3457,13 @@ func (r *RawClient) CommodityHistoricalRates(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CommodityHistoricalRatesResponse]{
+	return &core.Response[*afgosdk.CommodityHistoricalRatesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3472,9 +3472,9 @@ func (r *RawClient) CommodityHistoricalRates(
 
 func (r *RawClient) CommodityFluctuation(
 	ctx context.Context,
-	request *sdk.CommodityFluctuationRequest,
+	request *afgosdk.CommodityFluctuationRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CommodityFluctuationResponse], error) {
+) (*core.Response[*afgosdk.CommodityFluctuationResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3493,7 +3493,7 @@ func (r *RawClient) CommodityFluctuation(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CommodityFluctuationResponse
+	var response *afgosdk.CommodityFluctuationResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3506,13 +3506,13 @@ func (r *RawClient) CommodityFluctuation(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CommodityFluctuationResponse]{
+	return &core.Response[*afgosdk.CommodityFluctuationResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3521,9 +3521,9 @@ func (r *RawClient) CommodityFluctuation(
 
 func (r *RawClient) CommodityTimeSeries(
 	ctx context.Context,
-	request *sdk.CommodityTimeSeriesRequest,
+	request *afgosdk.CommodityTimeSeriesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CommodityTimeSeriesResponse], error) {
+) (*core.Response[*afgosdk.CommodityTimeSeriesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3542,7 +3542,7 @@ func (r *RawClient) CommodityTimeSeries(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CommodityTimeSeriesResponse
+	var response *afgosdk.CommodityTimeSeriesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3555,13 +3555,13 @@ func (r *RawClient) CommodityTimeSeries(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CommodityTimeSeriesResponse]{
+	return &core.Response[*afgosdk.CommodityTimeSeriesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3570,9 +3570,9 @@ func (r *RawClient) CommodityTimeSeries(
 
 func (r *RawClient) CommoditySymbols(
 	ctx context.Context,
-	request *sdk.CommoditySymbolsRequest,
+	request *afgosdk.CommoditySymbolsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CommoditySymbolsResponse], error) {
+) (*core.Response[*afgosdk.CommoditySymbolsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3591,7 +3591,7 @@ func (r *RawClient) CommoditySymbols(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CommoditySymbolsResponse
+	var response *afgosdk.CommoditySymbolsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3604,13 +3604,13 @@ func (r *RawClient) CommoditySymbols(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CommoditySymbolsResponse]{
+	return &core.Response[*afgosdk.CommoditySymbolsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3619,9 +3619,9 @@ func (r *RawClient) CommoditySymbols(
 
 func (r *RawClient) VatSupportedCountries(
 	ctx context.Context,
-	request *sdk.VatSupportedCountriesRequest,
+	request *afgosdk.VatSupportedCountriesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.VatSupportedCountriesResponse], error) {
+) (*core.Response[*afgosdk.VatSupportedCountriesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3640,7 +3640,7 @@ func (r *RawClient) VatSupportedCountries(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.VatSupportedCountriesResponse
+	var response *afgosdk.VatSupportedCountriesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3653,13 +3653,13 @@ func (r *RawClient) VatSupportedCountries(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.VatSupportedCountriesResponse]{
+	return &core.Response[*afgosdk.VatSupportedCountriesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3668,9 +3668,9 @@ func (r *RawClient) VatSupportedCountries(
 
 func (r *RawClient) VatRateByIP(
 	ctx context.Context,
-	request *sdk.VatRateByIPRequest,
+	request *afgosdk.VatRateByIPRequest,
 	opts ...option.RequestOption,
-) (*core.Response[[]*sdk.VatRateByIPResponseItem], error) {
+) (*core.Response[[]*afgosdk.VatRateByIPResponseItem], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3689,7 +3689,7 @@ func (r *RawClient) VatRateByIP(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response []*sdk.VatRateByIPResponseItem
+	var response []*afgosdk.VatRateByIPResponseItem
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3702,13 +3702,13 @@ func (r *RawClient) VatRateByIP(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[[]*sdk.VatRateByIPResponseItem]{
+	return &core.Response[[]*afgosdk.VatRateByIPResponseItem]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3717,9 +3717,9 @@ func (r *RawClient) VatRateByIP(
 
 func (r *RawClient) VatRateByCountry(
 	ctx context.Context,
-	request *sdk.VatRateByCountryRequest,
+	request *afgosdk.VatRateByCountryRequest,
 	opts ...option.RequestOption,
-) (*core.Response[[]*sdk.VatRateByCountryResponseItem], error) {
+) (*core.Response[[]*afgosdk.VatRateByCountryResponseItem], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3738,7 +3738,7 @@ func (r *RawClient) VatRateByCountry(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response []*sdk.VatRateByCountryResponseItem
+	var response []*afgosdk.VatRateByCountryResponseItem
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3751,13 +3751,13 @@ func (r *RawClient) VatRateByCountry(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[[]*sdk.VatRateByCountryResponseItem]{
+	return &core.Response[[]*afgosdk.VatRateByCountryResponseItem]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3766,9 +3766,9 @@ func (r *RawClient) VatRateByCountry(
 
 func (r *RawClient) BulkVatRateByCountry(
 	ctx context.Context,
-	request *sdk.BulkVatRateByCountryRequest,
+	request *afgosdk.BulkVatRateByCountryRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.BulkVatRateByCountryResponse], error) {
+) (*core.Response[*afgosdk.BulkVatRateByCountryResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3788,7 +3788,7 @@ func (r *RawClient) BulkVatRateByCountry(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.BulkVatRateByCountryResponse
+	var response *afgosdk.BulkVatRateByCountryResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3802,13 +3802,13 @@ func (r *RawClient) BulkVatRateByCountry(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.BulkVatRateByCountryResponse]{
+	return &core.Response[*afgosdk.BulkVatRateByCountryResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3817,9 +3817,9 @@ func (r *RawClient) BulkVatRateByCountry(
 
 func (r *RawClient) VatValidate(
 	ctx context.Context,
-	request *sdk.VatValidateRequest,
+	request *afgosdk.VatValidateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.VatValidateResponse], error) {
+) (*core.Response[*afgosdk.VatValidateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3838,7 +3838,7 @@ func (r *RawClient) VatValidate(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.VatValidateResponse
+	var response *afgosdk.VatValidateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3851,13 +3851,13 @@ func (r *RawClient) VatValidate(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.VatValidateResponse]{
+	return &core.Response[*afgosdk.VatValidateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3866,9 +3866,9 @@ func (r *RawClient) VatValidate(
 
 func (r *RawClient) IbanValidate(
 	ctx context.Context,
-	request *sdk.IbanValidateRequest,
+	request *afgosdk.IbanValidateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.IbanValidateResponse], error) {
+) (*core.Response[*afgosdk.IbanValidateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3887,7 +3887,7 @@ func (r *RawClient) IbanValidate(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.IbanValidateResponse
+	var response *afgosdk.IbanValidateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3900,13 +3900,13 @@ func (r *RawClient) IbanValidate(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.IbanValidateResponse]{
+	return &core.Response[*afgosdk.IbanValidateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3915,7 +3915,7 @@ func (r *RawClient) IbanValidate(
 
 func (r *RawClient) SwiftCodeFind(
 	ctx context.Context,
-	request *sdk.SwiftCodeFindRequest,
+	request *afgosdk.SwiftCodeFindRequest,
 	opts ...option.RequestOption,
 ) (*core.Response[[]string], error) {
 	options := core.NewRequestOptions(opts...)
@@ -3949,7 +3949,7 @@ func (r *RawClient) SwiftCodeFind(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
@@ -3964,9 +3964,9 @@ func (r *RawClient) SwiftCodeFind(
 
 func (r *RawClient) SwiftCodeLookup(
 	ctx context.Context,
-	request *sdk.SwiftCodeLookupRequest,
+	request *afgosdk.SwiftCodeLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.SwiftCodeLookupResponse], error) {
+) (*core.Response[*afgosdk.SwiftCodeLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3985,7 +3985,7 @@ func (r *RawClient) SwiftCodeLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.SwiftCodeLookupResponse
+	var response *afgosdk.SwiftCodeLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3998,13 +3998,13 @@ func (r *RawClient) SwiftCodeLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.SwiftCodeLookupResponse]{
+	return &core.Response[*afgosdk.SwiftCodeLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4013,9 +4013,9 @@ func (r *RawClient) SwiftCodeLookup(
 
 func (r *RawClient) ZipcodeLookup(
 	ctx context.Context,
-	request *sdk.ZipcodeLookupRequest,
+	request *afgosdk.ZipcodeLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.ZipcodeLookupResponse], error) {
+) (*core.Response[*afgosdk.ZipcodeLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4034,7 +4034,7 @@ func (r *RawClient) ZipcodeLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.ZipcodeLookupResponse
+	var response *afgosdk.ZipcodeLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4047,13 +4047,13 @@ func (r *RawClient) ZipcodeLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.ZipcodeLookupResponse]{
+	return &core.Response[*afgosdk.ZipcodeLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4062,9 +4062,9 @@ func (r *RawClient) ZipcodeLookup(
 
 func (r *RawClient) BulkZipcodeLookup(
 	ctx context.Context,
-	request *sdk.BulkZipcodeLookupRequest,
+	request *afgosdk.BulkZipcodeLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.BulkZipcodeLookupResponse], error) {
+) (*core.Response[*afgosdk.BulkZipcodeLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4084,7 +4084,7 @@ func (r *RawClient) BulkZipcodeLookup(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.BulkZipcodeLookupResponse
+	var response *afgosdk.BulkZipcodeLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4098,13 +4098,13 @@ func (r *RawClient) BulkZipcodeLookup(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.BulkZipcodeLookupResponse]{
+	return &core.Response[*afgosdk.BulkZipcodeLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4113,9 +4113,9 @@ func (r *RawClient) BulkZipcodeLookup(
 
 func (r *RawClient) ZipcodeSearchByCity(
 	ctx context.Context,
-	request *sdk.ZipcodeSearchByCityRequest,
+	request *afgosdk.ZipcodeSearchByCityRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.ZipcodeSearchByCityResponse], error) {
+) (*core.Response[*afgosdk.ZipcodeSearchByCityResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4134,7 +4134,7 @@ func (r *RawClient) ZipcodeSearchByCity(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.ZipcodeSearchByCityResponse
+	var response *afgosdk.ZipcodeSearchByCityResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4147,13 +4147,13 @@ func (r *RawClient) ZipcodeSearchByCity(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.ZipcodeSearchByCityResponse]{
+	return &core.Response[*afgosdk.ZipcodeSearchByCityResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4162,9 +4162,9 @@ func (r *RawClient) ZipcodeSearchByCity(
 
 func (r *RawClient) ZipcodeSearchByRegion(
 	ctx context.Context,
-	request *sdk.ZipcodeSearchByRegionRequest,
+	request *afgosdk.ZipcodeSearchByRegionRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.ZipcodeSearchByRegionResponse], error) {
+) (*core.Response[*afgosdk.ZipcodeSearchByRegionResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4183,7 +4183,7 @@ func (r *RawClient) ZipcodeSearchByRegion(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.ZipcodeSearchByRegionResponse
+	var response *afgosdk.ZipcodeSearchByRegionResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4196,13 +4196,13 @@ func (r *RawClient) ZipcodeSearchByRegion(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.ZipcodeSearchByRegionResponse]{
+	return &core.Response[*afgosdk.ZipcodeSearchByRegionResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4211,9 +4211,9 @@ func (r *RawClient) ZipcodeSearchByRegion(
 
 func (r *RawClient) ZipcodeSearchByRadius(
 	ctx context.Context,
-	request *sdk.ZipcodeSearchByRadiusRequest,
+	request *afgosdk.ZipcodeSearchByRadiusRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.ZipcodeSearchByRadiusResponse], error) {
+) (*core.Response[*afgosdk.ZipcodeSearchByRadiusResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4232,7 +4232,7 @@ func (r *RawClient) ZipcodeSearchByRadius(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.ZipcodeSearchByRadiusResponse
+	var response *afgosdk.ZipcodeSearchByRadiusResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4245,13 +4245,13 @@ func (r *RawClient) ZipcodeSearchByRadius(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.ZipcodeSearchByRadiusResponse]{
+	return &core.Response[*afgosdk.ZipcodeSearchByRadiusResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4260,9 +4260,9 @@ func (r *RawClient) ZipcodeSearchByRadius(
 
 func (r *RawClient) ZipcodeDistance(
 	ctx context.Context,
-	request *sdk.ZipcodeDistanceRequest,
+	request *afgosdk.ZipcodeDistanceRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.ZipcodeDistanceResponse], error) {
+) (*core.Response[*afgosdk.ZipcodeDistanceResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4282,7 +4282,7 @@ func (r *RawClient) ZipcodeDistance(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.ZipcodeDistanceResponse
+	var response *afgosdk.ZipcodeDistanceResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4296,13 +4296,13 @@ func (r *RawClient) ZipcodeDistance(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.ZipcodeDistanceResponse]{
+	return &core.Response[*afgosdk.ZipcodeDistanceResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4311,9 +4311,9 @@ func (r *RawClient) ZipcodeDistance(
 
 func (r *RawClient) ZipcodeDistanceMatch(
 	ctx context.Context,
-	request *sdk.ZipcodeDistanceMatchRequest,
+	request *afgosdk.ZipcodeDistanceMatchRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.ZipcodeDistanceMatchResponse], error) {
+) (*core.Response[*afgosdk.ZipcodeDistanceMatchResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4333,7 +4333,7 @@ func (r *RawClient) ZipcodeDistanceMatch(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.ZipcodeDistanceMatchResponse
+	var response *afgosdk.ZipcodeDistanceMatchResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4347,13 +4347,13 @@ func (r *RawClient) ZipcodeDistanceMatch(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.ZipcodeDistanceMatchResponse]{
+	return &core.Response[*afgosdk.ZipcodeDistanceMatchResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4362,9 +4362,9 @@ func (r *RawClient) ZipcodeDistanceMatch(
 
 func (r *RawClient) CurrentWeather(
 	ctx context.Context,
-	request *sdk.CurrentWeatherRequest,
+	request *afgosdk.CurrentWeatherRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.CurrentWeatherResponse], error) {
+) (*core.Response[*afgosdk.CurrentWeatherResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4383,7 +4383,7 @@ func (r *RawClient) CurrentWeather(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.CurrentWeatherResponse
+	var response *afgosdk.CurrentWeatherResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4396,13 +4396,13 @@ func (r *RawClient) CurrentWeather(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.CurrentWeatherResponse]{
+	return &core.Response[*afgosdk.CurrentWeatherResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4411,9 +4411,9 @@ func (r *RawClient) CurrentWeather(
 
 func (r *RawClient) BulkCurrentWeather(
 	ctx context.Context,
-	request *sdk.BulkCurrentWeatherRequest,
+	request *afgosdk.BulkCurrentWeatherRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.BulkCurrentWeatherResponse], error) {
+) (*core.Response[*afgosdk.BulkCurrentWeatherResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4433,7 +4433,7 @@ func (r *RawClient) BulkCurrentWeather(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.BulkCurrentWeatherResponse
+	var response *afgosdk.BulkCurrentWeatherResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4447,13 +4447,13 @@ func (r *RawClient) BulkCurrentWeather(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.BulkCurrentWeatherResponse]{
+	return &core.Response[*afgosdk.BulkCurrentWeatherResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4462,9 +4462,9 @@ func (r *RawClient) BulkCurrentWeather(
 
 func (r *RawClient) WeatherForecast(
 	ctx context.Context,
-	request *sdk.WeatherForecastRequest,
+	request *afgosdk.WeatherForecastRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.WeatherForecastResponse], error) {
+) (*core.Response[*afgosdk.WeatherForecastResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4483,7 +4483,7 @@ func (r *RawClient) WeatherForecast(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.WeatherForecastResponse
+	var response *afgosdk.WeatherForecastResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4496,13 +4496,13 @@ func (r *RawClient) WeatherForecast(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.WeatherForecastResponse]{
+	return &core.Response[*afgosdk.WeatherForecastResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4511,9 +4511,9 @@ func (r *RawClient) WeatherForecast(
 
 func (r *RawClient) HistoricalWeather(
 	ctx context.Context,
-	request *sdk.HistoricalWeatherRequest,
+	request *afgosdk.HistoricalWeatherRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.HistoricalWeatherResponse], error) {
+) (*core.Response[*afgosdk.HistoricalWeatherResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4532,7 +4532,7 @@ func (r *RawClient) HistoricalWeather(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.HistoricalWeatherResponse
+	var response *afgosdk.HistoricalWeatherResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4545,13 +4545,13 @@ func (r *RawClient) HistoricalWeather(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.HistoricalWeatherResponse]{
+	return &core.Response[*afgosdk.HistoricalWeatherResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4560,9 +4560,9 @@ func (r *RawClient) HistoricalWeather(
 
 func (r *RawClient) WeatherTimeSeries(
 	ctx context.Context,
-	request *sdk.WeatherTimeSeriesRequest,
+	request *afgosdk.WeatherTimeSeriesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.WeatherTimeSeriesResponse], error) {
+) (*core.Response[*afgosdk.WeatherTimeSeriesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4581,7 +4581,7 @@ func (r *RawClient) WeatherTimeSeries(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.WeatherTimeSeriesResponse
+	var response *afgosdk.WeatherTimeSeriesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4594,13 +4594,13 @@ func (r *RawClient) WeatherTimeSeries(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.WeatherTimeSeriesResponse]{
+	return &core.Response[*afgosdk.WeatherTimeSeriesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4609,9 +4609,9 @@ func (r *RawClient) WeatherTimeSeries(
 
 func (r *RawClient) MarineWeather(
 	ctx context.Context,
-	request *sdk.MarineWeatherRequest,
+	request *afgosdk.MarineWeatherRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.MarineWeatherResponse], error) {
+) (*core.Response[*afgosdk.MarineWeatherResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4630,7 +4630,7 @@ func (r *RawClient) MarineWeather(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.MarineWeatherResponse
+	var response *afgosdk.MarineWeatherResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4643,13 +4643,13 @@ func (r *RawClient) MarineWeather(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.MarineWeatherResponse]{
+	return &core.Response[*afgosdk.MarineWeatherResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4658,9 +4658,9 @@ func (r *RawClient) MarineWeather(
 
 func (r *RawClient) AirQuality(
 	ctx context.Context,
-	request *sdk.AirQualityRequest,
+	request *afgosdk.AirQualityRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.AirQualityResponse], error) {
+) (*core.Response[*afgosdk.AirQualityResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4679,7 +4679,7 @@ func (r *RawClient) AirQuality(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.AirQualityResponse
+	var response *afgosdk.AirQualityResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4692,13 +4692,13 @@ func (r *RawClient) AirQuality(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.AirQualityResponse]{
+	return &core.Response[*afgosdk.AirQualityResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4707,9 +4707,9 @@ func (r *RawClient) AirQuality(
 
 func (r *RawClient) FloodForecast(
 	ctx context.Context,
-	request *sdk.FloodForecastRequest,
+	request *afgosdk.FloodForecastRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.FloodForecastResponse], error) {
+) (*core.Response[*afgosdk.FloodForecastResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4728,7 +4728,7 @@ func (r *RawClient) FloodForecast(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.FloodForecastResponse
+	var response *afgosdk.FloodForecastResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4741,13 +4741,13 @@ func (r *RawClient) FloodForecast(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.FloodForecastResponse]{
+	return &core.Response[*afgosdk.FloodForecastResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4756,9 +4756,9 @@ func (r *RawClient) FloodForecast(
 
 func (r *RawClient) GetCountries(
 	ctx context.Context,
-	request *sdk.GetCountriesRequest,
+	request *afgosdk.GetCountriesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetCountriesResponse], error) {
+) (*core.Response[*afgosdk.GetCountriesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4777,7 +4777,7 @@ func (r *RawClient) GetCountries(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GetCountriesResponse
+	var response *afgosdk.GetCountriesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4790,13 +4790,13 @@ func (r *RawClient) GetCountries(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetCountriesResponse]{
+	return &core.Response[*afgosdk.GetCountriesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4805,9 +4805,9 @@ func (r *RawClient) GetCountries(
 
 func (r *RawClient) GetCountryDetails(
 	ctx context.Context,
-	request *sdk.GetCountryDetailsRequest,
+	request *afgosdk.GetCountryDetailsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetCountryDetailsResponse], error) {
+) (*core.Response[*afgosdk.GetCountryDetailsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4826,7 +4826,7 @@ func (r *RawClient) GetCountryDetails(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GetCountryDetailsResponse
+	var response *afgosdk.GetCountryDetailsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4839,13 +4839,13 @@ func (r *RawClient) GetCountryDetails(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetCountryDetailsResponse]{
+	return &core.Response[*afgosdk.GetCountryDetailsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4854,9 +4854,9 @@ func (r *RawClient) GetCountryDetails(
 
 func (r *RawClient) GetRegions(
 	ctx context.Context,
-	request *sdk.GetRegionsRequest,
+	request *afgosdk.GetRegionsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetRegionsResponse], error) {
+) (*core.Response[*afgosdk.GetRegionsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4875,7 +4875,7 @@ func (r *RawClient) GetRegions(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GetRegionsResponse
+	var response *afgosdk.GetRegionsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4888,13 +4888,13 @@ func (r *RawClient) GetRegions(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetRegionsResponse]{
+	return &core.Response[*afgosdk.GetRegionsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4903,9 +4903,9 @@ func (r *RawClient) GetRegions(
 
 func (r *RawClient) GetSubregions(
 	ctx context.Context,
-	request *sdk.GetSubregionsRequest,
+	request *afgosdk.GetSubregionsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetSubregionsResponse], error) {
+) (*core.Response[*afgosdk.GetSubregionsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4924,7 +4924,7 @@ func (r *RawClient) GetSubregions(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GetSubregionsResponse
+	var response *afgosdk.GetSubregionsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4937,13 +4937,13 @@ func (r *RawClient) GetSubregions(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetSubregionsResponse]{
+	return &core.Response[*afgosdk.GetSubregionsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4952,9 +4952,9 @@ func (r *RawClient) GetSubregions(
 
 func (r *RawClient) GetAdminLevels(
 	ctx context.Context,
-	request *sdk.GetAdminLevelsRequest,
+	request *afgosdk.GetAdminLevelsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetAdminLevelsResponse], error) {
+) (*core.Response[*afgosdk.GetAdminLevelsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4973,7 +4973,7 @@ func (r *RawClient) GetAdminLevels(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GetAdminLevelsResponse
+	var response *afgosdk.GetAdminLevelsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4986,13 +4986,13 @@ func (r *RawClient) GetAdminLevels(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetAdminLevelsResponse]{
+	return &core.Response[*afgosdk.GetAdminLevelsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5001,9 +5001,9 @@ func (r *RawClient) GetAdminLevels(
 
 func (r *RawClient) GetAdminUnits(
 	ctx context.Context,
-	request *sdk.GetAdminUnitsRequest,
+	request *afgosdk.GetAdminUnitsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetAdminUnitsResponse], error) {
+) (*core.Response[*afgosdk.GetAdminUnitsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5022,7 +5022,7 @@ func (r *RawClient) GetAdminUnits(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GetAdminUnitsResponse
+	var response *afgosdk.GetAdminUnitsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5035,13 +5035,13 @@ func (r *RawClient) GetAdminUnits(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetAdminUnitsResponse]{
+	return &core.Response[*afgosdk.GetAdminUnitsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5050,9 +5050,9 @@ func (r *RawClient) GetAdminUnits(
 
 func (r *RawClient) GetAdminUnitDetails(
 	ctx context.Context,
-	request *sdk.GetAdminUnitDetailsRequest,
+	request *afgosdk.GetAdminUnitDetailsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetAdminUnitDetailsResponse], error) {
+) (*core.Response[*afgosdk.GetAdminUnitDetailsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5071,7 +5071,7 @@ func (r *RawClient) GetAdminUnitDetails(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GetAdminUnitDetailsResponse
+	var response *afgosdk.GetAdminUnitDetailsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5084,13 +5084,13 @@ func (r *RawClient) GetAdminUnitDetails(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetAdminUnitDetailsResponse]{
+	return &core.Response[*afgosdk.GetAdminUnitDetailsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5099,9 +5099,9 @@ func (r *RawClient) GetAdminUnitDetails(
 
 func (r *RawClient) GetCities(
 	ctx context.Context,
-	request *sdk.GetCitiesRequest,
+	request *afgosdk.GetCitiesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GetCitiesResponse], error) {
+) (*core.Response[*afgosdk.GetCitiesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5120,7 +5120,7 @@ func (r *RawClient) GetCities(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.GetCitiesResponse
+	var response *afgosdk.GetCitiesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5133,13 +5133,13 @@ func (r *RawClient) GetCities(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GetCitiesResponse]{
+	return &core.Response[*afgosdk.GetCitiesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5148,9 +5148,9 @@ func (r *RawClient) GetCities(
 
 func (r *RawClient) GetSupportedFlags(
 	ctx context.Context,
-	request *sdk.GetSupportedFlagsRequest,
+	request *afgosdk.GetSupportedFlagsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[[]*sdk.GetSupportedFlagsResponseItem], error) {
+) (*core.Response[[]*afgosdk.GetSupportedFlagsResponseItem], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5169,7 +5169,7 @@ func (r *RawClient) GetSupportedFlags(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response []*sdk.GetSupportedFlagsResponseItem
+	var response []*afgosdk.GetSupportedFlagsResponseItem
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5182,13 +5182,13 @@ func (r *RawClient) GetSupportedFlags(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[[]*sdk.GetSupportedFlagsResponseItem]{
+	return &core.Response[[]*afgosdk.GetSupportedFlagsResponseItem]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5197,7 +5197,7 @@ func (r *RawClient) GetSupportedFlags(
 
 func (r *RawClient) GetFlags(
 	ctx context.Context,
-	request *sdk.GetFlagsRequest,
+	request *afgosdk.GetFlagsRequest,
 	opts ...option.RequestOption,
 ) (*core.Response[io.Reader], error) {
 	options := core.NewRequestOptions(opts...)
@@ -5231,7 +5231,7 @@ func (r *RawClient) GetFlags(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
@@ -5246,9 +5246,9 @@ func (r *RawClient) GetFlags(
 
 func (r *RawClient) TimezoneLookup(
 	ctx context.Context,
-	request *sdk.TimezoneLookupRequest,
+	request *afgosdk.TimezoneLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.TimezoneLookupResponse], error) {
+) (*core.Response[*afgosdk.TimezoneLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5267,7 +5267,7 @@ func (r *RawClient) TimezoneLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.TimezoneLookupResponse
+	var response *afgosdk.TimezoneLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5280,13 +5280,13 @@ func (r *RawClient) TimezoneLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.TimezoneLookupResponse]{
+	return &core.Response[*afgosdk.TimezoneLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5295,9 +5295,9 @@ func (r *RawClient) TimezoneLookup(
 
 func (r *RawClient) TimezoneConvert(
 	ctx context.Context,
-	request *sdk.TimezoneConvertRequest,
+	request *afgosdk.TimezoneConvertRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.TimezoneConvertResponse], error) {
+) (*core.Response[*afgosdk.TimezoneConvertResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5316,7 +5316,7 @@ func (r *RawClient) TimezoneConvert(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.TimezoneConvertResponse
+	var response *afgosdk.TimezoneConvertResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5329,13 +5329,13 @@ func (r *RawClient) TimezoneConvert(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.TimezoneConvertResponse]{
+	return &core.Response[*afgosdk.TimezoneConvertResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5344,9 +5344,9 @@ func (r *RawClient) TimezoneConvert(
 
 func (r *RawClient) UserAgentLookup(
 	ctx context.Context,
-	request *sdk.UserAgentLookupRequest,
+	request *afgosdk.UserAgentLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.UserAgentLookupResponse], error) {
+) (*core.Response[*afgosdk.UserAgentLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5365,7 +5365,7 @@ func (r *RawClient) UserAgentLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.UserAgentLookupResponse
+	var response *afgosdk.UserAgentLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5378,13 +5378,13 @@ func (r *RawClient) UserAgentLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.UserAgentLookupResponse]{
+	return &core.Response[*afgosdk.UserAgentLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5393,9 +5393,9 @@ func (r *RawClient) UserAgentLookup(
 
 func (r *RawClient) BulkUserAgentLookup(
 	ctx context.Context,
-	request *sdk.BulkUserAgentLookupRequest,
+	request *afgosdk.BulkUserAgentLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[[]*sdk.BulkUserAgentLookupResponseItem], error) {
+) (*core.Response[[]*afgosdk.BulkUserAgentLookupResponseItem], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5415,7 +5415,7 @@ func (r *RawClient) BulkUserAgentLookup(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response []*sdk.BulkUserAgentLookupResponseItem
+	var response []*afgosdk.BulkUserAgentLookupResponseItem
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5429,13 +5429,13 @@ func (r *RawClient) BulkUserAgentLookup(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[[]*sdk.BulkUserAgentLookupResponseItem]{
+	return &core.Response[[]*afgosdk.BulkUserAgentLookupResponseItem]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5444,9 +5444,9 @@ func (r *RawClient) BulkUserAgentLookup(
 
 func (r *RawClient) OcrPredict(
 	ctx context.Context,
-	request *sdk.OcrPredictRequest,
+	request *afgosdk.OcrPredictRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.OcrPredictResponse], error) {
+) (*core.Response[*afgosdk.OcrPredictResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5466,7 +5466,7 @@ func (r *RawClient) OcrPredict(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.OcrPredictResponse
+	var response *afgosdk.OcrPredictResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5480,13 +5480,13 @@ func (r *RawClient) OcrPredict(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.OcrPredictResponse]{
+	return &core.Response[*afgosdk.OcrPredictResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5495,9 +5495,9 @@ func (r *RawClient) OcrPredict(
 
 func (r *RawClient) GrammarDetect(
 	ctx context.Context,
-	request *sdk.GrammarDetectRequest,
+	request *afgosdk.GrammarDetectRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GrammarDetectResponse], error) {
+) (*core.Response[*afgosdk.GrammarDetectResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5517,7 +5517,7 @@ func (r *RawClient) GrammarDetect(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.GrammarDetectResponse
+	var response *afgosdk.GrammarDetectResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5531,13 +5531,13 @@ func (r *RawClient) GrammarDetect(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GrammarDetectResponse]{
+	return &core.Response[*afgosdk.GrammarDetectResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5546,9 +5546,9 @@ func (r *RawClient) GrammarDetect(
 
 func (r *RawClient) GrammarCorrect(
 	ctx context.Context,
-	request *sdk.GrammarCorrectRequest,
+	request *afgosdk.GrammarCorrectRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.GrammarCorrectResponse], error) {
+) (*core.Response[*afgosdk.GrammarCorrectResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5568,7 +5568,7 @@ func (r *RawClient) GrammarCorrect(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.GrammarCorrectResponse
+	var response *afgosdk.GrammarCorrectResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5582,13 +5582,13 @@ func (r *RawClient) GrammarCorrect(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.GrammarCorrectResponse]{
+	return &core.Response[*afgosdk.GrammarCorrectResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5597,9 +5597,9 @@ func (r *RawClient) GrammarCorrect(
 
 func (r *RawClient) WeakWordsDetect(
 	ctx context.Context,
-	request *sdk.WeakWordsDetectRequest,
+	request *afgosdk.WeakWordsDetectRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.WeakWordsDetectResponse], error) {
+) (*core.Response[*afgosdk.WeakWordsDetectResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5619,7 +5619,7 @@ func (r *RawClient) WeakWordsDetect(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.WeakWordsDetectResponse
+	var response *afgosdk.WeakWordsDetectResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5633,13 +5633,13 @@ func (r *RawClient) WeakWordsDetect(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.WeakWordsDetectResponse]{
+	return &core.Response[*afgosdk.WeakWordsDetectResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5648,9 +5648,9 @@ func (r *RawClient) WeakWordsDetect(
 
 func (r *RawClient) ReadabilityScore(
 	ctx context.Context,
-	request *sdk.ReadabilityScoreRequest,
+	request *afgosdk.ReadabilityScoreRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.ReadabilityScoreResponse], error) {
+) (*core.Response[*afgosdk.ReadabilityScoreResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5670,7 +5670,7 @@ func (r *RawClient) ReadabilityScore(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *sdk.ReadabilityScoreResponse
+	var response *afgosdk.ReadabilityScoreResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5684,13 +5684,13 @@ func (r *RawClient) ReadabilityScore(
 			Client:          options.HTTPClient,
 			Request:         request,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.ReadabilityScoreResponse]{
+	return &core.Response[*afgosdk.ReadabilityScoreResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5699,9 +5699,9 @@ func (r *RawClient) ReadabilityScore(
 
 func (r *RawClient) AstronomyLookup(
 	ctx context.Context,
-	request *sdk.AstronomyLookupRequest,
+	request *afgosdk.AstronomyLookupRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*sdk.AstronomyLookupResponse], error) {
+) (*core.Response[*afgosdk.AstronomyLookupResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5720,7 +5720,7 @@ func (r *RawClient) AstronomyLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *sdk.AstronomyLookupResponse
+	var response *afgosdk.AstronomyLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5733,13 +5733,13 @@ func (r *RawClient) AstronomyLookup(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(sdk.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*sdk.AstronomyLookupResponse]{
+	return &core.Response[*afgosdk.AstronomyLookupResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

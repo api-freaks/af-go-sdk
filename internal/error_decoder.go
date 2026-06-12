@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/api-freaks/sdk/core"
+	"github.com/api-freaks/af-go-sdk/core"
 )
 
 // ErrorCodes maps HTTP status codes to error constructors.
