@@ -447,6 +447,7 @@ var (
 	bulkDomainDNSLookupRequestFieldFormat      = big.NewInt(1 << 1)
 	bulkDomainDNSLookupRequestFieldType        = big.NewInt(1 << 2)
 	bulkDomainDNSLookupRequestFieldDomainNames = big.NewInt(1 << 3)
+	bulkDomainDNSLookupRequestFieldIPAddresses = big.NewInt(1 << 4)
 )
 
 type BulkDomainDNSLookupRequest struct {
@@ -455,10 +456,12 @@ type BulkDomainDNSLookupRequest struct {
 	// Format of the response.
 	Format *BulkDomainDNSLookupRequestFormat `json:"-" url:"format,omitempty"`
 	// A comma-separated list of DNS record types for lookup.
-	// Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
-	Type []*string `json:"-" url:"type,omitempty"`
+	// Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, PTR, or all
+	Type []*string `json:"-" url:"type"`
 	// List of hostnames to lookup DNS records for
 	DomainNames []string `json:"domainNames" url:"-"`
+	// List of IP addresses to lookup DNS records for
+	IPAddresses []string `json:"ipAddresses,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -497,6 +500,13 @@ func (b *BulkDomainDNSLookupRequest) SetType(type_ []*string) {
 func (b *BulkDomainDNSLookupRequest) SetDomainNames(domainNames []string) {
 	b.DomainNames = domainNames
 	b.require(bulkDomainDNSLookupRequestFieldDomainNames)
+}
+
+// SetIPAddresses sets the IPAddresses field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (b *BulkDomainDNSLookupRequest) SetIPAddresses(iPAddresses []string) {
+	b.IPAddresses = iPAddresses
+	b.require(bulkDomainDNSLookupRequestFieldIPAddresses)
 }
 
 func (b *BulkDomainDNSLookupRequest) UnmarshalJSON(data []byte) error {
@@ -1205,7 +1215,7 @@ type CommodityFluctuationRequest struct {
 	// Format of the response.
 	Format *CommodityFluctuationRequestFormat `json:"-" url:"format,omitempty"`
 	// Comma-separated list of commodity symbols
-	Symbols []*string `json:"-" url:"symbols,omitempty"`
+	Symbols []*string `json:"-" url:"symbols"`
 	// Start date (YYYY-MM-DD)
 	StartDate time.Time `json:"-" url:"startDate" format:"date"`
 	// End date (YYYY-MM-DD)
@@ -1272,7 +1282,7 @@ type CommodityHistoricalRatesRequest struct {
 	// Historical date (YYYY-MM-DD)
 	Date time.Time `json:"-" url:"date" format:"date"`
 	// Comma-separated list of commodity symbols
-	Symbols []*string `json:"-" url:"symbols,omitempty"`
+	Symbols []*string `json:"-" url:"symbols"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1327,7 +1337,7 @@ type CommodityLatestRatesRequest struct {
 	// Format of the Response
 	Format *CommodityLatestRatesRequestFormat `json:"-" url:"format,omitempty"`
 	// Comma separated list of desired commodities symbols *(e.g. XAU,XAG,WTI,BRENT)* **Required**
-	Symbols []*string `json:"-" url:"symbols,omitempty"`
+	Symbols []*string `json:"-" url:"symbols"`
 	// Exchange rates update period. Possible values are: (1) `10m` - 10 minute update (2) `1m` - 1 minute update **Required**
 	Updates CommodityLatestRatesRequestUpdates `json:"-" url:"updates"`
 	// Specifies the target currency for the exchange rate; default quote currency is the market currency of commodity *(e.g. USD, EUR, INR)*
@@ -1429,7 +1439,7 @@ type CommodityTimeSeriesRequest struct {
 	// Format of the response.
 	Format *CommodityTimeSeriesRequestFormat `json:"-" url:"format,omitempty"`
 	// Comma-separated list of commodity symbols
-	Symbols []*string `json:"-" url:"symbols,omitempty"`
+	Symbols []*string `json:"-" url:"symbols"`
 	// Start date (YYYY-MM-DD)
 	StartDate time.Time `json:"-" url:"startDate" format:"date"`
 	// End date (YYYY-MM-DD)
@@ -1502,7 +1512,7 @@ type CurrencyConvertByIPRequest struct {
 	// IPv4 or IPv6 geolocated currency
 	IP *string `json:"-" url:"ip,omitempty"`
 	// Amount to convert
-	Amount *float64 `json:"-" url:"amount,omitempty"`
+	Amount *string `json:"-" url:"amount,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1552,7 +1562,7 @@ func (c *CurrencyConvertByIPRequest) SetIP(ip *string) {
 
 // SetAmount sets the Amount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrencyConvertByIPRequest) SetAmount(amount *float64) {
+func (c *CurrencyConvertByIPRequest) SetAmount(amount *string) {
 	c.Amount = amount
 	c.require(currencyConvertByIPRequestFieldAmount)
 }
@@ -1576,7 +1586,7 @@ type CurrencyConvertHistoricalRequest struct {
 	// To currency symbol
 	To string `json:"-" url:"to"`
 	// The Amount to be converted
-	Amount *float64 `json:"-" url:"amount,omitempty"`
+	Amount *string `json:"-" url:"amount,omitempty"`
 	// specific date (format YYYY-MM-DD) of which exchange rates is used.
 	Date time.Time `json:"-" url:"date" format:"date"`
 
@@ -1621,7 +1631,7 @@ func (c *CurrencyConvertHistoricalRequest) SetTo(to string) {
 
 // SetAmount sets the Amount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrencyConvertHistoricalRequest) SetAmount(amount *float64) {
+func (c *CurrencyConvertHistoricalRequest) SetAmount(amount *string) {
 	c.Amount = amount
 	c.require(currencyConvertHistoricalRequestFieldAmount)
 }
@@ -1652,7 +1662,7 @@ type CurrencyConvertLatestRequest struct {
 	// Target currency code
 	To string `json:"-" url:"to"`
 	// Amount to convert
-	Amount *float64 `json:"-" url:"amount,omitempty"`
+	Amount *string `json:"-" url:"amount,omitempty"`
 	// Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
 	Updates *CurrencyConvertLatestRequestUpdates `json:"-" url:"updates,omitempty"`
 
@@ -1697,7 +1707,7 @@ func (c *CurrencyConvertLatestRequest) SetTo(to string) {
 
 // SetAmount sets the Amount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrencyConvertLatestRequest) SetAmount(amount *float64) {
+func (c *CurrencyConvertLatestRequest) SetAmount(amount *string) {
 	c.Amount = amount
 	c.require(currencyConvertLatestRequestFieldAmount)
 }
@@ -2249,6 +2259,7 @@ var (
 	domainAvailabilitySuggestionsRequestFieldDomain = big.NewInt(1 << 2)
 	domainAvailabilitySuggestionsRequestFieldSource = big.NewInt(1 << 3)
 	domainAvailabilitySuggestionsRequestFieldCount  = big.NewInt(1 << 4)
+	domainAvailabilitySuggestionsRequestFieldSug    = big.NewInt(1 << 5)
 )
 
 type DomainAvailabilitySuggestionsRequest struct {
@@ -2262,6 +2273,8 @@ type DomainAvailabilitySuggestionsRequest struct {
 	Source *DomainAvailabilitySuggestionsRequestSource `json:"-" url:"source,omitempty"`
 	// Number of suggestions to retrieve.
 	Count *int `json:"-" url:"count,omitempty"`
+	// Whether to include suggestions.
+	Sug *bool `json:"-" url:"sug,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2309,6 +2322,13 @@ func (d *DomainAvailabilitySuggestionsRequest) SetCount(count *int) {
 	d.require(domainAvailabilitySuggestionsRequestFieldCount)
 }
 
+// SetSug sets the Sug field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DomainAvailabilitySuggestionsRequest) SetSug(sug *bool) {
+	d.Sug = sug
+	d.require(domainAvailabilitySuggestionsRequestFieldSug)
+}
+
 var (
 	domainDNSHistoryRequestFieldAPIKey   = big.NewInt(1 << 0)
 	domainDNSHistoryRequestFieldFormat   = big.NewInt(1 << 1)
@@ -2326,7 +2346,7 @@ type DomainDNSHistoryRequest struct {
 	HostName string `json:"-" url:"host-name"`
 	// A comma-separated list of DNS record types for lookup.
 	// Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
-	Type []*string `json:"-" url:"type,omitempty"`
+	Type []*string `json:"-" url:"type"`
 	// Page number for paginated results
 	Page *int `json:"-" url:"page,omitempty"`
 
@@ -2394,7 +2414,7 @@ type DomainDNSLookupRequest struct {
 	// The IP address for requested DNS's PTR record. 'type' parameter must be set to 'all'.
 	IPAddress *string `json:"-" url:"ipAddress,omitempty"`
 	// A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be "all".
-	Type []*string `json:"-" url:"type,omitempty"`
+	Type []*string `json:"-" url:"type"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -7040,7 +7060,8 @@ type PdfUploadResourcesRequest struct {
 	APIKey string `json:"-" url:"apiKey"`
 	// Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
 	Format *PdfUploadResourcesRequestFormat `json:"-" url:"format,omitempty"`
-	File   []io.Reader                      `json:"-" url:"-"`
+	// The file(s) to upload. **Required** — this endpoint accepts no `file_id` alternative.
+	File []io.Reader `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -12513,7 +12534,7 @@ var (
 
 type AstronomyLookupResponse struct {
 	IP        *string                           `json:"ip,omitempty" url:"ip,omitempty"`
-	Location  *AstronomyLookupResponseLocation  `json:"location" url:"location"`
+	Location  *AstronomyLookupResponseLocation  `json:"location,omitempty" url:"location,omitempty"`
 	Astronomy *AstronomyLookupResponseAstronomy `json:"astronomy" url:"astronomy"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -13612,18 +13633,18 @@ type AstronomyLookupResponseLocation struct {
 	ContinentName       *string `json:"continent_name,omitempty" url:"continent_name,omitempty"`
 	CountryCode2        *string `json:"country_code2,omitempty" url:"country_code2,omitempty"`
 	CountryCode3        *string `json:"country_code3,omitempty" url:"country_code3,omitempty"`
-	CountryName         string  `json:"country_name" url:"country_name"`
+	CountryName         *string `json:"country_name,omitempty" url:"country_name,omitempty"`
 	CountryNameOfficial *string `json:"country_name_official,omitempty" url:"country_name_official,omitempty"`
 	IsEu                *bool   `json:"is_eu,omitempty" url:"is_eu,omitempty"`
-	StateProv           string  `json:"state_prov" url:"state_prov"`
+	StateProv           *string `json:"state_prov,omitempty" url:"state_prov,omitempty"`
 	StateCode           *string `json:"state_code,omitempty" url:"state_code,omitempty"`
 	District            *string `json:"district,omitempty" url:"district,omitempty"`
-	City                string  `json:"city" url:"city"`
+	City                *string `json:"city,omitempty" url:"city,omitempty"`
 	Zipcode             *string `json:"zipcode,omitempty" url:"zipcode,omitempty"`
-	Latitude            string  `json:"latitude" url:"latitude"`
-	Longitude           string  `json:"longitude" url:"longitude"`
-	Locality            string  `json:"locality" url:"locality"`
-	Elevation           string  `json:"elevation" url:"elevation"`
+	Latitude            *string `json:"latitude,omitempty" url:"latitude,omitempty"`
+	Longitude           *string `json:"longitude,omitempty" url:"longitude,omitempty"`
+	Locality            *string `json:"locality,omitempty" url:"locality,omitempty"`
+	Elevation           *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -13668,9 +13689,9 @@ func (a *AstronomyLookupResponseLocation) GetCountryCode3() *string {
 	return a.CountryCode3
 }
 
-func (a *AstronomyLookupResponseLocation) GetCountryName() string {
+func (a *AstronomyLookupResponseLocation) GetCountryName() *string {
 	if a == nil {
-		return ""
+		return nil
 	}
 	return a.CountryName
 }
@@ -13689,9 +13710,9 @@ func (a *AstronomyLookupResponseLocation) GetIsEu() *bool {
 	return a.IsEu
 }
 
-func (a *AstronomyLookupResponseLocation) GetStateProv() string {
+func (a *AstronomyLookupResponseLocation) GetStateProv() *string {
 	if a == nil {
-		return ""
+		return nil
 	}
 	return a.StateProv
 }
@@ -13710,9 +13731,9 @@ func (a *AstronomyLookupResponseLocation) GetDistrict() *string {
 	return a.District
 }
 
-func (a *AstronomyLookupResponseLocation) GetCity() string {
+func (a *AstronomyLookupResponseLocation) GetCity() *string {
 	if a == nil {
-		return ""
+		return nil
 	}
 	return a.City
 }
@@ -13724,30 +13745,30 @@ func (a *AstronomyLookupResponseLocation) GetZipcode() *string {
 	return a.Zipcode
 }
 
-func (a *AstronomyLookupResponseLocation) GetLatitude() string {
+func (a *AstronomyLookupResponseLocation) GetLatitude() *string {
 	if a == nil {
-		return ""
+		return nil
 	}
 	return a.Latitude
 }
 
-func (a *AstronomyLookupResponseLocation) GetLongitude() string {
+func (a *AstronomyLookupResponseLocation) GetLongitude() *string {
 	if a == nil {
-		return ""
+		return nil
 	}
 	return a.Longitude
 }
 
-func (a *AstronomyLookupResponseLocation) GetLocality() string {
+func (a *AstronomyLookupResponseLocation) GetLocality() *string {
 	if a == nil {
-		return ""
+		return nil
 	}
 	return a.Locality
 }
 
-func (a *AstronomyLookupResponseLocation) GetElevation() string {
+func (a *AstronomyLookupResponseLocation) GetElevation() *string {
 	if a == nil {
-		return ""
+		return nil
 	}
 	return a.Elevation
 }
@@ -13803,7 +13824,7 @@ func (a *AstronomyLookupResponseLocation) SetCountryCode3(countryCode3 *string) 
 
 // SetCountryName sets the CountryName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AstronomyLookupResponseLocation) SetCountryName(countryName string) {
+func (a *AstronomyLookupResponseLocation) SetCountryName(countryName *string) {
 	a.CountryName = countryName
 	a.require(astronomyLookupResponseLocationFieldCountryName)
 }
@@ -13824,7 +13845,7 @@ func (a *AstronomyLookupResponseLocation) SetIsEu(isEu *bool) {
 
 // SetStateProv sets the StateProv field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AstronomyLookupResponseLocation) SetStateProv(stateProv string) {
+func (a *AstronomyLookupResponseLocation) SetStateProv(stateProv *string) {
 	a.StateProv = stateProv
 	a.require(astronomyLookupResponseLocationFieldStateProv)
 }
@@ -13845,7 +13866,7 @@ func (a *AstronomyLookupResponseLocation) SetDistrict(district *string) {
 
 // SetCity sets the City field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AstronomyLookupResponseLocation) SetCity(city string) {
+func (a *AstronomyLookupResponseLocation) SetCity(city *string) {
 	a.City = city
 	a.require(astronomyLookupResponseLocationFieldCity)
 }
@@ -13859,28 +13880,28 @@ func (a *AstronomyLookupResponseLocation) SetZipcode(zipcode *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AstronomyLookupResponseLocation) SetLatitude(latitude string) {
+func (a *AstronomyLookupResponseLocation) SetLatitude(latitude *string) {
 	a.Latitude = latitude
 	a.require(astronomyLookupResponseLocationFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AstronomyLookupResponseLocation) SetLongitude(longitude string) {
+func (a *AstronomyLookupResponseLocation) SetLongitude(longitude *string) {
 	a.Longitude = longitude
 	a.require(astronomyLookupResponseLocationFieldLongitude)
 }
 
 // SetLocality sets the Locality field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AstronomyLookupResponseLocation) SetLocality(locality string) {
+func (a *AstronomyLookupResponseLocation) SetLocality(locality *string) {
 	a.Locality = locality
 	a.require(astronomyLookupResponseLocationFieldLocality)
 }
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AstronomyLookupResponseLocation) SetElevation(elevation string) {
+func (a *AstronomyLookupResponseLocation) SetElevation(elevation *string) {
 	a.Elevation = elevation
 	a.require(astronomyLookupResponseLocationFieldElevation)
 }
@@ -16352,7 +16373,7 @@ var (
 )
 
 type BulkDomainAvailabilityCheckResponse struct {
-	BulkDomainAvailableResponse []*BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem `json:"bulk_domain_available_response,omitempty" url:"bulk_domain_available_response,omitempty"`
+	BulkDomainAvailableResponse []*BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem `json:"bulk_domain_available_response" url:"bulk_domain_available_response"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -16438,9 +16459,9 @@ var (
 )
 
 type BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem struct {
-	Domain             *string `json:"domain,omitempty" url:"domain,omitempty"`
-	DomainAvailability *bool   `json:"domainAvailability,omitempty" url:"domainAvailability,omitempty"`
-	Status             *bool   `json:"status,omitempty" url:"status,omitempty"`
+	Domain             string `json:"domain" url:"domain"`
+	DomainAvailability bool   `json:"domainAvailability" url:"domainAvailability"`
+	Status             bool   `json:"status" url:"status"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -16449,23 +16470,23 @@ type BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) GetDomain() *string {
+func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) GetDomain() string {
 	if b == nil {
-		return nil
+		return ""
 	}
 	return b.Domain
 }
 
-func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) GetDomainAvailability() *bool {
+func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) GetDomainAvailability() bool {
 	if b == nil {
-		return nil
+		return false
 	}
 	return b.DomainAvailability
 }
 
-func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) GetStatus() *bool {
+func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) GetStatus() bool {
 	if b == nil {
-		return nil
+		return false
 	}
 	return b.Status
 }
@@ -16486,21 +16507,21 @@ func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) req
 
 // SetDomain sets the Domain field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) SetDomain(domain *string) {
+func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) SetDomain(domain string) {
 	b.Domain = domain
 	b.require(bulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItemFieldDomain)
 }
 
 // SetDomainAvailability sets the DomainAvailability field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) SetDomainAvailability(domainAvailability *bool) {
+func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) SetDomainAvailability(domainAvailability bool) {
 	b.DomainAvailability = domainAvailability
 	b.require(bulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItemFieldDomainAvailability)
 }
 
 // SetStatus sets the Status field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) SetStatus(status *bool) {
+func (b *BulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItem) SetStatus(status bool) {
 	b.Status = status
 	b.require(bulkDomainAvailabilityCheckResponseBulkDomainAvailableResponseItemFieldStatus)
 }
@@ -16657,9 +16678,10 @@ var (
 	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldStatus           = big.NewInt(1 << 0)
 	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldQueryTime        = big.NewInt(1 << 1)
 	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDomainName       = big.NewInt(1 << 2)
-	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDomainRegistered = big.NewInt(1 << 3)
-	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDNSTypes         = big.NewInt(1 << 4)
-	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDNSRecords       = big.NewInt(1 << 5)
+	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldIPAddress        = big.NewInt(1 << 3)
+	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDomainRegistered = big.NewInt(1 << 4)
+	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDNSTypes         = big.NewInt(1 << 5)
+	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDNSRecords       = big.NewInt(1 << 6)
 )
 
 type BulkDomainDNSLookupResponseBulkDNSInfoItem struct {
@@ -16668,9 +16690,11 @@ type BulkDomainDNSLookupResponseBulkDNSInfoItem struct {
 	// Time at which the query was made (Format:YYYY-MM-DD HH:mm:ss).
 	QueryTime time.Time `json:"queryTime" url:"queryTime"`
 	// Queried domain.
-	DomainName string `json:"domainName" url:"domainName"`
+	DomainName *string `json:"domainName,omitempty" url:"domainName,omitempty"`
+	// Queried IP address.
+	IPAddress *string `json:"ipAddress,omitempty" url:"ipAddress,omitempty"`
 	// Indicates whether the domain is registered.
-	DomainRegistered bool                                                `json:"domainRegistered" url:"domainRegistered"`
+	DomainRegistered *bool                                               `json:"domainRegistered,omitempty" url:"domainRegistered,omitempty"`
 	DNSTypes         *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes `json:"dnsTypes" url:"dnsTypes"`
 	// List of DNS records, each based on its type.
 	DNSRecords []*BulkDomainDNSLookupResponseBulkDNSInfoItemDNSRecordsItem `json:"dnsRecords" url:"dnsRecords"`
@@ -16696,16 +16720,23 @@ func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetQueryTime() time.Time {
 	return b.QueryTime
 }
 
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetDomainName() string {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetDomainName() *string {
 	if b == nil {
-		return ""
+		return nil
 	}
 	return b.DomainName
 }
 
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetDomainRegistered() bool {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetIPAddress() *string {
 	if b == nil {
-		return false
+		return nil
+	}
+	return b.IPAddress
+}
+
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetDomainRegistered() *bool {
+	if b == nil {
+		return nil
 	}
 	return b.DomainRegistered
 }
@@ -16754,14 +16785,21 @@ func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetQueryTime(queryTime time
 
 // SetDomainName sets the DomainName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetDomainName(domainName string) {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetDomainName(domainName *string) {
 	b.DomainName = domainName
 	b.require(bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDomainName)
 }
 
+// SetIPAddress sets the IPAddress field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetIPAddress(iPAddress *string) {
+	b.IPAddress = iPAddress
+	b.require(bulkDomainDNSLookupResponseBulkDNSInfoItemFieldIPAddress)
+}
+
 // SetDomainRegistered sets the DomainRegistered field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetDomainRegistered(domainRegistered bool) {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetDomainRegistered(domainRegistered *bool) {
 	b.DomainRegistered = domainRegistered
 	b.require(bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDomainRegistered)
 }
@@ -18300,6 +18338,7 @@ var (
 	bulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypesFieldSoa   = big.NewInt(1 << 5)
 	bulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypesFieldTxt   = big.NewInt(1 << 6)
 	bulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypesFieldSpf   = big.NewInt(1 << 7)
+	bulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypesFieldPtr   = big.NewInt(1 << 8)
 )
 
 type BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes struct {
@@ -18311,6 +18350,7 @@ type BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes struct {
 	Soa   *float64 `json:"SOA,omitempty" url:"SOA,omitempty"`
 	Txt   *float64 `json:"TXT,omitempty" url:"TXT,omitempty"`
 	Spf   *float64 `json:"SPF,omitempty" url:"SPF,omitempty"`
+	Ptr   *float64 `json:"PTR,omitempty" url:"PTR,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -18373,6 +18413,13 @@ func (b *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes) GetSpf() *float64 {
 		return nil
 	}
 	return b.Spf
+}
+
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes) GetPtr() *float64 {
+	if b == nil {
+		return nil
+	}
+	return b.Ptr
 }
 
 func (b *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes) GetExtraProperties() map[string]interface{} {
@@ -18443,6 +18490,13 @@ func (b *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes) SetTxt(txt *float64
 func (b *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes) SetSpf(spf *float64) {
 	b.Spf = spf
 	b.require(bulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypesFieldSpf)
+}
+
+// SetPtr sets the Ptr field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes) SetPtr(ptr *float64) {
+	b.Ptr = ptr
+	b.require(bulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypesFieldPtr)
 }
 
 func (b *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes) UnmarshalJSON(data []byte) error {
@@ -21161,7 +21215,7 @@ type BulkEmailValidateResponseEmailValidationResponsesItem struct {
 	Domain      *BulkEmailValidateResponseEmailValidationResponsesItemDomain    `json:"domain" url:"domain"`
 	Account     *BulkEmailValidateResponseEmailValidationResponsesItemAccount   `json:"account" url:"account"`
 	DNS         *BulkEmailValidateResponseEmailValidationResponsesItemDNS       `json:"dns" url:"dns"`
-	IP          *string                                                         `json:"ip,omitempty" url:"ip,omitempty"`
+	IP          *string                                                         `json:"ipAddress,omitempty" url:"ipAddress,omitempty"`
 	Address     *BulkEmailValidateResponseEmailValidationResponsesItemAddress   `json:"address,omitempty" url:"address,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -21888,17 +21942,17 @@ var (
 )
 
 type BulkEmailValidateResponseEmailValidationResponsesItemAddressSecurity struct {
-	ThreatScore     float64 `json:"threat_score" url:"threat_score"`
-	IsTor           bool    `json:"is_tor" url:"is_tor"`
-	IsProxy         bool    `json:"is_proxy" url:"is_proxy"`
-	ProxyType       string  `json:"proxy_type" url:"proxy_type"`
-	ProxyProvider   string  `json:"proxy_provider" url:"proxy_provider"`
-	IsAnonymous     bool    `json:"is_anonymous" url:"is_anonymous"`
-	IsKnownAttacker bool    `json:"is_known_attacker" url:"is_known_attacker"`
-	IsSpam          bool    `json:"is_spam" url:"is_spam"`
-	IsBot           bool    `json:"is_bot" url:"is_bot"`
-	IsCloudProvider bool    `json:"is_cloud_provider" url:"is_cloud_provider"`
-	CloudProvider   string  `json:"cloud_provider" url:"cloud_provider"`
+	ThreatScore     int    `json:"threat_score" url:"threat_score"`
+	IsTor           bool   `json:"is_tor" url:"is_tor"`
+	IsProxy         bool   `json:"is_proxy" url:"is_proxy"`
+	ProxyType       string `json:"proxy_type" url:"proxy_type"`
+	ProxyProvider   string `json:"proxy_provider" url:"proxy_provider"`
+	IsAnonymous     bool   `json:"is_anonymous" url:"is_anonymous"`
+	IsKnownAttacker bool   `json:"is_known_attacker" url:"is_known_attacker"`
+	IsSpam          bool   `json:"is_spam" url:"is_spam"`
+	IsBot           bool   `json:"is_bot" url:"is_bot"`
+	IsCloudProvider bool   `json:"is_cloud_provider" url:"is_cloud_provider"`
+	CloudProvider   string `json:"cloud_provider" url:"cloud_provider"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -21907,7 +21961,7 @@ type BulkEmailValidateResponseEmailValidationResponsesItemAddressSecurity struct
 	rawJSON         json.RawMessage
 }
 
-func (b *BulkEmailValidateResponseEmailValidationResponsesItemAddressSecurity) GetThreatScore() float64 {
+func (b *BulkEmailValidateResponseEmailValidationResponsesItemAddressSecurity) GetThreatScore() int {
 	if b == nil {
 		return 0
 	}
@@ -22000,7 +22054,7 @@ func (b *BulkEmailValidateResponseEmailValidationResponsesItemAddressSecurity) r
 
 // SetThreatScore sets the ThreatScore field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkEmailValidateResponseEmailValidationResponsesItemAddressSecurity) SetThreatScore(threatScore float64) {
+func (b *BulkEmailValidateResponseEmailValidationResponsesItemAddressSecurity) SetThreatScore(threatScore int) {
 	b.ThreatScore = threatScore
 	b.require(bulkEmailValidateResponseEmailValidationResponsesItemAddressSecurityFieldThreatScore)
 }
@@ -22125,7 +22179,7 @@ var (
 type BulkEmailValidateResponseEmailValidationResponsesItemDNS struct {
 	MxRecords []string `json:"mxRecords" url:"mxRecords"`
 	// Collection of A (Address) records for the domain.
-	ARecords []string `json:"aRecords,omitempty" url:"aRecords,omitempty"`
+	ARecords []string `json:"aRecords" url:"aRecords"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -22386,15 +22440,21 @@ type BulkEmailValidateResponseEmailValidationResponsesItemValidEmail string
 
 const (
 	BulkEmailValidateResponseEmailValidationResponsesItemValidEmailValid   BulkEmailValidateResponseEmailValidationResponsesItemValidEmail = "valid"
-	BulkEmailValidateResponseEmailValidationResponsesItemValidEmailInvalid BulkEmailValidateResponseEmailValidationResponsesItemValidEmail = "invalid"
+	BulkEmailValidateResponseEmailValidationResponsesItemValidEmailInvalid BulkEmailValidateResponseEmailValidationResponsesItemValidEmail = "Invalid"
+	BulkEmailValidateResponseEmailValidationResponsesItemValidEmailUnknown BulkEmailValidateResponseEmailValidationResponsesItemValidEmail = "Unknown"
+	BulkEmailValidateResponseEmailValidationResponsesItemValidEmailRisky   BulkEmailValidateResponseEmailValidationResponsesItemValidEmail = "Risky"
 )
 
 func NewBulkEmailValidateResponseEmailValidationResponsesItemValidEmailFromString(s string) (BulkEmailValidateResponseEmailValidationResponsesItemValidEmail, error) {
 	switch s {
 	case "valid":
 		return BulkEmailValidateResponseEmailValidationResponsesItemValidEmailValid, nil
-	case "invalid":
+	case "Invalid":
 		return BulkEmailValidateResponseEmailValidationResponsesItemValidEmailInvalid, nil
+	case "Unknown":
+		return BulkEmailValidateResponseEmailValidationResponsesItemValidEmailUnknown, nil
+	case "Risky":
+		return BulkEmailValidateResponseEmailValidationResponsesItemValidEmailRisky, nil
 	}
 	var t BulkEmailValidateResponseEmailValidationResponsesItemValidEmail
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
@@ -22449,7 +22509,7 @@ type BulkGeolocationLookupResponseItem struct {
 	Network         *BulkGeolocationLookupResponseItemNetwork         `json:"network,omitempty" url:"network,omitempty"`
 	Currency        *BulkGeolocationLookupResponseItemCurrency        `json:"currency,omitempty" url:"currency,omitempty"`
 	Security        *BulkGeolocationLookupResponseItemSecurity        `json:"security,omitempty" url:"security,omitempty"`
-	Abuse           []*BulkGeolocationLookupResponseItemAbuseItem     `json:"abuse,omitempty" url:"abuse,omitempty"`
+	Abuse           *BulkGeolocationLookupResponseItemAbuseItem       `json:"abuse,omitempty" url:"abuse,omitempty"`
 	TimeZone        *BulkGeolocationLookupResponseItemTimeZone        `json:"time_zone,omitempty" url:"time_zone,omitempty"`
 	UserAgent       *BulkGeolocationLookupResponseItemUserAgent       `json:"user_agent,omitempty" url:"user_agent,omitempty"`
 
@@ -22509,7 +22569,7 @@ func (b *BulkGeolocationLookupResponseItem) GetSecurity() *BulkGeolocationLookup
 	return b.Security
 }
 
-func (b *BulkGeolocationLookupResponseItem) GetAbuse() []*BulkGeolocationLookupResponseItemAbuseItem {
+func (b *BulkGeolocationLookupResponseItem) GetAbuse() *BulkGeolocationLookupResponseItemAbuseItem {
 	if b == nil {
 		return nil
 	}
@@ -22595,7 +22655,7 @@ func (b *BulkGeolocationLookupResponseItem) SetSecurity(security *BulkGeolocatio
 
 // SetAbuse sets the Abuse field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkGeolocationLookupResponseItem) SetAbuse(abuse []*BulkGeolocationLookupResponseItemAbuseItem) {
+func (b *BulkGeolocationLookupResponseItem) SetAbuse(abuse *BulkGeolocationLookupResponseItemAbuseItem) {
 	b.Abuse = abuse
 	b.require(bulkGeolocationLookupResponseItemFieldAbuse)
 }
@@ -29686,7 +29746,6 @@ var (
 	bulkZipcodeLookupResponseResultsItemFieldCode        = big.NewInt(1 << 0)
 	bulkZipcodeLookupResponseResultsItemFieldCountryCode = big.NewInt(1 << 1)
 	bulkZipcodeLookupResponseResultsItemFieldRegion      = big.NewInt(1 << 2)
-	bulkZipcodeLookupResponseResultsItemFieldRegionCode  = big.NewInt(1 << 3)
 	bulkZipcodeLookupResponseResultsItemFieldCity        = big.NewInt(1 << 4)
 	bulkZipcodeLookupResponseResultsItemFieldLocality    = big.NewInt(1 << 5)
 	bulkZipcodeLookupResponseResultsItemFieldLatitude    = big.NewInt(1 << 6)
@@ -29697,7 +29756,6 @@ type BulkZipcodeLookupResponseResultsItem struct {
 	Code        *string  `json:"code,omitempty" url:"code,omitempty"`
 	CountryCode *string  `json:"country_code,omitempty" url:"country_code,omitempty"`
 	Region      *string  `json:"region,omitempty" url:"region,omitempty"`
-	RegionCode  *string  `json:"region_code,omitempty" url:"region_code,omitempty"`
 	City        *string  `json:"city,omitempty" url:"city,omitempty"`
 	Locality    *string  `json:"locality,omitempty" url:"locality,omitempty"`
 	Latitude    *float64 `json:"latitude,omitempty" url:"latitude,omitempty"`
@@ -29729,13 +29787,6 @@ func (b *BulkZipcodeLookupResponseResultsItem) GetRegion() *string {
 		return nil
 	}
 	return b.Region
-}
-
-func (b *BulkZipcodeLookupResponseResultsItem) GetRegionCode() *string {
-	if b == nil {
-		return nil
-	}
-	return b.RegionCode
 }
 
 func (b *BulkZipcodeLookupResponseResultsItem) GetCity() *string {
@@ -29799,13 +29850,6 @@ func (b *BulkZipcodeLookupResponseResultsItem) SetCountryCode(countryCode *strin
 func (b *BulkZipcodeLookupResponseResultsItem) SetRegion(region *string) {
 	b.Region = region
 	b.require(bulkZipcodeLookupResponseResultsItemFieldRegion)
-}
-
-// SetRegionCode sets the RegionCode field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkZipcodeLookupResponseResultsItem) SetRegionCode(regionCode *string) {
-	b.RegionCode = regionCode
-	b.require(bulkZipcodeLookupResponseResultsItemFieldRegionCode)
 }
 
 // SetCity sets the City field and marks it as non-optional;
@@ -29900,25 +29944,19 @@ func (c CommodityFluctuationRequestFormat) Ptr() *CommodityFluctuationRequestFor
 var (
 	commodityFluctuationResponseFieldSuccess   = big.NewInt(1 << 0)
 	commodityFluctuationResponseFieldTimestamp = big.NewInt(1 << 1)
-	commodityFluctuationResponseFieldMetadata  = big.NewInt(1 << 2)
-	commodityFluctuationResponseFieldStartDate = big.NewInt(1 << 3)
-	commodityFluctuationResponseFieldEndDate   = big.NewInt(1 << 4)
-	commodityFluctuationResponseFieldRates     = big.NewInt(1 << 5)
+	commodityFluctuationResponseFieldRates     = big.NewInt(1 << 2)
+	commodityFluctuationResponseFieldMetadata  = big.NewInt(1 << 3)
 )
 
 type CommodityFluctuationResponse struct {
 	// API request success indicator. "true" for successful requests.
 	Success bool `json:"success" url:"success"`
 	// Unix timestamp indicating when the response was generated.
-	Timestamp *float64 `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	Timestamp float64 `json:"timestamp" url:"timestamp"`
+	// Map containing rate data for all the requested commodities.
+	Rates map[string]float64 `json:"rates" url:"rates"`
 	// Map containing detailed information for all the requested commodities keyed by commodity symbol.
-	Metadata map[string]*CommodityFluctuationResponseMetadataValue `json:"metadata,omitempty" url:"metadata,omitempty"`
-	// The start date of the fluctuation interval in YYYY-MM-DD format.
-	StartDate string `json:"startDate" url:"startDate"`
-	// The end date of the fluctuation interval in YYYY-MM-DD format.
-	EndDate string `json:"endDate" url:"endDate"`
-	// Map keyed by commodity symbol; value contains fluctuation metrics.
-	Rates map[string]*CommodityFluctuationResponseRatesValue `json:"rates" url:"rates"`
+	Metadata map[string]*CommodityFluctuationResponseMetadataValue `json:"metadata" url:"metadata"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -29934,11 +29972,18 @@ func (c *CommodityFluctuationResponse) GetSuccess() bool {
 	return c.Success
 }
 
-func (c *CommodityFluctuationResponse) GetTimestamp() *float64 {
+func (c *CommodityFluctuationResponse) GetTimestamp() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Timestamp
+}
+
+func (c *CommodityFluctuationResponse) GetRates() map[string]float64 {
 	if c == nil {
 		return nil
 	}
-	return c.Timestamp
+	return c.Rates
 }
 
 func (c *CommodityFluctuationResponse) GetMetadata() map[string]*CommodityFluctuationResponseMetadataValue {
@@ -29946,27 +29991,6 @@ func (c *CommodityFluctuationResponse) GetMetadata() map[string]*CommodityFluctu
 		return nil
 	}
 	return c.Metadata
-}
-
-func (c *CommodityFluctuationResponse) GetStartDate() string {
-	if c == nil {
-		return ""
-	}
-	return c.StartDate
-}
-
-func (c *CommodityFluctuationResponse) GetEndDate() string {
-	if c == nil {
-		return ""
-	}
-	return c.EndDate
-}
-
-func (c *CommodityFluctuationResponse) GetRates() map[string]*CommodityFluctuationResponseRatesValue {
-	if c == nil {
-		return nil
-	}
-	return c.Rates
 }
 
 func (c *CommodityFluctuationResponse) GetExtraProperties() map[string]interface{} {
@@ -29992,9 +30016,16 @@ func (c *CommodityFluctuationResponse) SetSuccess(success bool) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityFluctuationResponse) SetTimestamp(timestamp *float64) {
+func (c *CommodityFluctuationResponse) SetTimestamp(timestamp float64) {
 	c.Timestamp = timestamp
 	c.require(commodityFluctuationResponseFieldTimestamp)
+}
+
+// SetRates sets the Rates field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CommodityFluctuationResponse) SetRates(rates map[string]float64) {
+	c.Rates = rates
+	c.require(commodityFluctuationResponseFieldRates)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
@@ -30002,27 +30033,6 @@ func (c *CommodityFluctuationResponse) SetTimestamp(timestamp *float64) {
 func (c *CommodityFluctuationResponse) SetMetadata(metadata map[string]*CommodityFluctuationResponseMetadataValue) {
 	c.Metadata = metadata
 	c.require(commodityFluctuationResponseFieldMetadata)
-}
-
-// SetStartDate sets the StartDate field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityFluctuationResponse) SetStartDate(startDate string) {
-	c.StartDate = startDate
-	c.require(commodityFluctuationResponseFieldStartDate)
-}
-
-// SetEndDate sets the EndDate field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityFluctuationResponse) SetEndDate(endDate string) {
-	c.EndDate = endDate
-	c.require(commodityFluctuationResponseFieldEndDate)
-}
-
-// SetRates sets the Rates field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityFluctuationResponse) SetRates(rates map[string]*CommodityFluctuationResponseRatesValue) {
-	c.Rates = rates
-	c.require(commodityFluctuationResponseFieldRates)
 }
 
 func (c *CommodityFluctuationResponse) UnmarshalJSON(data []byte) error {
@@ -30169,142 +30179,6 @@ func (c *CommodityFluctuationResponseMetadataValue) String() string {
 	return fmt.Sprintf("%#v", c)
 }
 
-var (
-	commodityFluctuationResponseRatesValueFieldStartRate     = big.NewInt(1 << 0)
-	commodityFluctuationResponseRatesValueFieldEndRate       = big.NewInt(1 << 1)
-	commodityFluctuationResponseRatesValueFieldChange        = big.NewInt(1 << 2)
-	commodityFluctuationResponseRatesValueFieldChangePercent = big.NewInt(1 << 3)
-)
-
-type CommodityFluctuationResponseRatesValue struct {
-	// The price of the commodity on the start date of the interval.
-	StartRate float64 `json:"startRate" url:"startRate"`
-	// The price of the commodity on the end date of the interval.
-	EndRate float64 `json:"endRate" url:"endRate"`
-	// The absolute price difference between the end and start date. May be positive or negative.
-	Change float64 `json:"change" url:"change"`
-	// The percentage change in price from start to end date. May be positive or negative.
-	ChangePercent float64 `json:"changePercent" url:"changePercent"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *CommodityFluctuationResponseRatesValue) GetStartRate() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.StartRate
-}
-
-func (c *CommodityFluctuationResponseRatesValue) GetEndRate() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.EndRate
-}
-
-func (c *CommodityFluctuationResponseRatesValue) GetChange() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Change
-}
-
-func (c *CommodityFluctuationResponseRatesValue) GetChangePercent() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.ChangePercent
-}
-
-func (c *CommodityFluctuationResponseRatesValue) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *CommodityFluctuationResponseRatesValue) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetStartRate sets the StartRate field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityFluctuationResponseRatesValue) SetStartRate(startRate float64) {
-	c.StartRate = startRate
-	c.require(commodityFluctuationResponseRatesValueFieldStartRate)
-}
-
-// SetEndRate sets the EndRate field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityFluctuationResponseRatesValue) SetEndRate(endRate float64) {
-	c.EndRate = endRate
-	c.require(commodityFluctuationResponseRatesValueFieldEndRate)
-}
-
-// SetChange sets the Change field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityFluctuationResponseRatesValue) SetChange(change float64) {
-	c.Change = change
-	c.require(commodityFluctuationResponseRatesValueFieldChange)
-}
-
-// SetChangePercent sets the ChangePercent field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityFluctuationResponseRatesValue) SetChangePercent(changePercent float64) {
-	c.ChangePercent = changePercent
-	c.require(commodityFluctuationResponseRatesValueFieldChangePercent)
-}
-
-func (c *CommodityFluctuationResponseRatesValue) UnmarshalJSON(data []byte) error {
-	type unmarshaler CommodityFluctuationResponseRatesValue
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = CommodityFluctuationResponseRatesValue(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *CommodityFluctuationResponseRatesValue) MarshalJSON() ([]byte, error) {
-	type embed CommodityFluctuationResponseRatesValue
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *CommodityFluctuationResponseRatesValue) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
 type CommodityHistoricalRatesRequestFormat string
 
 const (
@@ -30327,22 +30201,19 @@ func (c CommodityHistoricalRatesRequestFormat) Ptr() *CommodityHistoricalRatesRe
 var (
 	commodityHistoricalRatesResponseFieldSuccess   = big.NewInt(1 << 0)
 	commodityHistoricalRatesResponseFieldTimestamp = big.NewInt(1 << 1)
-	commodityHistoricalRatesResponseFieldMetadata  = big.NewInt(1 << 2)
-	commodityHistoricalRatesResponseFieldDate      = big.NewInt(1 << 3)
-	commodityHistoricalRatesResponseFieldRates     = big.NewInt(1 << 4)
+	commodityHistoricalRatesResponseFieldRates     = big.NewInt(1 << 2)
+	commodityHistoricalRatesResponseFieldMetadata  = big.NewInt(1 << 3)
 )
 
 type CommodityHistoricalRatesResponse struct {
 	// API request success indicator. "true" for successful requests.
 	Success bool `json:"success" url:"success"`
 	// Unix timestamp indicating when the response was generated.
-	Timestamp *float64 `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	Timestamp float64 `json:"timestamp" url:"timestamp"`
+	// Map containing rate data for all the requested commodities.
+	Rates map[string]float64 `json:"rates" url:"rates"`
 	// Map containing detailed information for all the requested commodities keyed by commodity symbol.
-	Metadata map[string]*CommodityHistoricalRatesResponseMetadataValue `json:"metadata,omitempty" url:"metadata,omitempty"`
-	// Date for which the user requested the commodity price. Format: YYYY-MM-DD.
-	Date string `json:"date" url:"date"`
-	// Map containing rate data for each available requested commodity symbol, keyed by symbol.
-	Rates map[string]*CommodityHistoricalRatesResponseRatesValue `json:"rates" url:"rates"`
+	Metadata map[string]*CommodityHistoricalRatesResponseMetadataValue `json:"metadata" url:"metadata"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -30358,11 +30229,18 @@ func (c *CommodityHistoricalRatesResponse) GetSuccess() bool {
 	return c.Success
 }
 
-func (c *CommodityHistoricalRatesResponse) GetTimestamp() *float64 {
+func (c *CommodityHistoricalRatesResponse) GetTimestamp() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Timestamp
+}
+
+func (c *CommodityHistoricalRatesResponse) GetRates() map[string]float64 {
 	if c == nil {
 		return nil
 	}
-	return c.Timestamp
+	return c.Rates
 }
 
 func (c *CommodityHistoricalRatesResponse) GetMetadata() map[string]*CommodityHistoricalRatesResponseMetadataValue {
@@ -30370,20 +30248,6 @@ func (c *CommodityHistoricalRatesResponse) GetMetadata() map[string]*CommodityHi
 		return nil
 	}
 	return c.Metadata
-}
-
-func (c *CommodityHistoricalRatesResponse) GetDate() string {
-	if c == nil {
-		return ""
-	}
-	return c.Date
-}
-
-func (c *CommodityHistoricalRatesResponse) GetRates() map[string]*CommodityHistoricalRatesResponseRatesValue {
-	if c == nil {
-		return nil
-	}
-	return c.Rates
 }
 
 func (c *CommodityHistoricalRatesResponse) GetExtraProperties() map[string]interface{} {
@@ -30409,9 +30273,16 @@ func (c *CommodityHistoricalRatesResponse) SetSuccess(success bool) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityHistoricalRatesResponse) SetTimestamp(timestamp *float64) {
+func (c *CommodityHistoricalRatesResponse) SetTimestamp(timestamp float64) {
 	c.Timestamp = timestamp
 	c.require(commodityHistoricalRatesResponseFieldTimestamp)
+}
+
+// SetRates sets the Rates field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CommodityHistoricalRatesResponse) SetRates(rates map[string]float64) {
+	c.Rates = rates
+	c.require(commodityHistoricalRatesResponseFieldRates)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
@@ -30419,20 +30290,6 @@ func (c *CommodityHistoricalRatesResponse) SetTimestamp(timestamp *float64) {
 func (c *CommodityHistoricalRatesResponse) SetMetadata(metadata map[string]*CommodityHistoricalRatesResponseMetadataValue) {
 	c.Metadata = metadata
 	c.require(commodityHistoricalRatesResponseFieldMetadata)
-}
-
-// SetDate sets the Date field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityHistoricalRatesResponse) SetDate(date string) {
-	c.Date = date
-	c.require(commodityHistoricalRatesResponseFieldDate)
-}
-
-// SetRates sets the Rates field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityHistoricalRatesResponse) SetRates(rates map[string]*CommodityHistoricalRatesResponseRatesValue) {
-	c.Rates = rates
-	c.require(commodityHistoricalRatesResponseFieldRates)
 }
 
 func (c *CommodityHistoricalRatesResponse) UnmarshalJSON(data []byte) error {
@@ -30565,159 +30422,6 @@ func (c *CommodityHistoricalRatesResponseMetadataValue) MarshalJSON() ([]byte, e
 }
 
 func (c *CommodityHistoricalRatesResponseMetadataValue) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	commodityHistoricalRatesResponseRatesValueFieldDate  = big.NewInt(1 << 0)
-	commodityHistoricalRatesResponseRatesValueFieldOpen  = big.NewInt(1 << 1)
-	commodityHistoricalRatesResponseRatesValueFieldHigh  = big.NewInt(1 << 2)
-	commodityHistoricalRatesResponseRatesValueFieldLow   = big.NewInt(1 << 3)
-	commodityHistoricalRatesResponseRatesValueFieldClose = big.NewInt(1 << 4)
-)
-
-type CommodityHistoricalRatesResponseRatesValue struct {
-	// Date for which commodity prices were fetched. Format: YYYY-MM-DD.
-	Date string `json:"date" url:"date"`
-	// The opening price of the commodity on the given date.
-	Open float64 `json:"open" url:"open"`
-	// The highest price of the commodity recorded on the given date.
-	High float64 `json:"high" url:"high"`
-	// The lowest price of the commodity recorded on the given date.
-	Low float64 `json:"low" url:"low"`
-	// The closing price of the commodity on the given date.
-	Close float64 `json:"close" url:"close"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) GetDate() string {
-	if c == nil {
-		return ""
-	}
-	return c.Date
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) GetOpen() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Open
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) GetHigh() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.High
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) GetLow() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Low
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) GetClose() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Close
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetDate sets the Date field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityHistoricalRatesResponseRatesValue) SetDate(date string) {
-	c.Date = date
-	c.require(commodityHistoricalRatesResponseRatesValueFieldDate)
-}
-
-// SetOpen sets the Open field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityHistoricalRatesResponseRatesValue) SetOpen(open float64) {
-	c.Open = open
-	c.require(commodityHistoricalRatesResponseRatesValueFieldOpen)
-}
-
-// SetHigh sets the High field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityHistoricalRatesResponseRatesValue) SetHigh(high float64) {
-	c.High = high
-	c.require(commodityHistoricalRatesResponseRatesValueFieldHigh)
-}
-
-// SetLow sets the Low field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityHistoricalRatesResponseRatesValue) SetLow(low float64) {
-	c.Low = low
-	c.require(commodityHistoricalRatesResponseRatesValueFieldLow)
-}
-
-// SetClose sets the Close field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityHistoricalRatesResponseRatesValue) SetClose(close float64) {
-	c.Close = close
-	c.require(commodityHistoricalRatesResponseRatesValueFieldClose)
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) UnmarshalJSON(data []byte) error {
-	type unmarshaler CommodityHistoricalRatesResponseRatesValue
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = CommodityHistoricalRatesResponseRatesValue(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) MarshalJSON() ([]byte, error) {
-	type embed CommodityHistoricalRatesResponseRatesValue
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *CommodityHistoricalRatesResponseRatesValue) String() string {
 	if c == nil {
 		return "<nil>"
 	}
@@ -31583,25 +31287,19 @@ func (c CommodityTimeSeriesRequestFormat) Ptr() *CommodityTimeSeriesRequestForma
 var (
 	commodityTimeSeriesResponseFieldSuccess   = big.NewInt(1 << 0)
 	commodityTimeSeriesResponseFieldTimestamp = big.NewInt(1 << 1)
-	commodityTimeSeriesResponseFieldMetadata  = big.NewInt(1 << 2)
-	commodityTimeSeriesResponseFieldStartDate = big.NewInt(1 << 3)
-	commodityTimeSeriesResponseFieldEndDate   = big.NewInt(1 << 4)
-	commodityTimeSeriesResponseFieldRates     = big.NewInt(1 << 5)
+	commodityTimeSeriesResponseFieldRates     = big.NewInt(1 << 2)
+	commodityTimeSeriesResponseFieldMetadata  = big.NewInt(1 << 3)
 )
 
 type CommodityTimeSeriesResponse struct {
 	// API request success indicator. "true" for successful requests.
 	Success bool `json:"success" url:"success"`
 	// Unix timestamp indicating when the response was generated.
-	Timestamp *float64 `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	Timestamp float64 `json:"timestamp" url:"timestamp"`
+	// Map containing rate data for all the requested commodities.
+	Rates map[string]float64 `json:"rates" url:"rates"`
 	// Map containing detailed information for all the requested commodities keyed by commodity symbol.
-	Metadata map[string]*CommodityTimeSeriesResponseMetadataValue `json:"metadata,omitempty" url:"metadata,omitempty"`
-	// The start date of the time series data in YYYY-MM-DD format.
-	StartDate string `json:"startDate" url:"startDate"`
-	// The end date of the time series data in YYYY-MM-DD format.
-	EndDate string `json:"endDate" url:"endDate"`
-	// Date-indexed map; each key is a date (YYYY-MM-DD) whose value maps commodity symbols to OHLC data.
-	Rates map[string]map[string]*CommodityTimeSeriesResponseRatesValueValue `json:"rates" url:"rates"`
+	Metadata map[string]*CommodityTimeSeriesResponseMetadataValue `json:"metadata" url:"metadata"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -31617,11 +31315,18 @@ func (c *CommodityTimeSeriesResponse) GetSuccess() bool {
 	return c.Success
 }
 
-func (c *CommodityTimeSeriesResponse) GetTimestamp() *float64 {
+func (c *CommodityTimeSeriesResponse) GetTimestamp() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Timestamp
+}
+
+func (c *CommodityTimeSeriesResponse) GetRates() map[string]float64 {
 	if c == nil {
 		return nil
 	}
-	return c.Timestamp
+	return c.Rates
 }
 
 func (c *CommodityTimeSeriesResponse) GetMetadata() map[string]*CommodityTimeSeriesResponseMetadataValue {
@@ -31629,27 +31334,6 @@ func (c *CommodityTimeSeriesResponse) GetMetadata() map[string]*CommodityTimeSer
 		return nil
 	}
 	return c.Metadata
-}
-
-func (c *CommodityTimeSeriesResponse) GetStartDate() string {
-	if c == nil {
-		return ""
-	}
-	return c.StartDate
-}
-
-func (c *CommodityTimeSeriesResponse) GetEndDate() string {
-	if c == nil {
-		return ""
-	}
-	return c.EndDate
-}
-
-func (c *CommodityTimeSeriesResponse) GetRates() map[string]map[string]*CommodityTimeSeriesResponseRatesValueValue {
-	if c == nil {
-		return nil
-	}
-	return c.Rates
 }
 
 func (c *CommodityTimeSeriesResponse) GetExtraProperties() map[string]interface{} {
@@ -31675,9 +31359,16 @@ func (c *CommodityTimeSeriesResponse) SetSuccess(success bool) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityTimeSeriesResponse) SetTimestamp(timestamp *float64) {
+func (c *CommodityTimeSeriesResponse) SetTimestamp(timestamp float64) {
 	c.Timestamp = timestamp
 	c.require(commodityTimeSeriesResponseFieldTimestamp)
+}
+
+// SetRates sets the Rates field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CommodityTimeSeriesResponse) SetRates(rates map[string]float64) {
+	c.Rates = rates
+	c.require(commodityTimeSeriesResponseFieldRates)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
@@ -31685,27 +31376,6 @@ func (c *CommodityTimeSeriesResponse) SetTimestamp(timestamp *float64) {
 func (c *CommodityTimeSeriesResponse) SetMetadata(metadata map[string]*CommodityTimeSeriesResponseMetadataValue) {
 	c.Metadata = metadata
 	c.require(commodityTimeSeriesResponseFieldMetadata)
-}
-
-// SetStartDate sets the StartDate field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityTimeSeriesResponse) SetStartDate(startDate string) {
-	c.StartDate = startDate
-	c.require(commodityTimeSeriesResponseFieldStartDate)
-}
-
-// SetEndDate sets the EndDate field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityTimeSeriesResponse) SetEndDate(endDate string) {
-	c.EndDate = endDate
-	c.require(commodityTimeSeriesResponseFieldEndDate)
-}
-
-// SetRates sets the Rates field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityTimeSeriesResponse) SetRates(rates map[string]map[string]*CommodityTimeSeriesResponseRatesValueValue) {
-	c.Rates = rates
-	c.require(commodityTimeSeriesResponseFieldRates)
 }
 
 func (c *CommodityTimeSeriesResponse) UnmarshalJSON(data []byte) error {
@@ -31838,142 +31508,6 @@ func (c *CommodityTimeSeriesResponseMetadataValue) MarshalJSON() ([]byte, error)
 }
 
 func (c *CommodityTimeSeriesResponseMetadataValue) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	commodityTimeSeriesResponseRatesValueValueFieldOpen  = big.NewInt(1 << 0)
-	commodityTimeSeriesResponseRatesValueValueFieldHigh  = big.NewInt(1 << 1)
-	commodityTimeSeriesResponseRatesValueValueFieldLow   = big.NewInt(1 << 2)
-	commodityTimeSeriesResponseRatesValueValueFieldClose = big.NewInt(1 << 3)
-)
-
-type CommodityTimeSeriesResponseRatesValueValue struct {
-	// Opening price of the commodity on the given date.
-	Open float64 `json:"open" url:"open"`
-	// Highest price of the commodity on the given date.
-	High float64 `json:"high" url:"high"`
-	// Lowest price of the commodity on the given date.
-	Low float64 `json:"low" url:"low"`
-	// Closing price of the commodity on the given date.
-	Close float64 `json:"close" url:"close"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *CommodityTimeSeriesResponseRatesValueValue) GetOpen() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Open
-}
-
-func (c *CommodityTimeSeriesResponseRatesValueValue) GetHigh() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.High
-}
-
-func (c *CommodityTimeSeriesResponseRatesValueValue) GetLow() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Low
-}
-
-func (c *CommodityTimeSeriesResponseRatesValueValue) GetClose() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Close
-}
-
-func (c *CommodityTimeSeriesResponseRatesValueValue) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *CommodityTimeSeriesResponseRatesValueValue) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetOpen sets the Open field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityTimeSeriesResponseRatesValueValue) SetOpen(open float64) {
-	c.Open = open
-	c.require(commodityTimeSeriesResponseRatesValueValueFieldOpen)
-}
-
-// SetHigh sets the High field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityTimeSeriesResponseRatesValueValue) SetHigh(high float64) {
-	c.High = high
-	c.require(commodityTimeSeriesResponseRatesValueValueFieldHigh)
-}
-
-// SetLow sets the Low field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityTimeSeriesResponseRatesValueValue) SetLow(low float64) {
-	c.Low = low
-	c.require(commodityTimeSeriesResponseRatesValueValueFieldLow)
-}
-
-// SetClose sets the Close field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CommodityTimeSeriesResponseRatesValueValue) SetClose(close float64) {
-	c.Close = close
-	c.require(commodityTimeSeriesResponseRatesValueValueFieldClose)
-}
-
-func (c *CommodityTimeSeriesResponseRatesValueValue) UnmarshalJSON(data []byte) error {
-	type unmarshaler CommodityTimeSeriesResponseRatesValueValue
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = CommodityTimeSeriesResponseRatesValueValue(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *CommodityTimeSeriesResponseRatesValueValue) MarshalJSON() ([]byte, error) {
-	type embed CommodityTimeSeriesResponseRatesValueValue
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *CommodityTimeSeriesResponseRatesValueValue) String() string {
 	if c == nil {
 		return "<nil>"
 	}
@@ -36238,14 +35772,11 @@ func (d DomainAvailabilityCheckRequestSource) Ptr() *DomainAvailabilityCheckRequ
 var (
 	domainAvailabilityCheckResponseFieldDomain             = big.NewInt(1 << 0)
 	domainAvailabilityCheckResponseFieldDomainAvailability = big.NewInt(1 << 1)
-	domainAvailabilityCheckResponseFieldMessage            = big.NewInt(1 << 2)
 )
 
 type DomainAvailabilityCheckResponse struct {
-	Domain             *string `json:"domain,omitempty" url:"domain,omitempty"`
-	DomainAvailability *bool   `json:"domainAvailability,omitempty" url:"domainAvailability,omitempty"`
-	// Extra details if the domain is not registered.
-	Message *string `json:"message,omitempty" url:"message,omitempty"`
+	Domain             string `json:"domain" url:"domain"`
+	DomainAvailability bool   `json:"domainAvailability" url:"domainAvailability"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -36254,25 +35785,18 @@ type DomainAvailabilityCheckResponse struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainAvailabilityCheckResponse) GetDomain() *string {
+func (d *DomainAvailabilityCheckResponse) GetDomain() string {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.Domain
 }
 
-func (d *DomainAvailabilityCheckResponse) GetDomainAvailability() *bool {
+func (d *DomainAvailabilityCheckResponse) GetDomainAvailability() bool {
 	if d == nil {
-		return nil
+		return false
 	}
 	return d.DomainAvailability
-}
-
-func (d *DomainAvailabilityCheckResponse) GetMessage() *string {
-	if d == nil {
-		return nil
-	}
-	return d.Message
 }
 
 func (d *DomainAvailabilityCheckResponse) GetExtraProperties() map[string]interface{} {
@@ -36291,23 +35815,16 @@ func (d *DomainAvailabilityCheckResponse) require(field *big.Int) {
 
 // SetDomain sets the Domain field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilityCheckResponse) SetDomain(domain *string) {
+func (d *DomainAvailabilityCheckResponse) SetDomain(domain string) {
 	d.Domain = domain
 	d.require(domainAvailabilityCheckResponseFieldDomain)
 }
 
 // SetDomainAvailability sets the DomainAvailability field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilityCheckResponse) SetDomainAvailability(domainAvailability *bool) {
+func (d *DomainAvailabilityCheckResponse) SetDomainAvailability(domainAvailability bool) {
 	d.DomainAvailability = domainAvailability
 	d.require(domainAvailabilityCheckResponseFieldDomainAvailability)
-}
-
-// SetMessage sets the Message field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilityCheckResponse) SetMessage(message *string) {
-	d.Message = message
-	d.require(domainAvailabilityCheckResponseFieldMessage)
 }
 
 func (d *DomainAvailabilityCheckResponse) UnmarshalJSON(data []byte) error {
@@ -36401,7 +35918,7 @@ var (
 )
 
 type DomainAvailabilitySuggestionsResponse struct {
-	DomainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem `json:"domain_available_response,omitempty" url:"domain_available_response,omitempty"`
+	DomainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem `json:"domain_available_response" url:"domain_available_response"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -36483,14 +36000,11 @@ func (d *DomainAvailabilitySuggestionsResponse) String() string {
 var (
 	domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldDomain             = big.NewInt(1 << 0)
 	domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldDomainAvailability = big.NewInt(1 << 1)
-	domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldMessage            = big.NewInt(1 << 2)
 )
 
 type DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem struct {
-	Domain             *string `json:"domain,omitempty" url:"domain,omitempty"`
-	DomainAvailability *bool   `json:"domainAvailability,omitempty" url:"domainAvailability,omitempty"`
-	// Extra details if the domain is not registered.
-	Message *string `json:"message,omitempty" url:"message,omitempty"`
+	Domain             string `json:"domain" url:"domain"`
+	DomainAvailability bool   `json:"domainAvailability" url:"domainAvailability"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -36499,25 +36013,18 @@ type DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetDomain() *string {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetDomain() string {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.Domain
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetDomainAvailability() *bool {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetDomainAvailability() bool {
 	if d == nil {
-		return nil
+		return false
 	}
 	return d.DomainAvailability
-}
-
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetMessage() *string {
-	if d == nil {
-		return nil
-	}
-	return d.Message
 }
 
 func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetExtraProperties() map[string]interface{} {
@@ -36536,23 +36043,16 @@ func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) requi
 
 // SetDomain sets the Domain field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) SetDomain(domain *string) {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) SetDomain(domain string) {
 	d.Domain = domain
 	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldDomain)
 }
 
 // SetDomainAvailability sets the DomainAvailability field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) SetDomainAvailability(domainAvailability *bool) {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) SetDomainAvailability(domainAvailability bool) {
 	d.DomainAvailability = domainAvailability
 	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldDomainAvailability)
-}
-
-// SetMessage sets the Message field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) SetMessage(message *string) {
-	d.Message = message
-	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldMessage)
 }
 
 func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) UnmarshalJSON(data []byte) error {
@@ -36627,10 +36127,10 @@ var (
 )
 
 type DomainDNSHistoryResponse struct {
-	TotalRecords         *int                                                `json:"totalRecords,omitempty" url:"totalRecords,omitempty"`
-	TotalPages           *int                                                `json:"totalPages,omitempty" url:"totalPages,omitempty"`
-	CurrentPage          *int                                                `json:"currentPage,omitempty" url:"currentPage,omitempty"`
-	HistoricalDNSRecords []*DomainDNSHistoryResponseHistoricalDNSRecordsItem `json:"historicalDnsRecords,omitempty" url:"historicalDnsRecords,omitempty"`
+	TotalRecords         int                                                 `json:"totalRecords" url:"totalRecords"`
+	TotalPages           int                                                 `json:"totalPages" url:"totalPages"`
+	CurrentPage          int                                                 `json:"currentPage" url:"currentPage"`
+	HistoricalDNSRecords []*DomainDNSHistoryResponseHistoricalDNSRecordsItem `json:"historicalDnsRecords" url:"historicalDnsRecords"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -36639,23 +36139,23 @@ type DomainDNSHistoryResponse struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainDNSHistoryResponse) GetTotalRecords() *int {
+func (d *DomainDNSHistoryResponse) GetTotalRecords() int {
 	if d == nil {
-		return nil
+		return 0
 	}
 	return d.TotalRecords
 }
 
-func (d *DomainDNSHistoryResponse) GetTotalPages() *int {
+func (d *DomainDNSHistoryResponse) GetTotalPages() int {
 	if d == nil {
-		return nil
+		return 0
 	}
 	return d.TotalPages
 }
 
-func (d *DomainDNSHistoryResponse) GetCurrentPage() *int {
+func (d *DomainDNSHistoryResponse) GetCurrentPage() int {
 	if d == nil {
-		return nil
+		return 0
 	}
 	return d.CurrentPage
 }
@@ -36683,21 +36183,21 @@ func (d *DomainDNSHistoryResponse) require(field *big.Int) {
 
 // SetTotalRecords sets the TotalRecords field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainDNSHistoryResponse) SetTotalRecords(totalRecords *int) {
+func (d *DomainDNSHistoryResponse) SetTotalRecords(totalRecords int) {
 	d.TotalRecords = totalRecords
 	d.require(domainDNSHistoryResponseFieldTotalRecords)
 }
 
 // SetTotalPages sets the TotalPages field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainDNSHistoryResponse) SetTotalPages(totalPages *int) {
+func (d *DomainDNSHistoryResponse) SetTotalPages(totalPages int) {
 	d.TotalPages = totalPages
 	d.require(domainDNSHistoryResponseFieldTotalPages)
 }
 
 // SetCurrentPage sets the CurrentPage field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainDNSHistoryResponse) SetCurrentPage(currentPage *int) {
+func (d *DomainDNSHistoryResponse) SetCurrentPage(currentPage int) {
 	d.CurrentPage = currentPage
 	d.require(domainDNSHistoryResponseFieldCurrentPage)
 }
@@ -36752,19 +36252,17 @@ func (d *DomainDNSHistoryResponse) String() string {
 }
 
 var (
-	domainDNSHistoryResponseHistoricalDNSRecordsItemFieldQueryTime        = big.NewInt(1 << 0)
-	domainDNSHistoryResponseHistoricalDNSRecordsItemFieldDomainName       = big.NewInt(1 << 1)
-	domainDNSHistoryResponseHistoricalDNSRecordsItemFieldDomainRegistered = big.NewInt(1 << 2)
-	domainDNSHistoryResponseHistoricalDNSRecordsItemFieldDNSTypes         = big.NewInt(1 << 3)
-	domainDNSHistoryResponseHistoricalDNSRecordsItemFieldDNSRecords       = big.NewInt(1 << 4)
+	domainDNSHistoryResponseHistoricalDNSRecordsItemFieldQueryTime  = big.NewInt(1 << 0)
+	domainDNSHistoryResponseHistoricalDNSRecordsItemFieldDomainName = big.NewInt(1 << 1)
+	domainDNSHistoryResponseHistoricalDNSRecordsItemFieldDNSTypes   = big.NewInt(1 << 2)
+	domainDNSHistoryResponseHistoricalDNSRecordsItemFieldDNSRecords = big.NewInt(1 << 3)
 )
 
 type DomainDNSHistoryResponseHistoricalDNSRecordsItem struct {
-	QueryTime        time.Time                                                         `json:"queryTime" url:"queryTime"`
-	DomainName       string                                                            `json:"domainName" url:"domainName"`
-	DomainRegistered bool                                                              `json:"domainRegistered" url:"domainRegistered"`
-	DNSTypes         *DomainDNSHistoryResponseHistoricalDNSRecordsItemDNSTypes         `json:"dnsTypes" url:"dnsTypes"`
-	DNSRecords       []*DomainDNSHistoryResponseHistoricalDNSRecordsItemDNSRecordsItem `json:"dnsRecords" url:"dnsRecords"`
+	QueryTime  time.Time                                                         `json:"queryTime" url:"queryTime"`
+	DomainName string                                                            `json:"domainName" url:"domainName"`
+	DNSTypes   *DomainDNSHistoryResponseHistoricalDNSRecordsItemDNSTypes         `json:"dnsTypes" url:"dnsTypes"`
+	DNSRecords []*DomainDNSHistoryResponseHistoricalDNSRecordsItemDNSRecordsItem `json:"dnsRecords" url:"dnsRecords"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -36785,13 +36283,6 @@ func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) GetDomainName() strin
 		return ""
 	}
 	return d.DomainName
-}
-
-func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) GetDomainRegistered() bool {
-	if d == nil {
-		return false
-	}
-	return d.DomainRegistered
 }
 
 func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) GetDNSTypes() *DomainDNSHistoryResponseHistoricalDNSRecordsItemDNSTypes {
@@ -36834,13 +36325,6 @@ func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) SetQueryTime(queryTim
 func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) SetDomainName(domainName string) {
 	d.DomainName = domainName
 	d.require(domainDNSHistoryResponseHistoricalDNSRecordsItemFieldDomainName)
-}
-
-// SetDomainRegistered sets the DomainRegistered field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) SetDomainRegistered(domainRegistered bool) {
-	d.DomainRegistered = domainRegistered
-	d.require(domainDNSHistoryResponseHistoricalDNSRecordsItemFieldDomainRegistered)
 }
 
 // SetDNSTypes sets the DNSTypes field and marks it as non-optional;
@@ -40625,7 +40109,7 @@ var (
 type DomainDNSReverseResponseReverseDNSRecordsItem struct {
 	QueryTime        time.Time                                                      `json:"queryTime" url:"queryTime"`
 	DomainName       string                                                         `json:"domainName" url:"domainName"`
-	DomainRegistered bool                                                           `json:"domainRegistered" url:"domainRegistered"`
+	DomainRegistered *bool                                                          `json:"domainRegistered,omitempty" url:"domainRegistered,omitempty"`
 	DNSTypes         *DomainDNSReverseResponseReverseDNSRecordsItemDNSTypes         `json:"dnsTypes" url:"dnsTypes"`
 	DNSRecords       []*DomainDNSReverseResponseReverseDNSRecordsItemDNSRecordsItem `json:"dnsRecords" url:"dnsRecords"`
 
@@ -40650,9 +40134,9 @@ func (d *DomainDNSReverseResponseReverseDNSRecordsItem) GetDomainName() string {
 	return d.DomainName
 }
 
-func (d *DomainDNSReverseResponseReverseDNSRecordsItem) GetDomainRegistered() bool {
+func (d *DomainDNSReverseResponseReverseDNSRecordsItem) GetDomainRegistered() *bool {
 	if d == nil {
-		return false
+		return nil
 	}
 	return d.DomainRegistered
 }
@@ -40701,7 +40185,7 @@ func (d *DomainDNSReverseResponseReverseDNSRecordsItem) SetDomainName(domainName
 
 // SetDomainRegistered sets the DomainRegistered field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainDNSReverseResponseReverseDNSRecordsItem) SetDomainRegistered(domainRegistered bool) {
+func (d *DomainDNSReverseResponseReverseDNSRecordsItem) SetDomainRegistered(domainRegistered *bool) {
 	d.DomainRegistered = domainRegistered
 	d.require(domainDNSReverseResponseReverseDNSRecordsItemFieldDomainRegistered)
 }
@@ -43036,8 +42520,8 @@ var (
 )
 
 type DomainSslChainLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess struct {
-	Issuers []string `json:"issuers" url:"issuers"`
-	Ocsp    []string `json:"ocsp" url:"ocsp"`
+	Issuers []string `json:"issuers,omitempty" url:"issuers,omitempty"`
+	Ocsp    []string `json:"ocsp,omitempty" url:"ocsp,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -43695,11 +43179,11 @@ var (
 
 type DomainSslChainLookupResponseSslCertificatesItemIssuer struct {
 	CommonName         string  `json:"commonName" url:"commonName"`
-	Organization       *string `json:"organization,omitempty" url:"organization,omitempty"`
+	Organization       string  `json:"organization" url:"organization"`
 	OrganizationalUnit *string `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
 	Locality           *string `json:"locality,omitempty" url:"locality,omitempty"`
 	State              *string `json:"state,omitempty" url:"state,omitempty"`
-	Country            *string `json:"country,omitempty" url:"country,omitempty"`
+	Country            string  `json:"country" url:"country"`
 	IncCountry         *string `json:"incCountry,omitempty" url:"incCountry,omitempty"`
 	IncState           *string `json:"incState,omitempty" url:"incState,omitempty"`
 	BusinessCategory   *string `json:"businessCategory,omitempty" url:"businessCategory,omitempty"`
@@ -43721,9 +43205,9 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) GetCommonName() 
 	return d.CommonName
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) GetOrganization() *string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) GetOrganization() string {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.Organization
 }
@@ -43749,9 +43233,9 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) GetState() *stri
 	return d.State
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) GetCountry() *string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) GetCountry() string {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.Country
 }
@@ -43821,7 +43305,7 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) SetCommonName(co
 
 // SetOrganization sets the Organization field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) SetOrganization(organization *string) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) SetOrganization(organization string) {
 	d.Organization = organization
 	d.require(domainSslChainLookupResponseSslCertificatesItemIssuerFieldOrganization)
 }
@@ -43849,7 +43333,7 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) SetState(state *
 
 // SetCountry sets the Country field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) SetCountry(country *string) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemIssuer) SetCountry(country string) {
 	d.Country = country
 	d.require(domainSslChainLookupResponseSslCertificatesItemIssuerFieldCountry)
 }
@@ -44923,8 +44407,8 @@ var (
 )
 
 type DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess struct {
-	Issuers []string `json:"issuers" url:"issuers"`
-	Ocsp    []string `json:"ocsp" url:"ocsp"`
+	Issuers []string `json:"issuers,omitempty" url:"issuers,omitempty"`
+	Ocsp    []string `json:"ocsp,omitempty" url:"ocsp,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -45582,11 +45066,11 @@ var (
 
 type DomainSslLookupResponseSslCertificatesItemIssuer struct {
 	CommonName         string  `json:"commonName" url:"commonName"`
-	Organization       *string `json:"organization,omitempty" url:"organization,omitempty"`
+	Organization       string  `json:"organization" url:"organization"`
 	OrganizationalUnit *string `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
 	Locality           *string `json:"locality,omitempty" url:"locality,omitempty"`
 	State              *string `json:"state,omitempty" url:"state,omitempty"`
-	Country            *string `json:"country,omitempty" url:"country,omitempty"`
+	Country            string  `json:"country" url:"country"`
 	IncCountry         *string `json:"incCountry,omitempty" url:"incCountry,omitempty"`
 	IncState           *string `json:"incState,omitempty" url:"incState,omitempty"`
 	BusinessCategory   *string `json:"businessCategory,omitempty" url:"businessCategory,omitempty"`
@@ -45608,9 +45092,9 @@ func (d *DomainSslLookupResponseSslCertificatesItemIssuer) GetCommonName() strin
 	return d.CommonName
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemIssuer) GetOrganization() *string {
+func (d *DomainSslLookupResponseSslCertificatesItemIssuer) GetOrganization() string {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.Organization
 }
@@ -45636,9 +45120,9 @@ func (d *DomainSslLookupResponseSslCertificatesItemIssuer) GetState() *string {
 	return d.State
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemIssuer) GetCountry() *string {
+func (d *DomainSslLookupResponseSslCertificatesItemIssuer) GetCountry() string {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.Country
 }
@@ -45708,7 +45192,7 @@ func (d *DomainSslLookupResponseSslCertificatesItemIssuer) SetCommonName(commonN
 
 // SetOrganization sets the Organization field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemIssuer) SetOrganization(organization *string) {
+func (d *DomainSslLookupResponseSslCertificatesItemIssuer) SetOrganization(organization string) {
 	d.Organization = organization
 	d.require(domainSslLookupResponseSslCertificatesItemIssuerFieldOrganization)
 }
@@ -45736,7 +45220,7 @@ func (d *DomainSslLookupResponseSslCertificatesItemIssuer) SetState(state *strin
 
 // SetCountry sets the Country field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemIssuer) SetCountry(country *string) {
+func (d *DomainSslLookupResponseSslCertificatesItemIssuer) SetCountry(country string) {
 	d.Country = country
 	d.require(domainSslLookupResponseSslCertificatesItemIssuerFieldCountry)
 }
@@ -46803,10 +46287,10 @@ type DomainWhoisHistoryResponseWhoisDomainsHistoricalItemAdministrativeContact s
 	ZipCode        *string `json:"zip_code,omitempty" url:"zip_code,omitempty"`
 	CountryName    *string `json:"country_name,omitempty" url:"country_name,omitempty"`
 	CountryCode    *string `json:"country_code,omitempty" url:"country_code,omitempty"`
-	Emailaddress   *string `json:"emailaddress,omitempty" url:"emailaddress,omitempty"`
+	Emailaddress   *string `json:"email_address,omitempty" url:"email_address,omitempty"`
 	Phone          *string `json:"phone,omitempty" url:"phone,omitempty"`
 	Fax            *string `json:"fax,omitempty" url:"fax,omitempty"`
-	Mailingaddress *string `json:"mailingaddress,omitempty" url:"mailingaddress,omitempty"`
+	Mailingaddress *string `json:"mailing_address,omitempty" url:"mailing_address,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -47063,10 +46547,10 @@ type DomainWhoisHistoryResponseWhoisDomainsHistoricalItemBillingContact struct {
 	ZipCode        *string `json:"zip_code,omitempty" url:"zip_code,omitempty"`
 	CountryName    *string `json:"country_name,omitempty" url:"country_name,omitempty"`
 	CountryCode    *string `json:"country_code,omitempty" url:"country_code,omitempty"`
-	Emailaddress   *string `json:"emailaddress,omitempty" url:"emailaddress,omitempty"`
+	Emailaddress   *string `json:"email_address,omitempty" url:"email_address,omitempty"`
 	Phone          *string `json:"phone,omitempty" url:"phone,omitempty"`
 	Fax            *string `json:"fax,omitempty" url:"fax,omitempty"`
-	Mailingaddress *string `json:"mailingaddress,omitempty" url:"mailingaddress,omitempty"`
+	Mailingaddress *string `json:"mailing_address,omitempty" url:"mailing_address,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -47513,10 +46997,10 @@ type DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistrantContact struc
 	ZipCode        *string `json:"zip_code,omitempty" url:"zip_code,omitempty"`
 	CountryName    *string `json:"country_name,omitempty" url:"country_name,omitempty"`
 	CountryCode    *string `json:"country_code,omitempty" url:"country_code,omitempty"`
-	Emailaddress   *string `json:"emailaddress,omitempty" url:"emailaddress,omitempty"`
+	Emailaddress   *string `json:"email_address,omitempty" url:"email_address,omitempty"`
 	Phone          *string `json:"phone,omitempty" url:"phone,omitempty"`
 	Fax            *string `json:"fax,omitempty" url:"fax,omitempty"`
-	Mailingaddress *string `json:"mailingaddress,omitempty" url:"mailingaddress,omitempty"`
+	Mailingaddress *string `json:"mailing_address,omitempty" url:"mailing_address,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -48486,10 +47970,10 @@ type DomainWhoisHistoryResponseWhoisDomainsHistoricalItemTechnicalContact struct
 	ZipCode        *string `json:"zip_code,omitempty" url:"zip_code,omitempty"`
 	CountryName    *string `json:"country_name,omitempty" url:"country_name,omitempty"`
 	CountryCode    *string `json:"country_code,omitempty" url:"country_code,omitempty"`
-	Emailaddress   *string `json:"emailaddress,omitempty" url:"emailaddress,omitempty"`
+	Emailaddress   *string `json:"email_address,omitempty" url:"email_address,omitempty"`
 	Phone          *string `json:"phone,omitempty" url:"phone,omitempty"`
 	Fax            *string `json:"fax,omitempty" url:"fax,omitempty"`
-	Mailingaddress *string `json:"mailingaddress,omitempty" url:"mailingaddress,omitempty"`
+	Mailingaddress *string `json:"mailing_address,omitempty" url:"mailing_address,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -51114,9 +50598,9 @@ var (
 )
 
 type DomainWhoisReverseResponse struct {
-	TotalResult            *int                                                    `json:"totalResult,omitempty" url:"totalResult,omitempty"`
-	TotalPages             *int                                                    `json:"totalPages,omitempty" url:"totalPages,omitempty"`
-	CurrentPage            *int                                                    `json:"currentPage,omitempty" url:"currentPage,omitempty"`
+	TotalResult            *int                                                    `json:"total_Result,omitempty" url:"total_Result,omitempty"`
+	TotalPages             *int                                                    `json:"total_Pages,omitempty" url:"total_Pages,omitempty"`
+	CurrentPage            *int                                                    `json:"current_Page,omitempty" url:"current_Page,omitempty"`
 	WhoisDomainsHistorical []*DomainWhoisReverseResponseWhoisDomainsHistoricalItem `json:"whois_domains_historical,omitempty" url:"whois_domains_historical,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -53653,7 +53137,7 @@ type DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname struct {
 	ExpiryDate  *time.Time `json:"expiry_date,omitempty" url:"expiry_date,omitempty" format:"date"`
 	Name        *string    `json:"name,omitempty" url:"name,omitempty"`
 	Email       *string    `json:"email,omitempty" url:"email,omitempty"`
-	Companyname *string    `json:"companyname,omitempty" url:"companyname,omitempty"`
+	Companyname *string    `json:"company_name,omitempty" url:"company_name,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -53892,7 +53376,7 @@ type EmailValidateResponse struct {
 	Domain      *EmailValidateResponseDomain    `json:"domain" url:"domain"`
 	Account     *EmailValidateResponseAccount   `json:"account" url:"account"`
 	DNS         *EmailValidateResponseDNS       `json:"dns" url:"dns"`
-	IP          *string                         `json:"ip,omitempty" url:"ip,omitempty"`
+	IP          *string                         `json:"ipAddress,omitempty" url:"ipAddress,omitempty"`
 	Address     *EmailValidateResponseAddress   `json:"address,omitempty" url:"address,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -54619,17 +54103,17 @@ var (
 )
 
 type EmailValidateResponseAddressSecurity struct {
-	ThreatScore     float64 `json:"threat_score" url:"threat_score"`
-	IsTor           bool    `json:"is_tor" url:"is_tor"`
-	IsProxy         bool    `json:"is_proxy" url:"is_proxy"`
-	ProxyType       string  `json:"proxy_type" url:"proxy_type"`
-	ProxyProvider   string  `json:"proxy_provider" url:"proxy_provider"`
-	IsAnonymous     bool    `json:"is_anonymous" url:"is_anonymous"`
-	IsKnownAttacker bool    `json:"is_known_attacker" url:"is_known_attacker"`
-	IsSpam          bool    `json:"is_spam" url:"is_spam"`
-	IsBot           bool    `json:"is_bot" url:"is_bot"`
-	IsCloudProvider bool    `json:"is_cloud_provider" url:"is_cloud_provider"`
-	CloudProvider   string  `json:"cloud_provider" url:"cloud_provider"`
+	ThreatScore     int    `json:"threat_score" url:"threat_score"`
+	IsTor           bool   `json:"is_tor" url:"is_tor"`
+	IsProxy         bool   `json:"is_proxy" url:"is_proxy"`
+	ProxyType       string `json:"proxy_type" url:"proxy_type"`
+	ProxyProvider   string `json:"proxy_provider" url:"proxy_provider"`
+	IsAnonymous     bool   `json:"is_anonymous" url:"is_anonymous"`
+	IsKnownAttacker bool   `json:"is_known_attacker" url:"is_known_attacker"`
+	IsSpam          bool   `json:"is_spam" url:"is_spam"`
+	IsBot           bool   `json:"is_bot" url:"is_bot"`
+	IsCloudProvider bool   `json:"is_cloud_provider" url:"is_cloud_provider"`
+	CloudProvider   string `json:"cloud_provider" url:"cloud_provider"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -54638,7 +54122,7 @@ type EmailValidateResponseAddressSecurity struct {
 	rawJSON         json.RawMessage
 }
 
-func (e *EmailValidateResponseAddressSecurity) GetThreatScore() float64 {
+func (e *EmailValidateResponseAddressSecurity) GetThreatScore() int {
 	if e == nil {
 		return 0
 	}
@@ -54731,7 +54215,7 @@ func (e *EmailValidateResponseAddressSecurity) require(field *big.Int) {
 
 // SetThreatScore sets the ThreatScore field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EmailValidateResponseAddressSecurity) SetThreatScore(threatScore float64) {
+func (e *EmailValidateResponseAddressSecurity) SetThreatScore(threatScore int) {
 	e.ThreatScore = threatScore
 	e.require(emailValidateResponseAddressSecurityFieldThreatScore)
 }
@@ -54856,7 +54340,7 @@ var (
 type EmailValidateResponseDNS struct {
 	MxRecords []string `json:"mxRecords" url:"mxRecords"`
 	// Collection of A (Address) records for the domain.
-	ARecords []string `json:"aRecords,omitempty" url:"aRecords,omitempty"`
+	ARecords []string `json:"aRecords" url:"aRecords"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -55117,15 +54601,21 @@ type EmailValidateResponseValidEmail string
 
 const (
 	EmailValidateResponseValidEmailValid   EmailValidateResponseValidEmail = "valid"
-	EmailValidateResponseValidEmailInvalid EmailValidateResponseValidEmail = "invalid"
+	EmailValidateResponseValidEmailInvalid EmailValidateResponseValidEmail = "Invalid"
+	EmailValidateResponseValidEmailUnknown EmailValidateResponseValidEmail = "Unknown"
+	EmailValidateResponseValidEmailRisky   EmailValidateResponseValidEmail = "Risky"
 )
 
 func NewEmailValidateResponseValidEmailFromString(s string) (EmailValidateResponseValidEmail, error) {
 	switch s {
 	case "valid":
 		return EmailValidateResponseValidEmailValid, nil
-	case "invalid":
+	case "Invalid":
 		return EmailValidateResponseValidEmailInvalid, nil
+	case "Unknown":
+		return EmailValidateResponseValidEmailUnknown, nil
+	case "Risky":
+		return EmailValidateResponseValidEmailRisky, nil
 	}
 	var t EmailValidateResponseValidEmail
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
@@ -57867,7 +57357,7 @@ type GeolocationLookupResponse struct {
 	Network         *GeolocationLookupResponseNetwork         `json:"network,omitempty" url:"network,omitempty"`
 	Currency        *GeolocationLookupResponseCurrency        `json:"currency,omitempty" url:"currency,omitempty"`
 	Security        *GeolocationLookupResponseSecurity        `json:"security,omitempty" url:"security,omitempty"`
-	Abuse           []*GeolocationLookupResponseAbuseItem     `json:"abuse,omitempty" url:"abuse,omitempty"`
+	Abuse           *GeolocationLookupResponseAbuseItem       `json:"abuse,omitempty" url:"abuse,omitempty"`
 	TimeZone        *GeolocationLookupResponseTimeZone        `json:"time_zone,omitempty" url:"time_zone,omitempty"`
 	UserAgent       *GeolocationLookupResponseUserAgent       `json:"user_agent,omitempty" url:"user_agent,omitempty"`
 
@@ -57927,7 +57417,7 @@ func (g *GeolocationLookupResponse) GetSecurity() *GeolocationLookupResponseSecu
 	return g.Security
 }
 
-func (g *GeolocationLookupResponse) GetAbuse() []*GeolocationLookupResponseAbuseItem {
+func (g *GeolocationLookupResponse) GetAbuse() *GeolocationLookupResponseAbuseItem {
 	if g == nil {
 		return nil
 	}
@@ -58013,7 +57503,7 @@ func (g *GeolocationLookupResponse) SetSecurity(security *GeolocationLookupRespo
 
 // SetAbuse sets the Abuse field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GeolocationLookupResponse) SetAbuse(abuse []*GeolocationLookupResponseAbuseItem) {
+func (g *GeolocationLookupResponse) SetAbuse(abuse *GeolocationLookupResponseAbuseItem) {
 	g.Abuse = abuse
 	g.require(geolocationLookupResponseFieldAbuse)
 }
@@ -61091,19 +60581,21 @@ func (g GetAdminUnitDetailsRequestFormat) Ptr() *GetAdminUnitDetailsRequestForma
 }
 
 var (
-	getAdminUnitDetailsResponseFieldName        = big.NewInt(1 << 0)
-	getAdminUnitDetailsResponseFieldAdminCode   = big.NewInt(1 << 1)
-	getAdminUnitDetailsResponseFieldAdminLevel  = big.NewInt(1 << 2)
-	getAdminUnitDetailsResponseFieldIsoAlpha2   = big.NewInt(1 << 3)
-	getAdminUnitDetailsResponseFieldCountryName = big.NewInt(1 << 4)
+	getAdminUnitDetailsResponseFieldName            = big.NewInt(1 << 0)
+	getAdminUnitDetailsResponseFieldAdminCode       = big.NewInt(1 << 1)
+	getAdminUnitDetailsResponseFieldAdminLevel      = big.NewInt(1 << 2)
+	getAdminUnitDetailsResponseFieldCountryName     = big.NewInt(1 << 4)
+	getAdminUnitDetailsResponseFieldAdminIso31662   = big.NewInt(1 << 5)
+	getAdminUnitDetailsResponseFieldCountryIso31662 = big.NewInt(1 << 6)
 )
 
 type GetAdminUnitDetailsResponse struct {
-	Name        string `json:"name" url:"name"`
-	AdminCode   string `json:"admin_code" url:"admin_code"`
-	AdminLevel  string `json:"admin_level" url:"admin_level"`
-	IsoAlpha2   string `json:"iso_alpha_2" url:"iso_alpha_2"`
-	CountryName string `json:"country_name" url:"country_name"`
+	Name            string `json:"name" url:"name"`
+	AdminCode       string `json:"admin_code" url:"admin_code"`
+	AdminLevel      string `json:"admin_level" url:"admin_level"`
+	CountryName     string `json:"country_name" url:"country_name"`
+	AdminIso31662   string `json:"admin_iso3166_2" url:"admin_iso3166_2"`
+	CountryIso31662 string `json:"country_iso3166_2" url:"country_iso3166_2"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -61133,18 +60625,25 @@ func (g *GetAdminUnitDetailsResponse) GetAdminLevel() string {
 	return g.AdminLevel
 }
 
-func (g *GetAdminUnitDetailsResponse) GetIsoAlpha2() string {
-	if g == nil {
-		return ""
-	}
-	return g.IsoAlpha2
-}
-
 func (g *GetAdminUnitDetailsResponse) GetCountryName() string {
 	if g == nil {
 		return ""
 	}
 	return g.CountryName
+}
+
+func (g *GetAdminUnitDetailsResponse) GetAdminIso31662() string {
+	if g == nil {
+		return ""
+	}
+	return g.AdminIso31662
+}
+
+func (g *GetAdminUnitDetailsResponse) GetCountryIso31662() string {
+	if g == nil {
+		return ""
+	}
+	return g.CountryIso31662
 }
 
 func (g *GetAdminUnitDetailsResponse) GetExtraProperties() map[string]interface{} {
@@ -61182,18 +60681,25 @@ func (g *GetAdminUnitDetailsResponse) SetAdminLevel(adminLevel string) {
 	g.require(getAdminUnitDetailsResponseFieldAdminLevel)
 }
 
-// SetIsoAlpha2 sets the IsoAlpha2 field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GetAdminUnitDetailsResponse) SetIsoAlpha2(isoAlpha2 string) {
-	g.IsoAlpha2 = isoAlpha2
-	g.require(getAdminUnitDetailsResponseFieldIsoAlpha2)
-}
-
 // SetCountryName sets the CountryName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (g *GetAdminUnitDetailsResponse) SetCountryName(countryName string) {
 	g.CountryName = countryName
 	g.require(getAdminUnitDetailsResponseFieldCountryName)
+}
+
+// SetAdminIso31662 sets the AdminIso31662 field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GetAdminUnitDetailsResponse) SetAdminIso31662(adminIso31662 string) {
+	g.AdminIso31662 = adminIso31662
+	g.require(getAdminUnitDetailsResponseFieldAdminIso31662)
+}
+
+// SetCountryIso31662 sets the CountryIso31662 field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GetAdminUnitDetailsResponse) SetCountryIso31662(countryIso31662 string) {
+	g.CountryIso31662 = countryIso31662
+	g.require(getAdminUnitDetailsResponseFieldCountryIso31662)
 }
 
 func (g *GetAdminUnitDetailsResponse) UnmarshalJSON(data []byte) error {
@@ -78311,9 +77817,9 @@ var (
 )
 
 type SubdomainsLookupResponseSubdomainsItem struct {
-	Subdomain string  `json:"subdomain" url:"subdomain"`
-	FirstSeen string  `json:"first_seen" url:"first_seen"`
-	LastSeen  *string `json:"last_seen,omitempty" url:"last_seen,omitempty"`
+	Subdomain string `json:"subdomain" url:"subdomain"`
+	FirstSeen string `json:"first_seen" url:"first_seen"`
+	LastSeen  string `json:"last_seen" url:"last_seen"`
 	// The date from which the subdomain is considered inactive. Appears only if the subdomain is no longer active.
 	InactiveFrom *string `json:"inactive_from,omitempty" url:"inactive_from,omitempty"`
 
@@ -78338,9 +77844,9 @@ func (s *SubdomainsLookupResponseSubdomainsItem) GetFirstSeen() string {
 	return s.FirstSeen
 }
 
-func (s *SubdomainsLookupResponseSubdomainsItem) GetLastSeen() *string {
+func (s *SubdomainsLookupResponseSubdomainsItem) GetLastSeen() string {
 	if s == nil {
-		return nil
+		return ""
 	}
 	return s.LastSeen
 }
@@ -78382,7 +77888,7 @@ func (s *SubdomainsLookupResponseSubdomainsItem) SetFirstSeen(firstSeen string) 
 
 // SetLastSeen sets the LastSeen field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SubdomainsLookupResponseSubdomainsItem) SetLastSeen(lastSeen *string) {
+func (s *SubdomainsLookupResponseSubdomainsItem) SetLastSeen(lastSeen string) {
 	s.LastSeen = lastSeen
 	s.require(subdomainsLookupResponseSubdomainsItemFieldLastSeen)
 }
@@ -78906,8 +78412,8 @@ var (
 type TimezoneLookupResponse struct {
 	IP             *string                               `json:"ip,omitempty" url:"ip,omitempty"`
 	Location       *TimezoneLookupResponseLocation       `json:"location,omitempty" url:"location,omitempty"`
-	TimeZone       *TimezoneLookupResponseTimeZone       `json:"time_zone" url:"time_zone"`
-	AirportDetails *TimezoneLookupResponseAirportDetails `json:"airport_details,omitempty" url:"airport_details,omitempty"`
+	TimeZone       *TimezoneLookupResponseTimeZone       `json:"time_zone,omitempty" url:"time_zone,omitempty"`
+	AirportDetails *TimezoneLookupResponseAirportDetails `json:"airport_detail,omitempty" url:"airport_detail,omitempty"`
 	LoCodeDetails  *TimezoneLookupResponseLoCodeDetails  `json:"lo_code_details,omitempty" url:"lo_code_details,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -79059,18 +78565,18 @@ var (
 )
 
 type TimezoneLookupResponseAirportDetails struct {
-	Type          string  `json:"type" url:"type"`
-	Name          string  `json:"name" url:"name"`
-	Longitude     string  `json:"longitude" url:"longitude"`
-	Latitude      string  `json:"latitude" url:"latitude"`
-	ElevationFt   float64 `json:"elevation_ft" url:"elevation_ft"`
-	ContinentCode string  `json:"continent_code" url:"continent_code"`
-	CountryCode   string  `json:"country_code" url:"country_code"`
-	StateCode     string  `json:"state_code" url:"state_code"`
-	City          string  `json:"city" url:"city"`
-	IataCode      string  `json:"iata_code" url:"iata_code"`
-	IcaoCode      string  `json:"icao_code" url:"icao_code"`
-	FaaCode       string  `json:"faa_code" url:"faa_code"`
+	Type          *string  `json:"type,omitempty" url:"type,omitempty"`
+	Name          *string  `json:"name,omitempty" url:"name,omitempty"`
+	Longitude     *float64 `json:"longitude,omitempty" url:"longitude,omitempty"`
+	Latitude      *float64 `json:"latitude,omitempty" url:"latitude,omitempty"`
+	ElevationFt   *float64 `json:"elevation_ft,omitempty" url:"elevation_ft,omitempty"`
+	ContinentCode *string  `json:"continent_code,omitempty" url:"continent_code,omitempty"`
+	CountryCode   *string  `json:"country_code,omitempty" url:"country_code,omitempty"`
+	StateCode     *string  `json:"state_code,omitempty" url:"state_code,omitempty"`
+	City          *string  `json:"city,omitempty" url:"city,omitempty"`
+	IataCode      *string  `json:"iata_code,omitempty" url:"iata_code,omitempty"`
+	IcaoCode      *string  `json:"icao_code,omitempty" url:"icao_code,omitempty"`
+	FaaCode       *string  `json:"faa_code,omitempty" url:"faa_code,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -79079,86 +78585,86 @@ type TimezoneLookupResponseAirportDetails struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetType() string {
+func (t *TimezoneLookupResponseAirportDetails) GetType() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.Type
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetName() string {
+func (t *TimezoneLookupResponseAirportDetails) GetName() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.Name
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetLongitude() string {
+func (t *TimezoneLookupResponseAirportDetails) GetLongitude() *float64 {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.Longitude
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetLatitude() string {
+func (t *TimezoneLookupResponseAirportDetails) GetLatitude() *float64 {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.Latitude
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetElevationFt() float64 {
+func (t *TimezoneLookupResponseAirportDetails) GetElevationFt() *float64 {
 	if t == nil {
-		return 0
+		return nil
 	}
 	return t.ElevationFt
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetContinentCode() string {
+func (t *TimezoneLookupResponseAirportDetails) GetContinentCode() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.ContinentCode
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetCountryCode() string {
+func (t *TimezoneLookupResponseAirportDetails) GetCountryCode() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.CountryCode
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetStateCode() string {
+func (t *TimezoneLookupResponseAirportDetails) GetStateCode() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.StateCode
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetCity() string {
+func (t *TimezoneLookupResponseAirportDetails) GetCity() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.City
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetIataCode() string {
+func (t *TimezoneLookupResponseAirportDetails) GetIataCode() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.IataCode
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetIcaoCode() string {
+func (t *TimezoneLookupResponseAirportDetails) GetIcaoCode() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.IcaoCode
 }
 
-func (t *TimezoneLookupResponseAirportDetails) GetFaaCode() string {
+func (t *TimezoneLookupResponseAirportDetails) GetFaaCode() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.FaaCode
 }
@@ -79179,84 +78685,84 @@ func (t *TimezoneLookupResponseAirportDetails) require(field *big.Int) {
 
 // SetType sets the Type field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetType(type_ string) {
+func (t *TimezoneLookupResponseAirportDetails) SetType(type_ *string) {
 	t.Type = type_
 	t.require(timezoneLookupResponseAirportDetailsFieldType)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetName(name string) {
+func (t *TimezoneLookupResponseAirportDetails) SetName(name *string) {
 	t.Name = name
 	t.require(timezoneLookupResponseAirportDetailsFieldName)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetLongitude(longitude string) {
+func (t *TimezoneLookupResponseAirportDetails) SetLongitude(longitude *float64) {
 	t.Longitude = longitude
 	t.require(timezoneLookupResponseAirportDetailsFieldLongitude)
 }
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetLatitude(latitude string) {
+func (t *TimezoneLookupResponseAirportDetails) SetLatitude(latitude *float64) {
 	t.Latitude = latitude
 	t.require(timezoneLookupResponseAirportDetailsFieldLatitude)
 }
 
 // SetElevationFt sets the ElevationFt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetElevationFt(elevationFt float64) {
+func (t *TimezoneLookupResponseAirportDetails) SetElevationFt(elevationFt *float64) {
 	t.ElevationFt = elevationFt
 	t.require(timezoneLookupResponseAirportDetailsFieldElevationFt)
 }
 
 // SetContinentCode sets the ContinentCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetContinentCode(continentCode string) {
+func (t *TimezoneLookupResponseAirportDetails) SetContinentCode(continentCode *string) {
 	t.ContinentCode = continentCode
 	t.require(timezoneLookupResponseAirportDetailsFieldContinentCode)
 }
 
 // SetCountryCode sets the CountryCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetCountryCode(countryCode string) {
+func (t *TimezoneLookupResponseAirportDetails) SetCountryCode(countryCode *string) {
 	t.CountryCode = countryCode
 	t.require(timezoneLookupResponseAirportDetailsFieldCountryCode)
 }
 
 // SetStateCode sets the StateCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetStateCode(stateCode string) {
+func (t *TimezoneLookupResponseAirportDetails) SetStateCode(stateCode *string) {
 	t.StateCode = stateCode
 	t.require(timezoneLookupResponseAirportDetailsFieldStateCode)
 }
 
 // SetCity sets the City field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetCity(city string) {
+func (t *TimezoneLookupResponseAirportDetails) SetCity(city *string) {
 	t.City = city
 	t.require(timezoneLookupResponseAirportDetailsFieldCity)
 }
 
 // SetIataCode sets the IataCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetIataCode(iataCode string) {
+func (t *TimezoneLookupResponseAirportDetails) SetIataCode(iataCode *string) {
 	t.IataCode = iataCode
 	t.require(timezoneLookupResponseAirportDetailsFieldIataCode)
 }
 
 // SetIcaoCode sets the IcaoCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetIcaoCode(icaoCode string) {
+func (t *TimezoneLookupResponseAirportDetails) SetIcaoCode(icaoCode *string) {
 	t.IcaoCode = icaoCode
 	t.require(timezoneLookupResponseAirportDetailsFieldIcaoCode)
 }
 
 // SetFaaCode sets the FaaCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseAirportDetails) SetFaaCode(faaCode string) {
+func (t *TimezoneLookupResponseAirportDetails) SetFaaCode(faaCode *string) {
 	t.FaaCode = faaCode
 	t.require(timezoneLookupResponseAirportDetailsFieldFaaCode)
 }
@@ -79315,14 +78821,14 @@ var (
 )
 
 type TimezoneLookupResponseLoCodeDetails struct {
-	LoCode       string `json:"lo_code" url:"lo_code"`
-	City         string `json:"city" url:"city"`
-	Longitude    string `json:"longitude" url:"longitude"`
-	Latitude     string `json:"latitude" url:"latitude"`
-	StateCode    string `json:"state_code" url:"state_code"`
-	CountryCode  string `json:"country_code" url:"country_code"`
-	CountryName  string `json:"country_name" url:"country_name"`
-	LocationType string `json:"location_type" url:"location_type"`
+	LoCode       *string  `json:"lo_code,omitempty" url:"lo_code,omitempty"`
+	City         *string  `json:"city,omitempty" url:"city,omitempty"`
+	Longitude    *float64 `json:"longitude,omitempty" url:"longitude,omitempty"`
+	Latitude     *float64 `json:"latitude,omitempty" url:"latitude,omitempty"`
+	StateCode    *string  `json:"state_code,omitempty" url:"state_code,omitempty"`
+	CountryCode  *string  `json:"country_code,omitempty" url:"country_code,omitempty"`
+	CountryName  *string  `json:"country_name,omitempty" url:"country_name,omitempty"`
+	LocationType *string  `json:"location_type,omitempty" url:"location_type,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -79331,58 +78837,58 @@ type TimezoneLookupResponseLoCodeDetails struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TimezoneLookupResponseLoCodeDetails) GetLoCode() string {
+func (t *TimezoneLookupResponseLoCodeDetails) GetLoCode() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.LoCode
 }
 
-func (t *TimezoneLookupResponseLoCodeDetails) GetCity() string {
+func (t *TimezoneLookupResponseLoCodeDetails) GetCity() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.City
 }
 
-func (t *TimezoneLookupResponseLoCodeDetails) GetLongitude() string {
+func (t *TimezoneLookupResponseLoCodeDetails) GetLongitude() *float64 {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.Longitude
 }
 
-func (t *TimezoneLookupResponseLoCodeDetails) GetLatitude() string {
+func (t *TimezoneLookupResponseLoCodeDetails) GetLatitude() *float64 {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.Latitude
 }
 
-func (t *TimezoneLookupResponseLoCodeDetails) GetStateCode() string {
+func (t *TimezoneLookupResponseLoCodeDetails) GetStateCode() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.StateCode
 }
 
-func (t *TimezoneLookupResponseLoCodeDetails) GetCountryCode() string {
+func (t *TimezoneLookupResponseLoCodeDetails) GetCountryCode() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.CountryCode
 }
 
-func (t *TimezoneLookupResponseLoCodeDetails) GetCountryName() string {
+func (t *TimezoneLookupResponseLoCodeDetails) GetCountryName() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.CountryName
 }
 
-func (t *TimezoneLookupResponseLoCodeDetails) GetLocationType() string {
+func (t *TimezoneLookupResponseLoCodeDetails) GetLocationType() *string {
 	if t == nil {
-		return ""
+		return nil
 	}
 	return t.LocationType
 }
@@ -79403,56 +78909,56 @@ func (t *TimezoneLookupResponseLoCodeDetails) require(field *big.Int) {
 
 // SetLoCode sets the LoCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseLoCodeDetails) SetLoCode(loCode string) {
+func (t *TimezoneLookupResponseLoCodeDetails) SetLoCode(loCode *string) {
 	t.LoCode = loCode
 	t.require(timezoneLookupResponseLoCodeDetailsFieldLoCode)
 }
 
 // SetCity sets the City field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseLoCodeDetails) SetCity(city string) {
+func (t *TimezoneLookupResponseLoCodeDetails) SetCity(city *string) {
 	t.City = city
 	t.require(timezoneLookupResponseLoCodeDetailsFieldCity)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseLoCodeDetails) SetLongitude(longitude string) {
+func (t *TimezoneLookupResponseLoCodeDetails) SetLongitude(longitude *float64) {
 	t.Longitude = longitude
 	t.require(timezoneLookupResponseLoCodeDetailsFieldLongitude)
 }
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseLoCodeDetails) SetLatitude(latitude string) {
+func (t *TimezoneLookupResponseLoCodeDetails) SetLatitude(latitude *float64) {
 	t.Latitude = latitude
 	t.require(timezoneLookupResponseLoCodeDetailsFieldLatitude)
 }
 
 // SetStateCode sets the StateCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseLoCodeDetails) SetStateCode(stateCode string) {
+func (t *TimezoneLookupResponseLoCodeDetails) SetStateCode(stateCode *string) {
 	t.StateCode = stateCode
 	t.require(timezoneLookupResponseLoCodeDetailsFieldStateCode)
 }
 
 // SetCountryCode sets the CountryCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseLoCodeDetails) SetCountryCode(countryCode string) {
+func (t *TimezoneLookupResponseLoCodeDetails) SetCountryCode(countryCode *string) {
 	t.CountryCode = countryCode
 	t.require(timezoneLookupResponseLoCodeDetailsFieldCountryCode)
 }
 
 // SetCountryName sets the CountryName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseLoCodeDetails) SetCountryName(countryName string) {
+func (t *TimezoneLookupResponseLoCodeDetails) SetCountryName(countryName *string) {
 	t.CountryName = countryName
 	t.require(timezoneLookupResponseLoCodeDetailsFieldCountryName)
 }
 
 // SetLocationType sets the LocationType field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseLoCodeDetails) SetLocationType(locationType string) {
+func (t *TimezoneLookupResponseLoCodeDetails) SetLocationType(locationType *string) {
 	t.LocationType = locationType
 	t.require(timezoneLookupResponseLoCodeDetailsFieldLocationType)
 }
@@ -79829,57 +79335,49 @@ func (t *TimezoneLookupResponseLocation) String() string {
 }
 
 var (
-	timezoneLookupResponseTimeZoneFieldName                   = big.NewInt(1 << 0)
-	timezoneLookupResponseTimeZoneFieldOffset                 = big.NewInt(1 << 1)
-	timezoneLookupResponseTimeZoneFieldOffsetWithDst          = big.NewInt(1 << 2)
-	timezoneLookupResponseTimeZoneFieldDate                   = big.NewInt(1 << 3)
-	timezoneLookupResponseTimeZoneFieldDateTime               = big.NewInt(1 << 4)
-	timezoneLookupResponseTimeZoneFieldDateTimeTxt            = big.NewInt(1 << 5)
-	timezoneLookupResponseTimeZoneFieldDateTimeWti            = big.NewInt(1 << 6)
-	timezoneLookupResponseTimeZoneFieldDateTimeYmd            = big.NewInt(1 << 7)
-	timezoneLookupResponseTimeZoneFieldDateTimeUnix           = big.NewInt(1 << 8)
-	timezoneLookupResponseTimeZoneFieldTime24                 = big.NewInt(1 << 9)
-	timezoneLookupResponseTimeZoneFieldTime12                 = big.NewInt(1 << 10)
-	timezoneLookupResponseTimeZoneFieldWeek                   = big.NewInt(1 << 11)
-	timezoneLookupResponseTimeZoneFieldMonth                  = big.NewInt(1 << 12)
-	timezoneLookupResponseTimeZoneFieldYear                   = big.NewInt(1 << 13)
-	timezoneLookupResponseTimeZoneFieldYearAbbr               = big.NewInt(1 << 14)
-	timezoneLookupResponseTimeZoneFieldCurrentTzAbbreviation  = big.NewInt(1 << 15)
-	timezoneLookupResponseTimeZoneFieldCurrentTzFullName      = big.NewInt(1 << 16)
-	timezoneLookupResponseTimeZoneFieldStandardTzAbbreviation = big.NewInt(1 << 17)
-	timezoneLookupResponseTimeZoneFieldStandardTzFullName     = big.NewInt(1 << 18)
-	timezoneLookupResponseTimeZoneFieldIsDst                  = big.NewInt(1 << 19)
-	timezoneLookupResponseTimeZoneFieldDstSavings             = big.NewInt(1 << 20)
-	timezoneLookupResponseTimeZoneFieldDstExists              = big.NewInt(1 << 21)
-	timezoneLookupResponseTimeZoneFieldDstStart               = big.NewInt(1 << 22)
-	timezoneLookupResponseTimeZoneFieldDstEnd                 = big.NewInt(1 << 23)
+	timezoneLookupResponseTimeZoneFieldName          = big.NewInt(1 << 0)
+	timezoneLookupResponseTimeZoneFieldOffset        = big.NewInt(1 << 1)
+	timezoneLookupResponseTimeZoneFieldOffsetWithDst = big.NewInt(1 << 2)
+	timezoneLookupResponseTimeZoneFieldDate          = big.NewInt(1 << 3)
+	timezoneLookupResponseTimeZoneFieldDateTime      = big.NewInt(1 << 4)
+	timezoneLookupResponseTimeZoneFieldDateTimeTxt   = big.NewInt(1 << 5)
+	timezoneLookupResponseTimeZoneFieldDateTimeWti   = big.NewInt(1 << 6)
+	timezoneLookupResponseTimeZoneFieldDateTimeYmd   = big.NewInt(1 << 7)
+	timezoneLookupResponseTimeZoneFieldDateTimeUnix  = big.NewInt(1 << 8)
+	timezoneLookupResponseTimeZoneFieldTime24        = big.NewInt(1 << 9)
+	timezoneLookupResponseTimeZoneFieldTime12        = big.NewInt(1 << 10)
+	timezoneLookupResponseTimeZoneFieldWeek          = big.NewInt(1 << 11)
+	timezoneLookupResponseTimeZoneFieldMonth         = big.NewInt(1 << 12)
+	timezoneLookupResponseTimeZoneFieldYear          = big.NewInt(1 << 13)
+	timezoneLookupResponseTimeZoneFieldYearAbbr      = big.NewInt(1 << 14)
+	timezoneLookupResponseTimeZoneFieldIsDst         = big.NewInt(1 << 19)
+	timezoneLookupResponseTimeZoneFieldDstSavings    = big.NewInt(1 << 20)
+	timezoneLookupResponseTimeZoneFieldDstExists     = big.NewInt(1 << 21)
+	timezoneLookupResponseTimeZoneFieldDstStart      = big.NewInt(1 << 22)
+	timezoneLookupResponseTimeZoneFieldDstEnd        = big.NewInt(1 << 23)
 )
 
 type TimezoneLookupResponseTimeZone struct {
-	Name                   string                                  `json:"name" url:"name"`
-	Offset                 float64                                 `json:"offset" url:"offset"`
-	OffsetWithDst          float64                                 `json:"offset_with_dst" url:"offset_with_dst"`
-	Date                   string                                  `json:"date" url:"date"`
-	DateTime               string                                  `json:"date_time" url:"date_time"`
-	DateTimeTxt            string                                  `json:"date_time_txt" url:"date_time_txt"`
-	DateTimeWti            string                                  `json:"date_time_wti" url:"date_time_wti"`
-	DateTimeYmd            string                                  `json:"date_time_ymd" url:"date_time_ymd"`
-	DateTimeUnix           float64                                 `json:"date_time_unix" url:"date_time_unix"`
-	Time24                 string                                  `json:"time_24" url:"time_24"`
-	Time12                 string                                  `json:"time_12" url:"time_12"`
-	Week                   float64                                 `json:"week" url:"week"`
-	Month                  float64                                 `json:"month" url:"month"`
-	Year                   float64                                 `json:"year" url:"year"`
-	YearAbbr               string                                  `json:"year_abbr" url:"year_abbr"`
-	CurrentTzAbbreviation  string                                  `json:"current_tz_abbreviation" url:"current_tz_abbreviation"`
-	CurrentTzFullName      string                                  `json:"current_tz_full_name" url:"current_tz_full_name"`
-	StandardTzAbbreviation string                                  `json:"standard_tz_abbreviation" url:"standard_tz_abbreviation"`
-	StandardTzFullName     string                                  `json:"standard_tz_full_name" url:"standard_tz_full_name"`
-	IsDst                  bool                                    `json:"is_dst" url:"is_dst"`
-	DstSavings             float64                                 `json:"dst_savings" url:"dst_savings"`
-	DstExists              bool                                    `json:"dst_exists" url:"dst_exists"`
-	DstStart               *TimezoneLookupResponseTimeZoneDstStart `json:"dst_start,omitempty" url:"dst_start,omitempty"`
-	DstEnd                 *TimezoneLookupResponseTimeZoneDstEnd   `json:"dst_end,omitempty" url:"dst_end,omitempty"`
+	Name          string                                  `json:"name" url:"name"`
+	Offset        float64                                 `json:"offset" url:"offset"`
+	OffsetWithDst float64                                 `json:"offset_with_dst" url:"offset_with_dst"`
+	Date          string                                  `json:"date" url:"date"`
+	DateTime      string                                  `json:"date_time" url:"date_time"`
+	DateTimeTxt   string                                  `json:"date_time_txt" url:"date_time_txt"`
+	DateTimeWti   string                                  `json:"date_time_wti" url:"date_time_wti"`
+	DateTimeYmd   string                                  `json:"date_time_ymd" url:"date_time_ymd"`
+	DateTimeUnix  float64                                 `json:"date_time_unix" url:"date_time_unix"`
+	Time24        string                                  `json:"time_24" url:"time_24"`
+	Time12        string                                  `json:"time_12" url:"time_12"`
+	Week          int                                     `json:"week" url:"week"`
+	Month         int                                     `json:"month" url:"month"`
+	Year          int                                     `json:"year" url:"year"`
+	YearAbbr      string                                  `json:"year_abbr" url:"year_abbr"`
+	IsDst         bool                                    `json:"is_dst" url:"is_dst"`
+	DstSavings    float64                                 `json:"dst_savings" url:"dst_savings"`
+	DstExists     bool                                    `json:"dst_exists" url:"dst_exists"`
+	DstStart      *TimezoneLookupResponseTimeZoneDstStart `json:"dst_start" url:"dst_start"`
+	DstEnd        *TimezoneLookupResponseTimeZoneDstEnd   `json:"dst_end" url:"dst_end"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -79966,21 +79464,21 @@ func (t *TimezoneLookupResponseTimeZone) GetTime12() string {
 	return t.Time12
 }
 
-func (t *TimezoneLookupResponseTimeZone) GetWeek() float64 {
+func (t *TimezoneLookupResponseTimeZone) GetWeek() int {
 	if t == nil {
 		return 0
 	}
 	return t.Week
 }
 
-func (t *TimezoneLookupResponseTimeZone) GetMonth() float64 {
+func (t *TimezoneLookupResponseTimeZone) GetMonth() int {
 	if t == nil {
 		return 0
 	}
 	return t.Month
 }
 
-func (t *TimezoneLookupResponseTimeZone) GetYear() float64 {
+func (t *TimezoneLookupResponseTimeZone) GetYear() int {
 	if t == nil {
 		return 0
 	}
@@ -79992,34 +79490,6 @@ func (t *TimezoneLookupResponseTimeZone) GetYearAbbr() string {
 		return ""
 	}
 	return t.YearAbbr
-}
-
-func (t *TimezoneLookupResponseTimeZone) GetCurrentTzAbbreviation() string {
-	if t == nil {
-		return ""
-	}
-	return t.CurrentTzAbbreviation
-}
-
-func (t *TimezoneLookupResponseTimeZone) GetCurrentTzFullName() string {
-	if t == nil {
-		return ""
-	}
-	return t.CurrentTzFullName
-}
-
-func (t *TimezoneLookupResponseTimeZone) GetStandardTzAbbreviation() string {
-	if t == nil {
-		return ""
-	}
-	return t.StandardTzAbbreviation
-}
-
-func (t *TimezoneLookupResponseTimeZone) GetStandardTzFullName() string {
-	if t == nil {
-		return ""
-	}
-	return t.StandardTzFullName
 }
 
 func (t *TimezoneLookupResponseTimeZone) GetIsDst() bool {
@@ -80150,21 +79620,21 @@ func (t *TimezoneLookupResponseTimeZone) SetTime12(time12 string) {
 
 // SetWeek sets the Week field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseTimeZone) SetWeek(week float64) {
+func (t *TimezoneLookupResponseTimeZone) SetWeek(week int) {
 	t.Week = week
 	t.require(timezoneLookupResponseTimeZoneFieldWeek)
 }
 
 // SetMonth sets the Month field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseTimeZone) SetMonth(month float64) {
+func (t *TimezoneLookupResponseTimeZone) SetMonth(month int) {
 	t.Month = month
 	t.require(timezoneLookupResponseTimeZoneFieldMonth)
 }
 
 // SetYear sets the Year field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseTimeZone) SetYear(year float64) {
+func (t *TimezoneLookupResponseTimeZone) SetYear(year int) {
 	t.Year = year
 	t.require(timezoneLookupResponseTimeZoneFieldYear)
 }
@@ -80174,34 +79644,6 @@ func (t *TimezoneLookupResponseTimeZone) SetYear(year float64) {
 func (t *TimezoneLookupResponseTimeZone) SetYearAbbr(yearAbbr string) {
 	t.YearAbbr = yearAbbr
 	t.require(timezoneLookupResponseTimeZoneFieldYearAbbr)
-}
-
-// SetCurrentTzAbbreviation sets the CurrentTzAbbreviation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseTimeZone) SetCurrentTzAbbreviation(currentTzAbbreviation string) {
-	t.CurrentTzAbbreviation = currentTzAbbreviation
-	t.require(timezoneLookupResponseTimeZoneFieldCurrentTzAbbreviation)
-}
-
-// SetCurrentTzFullName sets the CurrentTzFullName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseTimeZone) SetCurrentTzFullName(currentTzFullName string) {
-	t.CurrentTzFullName = currentTzFullName
-	t.require(timezoneLookupResponseTimeZoneFieldCurrentTzFullName)
-}
-
-// SetStandardTzAbbreviation sets the StandardTzAbbreviation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseTimeZone) SetStandardTzAbbreviation(standardTzAbbreviation string) {
-	t.StandardTzAbbreviation = standardTzAbbreviation
-	t.require(timezoneLookupResponseTimeZoneFieldStandardTzAbbreviation)
-}
-
-// SetStandardTzFullName sets the StandardTzFullName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupResponseTimeZone) SetStandardTzFullName(standardTzFullName string) {
-	t.StandardTzFullName = standardTzFullName
-	t.require(timezoneLookupResponseTimeZoneFieldStandardTzFullName)
 }
 
 // SetIsDst sets the IsDst field and marks it as non-optional;
@@ -82493,8 +81935,8 @@ var (
 type VatValidateResponse struct {
 	CountryCode          string                         `json:"country_code" url:"country_code"`
 	VatNumber            string                         `json:"vat_number" url:"vat_number"`
-	RequesterCountryCode *string                        `json:"requester_country_code,omitempty" url:"requester_country_code,omitempty"`
-	RequesterVatNumber   *string                        `json:"requester_vat_number,omitempty" url:"requester_vat_number,omitempty"`
+	RequesterCountryCode string                         `json:"requester_country_code" url:"requester_country_code"`
+	RequesterVatNumber   string                         `json:"requester_vat_number" url:"requester_vat_number"`
 	RequestedAt          time.Time                      `json:"requested_at" url:"requested_at"`
 	Validation           *VatValidateResponseValidation `json:"validation" url:"validation"`
 	Company              *VatValidateResponseCompany    `json:"company" url:"company"`
@@ -82520,16 +81962,16 @@ func (v *VatValidateResponse) GetVatNumber() string {
 	return v.VatNumber
 }
 
-func (v *VatValidateResponse) GetRequesterCountryCode() *string {
+func (v *VatValidateResponse) GetRequesterCountryCode() string {
 	if v == nil {
-		return nil
+		return ""
 	}
 	return v.RequesterCountryCode
 }
 
-func (v *VatValidateResponse) GetRequesterVatNumber() *string {
+func (v *VatValidateResponse) GetRequesterVatNumber() string {
 	if v == nil {
-		return nil
+		return ""
 	}
 	return v.RequesterVatNumber
 }
@@ -82585,14 +82027,14 @@ func (v *VatValidateResponse) SetVatNumber(vatNumber string) {
 
 // SetRequesterCountryCode sets the RequesterCountryCode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (v *VatValidateResponse) SetRequesterCountryCode(requesterCountryCode *string) {
+func (v *VatValidateResponse) SetRequesterCountryCode(requesterCountryCode string) {
 	v.RequesterCountryCode = requesterCountryCode
 	v.require(vatValidateResponseFieldRequesterCountryCode)
 }
 
 // SetRequesterVatNumber sets the RequesterVatNumber field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (v *VatValidateResponse) SetRequesterVatNumber(requesterVatNumber *string) {
+func (v *VatValidateResponse) SetRequesterVatNumber(requesterVatNumber string) {
 	v.RequesterVatNumber = requesterVatNumber
 	v.require(vatValidateResponseFieldRequesterVatNumber)
 }
@@ -93137,14 +92579,14 @@ func (z ZipcodeDistanceMatchRequestUnit) Ptr() *ZipcodeDistanceMatchRequestUnit 
 }
 
 var (
-	zipcodeDistanceMatchResponseFieldResultsCount = big.NewInt(1 << 0)
-	zipcodeDistanceMatchResponseFieldResults      = big.NewInt(1 << 1)
+	zipcodeDistanceMatchResponseFieldResultCount = big.NewInt(1 << 0)
+	zipcodeDistanceMatchResponseFieldResults     = big.NewInt(1 << 1)
 )
 
 type ZipcodeDistanceMatchResponse struct {
 	// Number of matching ZIP/postal code pairs returned
-	ResultsCount *string                                    `json:"results_count,omitempty" url:"results_count,omitempty"`
-	Results      []*ZipcodeDistanceMatchResponseResultsItem `json:"results,omitempty" url:"results,omitempty"`
+	ResultCount int                                        `json:"result_count" url:"result_count"`
+	Results     []*ZipcodeDistanceMatchResponseResultsItem `json:"results,omitempty" url:"results,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -93153,11 +92595,11 @@ type ZipcodeDistanceMatchResponse struct {
 	rawJSON         json.RawMessage
 }
 
-func (z *ZipcodeDistanceMatchResponse) GetResultsCount() *string {
+func (z *ZipcodeDistanceMatchResponse) GetResultCount() int {
 	if z == nil {
-		return nil
+		return 0
 	}
-	return z.ResultsCount
+	return z.ResultCount
 }
 
 func (z *ZipcodeDistanceMatchResponse) GetResults() []*ZipcodeDistanceMatchResponseResultsItem {
@@ -93181,11 +92623,11 @@ func (z *ZipcodeDistanceMatchResponse) require(field *big.Int) {
 	z.explicitFields.Or(z.explicitFields, field)
 }
 
-// SetResultsCount sets the ResultsCount field and marks it as non-optional;
+// SetResultCount sets the ResultCount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (z *ZipcodeDistanceMatchResponse) SetResultsCount(resultsCount *string) {
-	z.ResultsCount = resultsCount
-	z.require(zipcodeDistanceMatchResponseFieldResultsCount)
+func (z *ZipcodeDistanceMatchResponse) SetResultCount(resultCount int) {
+	z.ResultCount = resultCount
+	z.require(zipcodeDistanceMatchResponseFieldResultCount)
 }
 
 // SetResults sets the Results field and marks it as non-optional;
@@ -93414,14 +92856,14 @@ func (z ZipcodeDistanceRequestUnit) Ptr() *ZipcodeDistanceRequestUnit {
 }
 
 var (
-	zipcodeDistanceResponseFieldResultsCount = big.NewInt(1 << 0)
-	zipcodeDistanceResponseFieldResults      = big.NewInt(1 << 1)
+	zipcodeDistanceResponseFieldResultCount = big.NewInt(1 << 0)
+	zipcodeDistanceResponseFieldResults     = big.NewInt(1 << 1)
 )
 
 type ZipcodeDistanceResponse struct {
 	// Number of distance results returned
-	ResultsCount *string                               `json:"results_count,omitempty" url:"results_count,omitempty"`
-	Results      []*ZipcodeDistanceResponseResultsItem `json:"results,omitempty" url:"results,omitempty"`
+	ResultCount int                                   `json:"result_count" url:"result_count"`
+	Results     []*ZipcodeDistanceResponseResultsItem `json:"results,omitempty" url:"results,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -93430,11 +92872,11 @@ type ZipcodeDistanceResponse struct {
 	rawJSON         json.RawMessage
 }
 
-func (z *ZipcodeDistanceResponse) GetResultsCount() *string {
+func (z *ZipcodeDistanceResponse) GetResultCount() int {
 	if z == nil {
-		return nil
+		return 0
 	}
-	return z.ResultsCount
+	return z.ResultCount
 }
 
 func (z *ZipcodeDistanceResponse) GetResults() []*ZipcodeDistanceResponseResultsItem {
@@ -93458,11 +92900,11 @@ func (z *ZipcodeDistanceResponse) require(field *big.Int) {
 	z.explicitFields.Or(z.explicitFields, field)
 }
 
-// SetResultsCount sets the ResultsCount field and marks it as non-optional;
+// SetResultCount sets the ResultCount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (z *ZipcodeDistanceResponse) SetResultsCount(resultsCount *string) {
-	z.ResultsCount = resultsCount
-	z.require(zipcodeDistanceResponseFieldResultsCount)
+func (z *ZipcodeDistanceResponse) SetResultCount(resultCount int) {
+	z.ResultCount = resultCount
+	z.require(zipcodeDistanceResponseFieldResultCount)
 }
 
 // SetResults sets the Results field and marks it as non-optional;
@@ -93726,7 +93168,6 @@ var (
 	zipcodeLookupResponseResultsItemFieldCode        = big.NewInt(1 << 0)
 	zipcodeLookupResponseResultsItemFieldCountryCode = big.NewInt(1 << 1)
 	zipcodeLookupResponseResultsItemFieldRegion      = big.NewInt(1 << 2)
-	zipcodeLookupResponseResultsItemFieldRegionCode  = big.NewInt(1 << 3)
 	zipcodeLookupResponseResultsItemFieldCity        = big.NewInt(1 << 4)
 	zipcodeLookupResponseResultsItemFieldLocality    = big.NewInt(1 << 5)
 	zipcodeLookupResponseResultsItemFieldLatitude    = big.NewInt(1 << 6)
@@ -93737,7 +93178,6 @@ type ZipcodeLookupResponseResultsItem struct {
 	Code        *string  `json:"code,omitempty" url:"code,omitempty"`
 	CountryCode *string  `json:"country_code,omitempty" url:"country_code,omitempty"`
 	Region      *string  `json:"region,omitempty" url:"region,omitempty"`
-	RegionCode  *string  `json:"region_code,omitempty" url:"region_code,omitempty"`
 	City        *string  `json:"city,omitempty" url:"city,omitempty"`
 	Locality    *string  `json:"locality,omitempty" url:"locality,omitempty"`
 	Latitude    *float64 `json:"latitude,omitempty" url:"latitude,omitempty"`
@@ -93769,13 +93209,6 @@ func (z *ZipcodeLookupResponseResultsItem) GetRegion() *string {
 		return nil
 	}
 	return z.Region
-}
-
-func (z *ZipcodeLookupResponseResultsItem) GetRegionCode() *string {
-	if z == nil {
-		return nil
-	}
-	return z.RegionCode
 }
 
 func (z *ZipcodeLookupResponseResultsItem) GetCity() *string {
@@ -93839,13 +93272,6 @@ func (z *ZipcodeLookupResponseResultsItem) SetCountryCode(countryCode *string) {
 func (z *ZipcodeLookupResponseResultsItem) SetRegion(region *string) {
 	z.Region = region
 	z.require(zipcodeLookupResponseResultsItemFieldRegion)
-}
-
-// SetRegionCode sets the RegionCode field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (z *ZipcodeLookupResponseResultsItem) SetRegionCode(regionCode *string) {
-	z.RegionCode = regionCode
-	z.require(zipcodeLookupResponseResultsItemFieldRegionCode)
 }
 
 // SetCity sets the City field and marks it as non-optional;
@@ -94302,21 +93728,19 @@ func (z *ZipcodeSearchByRadiusResponse) String() string {
 }
 
 var (
-	zipcodeSearchByRadiusResponseResultsItemFieldCode       = big.NewInt(1 << 0)
-	zipcodeSearchByRadiusResponseResultsItemFieldRegion     = big.NewInt(1 << 1)
-	zipcodeSearchByRadiusResponseResultsItemFieldRegionCode = big.NewInt(1 << 2)
-	zipcodeSearchByRadiusResponseResultsItemFieldCity       = big.NewInt(1 << 3)
-	zipcodeSearchByRadiusResponseResultsItemFieldDistrict   = big.NewInt(1 << 4)
-	zipcodeSearchByRadiusResponseResultsItemFieldDistance   = big.NewInt(1 << 5)
+	zipcodeSearchByRadiusResponseResultsItemFieldCode     = big.NewInt(1 << 0)
+	zipcodeSearchByRadiusResponseResultsItemFieldRegion   = big.NewInt(1 << 1)
+	zipcodeSearchByRadiusResponseResultsItemFieldCity     = big.NewInt(1 << 3)
+	zipcodeSearchByRadiusResponseResultsItemFieldDistrict = big.NewInt(1 << 4)
+	zipcodeSearchByRadiusResponseResultsItemFieldDistance = big.NewInt(1 << 5)
 )
 
 type ZipcodeSearchByRadiusResponseResultsItem struct {
-	Code       *string  `json:"code,omitempty" url:"code,omitempty"`
-	Region     *string  `json:"region,omitempty" url:"region,omitempty"`
-	RegionCode *string  `json:"region_code,omitempty" url:"region_code,omitempty"`
-	City       *string  `json:"city,omitempty" url:"city,omitempty"`
-	District   *string  `json:"district,omitempty" url:"district,omitempty"`
-	Distance   *float64 `json:"distance,omitempty" url:"distance,omitempty"`
+	Code     *string  `json:"code,omitempty" url:"code,omitempty"`
+	Region   *string  `json:"region,omitempty" url:"region,omitempty"`
+	City     *string  `json:"city,omitempty" url:"city,omitempty"`
+	District *string  `json:"district,omitempty" url:"district,omitempty"`
+	Distance *float64 `json:"distance,omitempty" url:"distance,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -94337,13 +93761,6 @@ func (z *ZipcodeSearchByRadiusResponseResultsItem) GetRegion() *string {
 		return nil
 	}
 	return z.Region
-}
-
-func (z *ZipcodeSearchByRadiusResponseResultsItem) GetRegionCode() *string {
-	if z == nil {
-		return nil
-	}
-	return z.RegionCode
 }
 
 func (z *ZipcodeSearchByRadiusResponseResultsItem) GetCity() *string {
@@ -94393,13 +93810,6 @@ func (z *ZipcodeSearchByRadiusResponseResultsItem) SetCode(code *string) {
 func (z *ZipcodeSearchByRadiusResponseResultsItem) SetRegion(region *string) {
 	z.Region = region
 	z.require(zipcodeSearchByRadiusResponseResultsItemFieldRegion)
-}
-
-// SetRegionCode sets the RegionCode field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (z *ZipcodeSearchByRadiusResponseResultsItem) SetRegionCode(regionCode *string) {
-	z.RegionCode = regionCode
-	z.require(zipcodeSearchByRadiusResponseResultsItemFieldRegionCode)
 }
 
 // SetCity sets the City field and marks it as non-optional;
@@ -94641,8 +94051,9 @@ func (z *ZipcodeSearchByRegionResponse) String() string {
 }
 
 var (
-	userAgentLookupRequestFieldAPIKey = big.NewInt(1 << 0)
-	userAgentLookupRequestFieldFormat = big.NewInt(1 << 1)
+	userAgentLookupRequestFieldAPIKey    = big.NewInt(1 << 0)
+	userAgentLookupRequestFieldFormat    = big.NewInt(1 << 1)
+	userAgentLookupRequestFieldUserAgent = big.NewInt(1 << 2)
 )
 
 type UserAgentLookupRequest struct {
@@ -94650,6 +94061,8 @@ type UserAgentLookupRequest struct {
 	APIKey string `json:"-" url:"apiKey"`
 	// Format of the response
 	Format *UserAgentLookupRequestFormat `json:"-" url:"format,omitempty"`
+	// The User-Agent string to look up. Sent as the "User-Agent" HTTP request header.
+	UserAgent string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -94674,6 +94087,13 @@ func (u *UserAgentLookupRequest) SetAPIKey(apiKey string) {
 func (u *UserAgentLookupRequest) SetFormat(format *UserAgentLookupRequestFormat) {
 	u.Format = format
 	u.require(userAgentLookupRequestFieldFormat)
+}
+
+// SetUserAgent sets the UserAgent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (u *UserAgentLookupRequest) SetUserAgent(userAgent string) {
+	u.UserAgent = userAgent
+	u.require(userAgentLookupRequestFieldUserAgent)
 }
 
 var (

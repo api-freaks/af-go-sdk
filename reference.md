@@ -1338,6 +1338,14 @@ Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**ipAddresses:** `[]string` — List of IP addresses to lookup DNS records for (e.g. for PTR records)
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -2612,6 +2620,14 @@ client.DomainAvailabilitySuggestions(
 <dd>
 
 **count:** `*int` — Number of suggestions to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sug:** `*bool` — Whether to return domain name suggestions.
     
 </dd>
 </dl>
@@ -6434,7 +6450,7 @@ client.CurrencyConvertLatest(
 <dl>
 <dd>
 
-**amount:** `*float64` — Amount to convert
+**amount:** `*string` — Amount to convert
     
 </dd>
 </dl>
@@ -6540,7 +6556,7 @@ client.CurrencyConvertHistorical(
 <dl>
 <dd>
 
-**amount:** `*float64` — The Amount to be converted
+**amount:** `*string` — The Amount to be converted
     
 </dd>
 </dl>
@@ -6861,7 +6877,7 @@ client.CurrencyConvertByIP(
 <dl>
 <dd>
 
-**amount:** `*float64` — Amount to convert
+**amount:** `*string` — Amount to convert
     
 </dd>
 </dl>
@@ -11041,6 +11057,7 @@ Parse User Agent string to get detailed browser, device, and operating system in
 ```go
 request := &afgosdk.UserAgentLookupRequest{
         APIKey: "apiKey",
+        UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
     }
 client.UserAgentLookup(
         context.TODO(),
@@ -11070,6 +11087,14 @@ client.UserAgentLookup(
 <dd>
 
 **format:** `*afgosdk.UserAgentLookupRequestFormat` — Format of the response
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_agent:** `string` — The User-Agent string to look up. Sent as the `User-Agent` HTTP request header.
     
 </dd>
 </dl>
