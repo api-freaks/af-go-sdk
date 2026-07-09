@@ -11766,3 +11766,290 @@ client.AstronomyLookup(
 </dl>
 </details>
 
+
+## v2.0 Endpoints
+
+The following endpoints target the `/v2.0/` API version. They accept the same request/response types as their `/v1.0/` counterparts documented above; only the underlying endpoint path differs. The original `/v1.0/` methods remain available and unchanged.
+
+<details><summary><code>client.GeolocationLookupV2() -> *afgosdk.GeolocationLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information. Targets `GET /v2.0/geolocation/lookup`. Parameters are identical to `client.GeolocationLookup()`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.GeolocationLookupRequest{
+        APIKey: "apiKey",
+    }
+client.GeolocationLookupV2(
+        context.TODO(),
+        request,
+    )
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.BulkGeolocationLookupV2(request) -> []*afgosdk.BulkGeolocationLookupResponseItem</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve detailed geolocation data for multiple IP addresses in a single request. Supports up to `50,000` IP-addresses/host-names per request. Targets `POST /v2.0/geolocation/lookup`. Parameters are identical to `client.BulkGeolocationLookup()`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.BulkGeolocationLookupRequest{
+        APIKey: "apiKey",
+        Ips: []string{
+            "ips",
+        },
+    }
+client.BulkGeolocationLookupV2(
+        context.TODO(),
+        request,
+    )
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.TimezoneLookupV2() -> *afgosdk.TimezoneLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve timezone information by timezone name, coordinates, location, IP address, or airport code. Targets `GET /v2.0/geolocation/timezone`. Parameters are identical to `client.TimezoneLookup()`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.TimezoneLookupRequest{
+        APIKey: "apiKey",
+    }
+client.TimezoneLookupV2(
+        context.TODO(),
+        request,
+    )
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.AstronomyLookupV2() -> *afgosdk.AstronomyLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed. Targets `GET /v2.0/geolocation/astronomy`. Parameters are identical to `client.AstronomyLookup()`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.AstronomyLookupRequest{
+        APIKey: "apiKey",
+    }
+client.AstronomyLookupV2(
+        context.TODO(),
+        request,
+    )
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.DomainWhoisLookupV2() -> *afgosdk.DomainWhoisLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve live WHOIS information for a single domain. Targets `GET /v2.0/domain/whois/live`. Parameters are identical to `client.DomainWhoisLookup()`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.DomainWhoisLookupRequest{
+        APIKey: "apiKey",
+        DomainName: "domainName",
+    }
+client.DomainWhoisLookupV2(
+        context.TODO(),
+        request,
+    )
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.BulkDomainWhoisLookupV2(request) -> *afgosdk.BulkDomainWhoisLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve WHOIS information for `100 Domains per Request`. Targets `POST /v2.0/domain/whois/live`. Parameters are identical to `client.BulkDomainWhoisLookup()`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.BulkDomainWhoisLookupRequest{
+        APIKey: "apiKey",
+        DomainNames: []string{
+            "domainNames",
+        },
+    }
+client.BulkDomainWhoisLookupV2(
+        context.TODO(),
+        request,
+    )
+}
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>

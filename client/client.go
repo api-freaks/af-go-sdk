@@ -1918,3 +1918,106 @@ func (c *Client) AstronomyLookup(
 	}
 	return response.Body, nil
 }
+
+// Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information (v2.0 endpoint).
+func (c *Client) GeolocationLookupV2(
+	ctx context.Context,
+	request *afgosdk.GeolocationLookupRequest,
+	opts ...option.RequestOption,
+) (*afgosdk.GeolocationLookupResponse, error) {
+	response, err := c.WithRawResponse.GeolocationLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Retrieve detailed geolocation data for multiple IP addresses in a single request (v2.0 endpoint).
+// Supports up to `50,000` IP-addresses/host-names per request.
+func (c *Client) BulkGeolocationLookupV2(
+	ctx context.Context,
+	request *afgosdk.BulkGeolocationLookupRequest,
+	opts ...option.RequestOption,
+) ([]*afgosdk.BulkGeolocationLookupResponseItem, error) {
+	response, err := c.WithRawResponse.BulkGeolocationLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Retrieve timezone information by timezone name, coordinates, location, IP address, or airport code (v2.0 endpoint).
+func (c *Client) TimezoneLookupV2(
+	ctx context.Context,
+	request *afgosdk.TimezoneLookupRequest,
+	opts ...option.RequestOption,
+) (*afgosdk.TimezoneLookupResponse, error) {
+	response, err := c.WithRawResponse.TimezoneLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed (v2.0 endpoint).
+func (c *Client) AstronomyLookupV2(
+	ctx context.Context,
+	request *afgosdk.AstronomyLookupRequest,
+	opts ...option.RequestOption,
+) (*afgosdk.AstronomyLookupResponse, error) {
+	response, err := c.WithRawResponse.AstronomyLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Retrieve live WHOIS information for a single domain (v2.0 endpoint).
+func (c *Client) DomainWhoisLookupV2(
+	ctx context.Context,
+	request *afgosdk.DomainWhoisLookupRequest,
+	opts ...option.RequestOption,
+) (*afgosdk.DomainWhoisLookupResponse, error) {
+	response, err := c.WithRawResponse.DomainWhoisLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Retrieve WHOIS information for `100 Domains per Request` (v2.0 endpoint).
+func (c *Client) BulkDomainWhoisLookupV2(
+	ctx context.Context,
+	request *afgosdk.BulkDomainWhoisLookupRequest,
+	opts ...option.RequestOption,
+) (*afgosdk.BulkDomainWhoisLookupResponse, error) {
+	response, err := c.WithRawResponse.BulkDomainWhoisLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
