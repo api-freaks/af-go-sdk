@@ -504,6 +504,227 @@ func (c *Client) SubdomainsLookup(
 	return response.Body, nil
 }
 
+// The Domain Typosquatting API searches for registered domains that are typo or look-alike variants of a brand keyword, or that match a wildcard pattern. Results include registration lifecycle data and drop status across 1529+ TLDs, paginated at 100 domains per page.
+func (c *Client) DomainTyposquatting(
+	ctx context.Context,
+	request *afgosdk.DomainTyposquattingRequest,
+	opts ...option.RequestOption,
+) (*afgosdk.DomainTyposquattingResponse, error) {
+	response, err := c.WithRawResponse.DomainTyposquatting(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// The Domain Reputation API evaluates a domain against threat intelligence sources, DGA (domain generation algorithm) scoring, trust signals, and email deliverability configuration, returning a consolidated risk assessment with a verdict, severity, and supporting evidence.
+func (c *Client) DomainReputation(
+	ctx context.Context,
+	request *afgosdk.DomainReputationRequest,
+	opts ...option.RequestOption,
+) (*afgosdk.DomainReputationResponse, error) {
+	response, err := c.WithRawResponse.DomainReputation(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+func (c *Client) AstronomyLookupV2(
+	ctx context.Context,
+	request *afgosdk.AstronomyLookupV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.AstronomyLookupV2Response, error) {
+	response, err := c.WithRawResponse.AstronomyLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.
+func (c *Client) TimezoneLookupV2(
+	ctx context.Context,
+	request *afgosdk.TimezoneLookupV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.TimezoneLookupV2Response, error) {
+	response, err := c.WithRawResponse.TimezoneLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information.
+func (c *Client) GeolocationLookupV2(
+	ctx context.Context,
+	request *afgosdk.GeolocationLookupV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.GeolocationLookupV2Response, error) {
+	response, err := c.WithRawResponse.GeolocationLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.
+func (c *Client) BulkGeolocationLookupV2(
+	ctx context.Context,
+	request *afgosdk.BulkGeolocationLookupV2Request,
+	opts ...option.RequestOption,
+) ([]*afgosdk.BulkGeolocationLookupV2ResponseItem, error) {
+	response, err := c.WithRawResponse.BulkGeolocationLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.
+func (c *Client) DomainWhoisLookupV2(
+	ctx context.Context,
+	request *afgosdk.DomainWhoisLookupV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.DomainWhoisLookupV2Response, error) {
+	response, err := c.WithRawResponse.DomainWhoisLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.
+func (c *Client) BulkDomainWhoisLookupV2(
+	ctx context.Context,
+	request *afgosdk.BulkDomainWhoisLookupV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.BulkDomainWhoisLookupV2Response, error) {
+	response, err := c.WithRawResponse.BulkDomainWhoisLookupV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Returns the current live price for the requested commodity symbols. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+func (c *Client) CommodityLatestRatesV2(
+	ctx context.Context,
+	request *afgosdk.CommodityLatestRatesV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.CommodityLatestRatesV2Response, error) {
+	response, err := c.WithRawResponse.CommodityLatestRatesV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Returns OHLC price data for the requested commodity symbols on a specific date. Falls back to the nearest earlier rate if none exists for the exact date. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+func (c *Client) CommodityHistoricalRatesV2(
+	ctx context.Context,
+	request *afgosdk.CommodityHistoricalRatesV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.CommodityHistoricalRatesV2Response, error) {
+	response, err := c.WithRawResponse.CommodityHistoricalRatesV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range. For monthly-updated commodities the range snaps to month boundaries. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+func (c *Client) CommodityFluctuationV2(
+	ctx context.Context,
+	request *afgosdk.CommodityFluctuationV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.CommodityFluctuationV2Response, error) {
+	response, err := c.WithRawResponse.CommodityFluctuationV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Returns day-by-day OHLC data for the requested commodity symbols within a date range, indexed by date. Non-trading days are excluded. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+func (c *Client) CommodityTimeSeriesV2(
+	ctx context.Context,
+	request *afgosdk.CommodityTimeSeriesV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.CommodityTimeSeriesV2Response, error) {
+	response, err := c.WithRawResponse.CommodityTimeSeriesV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Returns the list of supported commodity symbols with metadata. Deprecated symbols stay listed with status "inactive" and a deprecationDate.
+func (c *Client) CommoditySymbolsV2(
+	ctx context.Context,
+	request *afgosdk.CommoditySymbolsV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.CommoditySymbolsV2Response, error) {
+	response, err := c.WithRawResponse.CommoditySymbolsV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // This API merges multiple PDF files into a single PDF, in the order they are provided
 func (c *Client) PdfMerge(
 	ctx context.Context,
@@ -1909,109 +2130,6 @@ func (c *Client) AstronomyLookup(
 	opts ...option.RequestOption,
 ) (*afgosdk.AstronomyLookupResponse, error) {
 	response, err := c.WithRawResponse.AstronomyLookup(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information (v2.0 endpoint).
-func (c *Client) GeolocationLookupV2(
-	ctx context.Context,
-	request *afgosdk.GeolocationLookupRequest,
-	opts ...option.RequestOption,
-) (*afgosdk.GeolocationLookupResponse, error) {
-	response, err := c.WithRawResponse.GeolocationLookupV2(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Retrieve detailed geolocation data for multiple IP addresses in a single request (v2.0 endpoint).
-// Supports up to `50,000` IP-addresses/host-names per request.
-func (c *Client) BulkGeolocationLookupV2(
-	ctx context.Context,
-	request *afgosdk.BulkGeolocationLookupRequest,
-	opts ...option.RequestOption,
-) ([]*afgosdk.BulkGeolocationLookupResponseItem, error) {
-	response, err := c.WithRawResponse.BulkGeolocationLookupV2(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Retrieve timezone information by timezone name, coordinates, location, IP address, or airport code (v2.0 endpoint).
-func (c *Client) TimezoneLookupV2(
-	ctx context.Context,
-	request *afgosdk.TimezoneLookupRequest,
-	opts ...option.RequestOption,
-) (*afgosdk.TimezoneLookupResponse, error) {
-	response, err := c.WithRawResponse.TimezoneLookupV2(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed (v2.0 endpoint).
-func (c *Client) AstronomyLookupV2(
-	ctx context.Context,
-	request *afgosdk.AstronomyLookupRequest,
-	opts ...option.RequestOption,
-) (*afgosdk.AstronomyLookupResponse, error) {
-	response, err := c.WithRawResponse.AstronomyLookupV2(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Retrieve live WHOIS information for a single domain (v2.0 endpoint).
-func (c *Client) DomainWhoisLookupV2(
-	ctx context.Context,
-	request *afgosdk.DomainWhoisLookupRequest,
-	opts ...option.RequestOption,
-) (*afgosdk.DomainWhoisLookupResponse, error) {
-	response, err := c.WithRawResponse.DomainWhoisLookupV2(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Retrieve WHOIS information for `100 Domains per Request` (v2.0 endpoint).
-func (c *Client) BulkDomainWhoisLookupV2(
-	ctx context.Context,
-	request *afgosdk.BulkDomainWhoisLookupRequest,
-	opts ...option.RequestOption,
-) (*afgosdk.BulkDomainWhoisLookupResponse, error) {
-	response, err := c.WithRawResponse.BulkDomainWhoisLookupV2(
 		ctx,
 		request,
 		opts...,
