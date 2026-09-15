@@ -607,7 +607,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"success\": true,\n  \"email\": \"email\",\n  \"name\": \"name\",\n  \"reason\": \"reason\",\n  \"validEmail\": \"valid\",\n  \"validSyntax\": true,\n  \"domain\": {\n    \"name\": \"name\",\n    \"disposable\": true,\n    \"spam\": true,\n    \"free\": true,\n    \"catchAll\": true,\n    \"validDomain\": true\n  },\n  \"account\": {\n    \"role\": true,\n    \"fullMailBox\": true\n  },\n  \"dns\": {\n    \"mxRecords\": [\n      \"mxRecords\"\n    ],\n    \"aRecords\": [\n      \"aRecords\"\n    ]\n  },\n  \"ip\": \"ip\",\n  \"address\": {\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_type\": \"proxy_type\",\n      \"proxy_provider\": \"proxy_provider\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_spam\": true,\n      \"is_bot\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider\": \"cloud_provider\"\n    },\n    \"location\": {\n      \"city\": \"city\",\n      \"district\": \"district\",\n      \"confidence\": \"confidence\",\n      \"zipcode\": \"zipcode\",\n      \"state_prov\": \"state_prov\",\n      \"country_name\": \"country_name\",\n      \"continent_name\": \"continent_name\",\n      \"continent_code\": \"continent_code\",\n      \"country_code2\": \"country_code2\",\n      \"country_code3\": \"country_code3\",\n      \"country_name_official\": \"country_name_official\",\n      \"accuracy_radius\": \"accuracy_radius\",\n      \"is_eu\": true\n    },\n    \"validIpAddress\": true\n  }\n}",
+        "body": "{\n  \"success\": true,\n  \"email\": \"email\",\n  \"name\": \"name\",\n  \"reason\": \"reason\",\n  \"validEmail\": \"valid\",\n  \"validSyntax\": true,\n  \"domain\": {\n    \"name\": \"name\",\n    \"disposable\": true,\n    \"spam\": true,\n    \"free\": true,\n    \"catchAll\": true,\n    \"validDomain\": true\n  },\n  \"account\": {\n    \"role\": true,\n    \"fullMailBox\": true\n  },\n  \"dns\": {\n    \"mxRecord\": [\n      \"mxRecord\"\n    ],\n    \"aRecord\": [\n      \"aRecord\"\n    ]\n  },\n  \"ip\": \"ip\",\n  \"address\": {\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_type\": \"proxy_type\",\n      \"proxy_provider\": \"proxy_provider\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_spam\": true,\n      \"is_bot\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider\": \"cloud_provider\"\n    },\n    \"location\": {\n      \"city\": \"city\",\n      \"district\": \"district\",\n      \"confidence\": \"confidence\",\n      \"zipcode\": \"zipcode\",\n      \"state_prov\": \"state_prov\",\n      \"country_name\": \"country_name\",\n      \"continent_name\": \"continent_name\",\n      \"continent_code\": \"continent_code\",\n      \"country_code2\": \"country_code2\",\n      \"country_code3\": \"country_code3\",\n      \"country_name_official\": \"country_name_official\",\n      \"accuracy_radius\": \"accuracy_radius\",\n      \"is_eu\": true\n    },\n    \"validIpAddress\": true\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -638,7 +638,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"emailValidationResponses\": [\n    {\n      \"success\": true,\n      \"email\": \"email\",\n      \"name\": \"name\",\n      \"reason\": \"reason\",\n      \"validEmail\": \"valid\",\n      \"validSyntax\": true,\n      \"domain\": {\n        \"name\": \"name\",\n        \"disposable\": true,\n        \"spam\": true,\n        \"free\": true,\n        \"catchAll\": true,\n        \"validDomain\": true\n      },\n      \"account\": {\n        \"role\": true\n      },\n      \"dns\": {\n        \"mxRecords\": [\n          \"mxRecords\"\n        ]\n      },\n      \"ip\": \"ip\"\n    }\n  ]\n}",
+        "body": "{\n  \"emailResponse\": [\n    {\n      \"success\": true,\n      \"email\": \"email\",\n      \"name\": \"name\",\n      \"reason\": \"reason\",\n      \"validEmail\": \"valid\",\n      \"validSyntax\": true,\n      \"domain\": {\n        \"name\": \"name\",\n        \"disposable\": true,\n        \"spam\": true,\n        \"free\": true,\n        \"catchAll\": true,\n        \"validDomain\": true\n      },\n      \"account\": {\n        \"role\": true\n      },\n      \"dns\": {\n        \"mxRecord\": [\n          \"mxRecord\"\n        ]\n      },\n      \"ip\": \"ip\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -911,6 +911,469 @@
         }
       },
       "uuid": "ba40376f-9aeb-4b92-a957-e176c8db355e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "81300514-d8d1-4e21-899c-54bcd71616ec",
+      "name": "Find registered typo-variant or wildcard-pattern domains for a brand keyword. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/typosquatting",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": true,\n  \"totalRecords\": 1,\n  \"currentPage\": 1,\n  \"hasNextPage\": true,\n  \"totalPages\": 1,\n  \"nextPageToken\": \"nextPageToken\",\n  \"domains\": [\n    {\n      \"domainName\": \"domainName\",\n      \"createDate\": \"createDate\",\n      \"expiryDate\": \"expiryDate\",\n      \"lastSeen\": \"lastSeen\",\n      \"isDropped\": true\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "81300514-d8d1-4e21-899c-54bcd71616ec",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "b1b87d55-c430-433a-8987-17009562cd10",
+      "name": "Assess a domain's reputation, risk classification, and email deliverability signals. - default",
+      "request": {
+        "urlPathTemplate": "/v1.0/domain/reputation",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "domainName": {
+            "equalTo": "domainName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"input\": {\n    \"domain\": \"domain\"\n  },\n  \"assessed_at\": \"assessed_at\",\n  \"version\": \"version\",\n  \"processing_time_ms\": 1,\n  \"risk_category\": {\n    \"verdict\": \"safe\",\n    \"confidence\": 1.1,\n    \"primary_threat\": \"primary_threat\",\n    \"severity\": \"none\",\n    \"threat_types\": [\n      \"threat_types\"\n    ],\n    \"sources\": [\n      {\n        \"source\": \"source\",\n        \"indicator\": \"indicator\",\n        \"threat_type\": \"threat_type\",\n        \"confidence\": 1.1,\n        \"first_seen\": \"first_seen\",\n        \"last_seen\": \"last_seen\"\n      }\n    ],\n    \"pivot_matches\": [\n      {\n        \"pivot\": \"pivot\",\n        \"pivot_type\": \"pivot_type\",\n        \"total_related_threats\": 1,\n        \"confidence\": 1.1\n      }\n    ]\n  },\n  \"dga_score\": {\n    \"score\": 1.1,\n    \"is_dga\": true,\n    \"model\": \"model\",\n    \"features\": {\n      \"domain_length\": 1,\n      \"vowel_consonant_ratio\": 1.1,\n      \"ngram_perplexity\": 1.1,\n      \"shannon_entropy\": 1.1,\n      \"digit_letter_ratio\": 1.1,\n      \"consonant_streak_max\": 1,\n      \"tld_in_known_dga_set\": true\n    },\n    \"interpretation\": \"interpretation\"\n  },\n  \"trust_signals\": {\n    \"trust_score\": 1,\n    \"trust_band\": \"trust_band\",\n    \"signals\": {\n      \"positive\": [\n        {\n          \"code\": \"code\",\n          \"weight\": 1,\n          \"polarity\": \"positive\",\n          \"category\": \"category\",\n          \"evidence\": \"evidence\",\n          \"confidence\": 1.1\n        }\n      ],\n      \"negative\": [\n        {\n          \"code\": \"code\",\n          \"weight\": 1,\n          \"polarity\": \"positive\",\n          \"category\": \"category\",\n          \"evidence\": \"evidence\",\n          \"confidence\": 1.1\n        }\n      ],\n      \"neutral\": [\n        {\n          \"code\": \"code\",\n          \"weight\": 1,\n          \"polarity\": \"positive\",\n          \"category\": \"category\",\n          \"evidence\": \"evidence\",\n          \"confidence\": 1.1\n        }\n      ]\n    },\n    \"indicators\": {\n      \"is_newly_registered\": true,\n      \"uses_free_extension\": true,\n      \"uses_free_ssl\": true,\n      \"has_privacy_whois\": true,\n      \"ssl_age_days\": 1,\n      \"has_dmarc\": true,\n      \"has_spf\": true,\n      \"redirects_externally\": true,\n      \"javascript_obfuscated\": true,\n      \"domain_age_days\": 1,\n      \"registrar\": \"registrar\"\n    }\n  },\n  \"email_deliverability\": {\n    \"score\": 1,\n    \"grade\": \"grade\",\n    \"can_receive_email\": true,\n    \"authentication\": {\n      \"spf\": {\n        \"present\": true,\n        \"policy\": \"policy\",\n        \"record\": \"record\"\n      },\n      \"dkim\": {\n        \"found\": true,\n        \"selectors_found\": [\n          \"selectors_found\"\n        ],\n        \"providers_detected\": [\n          \"providers_detected\"\n        ],\n        \"note\": \"note\"\n      },\n      \"dmarc\": {\n        \"present\": true,\n        \"policy\": \"policy\",\n        \"reporting_configured\": true\n      }\n    },\n    \"infrastructure\": {\n      \"mx_count\": 1,\n      \"mx_records\": [\n        \"mx_records\"\n      ],\n      \"mx_provider\": \"mx_provider\",\n      \"null_mx\": true\n    },\n    \"reputation\": {\n      \"spam_blacklisted\": true,\n      \"newly_registered\": true,\n      \"domain_age_days\": 1\n    },\n    \"issues\": [\n      {}\n    ]\n  },\n  \"intelligence\": {\n    \"ioc_type\": \"ioc_type\",\n    \"ioc_value\": \"ioc_value\",\n    \"related_iocs\": [\n      {\n        \"type\": \"type\",\n        \"value\": \"value\",\n        \"confidence\": 1.1\n      }\n    ],\n    \"feed_tags\": [\n      \"feed_tags\"\n    ],\n    \"stix_pattern\": \"stix_pattern\",\n    \"recommended_action\": \"allow\",\n    \"first_seen\": \"first_seen\",\n    \"last_seen\": \"last_seen\"\n  },\n  \"evidence_summary\": {\n    \"why_flagged\": [\n      \"why_flagged\"\n    ]\n  },\n  \"errors\": [\n    \"errors\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "b1b87d55-c430-433a-8987-17009562cd10",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "24388786-97b0-47a5-9400-ded7ce180cc4",
+      "name": "Returns sunrise, sunset, moon phase, and celestial positions for a given location and date. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/geolocation/astronomy",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"ip\": \"ip\",\n  \"location\": {\n    \"location_string\": \"location_string\",\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name\": \"country_name\",\n    \"country_name_official\": \"country_name_official\",\n    \"is_eu\": true,\n    \"state_prov\": \"state_prov\",\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"city\": \"city\",\n    \"zipcode\": \"zipcode\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\",\n    \"locality\": \"locality\",\n    \"elevation\": \"elevation\"\n  },\n  \"astronomy\": {\n    \"time_zone\": \"time_zone\",\n    \"date\": \"date\",\n    \"current_time\": \"current_time\",\n    \"mid_night\": \"mid_night\",\n    \"night_end\": \"night_end\",\n    \"morning\": {\n      \"astronomical_twilight_begin\": \"astronomical_twilight_begin\",\n      \"astronomical_twilight_end\": \"astronomical_twilight_end\",\n      \"nautical_twilight_begin\": \"nautical_twilight_begin\",\n      \"nautical_twilight_end\": \"nautical_twilight_end\",\n      \"civil_twilight_begin\": \"civil_twilight_begin\",\n      \"civil_twilight_end\": \"civil_twilight_end\",\n      \"blue_hour_begin\": \"blue_hour_begin\",\n      \"blue_hour_end\": \"blue_hour_end\",\n      \"golden_hour_begin\": \"golden_hour_begin\",\n      \"golden_hour_end\": \"golden_hour_end\"\n    },\n    \"sunrise\": \"sunrise\",\n    \"sunset\": \"sunset\",\n    \"evening\": {\n      \"golden_hour_begin\": \"golden_hour_begin\",\n      \"golden_hour_end\": \"golden_hour_end\",\n      \"blue_hour_begin\": \"blue_hour_begin\",\n      \"blue_hour_end\": \"blue_hour_end\",\n      \"civil_twilight_begin\": \"civil_twilight_begin\",\n      \"civil_twilight_end\": \"civil_twilight_end\",\n      \"nautical_twilight_begin\": \"nautical_twilight_begin\",\n      \"nautical_twilight_end\": \"nautical_twilight_end\",\n      \"astronomical_twilight_begin\": \"astronomical_twilight_begin\",\n      \"astronomical_twilight_end\": \"astronomical_twilight_end\"\n    },\n    \"night_begin\": \"night_begin\",\n    \"sun_status\": \"sun_status\",\n    \"solar_noon\": \"solar_noon\",\n    \"day_length\": \"day_length\",\n    \"sun_altitude\": 1.1,\n    \"sun_distance\": 1.1,\n    \"sun_azimuth\": 1.1,\n    \"moon_phase\": \"moon_phase\",\n    \"moonrise\": \"moonrise\",\n    \"moonset\": \"moonset\",\n    \"moon_status\": \"moon_status\",\n    \"moon_altitude\": 1.1,\n    \"moon_distance\": 1.1,\n    \"moon_azimuth\": 1.1,\n    \"moon_parallactic_angle\": 1.1,\n    \"moon_illumination_percentage\": \"moon_illumination_percentage\",\n    \"moon_angle\": 1.1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "24388786-97b0-47a5-9400-ded7ce180cc4",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "2738d124-441c-4d4a-810d-d6b76ab75b2a",
+      "name": "Retrieve current time, date, and timezone information for any location identifier. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/geolocation/timezone",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"ip\": \"ip\",\n  \"time_zone\": {\n    \"name\": \"name\",\n    \"offset\": 1.1,\n    \"offset_with_dst\": 1.1,\n    \"current_time\": \"current_time\",\n    \"current_time_unix\": 1.1,\n    \"date\": \"date\",\n    \"date_time\": \"date_time\",\n    \"date_time_txt\": \"date_time_txt\",\n    \"date_time_wti\": \"date_time_wti\",\n    \"date_time_ymd\": \"date_time_ymd\",\n    \"time_24\": \"time_24\",\n    \"time_12\": \"time_12\",\n    \"week\": 1,\n    \"month\": 1,\n    \"year\": 1,\n    \"year_abbr\": \"year_abbr\",\n    \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n    \"current_tz_full_name\": \"current_tz_full_name\",\n    \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n    \"standard_tz_full_name\": \"standard_tz_full_name\",\n    \"is_dst\": true,\n    \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n    \"dst_tz_full_name\": \"dst_tz_full_name\",\n    \"dst_savings\": 1.1,\n    \"dst_exists\": true,\n    \"dst_start\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    },\n    \"dst_end\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    }\n  },\n  \"location\": {\n    \"location_string\": \"location_string\",\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name\": \"country_name\",\n    \"country_name_official\": \"country_name_official\",\n    \"is_eu\": true,\n    \"state_prov\": \"state_prov\",\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"city\": \"city\",\n    \"locality\": \"locality\",\n    \"zipcode\": \"zipcode\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\"\n  },\n  \"airport_details\": {\n    \"type\": \"type\",\n    \"name\": \"name\",\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"elevation_ft\": 1,\n    \"continent_code\": \"continent_code\",\n    \"country_code\": \"country_code\",\n    \"state_code\": \"state_code\",\n    \"city\": \"city\",\n    \"iata_code\": \"iata_code\",\n    \"icao_code\": \"icao_code\",\n    \"faa_code\": \"faa_code\"\n  },\n  \"lo_code_details\": {\n    \"lo_code\": \"lo_code\",\n    \"city\": \"city\",\n    \"state_code\": \"state_code\",\n    \"country_code\": \"country_code\",\n    \"country_name\": \"country_name\",\n    \"location_type\": \"location_type\",\n    \"latitude\": 1.1,\n    \"longitude\": 1.1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2738d124-441c-4d4a-810d-d6b76ab75b2a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "e9967c27-17cb-465b-a1f4-8aa1be7703f6",
+      "name": "Retrieve real-time and accurate IP geolocation and threat intelligence information for an IPv4 or IPv6 address. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/geolocation/lookup",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"ip\": \"ip\",\n  \"domain\": \"domain\",\n  \"hostname\": \"hostname\",\n  \"location\": {\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name\": \"country_name\",\n    \"country_name_official\": \"country_name_official\",\n    \"country_capital\": \"country_capital\",\n    \"state_prov\": \"state_prov\",\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"city\": \"city\",\n    \"locality\": \"locality\",\n    \"accuracy_radius\": \"accuracy_radius\",\n    \"confidence\": \"confidence\",\n    \"dma_code\": \"dma_code\",\n    \"zipcode\": \"zipcode\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\",\n    \"is_eu\": true,\n    \"country_flag\": \"country_flag\",\n    \"geoname_id\": \"geoname_id\",\n    \"country_emoji\": \"country_emoji\"\n  },\n  \"country_metadata\": {\n    \"calling_code\": \"calling_code\",\n    \"tld\": \"tld\",\n    \"languages\": [\n      \"languages\"\n    ]\n  },\n  \"network\": {\n    \"connection_type\": \"connection_type\",\n    \"route\": \"route\",\n    \"is_anycast\": true\n  },\n  \"asn\": {\n    \"as_number\": \"as_number\",\n    \"organization\": \"organization\",\n    \"country\": \"country\",\n    \"type\": \"type\",\n    \"domain\": \"domain\",\n    \"date_allocated\": \"date_allocated\",\n    \"rir\": \"rir\"\n  },\n  \"company\": {\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"domain\": \"domain\"\n  },\n  \"currency\": {\n    \"code\": \"code\",\n    \"name\": \"name\",\n    \"symbol\": \"symbol\"\n  },\n  \"security\": {\n    \"threat_score\": 1.1,\n    \"is_tor\": true,\n    \"is_proxy\": true,\n    \"proxy_provider_names\": [\n      \"proxy_provider_names\"\n    ],\n    \"proxy_confidence_score\": 1.1,\n    \"proxy_last_seen\": \"proxy_last_seen\",\n    \"is_residential_proxy\": true,\n    \"is_vpn\": true,\n    \"vpn_provider_names\": [\n      \"vpn_provider_names\"\n    ],\n    \"vpn_confidence_score\": 1.1,\n    \"vpn_last_seen\": \"vpn_last_seen\",\n    \"is_relay\": true,\n    \"relay_provider_name\": \"relay_provider_name\",\n    \"is_anonymous\": true,\n    \"is_known_attacker\": true,\n    \"is_bot\": true,\n    \"is_spam\": true,\n    \"is_cloud_provider\": true,\n    \"cloud_provider_name\": \"cloud_provider_name\"\n  },\n  \"abuse\": {\n    \"route\": \"route\",\n    \"country\": \"country\",\n    \"name\": \"name\",\n    \"organization\": \"organization\",\n    \"kind\": \"kind\",\n    \"address\": \"address\",\n    \"emails\": [\n      \"emails\"\n    ],\n    \"phone_numbers\": [\n      \"phone_numbers\"\n    ]\n  },\n  \"time_zone\": {\n    \"name\": \"name\",\n    \"offset\": 1.1,\n    \"offset_with_dst\": 1.1,\n    \"current_time\": \"current_time\",\n    \"current_time_unix\": 1.1,\n    \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n    \"current_tz_full_name\": \"current_tz_full_name\",\n    \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n    \"standard_tz_full_name\": \"standard_tz_full_name\",\n    \"is_dst\": true,\n    \"dst_savings\": 1.1,\n    \"dst_exists\": true,\n    \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n    \"dst_tz_full_name\": \"dst_tz_full_name\",\n    \"dst_start\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    },\n    \"dst_end\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    }\n  },\n  \"user_agent\": {\n    \"user_agent_string\": \"user_agent_string\",\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"version\": \"version\",\n    \"version_major\": \"version_major\",\n    \"device\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"brand\": \"brand\",\n      \"cpu\": \"cpu\"\n    },\n    \"engine\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\"\n    },\n    \"operating_system\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\",\n      \"build\": \"build\"\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e9967c27-17cb-465b-a1f4-8aa1be7703f6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "8d1944d6-33fc-45ec-a6b4-e08958fb67df",
+      "name": "Retrieve geolocation and threat intelligence data for multiple IP addresses in a single request. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/geolocation/lookup",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"ip\": \"ip\",\n    \"domain\": \"domain\",\n    \"hostname\": \"hostname\",\n    \"location\": {\n      \"continent_code\": \"continent_code\",\n      \"continent_name\": \"continent_name\",\n      \"country_code2\": \"country_code2\",\n      \"country_code3\": \"country_code3\",\n      \"country_name\": \"country_name\",\n      \"country_name_official\": \"country_name_official\",\n      \"country_capital\": \"country_capital\",\n      \"state_prov\": \"state_prov\",\n      \"state_code\": \"state_code\",\n      \"district\": \"district\",\n      \"city\": \"city\",\n      \"locality\": \"locality\",\n      \"accuracy_radius\": \"accuracy_radius\",\n      \"confidence\": \"confidence\",\n      \"dma_code\": \"dma_code\",\n      \"zipcode\": \"zipcode\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"is_eu\": true,\n      \"country_flag\": \"country_flag\",\n      \"geoname_id\": \"geoname_id\",\n      \"country_emoji\": \"country_emoji\"\n    },\n    \"country_metadata\": {\n      \"calling_code\": \"calling_code\",\n      \"tld\": \"tld\",\n      \"languages\": [\n        \"languages\"\n      ]\n    },\n    \"network\": {\n      \"connection_type\": \"connection_type\",\n      \"route\": \"route\",\n      \"is_anycast\": true\n    },\n    \"asn\": {\n      \"as_number\": \"as_number\",\n      \"organization\": \"organization\",\n      \"country\": \"country\",\n      \"type\": \"type\",\n      \"domain\": \"domain\",\n      \"date_allocated\": \"date_allocated\",\n      \"rir\": \"rir\"\n    },\n    \"company\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"domain\": \"domain\"\n    },\n    \"currency\": {\n      \"code\": \"code\",\n      \"name\": \"name\",\n      \"symbol\": \"symbol\"\n    },\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_provider_names\": [\n        \"proxy_provider_names\"\n      ],\n      \"proxy_confidence_score\": 1.1,\n      \"proxy_last_seen\": \"proxy_last_seen\",\n      \"is_residential_proxy\": true,\n      \"is_vpn\": true,\n      \"vpn_provider_names\": [\n        \"vpn_provider_names\"\n      ],\n      \"vpn_confidence_score\": 1.1,\n      \"vpn_last_seen\": \"vpn_last_seen\",\n      \"is_relay\": true,\n      \"relay_provider_name\": \"relay_provider_name\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_bot\": true,\n      \"is_spam\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider_name\": \"cloud_provider_name\"\n    },\n    \"abuse\": {\n      \"route\": \"route\",\n      \"country\": \"country\",\n      \"name\": \"name\",\n      \"organization\": \"organization\",\n      \"kind\": \"kind\",\n      \"address\": \"address\",\n      \"emails\": [\n        \"emails\"\n      ],\n      \"phone_numbers\": [\n        \"phone_numbers\"\n      ]\n    },\n    \"time_zone\": {\n      \"name\": \"name\",\n      \"offset\": 1.1,\n      \"offset_with_dst\": 1.1,\n      \"current_time\": \"current_time\",\n      \"current_time_unix\": 1.1,\n      \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n      \"current_tz_full_name\": \"current_tz_full_name\",\n      \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n      \"standard_tz_full_name\": \"standard_tz_full_name\",\n      \"is_dst\": true,\n      \"dst_savings\": 1.1,\n      \"dst_exists\": true,\n      \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n      \"dst_tz_full_name\": \"dst_tz_full_name\"\n    },\n    \"user_agent\": {\n      \"user_agent_string\": \"user_agent_string\",\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\"\n    }\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8d1944d6-33fc-45ec-a6b4-e08958fb67df",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a324d8a4-188c-46f8-8a9c-79ba78d60daf",
+      "name": "Retrieve real-time WHOIS registration and ownership data for a domain name. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/domain/whois/live",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "domainName": {
+            "equalTo": "domainName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": true,\n  \"domain_name\": \"domain_name\",\n  \"query_time\": \"query_time\",\n  \"whois_server\": \"whois_server\",\n  \"domain_registered\": \"yes\",\n  \"secure_dns\": true,\n  \"domain_handle\": \"domain_handle\",\n  \"create_date\": \"2023-01-15\",\n  \"update_date\": \"2023-01-15\",\n  \"expiry_date\": \"2023-01-15\",\n  \"domain_registrar\": {\n    \"iana_id\": \"iana_id\",\n    \"id\": \"id\",\n    \"id_type\": \"id_type\",\n    \"handle\": \"handle\",\n    \"registry_id\": \"registry_id\",\n    \"authoritative_registry_name\": \"authoritative_registry_name\",\n    \"organization_number\": \"organization_number\",\n    \"is_sponsor\": true,\n    \"status\": \"status\",\n    \"registrar_name\": \"registrar_name\",\n    \"normalized_name\": \"normalized_name\",\n    \"whois_server\": \"whois_server\",\n    \"rdap_server\": \"rdap_server\",\n    \"website_url\": \"website_url\",\n    \"email_address\": \"email_address\",\n    \"phone_number\": \"phone_number\"\n  },\n  \"reseller_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"registrant_contact\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"administrative_contact\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"technical_contact\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"billing_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"abuse_contact\": {\n    \"registrar_name\": \"registrar_name\",\n    \"email_address\": \"email_address\",\n    \"phone_number\": \"phone_number\"\n  },\n  \"eligibility_info\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"type\": \"type\"\n  },\n  \"name_servers\": [\n    \"name_servers\"\n  ],\n  \"domain_status\": [\n    \"domain_status\"\n  ],\n  \"whois_raw_domain\": \"whois_raw_domain\",\n  \"registry_data\": {\n    \"domain_name\": \"domain_name\",\n    \"query_time\": \"2024-01-15T09:30:00Z\",\n    \"whois_server\": \"whois_server\",\n    \"domain_registered\": \"yes\",\n    \"create_date\": \"2023-01-15\",\n    \"update_date\": \"2023-01-15\",\n    \"expiry_date\": \"2023-01-15\",\n    \"name_servers\": [\n      \"name_servers\"\n    ],\n    \"domain_status\": [\n      \"domain_status\"\n    ],\n    \"whois_raw_registery\": \"whois_raw_registery\",\n    \"domain_registrar\": {\n      \"iana_id\": \"iana_id\",\n      \"id\": \"id\",\n      \"id_type\": \"id_type\",\n      \"handle\": \"handle\",\n      \"registry_id\": \"registry_id\",\n      \"authoritative_registry_name\": \"authoritative_registry_name\",\n      \"organization_number\": \"organization_number\",\n      \"is_sponsor\": true,\n      \"status\": \"status\",\n      \"registrar_name\": \"registrar_name\",\n      \"normalized_name\": \"normalized_name\",\n      \"whois_server\": \"whois_server\",\n      \"rdap_server\": \"rdap_server\",\n      \"website_url\": \"website_url\",\n      \"email_address\": \"email_address\",\n      \"phone_number\": \"phone_number\"\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a324d8a4-188c-46f8-8a9c-79ba78d60daf",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "84715804-ff56-4635-9461-7471577a5081",
+      "name": "Retrieve real-time WHOIS registration and ownership data for up to 100 domain names in a single request. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/domain/whois/live",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"bulk_whois_response\": [\n    {\n      \"status\": true,\n      \"domain_name\": \"domain_name\",\n      \"query_time\": \"query_time\",\n      \"whois_server\": \"whois_server\",\n      \"domain_registered\": \"yes\",\n      \"secure_dns\": true,\n      \"domain_handle\": \"domain_handle\",\n      \"create_date\": \"2023-01-15\",\n      \"update_date\": \"2023-01-15\",\n      \"expiry_date\": \"2023-01-15\",\n      \"name_servers\": [\n        \"name_servers\"\n      ],\n      \"domain_status\": [\n        \"domain_status\"\n      ],\n      \"whois_raw_domain\": \"whois_raw_domain\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "84715804-ff56-4635-9461-7471577a5081",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "19ce47e0-c779-4a64-946c-01acb02dd752",
+      "name": "Get real-time prices for commodities, on a rolling ~10 minute update cadence, with support for custom currencies. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/commodity/rates/latest",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "symbols": {
+            "hasExactly": [
+              {
+                "equalTo": "symbols"
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"timestamp\": 1,\n  \"rates\": {\n    \"key\": 1.1\n  },\n  \"metadata\": {\n    \"key\": {\n      \"unit\": \"unit\",\n      \"quote\": \"quote\"\n    }\n  },\n  \"warning\": \"warning\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "19ce47e0-c779-4a64-946c-01acb02dd752",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "be0ad5f5-d2dd-4dda-bc2c-73e5f7667dd1",
+      "name": "Track historical OHLC commodity prices for gold, oil, cocoa, and more — from 1990 to today. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/commodity/rates/historical",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "symbols": {
+            "hasExactly": [
+              {
+                "equalTo": "symbols"
+              }
+            ]
+          },
+          "date": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"date\": \"date\",\n  \"rates\": {\n    \"key\": {\n      \"date\": \"date\",\n      \"open\": 1.1,\n      \"high\": 1.1,\n      \"low\": 1.1,\n      \"close\": 1.1\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "be0ad5f5-d2dd-4dda-bc2c-73e5f7667dd1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "31c1fe48-5544-4d2c-8d0a-b3b42bfc7297",
+      "name": "Calculate percentage price changes in commodities over any custom date range, with no limit on range length. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/commodity/fluctuation",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "symbols": {
+            "hasExactly": [
+              {
+                "equalTo": "symbols"
+              }
+            ]
+          },
+          "startDate": {
+            "equalTo": "2023-01-15"
+          },
+          "endDate": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"rates\": {\n    \"key\": {\n      \"startRate\": 1.1,\n      \"endRate\": 1.1,\n      \"change\": 1.1,\n      \"changePercent\": 1.1\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "31c1fe48-5544-4d2c-8d0a-b3b42bfc7297",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "6bd375c1-590d-43fd-975b-86f304e91a53",
+      "name": "Retrieve daily OHLC price history for one or more commodities over a date range of up to 365 days. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/commodity/time-series",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "symbols": {
+            "hasExactly": [
+              {
+                "equalTo": "symbols"
+              }
+            ]
+          },
+          "startDate": {
+            "equalTo": "2023-01-15"
+          },
+          "endDate": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"rates\": {\n    \"key\": {\n      \"key\": {\n        \"open\": 1.1,\n        \"high\": 1.1,\n        \"low\": 1.1,\n        \"close\": 1.1\n      }\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6bd375c1-590d-43fd-975b-86f304e91a53",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "da015a1a-92ce-4b5d-a694-0d455ee7403c",
+      "name": "Full catalog of 245+ supported commodities with pricing currency, unit, and update interval per symbol. - default",
+      "request": {
+        "urlPathTemplate": "/v2.0/commodity/symbols",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"symbols\": [\n    {\n      \"symbol\": \"symbol\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"category\": \"category\",\n      \"status\": \"active\",\n      \"updateInterval\": \"PER_SECOND\",\n      \"exchange\": \"exchange\",\n      \"deprecationDate\": \"2023-01-15\",\n      \"currency\": {\n        \"code\": \"code\",\n        \"name\": \"name\",\n        \"symbol\": \"symbol\"\n      },\n      \"unit\": {\n        \"symbol\": \"symbol\",\n        \"name\": \"name\"\n      }\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "da015a1a-92ce-4b5d-a694-0d455ee7403c",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3536,9 +3999,6 @@
         "queryParameters": {
           "apiKey": {
             "equalTo": "apiKey"
-          },
-          "model": {
-            "equalTo": "mini-ocr-v1"
           }
         }
       },
@@ -3719,6 +4179,6 @@
     }
   ],
   "meta": {
-    "total": 109
+    "total": 122
   }
 }

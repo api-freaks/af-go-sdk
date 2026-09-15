@@ -911,6 +911,374 @@ func TestSubdomainsLookupWithWireMock(
 	VerifyRequestCount(t, "TestSubdomainsLookupWithWireMock", "GET", "/v1.0/subdomains/lookup", map[string]interface{}{"apiKey": "apiKey", "domain": "domain"}, 1)
 }
 
+func TestDomainTyposquattingWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.DomainTyposquattingRequest{
+		APIKey: "apiKey",
+	}
+	_, invocationErr := client.DomainTyposquatting(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDomainTyposquattingWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDomainTyposquattingWithWireMock", "GET", "/v1.0/domain/typosquatting", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
+func TestDomainReputationWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.DomainReputationRequest{
+		APIKey:     "apiKey",
+		DomainName: "domainName",
+	}
+	_, invocationErr := client.DomainReputation(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDomainReputationWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDomainReputationWithWireMock", "GET", "/v1.0/domain/reputation", map[string]interface{}{"apiKey": "apiKey", "domainName": "domainName"}, 1)
+}
+
+func TestAstronomyLookupV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.AstronomyLookupV2Request{
+		APIKey: "apiKey",
+	}
+	_, invocationErr := client.AstronomyLookupV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestAstronomyLookupV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestAstronomyLookupV2WithWireMock", "GET", "/v2.0/geolocation/astronomy", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
+func TestTimezoneLookupV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.TimezoneLookupV2Request{
+		APIKey: "apiKey",
+	}
+	_, invocationErr := client.TimezoneLookupV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestTimezoneLookupV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestTimezoneLookupV2WithWireMock", "GET", "/v2.0/geolocation/timezone", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
+func TestGeolocationLookupV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.GeolocationLookupV2Request{
+		APIKey: "apiKey",
+	}
+	_, invocationErr := client.GeolocationLookupV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestGeolocationLookupV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestGeolocationLookupV2WithWireMock", "GET", "/v2.0/geolocation/lookup", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
+func TestBulkGeolocationLookupV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.BulkGeolocationLookupV2Request{
+		APIKey: "apiKey",
+		Ips: []string{
+			"ips",
+		},
+	}
+	_, invocationErr := client.BulkGeolocationLookupV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestBulkGeolocationLookupV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestBulkGeolocationLookupV2WithWireMock", "POST", "/v2.0/geolocation/lookup", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
+func TestDomainWhoisLookupV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.DomainWhoisLookupV2Request{
+		APIKey:     "apiKey",
+		DomainName: "domainName",
+	}
+	_, invocationErr := client.DomainWhoisLookupV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDomainWhoisLookupV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDomainWhoisLookupV2WithWireMock", "GET", "/v2.0/domain/whois/live", map[string]interface{}{"apiKey": "apiKey", "domainName": "domainName"}, 1)
+}
+
+func TestBulkDomainWhoisLookupV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.BulkDomainWhoisLookupV2Request{
+		APIKey: "apiKey",
+		DomainNames: []string{
+			"domainNames",
+		},
+	}
+	_, invocationErr := client.BulkDomainWhoisLookupV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestBulkDomainWhoisLookupV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestBulkDomainWhoisLookupV2WithWireMock", "POST", "/v2.0/domain/whois/live", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
+func TestCommodityLatestRatesV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.CommodityLatestRatesV2Request{
+		APIKey: "apiKey",
+		Symbols: []*string{
+			afgosdk.String(
+				"symbols",
+			),
+		},
+	}
+	_, invocationErr := client.CommodityLatestRatesV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestCommodityLatestRatesV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestCommodityLatestRatesV2WithWireMock", "GET", "/v2.0/commodity/rates/latest", map[string]interface{}{"apiKey": "apiKey", "symbols": "symbols"}, 1)
+}
+
+func TestCommodityHistoricalRatesV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.CommodityHistoricalRatesV2Request{
+		APIKey: "apiKey",
+		Symbols: []*string{
+			afgosdk.String(
+				"symbols",
+			),
+		},
+		Date: afgosdk.MustParseDate(
+			"2023-01-15",
+		),
+	}
+	_, invocationErr := client.CommodityHistoricalRatesV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestCommodityHistoricalRatesV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestCommodityHistoricalRatesV2WithWireMock", "GET", "/v2.0/commodity/rates/historical", map[string]interface{}{"apiKey": "apiKey", "symbols": "symbols", "date": "2023-01-15"}, 1)
+}
+
+func TestCommodityFluctuationV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.CommodityFluctuationV2Request{
+		APIKey: "apiKey",
+		Symbols: []*string{
+			afgosdk.String(
+				"symbols",
+			),
+		},
+		StartDate: afgosdk.MustParseDate(
+			"2023-01-15",
+		),
+		EndDate: afgosdk.MustParseDate(
+			"2023-01-15",
+		),
+	}
+	_, invocationErr := client.CommodityFluctuationV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestCommodityFluctuationV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestCommodityFluctuationV2WithWireMock", "GET", "/v2.0/commodity/fluctuation", map[string]interface{}{"apiKey": "apiKey", "symbols": "symbols", "startDate": "2023-01-15", "endDate": "2023-01-15"}, 1)
+}
+
+func TestCommodityTimeSeriesV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.CommodityTimeSeriesV2Request{
+		APIKey: "apiKey",
+		Symbols: []*string{
+			afgosdk.String(
+				"symbols",
+			),
+		},
+		StartDate: afgosdk.MustParseDate(
+			"2023-01-15",
+		),
+		EndDate: afgosdk.MustParseDate(
+			"2023-01-15",
+		),
+	}
+	_, invocationErr := client.CommodityTimeSeriesV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestCommodityTimeSeriesV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestCommodityTimeSeriesV2WithWireMock", "GET", "/v2.0/commodity/time-series", map[string]interface{}{"apiKey": "apiKey", "symbols": "symbols", "startDate": "2023-01-15", "endDate": "2023-01-15"}, 1)
+}
+
+func TestCommoditySymbolsV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.CommoditySymbolsV2Request{
+		APIKey: "apiKey",
+	}
+	_, invocationErr := client.CommoditySymbolsV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestCommoditySymbolsV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestCommoditySymbolsV2WithWireMock", "GET", "/v2.0/commodity/symbols", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
 func TestPdfMergeWithWireMock(
 	t *testing.T,
 ) {
@@ -3029,9 +3397,8 @@ func TestOcrPredictWithWireMock(
 		option.WithBaseURL(WireMockBaseURL),
 	)
 	request := &afgosdk.OcrPredictRequest{
-		APIKey:                 "apiKey",
-		Model:                  afgosdk.OcrPredictRequestModelMiniOcrV1,
-		OcrPredictRequestModel: afgosdk.OcrPredictRequestModelMiniOcrV1,
+		APIKey: "apiKey",
+		Model:  afgosdk.OcrPredictRequestModelMiniOcrV1,
 	}
 	_, invocationErr := client.OcrPredict(
 		context.TODO(),
@@ -3042,7 +3409,7 @@ func TestOcrPredictWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestOcrPredictWithWireMock", "POST", "/v1.0/ocr/predict", map[string]interface{}{"apiKey": "apiKey", "model": "mini-ocr-v1"}, 1)
+	VerifyRequestCount(t, "TestOcrPredictWithWireMock", "POST", "/v1.0/ocr/predict", map[string]interface{}{"apiKey": "apiKey"}, 1)
 }
 
 func TestGrammarDetectWithWireMock(
