@@ -2013,7 +2013,7 @@ func (c *Client) UserAgentLookup(
 	return response.Body, nil
 }
 
-// Parse up to `50,000 User-Agent strings` at once in a single request.
+// Parse up to `100 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
 func (c *Client) BulkUserAgentLookup(
 	ctx context.Context,
 	request *afgosdk.BulkUserAgentLookupRequest,
