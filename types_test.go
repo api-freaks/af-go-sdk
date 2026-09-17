@@ -1678,6 +1678,14 @@ func TestSettersBulkDomainDNSLookupRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetIPAddresses", func(t *testing.T) {
+		obj := &BulkDomainDNSLookupRequest{}
+		var fernTestValueIPAddresses []string
+		obj.SetIPAddresses(fernTestValueIPAddresses)
+		assert.Equal(t, fernTestValueIPAddresses, obj.IPAddresses)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 }
 
 func TestSettersMarkExplicitBulkDomainDNSLookupRequest(t *testing.T) {
@@ -1782,6 +1790,37 @@ func TestSettersMarkExplicitBulkDomainDNSLookupRequest(t *testing.T) {
 
 		// Act
 		obj.SetDomainNames(fernTestValueDomainNames)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetIPAddresses_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &BulkDomainDNSLookupRequest{}
+		var fernTestValueIPAddresses []string
+
+		// Act
+		obj.SetIPAddresses(fernTestValueIPAddresses)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -7584,6 +7623,14 @@ func TestSettersDomainAvailabilitySuggestionsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetSug", func(t *testing.T) {
+		obj := &DomainAvailabilitySuggestionsRequest{}
+		var fernTestValueSug *bool
+		obj.SetSug(fernTestValueSug)
+		assert.Equal(t, fernTestValueSug, obj.Sug)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 }
 
 func TestSettersMarkExplicitDomainAvailabilitySuggestionsRequest(t *testing.T) {
@@ -7719,6 +7766,37 @@ func TestSettersMarkExplicitDomainAvailabilitySuggestionsRequest(t *testing.T) {
 
 		// Act
 		obj.SetCount(fernTestValueCount)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetSug_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsRequest{}
+		var fernTestValueSug *bool
+
+		// Act
+		obj.SetSug(fernTestValueSug)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -27328,7 +27406,7 @@ func TestSettersMarkExplicitAirQualityResponse(t *testing.T) {
 func TestSettersAirQualityResponseCurrent(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &AirQualityResponseCurrent{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -27437,7 +27515,7 @@ func TestGettersAirQualityResponseCurrent(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseCurrent{}
-		var expected time.Time
+		var expected string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -27739,7 +27817,7 @@ func TestSettersMarkExplicitAirQualityResponseCurrent(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseCurrent{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -28224,7 +28302,7 @@ func TestSettersMarkExplicitAirQualityResponseForecastValue(t *testing.T) {
 func TestSettersAirQualityResponseForecastValueHourlyItem(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &AirQualityResponseForecastValueHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -28325,7 +28403,7 @@ func TestGettersAirQualityResponseForecastValueHourlyItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseForecastValueHourlyItem{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -28724,7 +28802,7 @@ func TestSettersMarkExplicitAirQualityResponseForecastValueHourlyItem(t *testing
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseForecastValueHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -29239,7 +29317,7 @@ func TestSettersAirQualityResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &AirQualityResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -29247,7 +29325,7 @@ func TestSettersAirQualityResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &AirQualityResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -29255,7 +29333,7 @@ func TestSettersAirQualityResponseLocationCity(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &AirQualityResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -29409,7 +29487,7 @@ func TestGettersAirQualityResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -29432,7 +29510,7 @@ func TestGettersAirQualityResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -29455,7 +29533,7 @@ func TestGettersAirQualityResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationCity{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -29692,7 +29770,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -29723,7 +29801,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -29754,7 +29832,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -29944,7 +30022,7 @@ func TestSettersAirQualityResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &AirQualityResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -29952,7 +30030,7 @@ func TestSettersAirQualityResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &AirQualityResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -29968,7 +30046,7 @@ func TestSettersAirQualityResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &AirQualityResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -30313,7 +30391,7 @@ func TestGettersAirQualityResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -30336,7 +30414,7 @@ func TestGettersAirQualityResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -30392,7 +30470,7 @@ func TestGettersAirQualityResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationContinentCode{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -30846,7 +30924,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationContinentCode(t *testing.T
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -30877,7 +30955,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationContinentCode(t *testing.T
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -30939,7 +31017,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationContinentCode(t *testing.T
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -31033,7 +31111,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationContinentCode(t *testing.T
 func TestSettersAirQualityResponseLocationZero(t *testing.T) {
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &AirQualityResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -31041,7 +31119,7 @@ func TestSettersAirQualityResponseLocationZero(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &AirQualityResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -31081,7 +31159,7 @@ func TestSettersAirQualityResponseLocationZero(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &AirQualityResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -31110,7 +31188,7 @@ func TestGettersAirQualityResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -31133,7 +31211,7 @@ func TestGettersAirQualityResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -31258,7 +31336,7 @@ func TestGettersAirQualityResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationZero{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -31340,7 +31418,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -31371,7 +31449,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -31526,7 +31604,7 @@ func TestSettersMarkExplicitAirQualityResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AirQualityResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -47747,7 +47825,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItem(t *testing.T) {
 func TestSettersBulkCurrentWeatherResponseBulkItemCurrent(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemCurrent{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -47888,7 +47966,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemCurrent(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemCurrent{}
-		var expected time.Time
+		var expected string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -48302,7 +48380,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemCurrent(t *testing
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemCurrent{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -48830,7 +48908,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemCurrent(t *testing
 func TestSettersBulkCurrentWeatherResponseBulkItemCurrentAirQuality(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemCurrentAirQuality{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -48939,7 +49017,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemCurrentAirQuality(t *testing.T
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemCurrentAirQuality{}
-		var expected time.Time
+		var expected string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -49241,7 +49319,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemCurrentAirQuality(
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemCurrentAirQuality{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -50602,7 +50680,7 @@ func TestSettersBulkCurrentWeatherResponseBulkItemLocationCity(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -50610,7 +50688,7 @@ func TestSettersBulkCurrentWeatherResponseBulkItemLocationCity(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -50618,7 +50696,7 @@ func TestSettersBulkCurrentWeatherResponseBulkItemLocationCity(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -50772,7 +50850,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationCity{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -50795,7 +50873,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationCity{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -50818,7 +50896,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationCity{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -51055,7 +51133,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationCity(t *te
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -51086,7 +51164,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationCity(t *te
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -51117,7 +51195,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationCity(t *te
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -51307,7 +51385,7 @@ func TestSettersBulkCurrentWeatherResponseBulkItemLocationContinentCode(t *testi
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -51315,7 +51393,7 @@ func TestSettersBulkCurrentWeatherResponseBulkItemLocationContinentCode(t *testi
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -51331,7 +51409,7 @@ func TestSettersBulkCurrentWeatherResponseBulkItemLocationContinentCode(t *testi
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -51676,7 +51754,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemLocationContinentCode(t *testi
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -51699,7 +51777,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemLocationContinentCode(t *testi
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -51755,7 +51833,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemLocationContinentCode(t *testi
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationContinentCode{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -52209,7 +52287,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationContinentC
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -52240,7 +52318,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationContinentC
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -52302,7 +52380,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationContinentC
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -52396,7 +52474,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationContinentC
 func TestSettersBulkCurrentWeatherResponseBulkItemLocationZero(t *testing.T) {
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -52404,7 +52482,7 @@ func TestSettersBulkCurrentWeatherResponseBulkItemLocationZero(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -52444,7 +52522,7 @@ func TestSettersBulkCurrentWeatherResponseBulkItemLocationZero(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &BulkCurrentWeatherResponseBulkItemLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -52473,7 +52551,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationZero{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -52496,7 +52574,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationZero{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -52621,7 +52699,7 @@ func TestGettersBulkCurrentWeatherResponseBulkItemLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationZero{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -52703,7 +52781,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationZero(t *te
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -52734,7 +52812,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationZero(t *te
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -52889,7 +52967,7 @@ func TestSettersMarkExplicitBulkCurrentWeatherResponseBulkItemLocationZero(t *te
 		t.Parallel()
 		// Arrange
 		obj := &BulkCurrentWeatherResponseBulkItemLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -53378,7 +53456,7 @@ func TestSettersBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testing.T) {
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -53386,7 +53464,7 @@ func TestSettersBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testing.T) {
 
 	t.Run("SetDomainName", func(t *testing.T) {
 		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
-		var fernTestValueDomainName string
+		var fernTestValueDomainName *string
 		obj.SetDomainName(fernTestValueDomainName)
 		assert.Equal(t, fernTestValueDomainName, obj.DomainName)
 		assert.NotNil(t, obj.explicitFields)
@@ -53394,9 +53472,17 @@ func TestSettersBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testing.T) {
 
 	t.Run("SetDomainRegistered", func(t *testing.T) {
 		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
-		var fernTestValueDomainRegistered bool
+		var fernTestValueDomainRegistered *bool
 		obj.SetDomainRegistered(fernTestValueDomainRegistered)
 		assert.Equal(t, fernTestValueDomainRegistered, obj.DomainRegistered)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetIPAddress", func(t *testing.T) {
+		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
+		var fernTestValueIPAddress *string
+		obj.SetIPAddress(fernTestValueIPAddress)
+		assert.Equal(t, fernTestValueIPAddress, obj.IPAddress)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -53446,7 +53532,7 @@ func TestGettersBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
-		var expected time.Time
+		var expected string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -53469,11 +53555,21 @@ func TestGettersBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
-		var expected string
+		var expected *string
 		obj.DomainName = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetDomainName(), "getter should return the property value")
+	})
+
+	t.Run("GetDomainName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
+		obj.DomainName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDomainName(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetDomainName_NilReceiver", func(t *testing.T) {
@@ -53492,11 +53588,21 @@ func TestGettersBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
-		var expected bool
+		var expected *bool
 		obj.DomainRegistered = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetDomainRegistered(), "getter should return the property value")
+	})
+
+	t.Run("GetDomainRegistered_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
+		obj.DomainRegistered = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDomainRegistered(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetDomainRegistered_NilReceiver", func(t *testing.T) {
@@ -53509,6 +53615,39 @@ func TestGettersBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testing.T) {
 			}
 		}()
 		_ = obj.GetDomainRegistered() // Should return zero value
+	})
+
+	t.Run("GetIPAddress", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
+		var expected *string
+		obj.IPAddress = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetIPAddress(), "getter should return the property value")
+	})
+
+	t.Run("GetIPAddress_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
+		obj.IPAddress = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetIPAddress(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetIPAddress_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *BulkDomainDNSLookupResponseBulkDNSInfoItem
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetIPAddress() // Should return zero value
 	})
 
 	t.Run("GetDNSTypes", func(t *testing.T) {
@@ -53615,7 +53754,7 @@ func TestSettersMarkExplicitBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testin
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -53646,7 +53785,7 @@ func TestSettersMarkExplicitBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testin
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
-		var fernTestValueDomainName string
+		var fernTestValueDomainName *string
 
 		// Act
 		obj.SetDomainName(fernTestValueDomainName)
@@ -53677,10 +53816,41 @@ func TestSettersMarkExplicitBulkDomainDNSLookupResponseBulkDNSInfoItem(t *testin
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
-		var fernTestValueDomainRegistered bool
+		var fernTestValueDomainRegistered *bool
 
 		// Act
 		obj.SetDomainRegistered(fernTestValueDomainRegistered)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetIPAddress_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &BulkDomainDNSLookupResponseBulkDNSInfoItem{}
+		var fernTestValueIPAddress *string
+
+		// Act
+		obj.SetIPAddress(fernTestValueIPAddress)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -57756,7 +57926,7 @@ func TestSettersBulkDomainWhoisLookupResponseBulkWhoisResponseItem(t *testing.T)
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &BulkDomainWhoisLookupResponseBulkWhoisResponseItem{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -57955,7 +58125,7 @@ func TestGettersBulkDomainWhoisLookupResponseBulkWhoisResponseItem(t *testing.T)
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainWhoisLookupResponseBulkWhoisResponseItem{}
-		var expected *time.Time
+		var expected *string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -58548,7 +58718,7 @@ func TestSettersMarkExplicitBulkDomainWhoisLookupResponseBulkWhoisResponseItem(t
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainWhoisLookupResponseBulkWhoisResponseItem{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -62113,7 +62283,7 @@ func TestSettersBulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData(t
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -62231,7 +62401,7 @@ func TestGettersBulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData(t
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData{}
-		var expected *time.Time
+		var expected *string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -62595,7 +62765,7 @@ func TestSettersMarkExplicitBulkDomainWhoisLookupResponseBulkWhoisResponseItemRe
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -65267,7 +65437,7 @@ func TestSettersBulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact
 
 	t.Run("SetWhoisServer", func(t *testing.T) {
 		obj := &BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact{}
-		var fernTestValueWhoisServer string
+		var fernTestValueWhoisServer *string
 		obj.SetWhoisServer(fernTestValueWhoisServer)
 		assert.Equal(t, fernTestValueWhoisServer, obj.WhoisServer)
 		assert.NotNil(t, obj.explicitFields)
@@ -65493,11 +65663,21 @@ func TestGettersBulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact{}
-		var expected string
+		var expected *string
 		obj.WhoisServer = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetWhoisServer(), "getter should return the property value")
+	})
+
+	t.Run("GetWhoisServer_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact{}
+		obj.WhoisServer = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetWhoisServer(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetWhoisServer_NilReceiver", func(t *testing.T) {
@@ -66196,7 +66376,7 @@ func TestSettersMarkExplicitBulkDomainWhoisLookupV2ResponseBulkWhoisResponseItem
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact{}
-		var fernTestValueWhoisServer string
+		var fernTestValueWhoisServer *string
 
 		// Act
 		obj.SetWhoisServer(fernTestValueWhoisServer)
@@ -71168,7 +71348,7 @@ func TestSettersBulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -71286,7 +71466,7 @@ func TestGettersBulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData{}
-		var expected *time.Time
+		var expected *string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -71650,7 +71830,7 @@ func TestSettersMarkExplicitBulkDomainWhoisLookupV2ResponseBulkWhoisResponseItem
 		t.Parallel()
 		// Arrange
 		obj := &BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -101362,7 +101542,7 @@ func TestSettersBulkScreenshotCaptureResponseResultsItemURL(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &BulkScreenshotCaptureResponseResultsItemURL{}
-		var fernTestValueLongitude *float64
+		var fernTestValueLongitude *string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -101370,7 +101550,7 @@ func TestSettersBulkScreenshotCaptureResponseResultsItemURL(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &BulkScreenshotCaptureResponseResultsItemURL{}
-		var fernTestValueLatitude *float64
+		var fernTestValueLatitude *string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -102127,7 +102307,7 @@ func TestGettersBulkScreenshotCaptureResponseResultsItemURL(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkScreenshotCaptureResponseResultsItemURL{}
-		var expected *float64
+		var expected *string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -102160,7 +102340,7 @@ func TestGettersBulkScreenshotCaptureResponseResultsItemURL(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &BulkScreenshotCaptureResponseResultsItemURL{}
-		var expected *float64
+		var expected *string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -104420,7 +104600,7 @@ func TestSettersMarkExplicitBulkScreenshotCaptureResponseResultsItemURL(t *testi
 		t.Parallel()
 		// Arrange
 		obj := &BulkScreenshotCaptureResponseResultsItemURL{}
-		var fernTestValueLongitude *float64
+		var fernTestValueLongitude *string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -104451,7 +104631,7 @@ func TestSettersMarkExplicitBulkScreenshotCaptureResponseResultsItemURL(t *testi
 		t.Parallel()
 		// Arrange
 		obj := &BulkScreenshotCaptureResponseResultsItemURL{}
-		var fernTestValueLatitude *float64
+		var fernTestValueLatitude *string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -120028,7 +120208,7 @@ func TestSettersMarkExplicitCurrentWeatherResponse(t *testing.T) {
 func TestSettersCurrentWeatherResponseCurrent(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &CurrentWeatherResponseCurrent{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -120169,7 +120349,7 @@ func TestGettersCurrentWeatherResponseCurrent(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseCurrent{}
-		var expected time.Time
+		var expected string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -120583,7 +120763,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseCurrent(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseCurrent{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -121111,7 +121291,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseCurrent(t *testing.T) {
 func TestSettersCurrentWeatherResponseCurrentAirQuality(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &CurrentWeatherResponseCurrentAirQuality{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -121220,7 +121400,7 @@ func TestGettersCurrentWeatherResponseCurrentAirQuality(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseCurrentAirQuality{}
-		var expected time.Time
+		var expected string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -121522,7 +121702,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseCurrentAirQuality(t *testing.T
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseCurrentAirQuality{}
-		var fernTestValueTimestamp time.Time
+		var fernTestValueTimestamp string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -122883,7 +123063,7 @@ func TestSettersCurrentWeatherResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &CurrentWeatherResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -122891,7 +123071,7 @@ func TestSettersCurrentWeatherResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &CurrentWeatherResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -122899,7 +123079,7 @@ func TestSettersCurrentWeatherResponseLocationCity(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &CurrentWeatherResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -123053,7 +123233,7 @@ func TestGettersCurrentWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -123076,7 +123256,7 @@ func TestGettersCurrentWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -123099,7 +123279,7 @@ func TestGettersCurrentWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationCity{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -123336,7 +123516,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -123367,7 +123547,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -123398,7 +123578,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -123588,7 +123768,7 @@ func TestSettersCurrentWeatherResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &CurrentWeatherResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -123596,7 +123776,7 @@ func TestSettersCurrentWeatherResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &CurrentWeatherResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -123612,7 +123792,7 @@ func TestSettersCurrentWeatherResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &CurrentWeatherResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -123957,7 +124137,7 @@ func TestGettersCurrentWeatherResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -123980,7 +124160,7 @@ func TestGettersCurrentWeatherResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -124036,7 +124216,7 @@ func TestGettersCurrentWeatherResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationContinentCode{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -124490,7 +124670,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationContinentCode(t *testi
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -124521,7 +124701,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationContinentCode(t *testi
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -124583,7 +124763,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationContinentCode(t *testi
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -124677,7 +124857,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationContinentCode(t *testi
 func TestSettersCurrentWeatherResponseLocationZero(t *testing.T) {
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &CurrentWeatherResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -124685,7 +124865,7 @@ func TestSettersCurrentWeatherResponseLocationZero(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &CurrentWeatherResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -124725,7 +124905,7 @@ func TestSettersCurrentWeatherResponseLocationZero(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &CurrentWeatherResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -124754,7 +124934,7 @@ func TestGettersCurrentWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -124777,7 +124957,7 @@ func TestGettersCurrentWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -124902,7 +125082,7 @@ func TestGettersCurrentWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationZero{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -124984,7 +125164,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -125015,7 +125195,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -125170,7 +125350,7 @@ func TestSettersMarkExplicitCurrentWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &CurrentWeatherResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -125486,40 +125666,29 @@ func TestSettersMarkExplicitDomainAvailabilityCheckResponse(t *testing.T) {
 
 }
 
-func TestSettersDomainAvailabilitySuggestionsResponse(t *testing.T) {
-	t.Run("SetDomainAvailableResponse", func(t *testing.T) {
-		obj := &DomainAvailabilitySuggestionsResponse{}
-		var fernTestValueDomainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
-		obj.SetDomainAvailableResponse(fernTestValueDomainAvailableResponse)
-		assert.Equal(t, fernTestValueDomainAvailableResponse, obj.DomainAvailableResponse)
-		assert.NotNil(t, obj.explicitFields)
-	})
-
-}
-
 func TestGettersDomainAvailabilitySuggestionsResponse(t *testing.T) {
-	t.Run("GetDomainAvailableResponse", func(t *testing.T) {
+	t.Run("GetDomainAvailabilitySuggestionsResponseDomain", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainAvailabilitySuggestionsResponse{}
-		var expected []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
-		obj.DomainAvailableResponse = expected
+		var expected *DomainAvailabilitySuggestionsResponseDomain
+		obj.DomainAvailabilitySuggestionsResponseDomain = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetDomainAvailableResponse(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetDomainAvailabilitySuggestionsResponseDomain(), "getter should return the property value")
 	})
 
-	t.Run("GetDomainAvailableResponse_NilValue", func(t *testing.T) {
+	t.Run("GetDomainAvailabilitySuggestionsResponseDomain_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainAvailabilitySuggestionsResponse{}
-		obj.DomainAvailableResponse = nil
+		obj.DomainAvailabilitySuggestionsResponseDomain = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetDomainAvailableResponse(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetDomainAvailabilitySuggestionsResponseDomain(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetDomainAvailableResponse_NilReceiver", func(t *testing.T) {
+	t.Run("GetDomainAvailabilitySuggestionsResponseDomain_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *DomainAvailabilitySuggestionsResponse
 		// Should not panic - getters should handle nil receiver gracefully
@@ -125528,48 +125697,47 @@ func TestGettersDomainAvailabilitySuggestionsResponse(t *testing.T) {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetDomainAvailableResponse() // Should return zero value
+		_ = obj.GetDomainAvailabilitySuggestionsResponseDomain() // Should return zero value
 	})
 
-}
-
-func TestSettersMarkExplicitDomainAvailabilitySuggestionsResponse(t *testing.T) {
-	t.Run("SetDomainAvailableResponse_MarksExplicit", func(t *testing.T) {
+	t.Run("GetDomainAvailabilitySuggestionsResponseDomainAvailableResponse", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainAvailabilitySuggestionsResponse{}
-		var fernTestValueDomainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+		var expected *DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+		obj.DomainAvailabilitySuggestionsResponseDomainAvailableResponse = expected
 
-		// Act
-		obj.SetDomainAvailableResponse(fernTestValueDomainAvailableResponse)
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDomainAvailabilitySuggestionsResponseDomainAvailableResponse(), "getter should return the property value")
+	})
 
-		// Assert - object with explicitly set field can be marshaled/unmarshaled
-		bytes, err := json.Marshal(obj)
-		require.NoError(t, err, "marshaling should succeed for test setup")
+	t.Run("GetDomainAvailabilitySuggestionsResponseDomainAvailableResponse_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponse{}
+		obj.DomainAvailabilitySuggestionsResponseDomainAvailableResponse = nil
 
-		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
-		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
-		if len(bytes) > 0 && bytes[0] == '{' {
-			// JSON object - unmarshal into map
-			var unmarshaled map[string]interface{}
-			err = json.Unmarshal(bytes, &unmarshaled)
-			require.NoError(t, err, "unmarshaling should succeed for test verification")
-		} else {
-			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
-			var unmarshaled interface{}
-			err = json.Unmarshal(bytes, &unmarshaled)
-			require.NoError(t, err, "unmarshaling should succeed for test verification")
-		}
+		// Act & Assert
+		assert.Nil(t, obj.GetDomainAvailabilitySuggestionsResponseDomainAvailableResponse(), "getter should return nil when property is nil")
+	})
 
-		// Note: This does not explicitly assert the presence of a specific JSON field
-		// It verifies that setting a field via setter allows successful JSON round-trip
+	t.Run("GetDomainAvailabilitySuggestionsResponseDomainAvailableResponse_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DomainAvailabilitySuggestionsResponse
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDomainAvailabilitySuggestionsResponseDomainAvailableResponse() // Should return zero value
 	})
 
 }
 
-func TestSettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem(t *testing.T) {
+func TestSettersDomainAvailabilitySuggestionsResponseDomain(t *testing.T) {
 	t.Run("SetDomain", func(t *testing.T) {
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 		var fernTestValueDomain *string
 		obj.SetDomain(fernTestValueDomain)
 		assert.Equal(t, fernTestValueDomain, obj.Domain)
@@ -125577,28 +125745,20 @@ func TestSettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
 	})
 
 	t.Run("SetDomainAvailability", func(t *testing.T) {
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 		var fernTestValueDomainAvailability *bool
 		obj.SetDomainAvailability(fernTestValueDomainAvailability)
 		assert.Equal(t, fernTestValueDomainAvailability, obj.DomainAvailability)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetMessage", func(t *testing.T) {
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
-		var fernTestValueMessage *string
-		obj.SetMessage(fernTestValueMessage)
-		assert.Equal(t, fernTestValueMessage, obj.Message)
-		assert.NotNil(t, obj.explicitFields)
-	})
-
 }
 
-func TestGettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem(t *testing.T) {
+func TestGettersDomainAvailabilitySuggestionsResponseDomain(t *testing.T) {
 	t.Run("GetDomain", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 		var expected *string
 		obj.Domain = expected
 
@@ -125609,7 +125769,7 @@ func TestGettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
 	t.Run("GetDomain_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 		obj.Domain = nil
 
 		// Act & Assert
@@ -125618,7 +125778,7 @@ func TestGettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
 
 	t.Run("GetDomain_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+		var obj *DomainAvailabilitySuggestionsResponseDomain
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -125631,7 +125791,7 @@ func TestGettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
 	t.Run("GetDomainAvailability", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 		var expected *bool
 		obj.DomainAvailability = expected
 
@@ -125642,7 +125802,7 @@ func TestGettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
 	t.Run("GetDomainAvailability_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 		obj.DomainAvailability = nil
 
 		// Act & Assert
@@ -125651,7 +125811,7 @@ func TestGettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
 
 	t.Run("GetDomainAvailability_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+		var obj *DomainAvailabilitySuggestionsResponseDomain
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -125661,46 +125821,13 @@ func TestGettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
 		_ = obj.GetDomainAvailability() // Should return zero value
 	})
 
-	t.Run("GetMessage", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
-		var expected *string
-		obj.Message = expected
-
-		// Act & Assert
-		assert.Equal(t, expected, obj.GetMessage(), "getter should return the property value")
-	})
-
-	t.Run("GetMessage_NilValue", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
-		obj.Message = nil
-
-		// Act & Assert
-		assert.Nil(t, obj.GetMessage(), "getter should return nil when property is nil")
-	})
-
-	t.Run("GetMessage_NilReceiver", func(t *testing.T) {
-		t.Parallel()
-		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
-		// Should not panic - getters should handle nil receiver gracefully
-		defer func() {
-			if r := recover(); r != nil {
-				t.Errorf("Getter panicked on nil receiver: %v", r)
-			}
-		}()
-		_ = obj.GetMessage() // Should return zero value
-	})
-
 }
 
-func TestSettersMarkExplicitDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem(t *testing.T) {
+func TestSettersMarkExplicitDomainAvailabilitySuggestionsResponseDomain(t *testing.T) {
 	t.Run("SetDomain_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 		var fernTestValueDomain *string
 
 		// Act
@@ -125731,7 +125858,282 @@ func TestSettersMarkExplicitDomainAvailabilitySuggestionsResponseDomainAvailable
 	t.Run("SetDomainAvailability_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
+		var fernTestValueDomainAvailability *bool
+
+		// Act
+		obj.SetDomainAvailability(fernTestValueDomainAvailability)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersDomainAvailabilitySuggestionsResponseDomainAvailableResponse(t *testing.T) {
+	t.Run("SetDomainAvailableResponse", func(t *testing.T) {
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponse{}
+		var fernTestValueDomainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
+		obj.SetDomainAvailableResponse(fernTestValueDomainAvailableResponse)
+		assert.Equal(t, fernTestValueDomainAvailableResponse, obj.DomainAvailableResponse)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersDomainAvailabilitySuggestionsResponseDomainAvailableResponse(t *testing.T) {
+	t.Run("GetDomainAvailableResponse", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponse{}
+		var expected []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
+		obj.DomainAvailableResponse = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDomainAvailableResponse(), "getter should return the property value")
+	})
+
+	t.Run("GetDomainAvailableResponse_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponse{}
+		obj.DomainAvailableResponse = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDomainAvailableResponse(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDomainAvailableResponse_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDomainAvailableResponse() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitDomainAvailabilitySuggestionsResponseDomainAvailableResponse(t *testing.T) {
+	t.Run("SetDomainAvailableResponse_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponse{}
+		var fernTestValueDomainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
+
+		// Act
+		obj.SetDomainAvailableResponse(fernTestValueDomainAvailableResponse)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem(t *testing.T) {
+	t.Run("SetDomain", func(t *testing.T) {
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		var fernTestValueDomain *string
+		obj.SetDomain(fernTestValueDomain)
+		assert.Equal(t, fernTestValueDomain, obj.Domain)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetDomainAvailability", func(t *testing.T) {
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		var fernTestValueDomainAvailability *bool
+		obj.SetDomainAvailability(fernTestValueDomainAvailability)
+		assert.Equal(t, fernTestValueDomainAvailability, obj.DomainAvailability)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetMessage", func(t *testing.T) {
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		var fernTestValueMessage *string
+		obj.SetMessage(fernTestValueMessage)
+		assert.Equal(t, fernTestValueMessage, obj.Message)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersDomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem(t *testing.T) {
+	t.Run("GetDomain", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		var expected *string
+		obj.Domain = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDomain(), "getter should return the property value")
+	})
+
+	t.Run("GetDomain_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		obj.Domain = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDomain(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDomain_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDomain() // Should return zero value
+	})
+
+	t.Run("GetDomainAvailability", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		var expected *bool
+		obj.DomainAvailability = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDomainAvailability(), "getter should return the property value")
+	})
+
+	t.Run("GetDomainAvailability_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		obj.DomainAvailability = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDomainAvailability(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDomainAvailability_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDomainAvailability() // Should return zero value
+	})
+
+	t.Run("GetMessage", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		var expected *string
+		obj.Message = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetMessage(), "getter should return the property value")
+	})
+
+	t.Run("GetMessage_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		obj.Message = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetMessage(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetMessage_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetMessage() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitDomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem(t *testing.T) {
+	t.Run("SetDomain_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		var fernTestValueDomain *string
+
+		// Act
+		obj.SetDomain(fernTestValueDomain)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetDomainAvailability_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
 		var fernTestValueDomainAvailability *bool
 
 		// Act
@@ -125762,7 +126164,7 @@ func TestSettersMarkExplicitDomainAvailabilitySuggestionsResponseDomainAvailable
 	t.Run("SetMessage_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
 		var fernTestValueMessage *string
 
 		// Act
@@ -126092,7 +126494,7 @@ func TestSettersMarkExplicitDomainDNSHistoryResponse(t *testing.T) {
 func TestSettersDomainDNSHistoryResponseHistoricalDNSRecordsItem(t *testing.T) {
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainDNSHistoryResponseHistoricalDNSRecordsItem{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -126137,7 +126539,7 @@ func TestGettersDomainDNSHistoryResponseHistoricalDNSRecordsItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainDNSHistoryResponseHistoricalDNSRecordsItem{}
-		var expected time.Time
+		var expected string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -126275,7 +126677,7 @@ func TestSettersMarkExplicitDomainDNSHistoryResponseHistoricalDNSRecordsItem(t *
 		t.Parallel()
 		// Arrange
 		obj := &DomainDNSHistoryResponseHistoricalDNSRecordsItem{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -130327,7 +130729,7 @@ func TestSettersDomainDNSLookupResponse(t *testing.T) {
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainDNSLookupResponse{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -130395,7 +130797,7 @@ func TestGettersDomainDNSLookupResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainDNSLookupResponse{}
-		var expected time.Time
+		var expected string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -130564,7 +130966,7 @@ func TestSettersMarkExplicitDomainDNSLookupResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainDNSLookupResponse{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -134875,7 +135277,7 @@ func TestSettersMarkExplicitDomainDNSReverseResponse(t *testing.T) {
 func TestSettersDomainDNSReverseResponseReverseDNSRecordsItem(t *testing.T) {
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainDNSReverseResponseReverseDNSRecordsItem{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -134920,7 +135322,7 @@ func TestGettersDomainDNSReverseResponseReverseDNSRecordsItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainDNSReverseResponseReverseDNSRecordsItem{}
-		var expected time.Time
+		var expected string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -135058,7 +135460,7 @@ func TestSettersMarkExplicitDomainDNSReverseResponseReverseDNSRecordsItem(t *tes
 		t.Parallel()
 		// Arrange
 		obj := &DomainDNSReverseResponseReverseDNSRecordsItem{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -147256,7 +147658,7 @@ func TestSettersDomainSslChainLookupResponse(t *testing.T) {
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainSslChainLookupResponse{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -147308,7 +147710,7 @@ func TestGettersDomainSslChainLookupResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainSslChainLookupResponse{}
-		var expected time.Time
+		var expected string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -147431,7 +147833,7 @@ func TestSettersMarkExplicitDomainSslChainLookupResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainSslChainLookupResponse{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -148322,7 +148724,7 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensions(t *tes
 
 	t.Run("SetCertificatePolicies", func(t *testing.T) {
 		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensions{}
-		var fernTestValueCertificatePolicies *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var fernTestValueCertificatePolicies []*DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		obj.SetCertificatePolicies(fernTestValueCertificatePolicies)
 		assert.Equal(t, fernTestValueCertificatePolicies, obj.CertificatePolicies)
 		assert.NotNil(t, obj.explicitFields)
@@ -148546,7 +148948,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensions(t *tes
 		t.Parallel()
 		// Arrange
 		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensions{}
-		var expected *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var expected []*DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		obj.CertificatePolicies = expected
 
 		// Act & Assert
@@ -148799,7 +149201,7 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 		t.Parallel()
 		// Arrange
 		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensions{}
-		var fernTestValueCertificatePolicies *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var fernTestValueCertificatePolicies []*DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 
 		// Act
 		obj.SetCertificatePolicies(fernTestValueCertificatePolicies)
@@ -148981,9 +149383,9 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 
 }
 
-func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("SetPolicyID", func(t *testing.T) {
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		var fernTestValuePolicyID string
 		obj.SetPolicyID(fernTestValuePolicyID)
 		assert.Equal(t, fernTestValuePolicyID, obj.PolicyID)
@@ -148991,8 +149393,8 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	})
 
 	t.Run("SetPolicyQualifier", func(t *testing.T) {
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
-		var fernTestValuePolicyQualifier *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
+		var fernTestValuePolicyQualifier *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		obj.SetPolicyQualifier(fernTestValuePolicyQualifier)
 		assert.Equal(t, fernTestValuePolicyQualifier, obj.PolicyQualifier)
 		assert.NotNil(t, obj.explicitFields)
@@ -149000,11 +149402,11 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 }
 
-func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("GetPolicyID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		var expected string
 		obj.PolicyID = expected
 
@@ -149014,7 +149416,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 	t.Run("GetPolicyID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -149027,8 +149429,8 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetPolicyQualifier", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
-		var expected *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
+		var expected *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		obj.PolicyQualifier = expected
 
 		// Act & Assert
@@ -149038,7 +149440,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetPolicyQualifier_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		obj.PolicyQualifier = nil
 
 		// Act & Assert
@@ -149047,7 +149449,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 	t.Run("GetPolicyQualifier_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -149059,11 +149461,11 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 }
 
-func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("SetPolicyID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		var fernTestValuePolicyID string
 
 		// Act
@@ -149094,8 +149496,8 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 	t.Run("SetPolicyQualifier_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
-		var fernTestValuePolicyQualifier *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
+		var fernTestValuePolicyQualifier *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 
 		// Act
 		obj.SetPolicyQualifier(fernTestValuePolicyQualifier)
@@ -149124,9 +149526,9 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 
 }
 
-func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("SetOid", func(t *testing.T) {
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var fernTestValueOid *string
 		obj.SetOid(fernTestValueOid)
 		assert.Equal(t, fernTestValueOid, obj.Oid)
@@ -149134,7 +149536,7 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	})
 
 	t.Run("SetCpsURI", func(t *testing.T) {
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var fernTestValueCpsURI *string
 		obj.SetCpsURI(fernTestValueCpsURI)
 		assert.Equal(t, fernTestValueCpsURI, obj.CpsURI)
@@ -149142,8 +149544,8 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	})
 
 	t.Run("SetUserNotice", func(t *testing.T) {
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
-		var fernTestValueUserNotice *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
+		var fernTestValueUserNotice *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		obj.SetUserNotice(fernTestValueUserNotice)
 		assert.Equal(t, fernTestValueUserNotice, obj.UserNotice)
 		assert.NotNil(t, obj.explicitFields)
@@ -149151,11 +149553,11 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 }
 
-func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("GetOid", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var expected *string
 		obj.Oid = expected
 
@@ -149166,7 +149568,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetOid_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		obj.Oid = nil
 
 		// Act & Assert
@@ -149175,7 +149577,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 	t.Run("GetOid_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -149188,7 +149590,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetCpsURI", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var expected *string
 		obj.CpsURI = expected
 
@@ -149199,7 +149601,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetCpsURI_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		obj.CpsURI = nil
 
 		// Act & Assert
@@ -149208,7 +149610,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 	t.Run("GetCpsURI_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -149221,8 +149623,8 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetUserNotice", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
-		var expected *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
+		var expected *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		obj.UserNotice = expected
 
 		// Act & Assert
@@ -149232,7 +149634,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetUserNotice_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		obj.UserNotice = nil
 
 		// Act & Assert
@@ -149241,7 +149643,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 	t.Run("GetUserNotice_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -149253,11 +149655,11 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 }
 
-func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("SetOid_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var fernTestValueOid *string
 
 		// Act
@@ -149288,7 +149690,7 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 	t.Run("SetCpsURI_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var fernTestValueCpsURI *string
 
 		// Act
@@ -149319,8 +149721,8 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 	t.Run("SetUserNotice_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
-		var fernTestValueUserNotice *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
+		var fernTestValueUserNotice *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 
 		// Act
 		obj.SetUserNotice(fernTestValueUserNotice)
@@ -149349,9 +149751,9 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 
 }
 
-func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("SetExplicitText", func(t *testing.T) {
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		var fernTestValueExplicitText *string
 		obj.SetExplicitText(fernTestValueExplicitText)
 		assert.Equal(t, fernTestValueExplicitText, obj.ExplicitText)
@@ -149359,8 +149761,8 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	})
 
 	t.Run("SetNoticeRef", func(t *testing.T) {
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
-		var fernTestValueNoticeRef *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
+		var fernTestValueNoticeRef *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		obj.SetNoticeRef(fernTestValueNoticeRef)
 		assert.Equal(t, fernTestValueNoticeRef, obj.NoticeRef)
 		assert.NotNil(t, obj.explicitFields)
@@ -149368,11 +149770,11 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 }
 
-func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("GetExplicitText", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		var expected *string
 		obj.ExplicitText = expected
 
@@ -149383,7 +149785,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetExplicitText_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		obj.ExplicitText = nil
 
 		// Act & Assert
@@ -149392,7 +149794,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 	t.Run("GetExplicitText_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -149405,8 +149807,8 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetNoticeRef", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
-		var expected *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
+		var expected *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		obj.NoticeRef = expected
 
 		// Act & Assert
@@ -149416,7 +149818,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetNoticeRef_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		obj.NoticeRef = nil
 
 		// Act & Assert
@@ -149425,7 +149827,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 	t.Run("GetNoticeRef_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -149437,11 +149839,11 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 }
 
-func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("SetExplicitText_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		var fernTestValueExplicitText *string
 
 		// Act
@@ -149472,8 +149874,8 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 	t.Run("SetNoticeRef_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
-		var fernTestValueNoticeRef *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
+		var fernTestValueNoticeRef *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 
 		// Act
 		obj.SetNoticeRef(fernTestValueNoticeRef)
@@ -149502,9 +149904,9 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 
 }
 
-func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("SetOrganization", func(t *testing.T) {
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var fernTestValueOrganization *string
 		obj.SetOrganization(fernTestValueOrganization)
 		assert.Equal(t, fernTestValueOrganization, obj.Organization)
@@ -149512,7 +149914,7 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	})
 
 	t.Run("SetNoticeNumbers", func(t *testing.T) {
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var fernTestValueNoticeNumbers *string
 		obj.SetNoticeNumbers(fernTestValueNoticeNumbers)
 		assert.Equal(t, fernTestValueNoticeNumbers, obj.NoticeNumbers)
@@ -149521,11 +149923,11 @@ func TestSettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 }
 
-func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("GetOrganization", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var expected *string
 		obj.Organization = expected
 
@@ -149536,7 +149938,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetOrganization_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		obj.Organization = nil
 
 		// Act & Assert
@@ -149545,7 +149947,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -149558,7 +149960,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetNoticeNumbers", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var expected *string
 		obj.NoticeNumbers = expected
 
@@ -149569,7 +149971,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 	t.Run("GetNoticeNumbers_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		obj.NoticeNumbers = nil
 
 		// Act & Assert
@@ -149578,7 +149980,7 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 	t.Run("GetNoticeNumbers_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -149590,11 +149992,11 @@ func TestGettersDomainSslChainLookupResponseSslCertificatesItemExtensionsCertifi
 
 }
 
-func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var fernTestValueOrganization *string
 
 		// Act
@@ -149625,7 +150027,7 @@ func TestSettersMarkExplicitDomainSslChainLookupResponseSslCertificatesItemExten
 	t.Run("SetNoticeNumbers_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var fernTestValueNoticeNumbers *string
 
 		// Act
@@ -151884,7 +152286,7 @@ func TestSettersDomainSslLookupResponse(t *testing.T) {
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainSslLookupResponse{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -151936,7 +152338,7 @@ func TestGettersDomainSslLookupResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainSslLookupResponse{}
-		var expected time.Time
+		var expected string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -152059,7 +152461,7 @@ func TestSettersMarkExplicitDomainSslLookupResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainSslLookupResponse{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -152950,7 +153352,7 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensions(t *testing.
 
 	t.Run("SetCertificatePolicies", func(t *testing.T) {
 		obj := &DomainSslLookupResponseSslCertificatesItemExtensions{}
-		var fernTestValueCertificatePolicies *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var fernTestValueCertificatePolicies []*DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		obj.SetCertificatePolicies(fernTestValueCertificatePolicies)
 		assert.Equal(t, fernTestValueCertificatePolicies, obj.CertificatePolicies)
 		assert.NotNil(t, obj.explicitFields)
@@ -153174,7 +153576,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensions(t *testing.
 		t.Parallel()
 		// Arrange
 		obj := &DomainSslLookupResponseSslCertificatesItemExtensions{}
-		var expected *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var expected []*DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		obj.CertificatePolicies = expected
 
 		// Act & Assert
@@ -153427,7 +153829,7 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 		t.Parallel()
 		// Arrange
 		obj := &DomainSslLookupResponseSslCertificatesItemExtensions{}
-		var fernTestValueCertificatePolicies *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var fernTestValueCertificatePolicies []*DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 
 		// Act
 		obj.SetCertificatePolicies(fernTestValueCertificatePolicies)
@@ -153609,9 +154011,9 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 
 }
 
-func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("SetPolicyID", func(t *testing.T) {
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		var fernTestValuePolicyID string
 		obj.SetPolicyID(fernTestValuePolicyID)
 		assert.Equal(t, fernTestValuePolicyID, obj.PolicyID)
@@ -153619,8 +154021,8 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	})
 
 	t.Run("SetPolicyQualifier", func(t *testing.T) {
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
-		var fernTestValuePolicyQualifier *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
+		var fernTestValuePolicyQualifier *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		obj.SetPolicyQualifier(fernTestValuePolicyQualifier)
 		assert.Equal(t, fernTestValuePolicyQualifier, obj.PolicyQualifier)
 		assert.NotNil(t, obj.explicitFields)
@@ -153628,11 +154030,11 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 }
 
-func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("GetPolicyID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		var expected string
 		obj.PolicyID = expected
 
@@ -153642,7 +154044,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 	t.Run("GetPolicyID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -153655,8 +154057,8 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetPolicyQualifier", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
-		var expected *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
+		var expected *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		obj.PolicyQualifier = expected
 
 		// Act & Assert
@@ -153666,7 +154068,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetPolicyQualifier_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		obj.PolicyQualifier = nil
 
 		// Act & Assert
@@ -153675,7 +154077,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 	t.Run("GetPolicyQualifier_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -153687,11 +154089,11 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 }
 
-func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("SetPolicyID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		var fernTestValuePolicyID string
 
 		// Act
@@ -153722,8 +154124,8 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 	t.Run("SetPolicyQualifier_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
-		var fernTestValuePolicyQualifier *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
+		var fernTestValuePolicyQualifier *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 
 		// Act
 		obj.SetPolicyQualifier(fernTestValuePolicyQualifier)
@@ -153752,9 +154154,9 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 
 }
 
-func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("SetOid", func(t *testing.T) {
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var fernTestValueOid *string
 		obj.SetOid(fernTestValueOid)
 		assert.Equal(t, fernTestValueOid, obj.Oid)
@@ -153762,7 +154164,7 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	})
 
 	t.Run("SetCpsURI", func(t *testing.T) {
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var fernTestValueCpsURI *string
 		obj.SetCpsURI(fernTestValueCpsURI)
 		assert.Equal(t, fernTestValueCpsURI, obj.CpsURI)
@@ -153770,8 +154172,8 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	})
 
 	t.Run("SetUserNotice", func(t *testing.T) {
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
-		var fernTestValueUserNotice *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
+		var fernTestValueUserNotice *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		obj.SetUserNotice(fernTestValueUserNotice)
 		assert.Equal(t, fernTestValueUserNotice, obj.UserNotice)
 		assert.NotNil(t, obj.explicitFields)
@@ -153779,11 +154181,11 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 }
 
-func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("GetOid", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var expected *string
 		obj.Oid = expected
 
@@ -153794,7 +154196,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetOid_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		obj.Oid = nil
 
 		// Act & Assert
@@ -153803,7 +154205,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 	t.Run("GetOid_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -153816,7 +154218,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetCpsURI", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var expected *string
 		obj.CpsURI = expected
 
@@ -153827,7 +154229,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetCpsURI_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		obj.CpsURI = nil
 
 		// Act & Assert
@@ -153836,7 +154238,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 	t.Run("GetCpsURI_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -153849,8 +154251,8 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetUserNotice", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
-		var expected *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
+		var expected *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		obj.UserNotice = expected
 
 		// Act & Assert
@@ -153860,7 +154262,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetUserNotice_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		obj.UserNotice = nil
 
 		// Act & Assert
@@ -153869,7 +154271,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 	t.Run("GetUserNotice_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -153881,11 +154283,11 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 }
 
-func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("SetOid_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var fernTestValueOid *string
 
 		// Act
@@ -153916,7 +154318,7 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 	t.Run("SetCpsURI_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		var fernTestValueCpsURI *string
 
 		// Act
@@ -153947,8 +154349,8 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 	t.Run("SetUserNotice_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
-		var fernTestValueUserNotice *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
+		var fernTestValueUserNotice *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 
 		// Act
 		obj.SetUserNotice(fernTestValueUserNotice)
@@ -153977,9 +154379,9 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 
 }
 
-func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("SetExplicitText", func(t *testing.T) {
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		var fernTestValueExplicitText *string
 		obj.SetExplicitText(fernTestValueExplicitText)
 		assert.Equal(t, fernTestValueExplicitText, obj.ExplicitText)
@@ -153987,8 +154389,8 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	})
 
 	t.Run("SetNoticeRef", func(t *testing.T) {
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
-		var fernTestValueNoticeRef *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
+		var fernTestValueNoticeRef *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		obj.SetNoticeRef(fernTestValueNoticeRef)
 		assert.Equal(t, fernTestValueNoticeRef, obj.NoticeRef)
 		assert.NotNil(t, obj.explicitFields)
@@ -153996,11 +154398,11 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 }
 
-func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("GetExplicitText", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		var expected *string
 		obj.ExplicitText = expected
 
@@ -154011,7 +154413,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetExplicitText_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		obj.ExplicitText = nil
 
 		// Act & Assert
@@ -154020,7 +154422,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 	t.Run("GetExplicitText_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -154033,8 +154435,8 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetNoticeRef", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
-		var expected *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
+		var expected *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		obj.NoticeRef = expected
 
 		// Act & Assert
@@ -154044,7 +154446,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetNoticeRef_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		obj.NoticeRef = nil
 
 		// Act & Assert
@@ -154053,7 +154455,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 	t.Run("GetNoticeRef_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -154065,11 +154467,11 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 }
 
-func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("SetExplicitText_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		var fernTestValueExplicitText *string
 
 		// Act
@@ -154100,8 +154502,8 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 	t.Run("SetNoticeRef_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
-		var fernTestValueNoticeRef *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
+		var fernTestValueNoticeRef *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 
 		// Act
 		obj.SetNoticeRef(fernTestValueNoticeRef)
@@ -154130,9 +154532,9 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 
 }
 
-func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("SetOrganization", func(t *testing.T) {
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var fernTestValueOrganization *string
 		obj.SetOrganization(fernTestValueOrganization)
 		assert.Equal(t, fernTestValueOrganization, obj.Organization)
@@ -154140,7 +154542,7 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	})
 
 	t.Run("SetNoticeNumbers", func(t *testing.T) {
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var fernTestValueNoticeNumbers *string
 		obj.SetNoticeNumbers(fernTestValueNoticeNumbers)
 		assert.Equal(t, fernTestValueNoticeNumbers, obj.NoticeNumbers)
@@ -154149,11 +154551,11 @@ func TestSettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 }
 
-func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("GetOrganization", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var expected *string
 		obj.Organization = expected
 
@@ -154164,7 +154566,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetOrganization_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		obj.Organization = nil
 
 		// Act & Assert
@@ -154173,7 +154575,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -154186,7 +154588,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetNoticeNumbers", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var expected *string
 		obj.NoticeNumbers = expected
 
@@ -154197,7 +154599,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 	t.Run("GetNoticeNumbers_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		obj.NoticeNumbers = nil
 
 		// Act & Assert
@@ -154206,7 +154608,7 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 	t.Run("GetNoticeNumbers_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -154218,11 +154620,11 @@ func TestGettersDomainSslLookupResponseSslCertificatesItemExtensionsCertificateP
 
 }
 
-func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var fernTestValueOrganization *string
 
 		// Act
@@ -154253,7 +154655,7 @@ func TestSettersMarkExplicitDomainSslLookupResponseSslCertificatesItemExtensions
 	t.Run("SetNoticeNumbers_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		var fernTestValueNoticeNumbers *string
 
 		// Act
@@ -157607,7 +158009,7 @@ func TestSettersDomainWhoisHistoryResponseWhoisDomainsHistoricalItem(t *testing.
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainWhoisHistoryResponseWhoisDomainsHistoricalItem{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -157809,7 +158211,7 @@ func TestGettersDomainWhoisHistoryResponseWhoisDomainsHistoricalItem(t *testing.
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisHistoryResponseWhoisDomainsHistoricalItem{}
-		var expected time.Time
+		var expected string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -158403,7 +158805,7 @@ func TestSettersMarkExplicitDomainWhoisHistoryResponseWhoisDomainsHistoricalItem
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisHistoryResponseWhoisDomainsHistoricalItem{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -161968,7 +162370,7 @@ func TestSettersDomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -162086,7 +162488,7 @@ func TestGettersDomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData{}
-		var expected *time.Time
+		var expected *string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -162450,7 +162852,7 @@ func TestSettersMarkExplicitDomainWhoisHistoryResponseWhoisDomainsHistoricalItem
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -164964,7 +165366,7 @@ func TestSettersDomainWhoisLookupResponse(t *testing.T) {
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainWhoisLookupResponse{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -165163,7 +165565,7 @@ func TestGettersDomainWhoisLookupResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisLookupResponse{}
-		var expected *time.Time
+		var expected *string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -165756,7 +166158,7 @@ func TestSettersMarkExplicitDomainWhoisLookupResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisLookupResponse{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -169321,7 +169723,7 @@ func TestSettersDomainWhoisLookupResponseRegistryData(t *testing.T) {
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainWhoisLookupResponseRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -169439,7 +169841,7 @@ func TestGettersDomainWhoisLookupResponseRegistryData(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisLookupResponseRegistryData{}
-		var expected *time.Time
+		var expected *string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -169803,7 +170205,7 @@ func TestSettersMarkExplicitDomainWhoisLookupResponseRegistryData(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisLookupResponseRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -172325,7 +172727,7 @@ func TestSettersDomainWhoisLookupV2Response(t *testing.T) {
 
 	t.Run("SetWhoisServer", func(t *testing.T) {
 		obj := &DomainWhoisLookupV2Response{}
-		var fernTestValueWhoisServer string
+		var fernTestValueWhoisServer *string
 		obj.SetWhoisServer(fernTestValueWhoisServer)
 		assert.Equal(t, fernTestValueWhoisServer, obj.WhoisServer)
 		assert.NotNil(t, obj.explicitFields)
@@ -172551,11 +172953,21 @@ func TestGettersDomainWhoisLookupV2Response(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisLookupV2Response{}
-		var expected string
+		var expected *string
 		obj.WhoisServer = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetWhoisServer(), "getter should return the property value")
+	})
+
+	t.Run("GetWhoisServer_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainWhoisLookupV2Response{}
+		obj.WhoisServer = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetWhoisServer(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetWhoisServer_NilReceiver", func(t *testing.T) {
@@ -173254,7 +173666,7 @@ func TestSettersMarkExplicitDomainWhoisLookupV2Response(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisLookupV2Response{}
-		var fernTestValueWhoisServer string
+		var fernTestValueWhoisServer *string
 
 		// Act
 		obj.SetWhoisServer(fernTestValueWhoisServer)
@@ -178226,7 +178638,7 @@ func TestSettersDomainWhoisLookupV2ResponseRegistryData(t *testing.T) {
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainWhoisLookupV2ResponseRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -178344,7 +178756,7 @@ func TestGettersDomainWhoisLookupV2ResponseRegistryData(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisLookupV2ResponseRegistryData{}
-		var expected *time.Time
+		var expected *string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -178708,7 +179120,7 @@ func TestSettersMarkExplicitDomainWhoisLookupV2ResponseRegistryData(t *testing.T
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisLookupV2ResponseRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -182388,7 +182800,7 @@ func TestSettersDomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrati
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -182590,7 +183002,7 @@ func TestGettersDomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrati
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact{}
-		var expected time.Time
+		var expected string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -183184,7 +183596,7 @@ func TestSettersMarkExplicitDomainWhoisReverseResponseWhoisDomainsHistoricalItem
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact{}
-		var fernTestValueQueryTime time.Time
+		var fernTestValueQueryTime string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -186749,7 +187161,7 @@ func TestSettersDomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrati
 
 	t.Run("SetQueryTime", func(t *testing.T) {
 		obj := &DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 		obj.SetQueryTime(fernTestValueQueryTime)
 		assert.Equal(t, fernTestValueQueryTime, obj.QueryTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -186867,7 +187279,7 @@ func TestGettersDomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrati
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData{}
-		var expected *time.Time
+		var expected *string
 		obj.QueryTime = expected
 
 		// Act & Assert
@@ -187231,7 +187643,7 @@ func TestSettersMarkExplicitDomainWhoisReverseResponseWhoisDomainsHistoricalItem
 		t.Parallel()
 		// Arrange
 		obj := &DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData{}
-		var fernTestValueQueryTime *time.Time
+		var fernTestValueQueryTime *string
 
 		// Act
 		obj.SetQueryTime(fernTestValueQueryTime)
@@ -193827,7 +194239,7 @@ func TestSettersMarkExplicitFloodForecastResponseForecastValue(t *testing.T) {
 func TestSettersFloodForecastResponseForecastValueDaily(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &FloodForecastResponseForecastValueDaily{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -193896,7 +194308,7 @@ func TestGettersFloodForecastResponseForecastValueDaily(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseForecastValueDaily{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -194163,7 +194575,7 @@ func TestSettersMarkExplicitFloodForecastResponseForecastValueDaily(t *testing.T
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseForecastValueDaily{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -194554,7 +194966,7 @@ func TestSettersFloodForecastResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &FloodForecastResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -194562,7 +194974,7 @@ func TestSettersFloodForecastResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &FloodForecastResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -194570,7 +194982,7 @@ func TestSettersFloodForecastResponseLocationCity(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &FloodForecastResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -194724,7 +195136,7 @@ func TestGettersFloodForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -194747,7 +195159,7 @@ func TestGettersFloodForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -194770,7 +195182,7 @@ func TestGettersFloodForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationCity{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -195007,7 +195419,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -195038,7 +195450,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -195069,7 +195481,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -195259,7 +195671,7 @@ func TestSettersFloodForecastResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &FloodForecastResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -195267,7 +195679,7 @@ func TestSettersFloodForecastResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &FloodForecastResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -195283,7 +195695,7 @@ func TestSettersFloodForecastResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &FloodForecastResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -195628,7 +196040,7 @@ func TestGettersFloodForecastResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -195651,7 +196063,7 @@ func TestGettersFloodForecastResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -195707,7 +196119,7 @@ func TestGettersFloodForecastResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationContinentCode{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -196161,7 +196573,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationContinentCode(t *testin
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -196192,7 +196604,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationContinentCode(t *testin
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -196254,7 +196666,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationContinentCode(t *testin
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -196348,7 +196760,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationContinentCode(t *testin
 func TestSettersFloodForecastResponseLocationZero(t *testing.T) {
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &FloodForecastResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -196356,7 +196768,7 @@ func TestSettersFloodForecastResponseLocationZero(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &FloodForecastResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -196396,7 +196808,7 @@ func TestSettersFloodForecastResponseLocationZero(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &FloodForecastResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -196425,7 +196837,7 @@ func TestGettersFloodForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -196448,7 +196860,7 @@ func TestGettersFloodForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -196573,7 +196985,7 @@ func TestGettersFloodForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationZero{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -196655,7 +197067,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -196686,7 +197098,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -196841,7 +197253,7 @@ func TestSettersMarkExplicitFloodForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FloodForecastResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -223366,7 +223778,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseHistoricalAstronomy(t *test
 func TestSettersHistoricalWeatherResponseHistoricalDaily(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseHistoricalDaily{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -223603,7 +224015,7 @@ func TestGettersHistoricalWeatherResponseHistoricalDaily(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseHistoricalDaily{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -224563,7 +224975,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseHistoricalDaily(t *testing.
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseHistoricalDaily{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -225463,7 +225875,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseHistoricalDaily(t *testing.
 func TestSettersHistoricalWeatherResponseHistoricalHourlyItem(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseHistoricalHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -225644,7 +226056,7 @@ func TestGettersHistoricalWeatherResponseHistoricalHourlyItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseHistoricalHourlyItem{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -226373,7 +226785,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseHistoricalHourlyItem(t *tes
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseHistoricalHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -227198,7 +227610,7 @@ func TestSettersHistoricalWeatherResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -227206,7 +227618,7 @@ func TestSettersHistoricalWeatherResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -227214,7 +227626,7 @@ func TestSettersHistoricalWeatherResponseLocationCity(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -227368,7 +227780,7 @@ func TestGettersHistoricalWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -227391,7 +227803,7 @@ func TestGettersHistoricalWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -227414,7 +227826,7 @@ func TestGettersHistoricalWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationCity{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -227651,7 +228063,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationCity(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -227682,7 +228094,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationCity(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -227713,7 +228125,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationCity(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -227903,7 +228315,7 @@ func TestSettersHistoricalWeatherResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -227911,7 +228323,7 @@ func TestSettersHistoricalWeatherResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -227927,7 +228339,7 @@ func TestSettersHistoricalWeatherResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -228272,7 +228684,7 @@ func TestGettersHistoricalWeatherResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -228295,7 +228707,7 @@ func TestGettersHistoricalWeatherResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -228351,7 +228763,7 @@ func TestGettersHistoricalWeatherResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationContinentCode{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -228805,7 +229217,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationContinentCode(t *te
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -228836,7 +229248,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationContinentCode(t *te
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -228898,7 +229310,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationContinentCode(t *te
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -228992,7 +229404,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationContinentCode(t *te
 func TestSettersHistoricalWeatherResponseLocationZero(t *testing.T) {
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -229000,7 +229412,7 @@ func TestSettersHistoricalWeatherResponseLocationZero(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -229040,7 +229452,7 @@ func TestSettersHistoricalWeatherResponseLocationZero(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &HistoricalWeatherResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -229069,7 +229481,7 @@ func TestGettersHistoricalWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -229092,7 +229504,7 @@ func TestGettersHistoricalWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -229217,7 +229629,7 @@ func TestGettersHistoricalWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationZero{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -229299,7 +229711,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationZero(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -229330,7 +229742,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationZero(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -229485,7 +229897,7 @@ func TestSettersMarkExplicitHistoricalWeatherResponseLocationZero(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &HistoricalWeatherResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -241062,7 +241474,7 @@ func TestSettersMarkExplicitMarineWeatherResponse(t *testing.T) {
 func TestSettersMarineWeatherResponseCurrent(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &MarineWeatherResponseCurrent{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -241179,7 +241591,7 @@ func TestGettersMarineWeatherResponseCurrent(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseCurrent{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -241644,7 +242056,7 @@ func TestSettersMarkExplicitMarineWeatherResponseCurrent(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseCurrent{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -242304,7 +242716,7 @@ func TestSettersMarkExplicitMarineWeatherResponseForecastValue(t *testing.T) {
 func TestSettersMarineWeatherResponseForecastValueDaily(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &MarineWeatherResponseForecastValueDaily{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -242405,7 +242817,7 @@ func TestGettersMarineWeatherResponseForecastValueDaily(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseForecastValueDaily{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -242804,7 +243216,7 @@ func TestSettersMarkExplicitMarineWeatherResponseForecastValueDaily(t *testing.T
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseForecastValueDaily{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -243177,7 +243589,7 @@ func TestSettersMarkExplicitMarineWeatherResponseForecastValueDaily(t *testing.T
 func TestSettersMarineWeatherResponseForecastValueHourlyItem(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &MarineWeatherResponseForecastValueHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -243310,7 +243722,7 @@ func TestGettersMarineWeatherResponseForecastValueHourlyItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseForecastValueHourlyItem{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -243841,7 +244253,7 @@ func TestSettersMarkExplicitMarineWeatherResponseForecastValueHourlyItem(t *test
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseForecastValueHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -244338,7 +244750,7 @@ func TestSettersMarkExplicitMarineWeatherResponseForecastValueHourlyItem(t *test
 func TestSettersMarineWeatherResponseForecastValueMinutelyItem(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &MarineWeatherResponseForecastValueMinutelyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -244375,7 +244787,7 @@ func TestGettersMarineWeatherResponseForecastValueMinutelyItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseForecastValueMinutelyItem{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -244510,7 +244922,7 @@ func TestSettersMarkExplicitMarineWeatherResponseForecastValueMinutelyItem(t *te
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseForecastValueMinutelyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -244777,7 +245189,7 @@ func TestSettersMarineWeatherResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &MarineWeatherResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -244785,7 +245197,7 @@ func TestSettersMarineWeatherResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &MarineWeatherResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -244793,7 +245205,7 @@ func TestSettersMarineWeatherResponseLocationCity(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &MarineWeatherResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -244947,7 +245359,7 @@ func TestGettersMarineWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -244970,7 +245382,7 @@ func TestGettersMarineWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -244993,7 +245405,7 @@ func TestGettersMarineWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationCity{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -245230,7 +245642,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -245261,7 +245673,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -245292,7 +245704,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -245482,7 +245894,7 @@ func TestSettersMarineWeatherResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &MarineWeatherResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -245490,7 +245902,7 @@ func TestSettersMarineWeatherResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &MarineWeatherResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -245506,7 +245918,7 @@ func TestSettersMarineWeatherResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &MarineWeatherResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -245851,7 +246263,7 @@ func TestGettersMarineWeatherResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -245874,7 +246286,7 @@ func TestGettersMarineWeatherResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -245930,7 +246342,7 @@ func TestGettersMarineWeatherResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationContinentCode{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -246384,7 +246796,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationContinentCode(t *testin
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -246415,7 +246827,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationContinentCode(t *testin
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -246477,7 +246889,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationContinentCode(t *testin
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -246571,7 +246983,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationContinentCode(t *testin
 func TestSettersMarineWeatherResponseLocationZero(t *testing.T) {
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &MarineWeatherResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -246579,7 +246991,7 @@ func TestSettersMarineWeatherResponseLocationZero(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &MarineWeatherResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -246619,7 +247031,7 @@ func TestSettersMarineWeatherResponseLocationZero(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &MarineWeatherResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -246648,7 +247060,7 @@ func TestGettersMarineWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -246671,7 +247083,7 @@ func TestGettersMarineWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -246796,7 +247208,7 @@ func TestGettersMarineWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationZero{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -246878,7 +247290,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -246909,7 +247321,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -247064,7 +247476,7 @@ func TestSettersMarkExplicitMarineWeatherResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &MarineWeatherResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -259324,7 +259736,7 @@ func TestSettersMarkExplicitSwiftCodeLookupResponse(t *testing.T) {
 func TestSettersTimezoneConvertResponse(t *testing.T) {
 	t.Run("SetOriginalTime", func(t *testing.T) {
 		obj := &TimezoneConvertResponse{}
-		var fernTestValueOriginalTime time.Time
+		var fernTestValueOriginalTime string
 		obj.SetOriginalTime(fernTestValueOriginalTime)
 		assert.Equal(t, fernTestValueOriginalTime, obj.OriginalTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -259332,7 +259744,7 @@ func TestSettersTimezoneConvertResponse(t *testing.T) {
 
 	t.Run("SetConvertedTime", func(t *testing.T) {
 		obj := &TimezoneConvertResponse{}
-		var fernTestValueConvertedTime time.Time
+		var fernTestValueConvertedTime string
 		obj.SetConvertedTime(fernTestValueConvertedTime)
 		assert.Equal(t, fernTestValueConvertedTime, obj.ConvertedTime)
 		assert.NotNil(t, obj.explicitFields)
@@ -259361,7 +259773,7 @@ func TestGettersTimezoneConvertResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneConvertResponse{}
-		var expected time.Time
+		var expected string
 		obj.OriginalTime = expected
 
 		// Act & Assert
@@ -259384,7 +259796,7 @@ func TestGettersTimezoneConvertResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneConvertResponse{}
-		var expected time.Time
+		var expected string
 		obj.ConvertedTime = expected
 
 		// Act & Assert
@@ -259456,7 +259868,7 @@ func TestSettersMarkExplicitTimezoneConvertResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneConvertResponse{}
-		var fernTestValueOriginalTime time.Time
+		var fernTestValueOriginalTime string
 
 		// Act
 		obj.SetOriginalTime(fernTestValueOriginalTime)
@@ -259487,7 +259899,7 @@ func TestSettersMarkExplicitTimezoneConvertResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneConvertResponse{}
-		var fernTestValueConvertedTime time.Time
+		var fernTestValueConvertedTime string
 
 		// Act
 		obj.SetConvertedTime(fernTestValueConvertedTime)
@@ -265153,7 +265565,7 @@ func TestSettersTimezoneLookupV2ResponseAirportDetails(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &TimezoneLookupV2ResponseAirportDetails{}
-		var fernTestValueLatitude *float64
+		var fernTestValueLatitude *string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -265161,7 +265573,7 @@ func TestSettersTimezoneLookupV2ResponseAirportDetails(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &TimezoneLookupV2ResponseAirportDetails{}
-		var fernTestValueLongitude *float64
+		var fernTestValueLongitude *string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -265304,7 +265716,7 @@ func TestGettersTimezoneLookupV2ResponseAirportDetails(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneLookupV2ResponseAirportDetails{}
-		var expected *float64
+		var expected *string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -265337,7 +265749,7 @@ func TestGettersTimezoneLookupV2ResponseAirportDetails(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneLookupV2ResponseAirportDetails{}
-		var expected *float64
+		var expected *string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -265699,7 +266111,7 @@ func TestSettersMarkExplicitTimezoneLookupV2ResponseAirportDetails(t *testing.T)
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneLookupV2ResponseAirportDetails{}
-		var fernTestValueLatitude *float64
+		var fernTestValueLatitude *string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -265730,7 +266142,7 @@ func TestSettersMarkExplicitTimezoneLookupV2ResponseAirportDetails(t *testing.T)
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneLookupV2ResponseAirportDetails{}
-		var fernTestValueLongitude *float64
+		var fernTestValueLongitude *string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -266058,7 +266470,7 @@ func TestSettersTimezoneLookupV2ResponseLoCodeDetails(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &TimezoneLookupV2ResponseLoCodeDetails{}
-		var fernTestValueLatitude *float64
+		var fernTestValueLatitude *string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -266066,7 +266478,7 @@ func TestSettersTimezoneLookupV2ResponseLoCodeDetails(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &TimezoneLookupV2ResponseLoCodeDetails{}
-		var fernTestValueLongitude *float64
+		var fernTestValueLongitude *string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -266277,7 +266689,7 @@ func TestGettersTimezoneLookupV2ResponseLoCodeDetails(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneLookupV2ResponseLoCodeDetails{}
-		var expected *float64
+		var expected *string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -266310,7 +266722,7 @@ func TestGettersTimezoneLookupV2ResponseLoCodeDetails(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneLookupV2ResponseLoCodeDetails{}
-		var expected *float64
+		var expected *string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -266532,7 +266944,7 @@ func TestSettersMarkExplicitTimezoneLookupV2ResponseLoCodeDetails(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneLookupV2ResponseLoCodeDetails{}
-		var fernTestValueLatitude *float64
+		var fernTestValueLatitude *string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -266563,7 +266975,7 @@ func TestSettersMarkExplicitTimezoneLookupV2ResponseLoCodeDetails(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &TimezoneLookupV2ResponseLoCodeDetails{}
-		var fernTestValueLongitude *float64
+		var fernTestValueLongitude *string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -276584,7 +276996,7 @@ func TestSettersMarkExplicitWeatherForecastResponseForecastValueAstronomy(t *tes
 func TestSettersWeatherForecastResponseForecastValueDaily(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &WeatherForecastResponseForecastValueDaily{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -276861,7 +277273,7 @@ func TestGettersWeatherForecastResponseForecastValueDaily(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseForecastValueDaily{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -277986,7 +278398,7 @@ func TestSettersMarkExplicitWeatherForecastResponseForecastValueDaily(t *testing
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseForecastValueDaily{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -279041,7 +279453,7 @@ func TestSettersMarkExplicitWeatherForecastResponseForecastValueDaily(t *testing
 func TestSettersWeatherForecastResponseForecastValueHourlyItem(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &WeatherForecastResponseForecastValueHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -279254,7 +279666,7 @@ func TestGettersWeatherForecastResponseForecastValueHourlyItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseForecastValueHourlyItem{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -280115,7 +280527,7 @@ func TestSettersMarkExplicitWeatherForecastResponseForecastValueHourlyItem(t *te
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseForecastValueHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -280922,7 +281334,7 @@ func TestSettersMarkExplicitWeatherForecastResponseForecastValueHourlyItem(t *te
 func TestSettersWeatherForecastResponseForecastValueMinutelyItem(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &WeatherForecastResponseForecastValueMinutelyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -281071,7 +281483,7 @@ func TestGettersWeatherForecastResponseForecastValueMinutelyItem(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseForecastValueMinutelyItem{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -281668,7 +282080,7 @@ func TestSettersMarkExplicitWeatherForecastResponseForecastValueMinutelyItem(t *
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseForecastValueMinutelyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -282369,7 +282781,7 @@ func TestSettersWeatherForecastResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &WeatherForecastResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -282377,7 +282789,7 @@ func TestSettersWeatherForecastResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &WeatherForecastResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -282385,7 +282797,7 @@ func TestSettersWeatherForecastResponseLocationCity(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &WeatherForecastResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -282539,7 +282951,7 @@ func TestGettersWeatherForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -282562,7 +282974,7 @@ func TestGettersWeatherForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -282585,7 +282997,7 @@ func TestGettersWeatherForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationCity{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -282822,7 +283234,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -282853,7 +283265,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -282884,7 +283296,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -283074,7 +283486,7 @@ func TestSettersWeatherForecastResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &WeatherForecastResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -283082,7 +283494,7 @@ func TestSettersWeatherForecastResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &WeatherForecastResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -283098,7 +283510,7 @@ func TestSettersWeatherForecastResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &WeatherForecastResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -283443,7 +283855,7 @@ func TestGettersWeatherForecastResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -283466,7 +283878,7 @@ func TestGettersWeatherForecastResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -283522,7 +283934,7 @@ func TestGettersWeatherForecastResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationContinentCode{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -283976,7 +284388,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationContinentCode(t *test
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -284007,7 +284419,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationContinentCode(t *test
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -284069,7 +284481,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationContinentCode(t *test
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -284163,7 +284575,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationContinentCode(t *test
 func TestSettersWeatherForecastResponseLocationZero(t *testing.T) {
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &WeatherForecastResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -284171,7 +284583,7 @@ func TestSettersWeatherForecastResponseLocationZero(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &WeatherForecastResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -284211,7 +284623,7 @@ func TestSettersWeatherForecastResponseLocationZero(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &WeatherForecastResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -284240,7 +284652,7 @@ func TestGettersWeatherForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -284263,7 +284675,7 @@ func TestGettersWeatherForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -284388,7 +284800,7 @@ func TestGettersWeatherForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationZero{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -284470,7 +284882,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -284501,7 +284913,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -284656,7 +285068,7 @@ func TestSettersMarkExplicitWeatherForecastResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherForecastResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -288040,7 +288452,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseHistoricalValueDaily(t *tes
 func TestSettersWeatherTimeSeriesResponseHistoricalValueHourlyItem(t *testing.T) {
 	t.Run("SetTimestamp", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseHistoricalValueHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 		obj.SetTimestamp(fernTestValueTimestamp)
 		assert.Equal(t, fernTestValueTimestamp, obj.Timestamp)
 		assert.NotNil(t, obj.explicitFields)
@@ -288221,7 +288633,7 @@ func TestGettersWeatherTimeSeriesResponseHistoricalValueHourlyItem(t *testing.T)
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseHistoricalValueHourlyItem{}
-		var expected *time.Time
+		var expected *string
 		obj.Timestamp = expected
 
 		// Act & Assert
@@ -288950,7 +289362,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseHistoricalValueHourlyItem(t
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseHistoricalValueHourlyItem{}
-		var fernTestValueTimestamp *time.Time
+		var fernTestValueTimestamp *string
 
 		// Act
 		obj.SetTimestamp(fernTestValueTimestamp)
@@ -289775,7 +290187,7 @@ func TestSettersWeatherTimeSeriesResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -289783,7 +290195,7 @@ func TestSettersWeatherTimeSeriesResponseLocationCity(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -289791,7 +290203,7 @@ func TestSettersWeatherTimeSeriesResponseLocationCity(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -289945,7 +290357,7 @@ func TestGettersWeatherTimeSeriesResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -289968,7 +290380,7 @@ func TestGettersWeatherTimeSeriesResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationCity{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -289991,7 +290403,7 @@ func TestGettersWeatherTimeSeriesResponseLocationCity(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationCity{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -290228,7 +290640,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationCity(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationCity{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -290259,7 +290671,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationCity(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationCity{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -290290,7 +290702,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationCity(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationCity{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -290480,7 +290892,7 @@ func TestSettersWeatherTimeSeriesResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -290488,7 +290900,7 @@ func TestSettersWeatherTimeSeriesResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -290504,7 +290916,7 @@ func TestSettersWeatherTimeSeriesResponseLocationContinentCode(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -290849,7 +291261,7 @@ func TestGettersWeatherTimeSeriesResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -290872,7 +291284,7 @@ func TestGettersWeatherTimeSeriesResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationContinentCode{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -290928,7 +291340,7 @@ func TestGettersWeatherTimeSeriesResponseLocationContinentCode(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationContinentCode{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -291382,7 +291794,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationContinentCode(t *te
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationContinentCode{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -291413,7 +291825,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationContinentCode(t *te
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationContinentCode{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -291475,7 +291887,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationContinentCode(t *te
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationContinentCode{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -291569,7 +291981,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationContinentCode(t *te
 func TestSettersWeatherTimeSeriesResponseLocationZero(t *testing.T) {
 	t.Run("SetLatitude", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 		obj.SetLatitude(fernTestValueLatitude)
 		assert.Equal(t, fernTestValueLatitude, obj.Latitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -291577,7 +291989,7 @@ func TestSettersWeatherTimeSeriesResponseLocationZero(t *testing.T) {
 
 	t.Run("SetLongitude", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 		obj.SetLongitude(fernTestValueLongitude)
 		assert.Equal(t, fernTestValueLongitude, obj.Longitude)
 		assert.NotNil(t, obj.explicitFields)
@@ -291617,7 +292029,7 @@ func TestSettersWeatherTimeSeriesResponseLocationZero(t *testing.T) {
 
 	t.Run("SetElevation", func(t *testing.T) {
 		obj := &WeatherTimeSeriesResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 		obj.SetElevation(fernTestValueElevation)
 		assert.Equal(t, fernTestValueElevation, obj.Elevation)
 		assert.NotNil(t, obj.explicitFields)
@@ -291646,7 +292058,7 @@ func TestGettersWeatherTimeSeriesResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Latitude = expected
 
 		// Act & Assert
@@ -291669,7 +292081,7 @@ func TestGettersWeatherTimeSeriesResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationZero{}
-		var expected float64
+		var expected string
 		obj.Longitude = expected
 
 		// Act & Assert
@@ -291794,7 +292206,7 @@ func TestGettersWeatherTimeSeriesResponseLocationZero(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationZero{}
-		var expected *float64
+		var expected *string
 		obj.Elevation = expected
 
 		// Act & Assert
@@ -291876,7 +292288,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationZero(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationZero{}
-		var fernTestValueLatitude float64
+		var fernTestValueLatitude string
 
 		// Act
 		obj.SetLatitude(fernTestValueLatitude)
@@ -291907,7 +292319,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationZero(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationZero{}
-		var fernTestValueLongitude float64
+		var fernTestValueLongitude string
 
 		// Act
 		obj.SetLongitude(fernTestValueLongitude)
@@ -292062,7 +292474,7 @@ func TestSettersMarkExplicitWeatherTimeSeriesResponseLocationZero(t *testing.T) 
 		t.Parallel()
 		// Arrange
 		obj := &WeatherTimeSeriesResponseLocationZero{}
-		var fernTestValueElevation *float64
+		var fernTestValueElevation *string
 
 		// Act
 		obj.SetElevation(fernTestValueElevation)
@@ -297393,11 +297805,11 @@ func TestSettersMarkExplicitWebScrapeResponse(t *testing.T) {
 }
 
 func TestSettersZipcodeDistanceMatchResponse(t *testing.T) {
-	t.Run("SetResultsCount", func(t *testing.T) {
+	t.Run("SetResultCount", func(t *testing.T) {
 		obj := &ZipcodeDistanceMatchResponse{}
-		var fernTestValueResultsCount *string
-		obj.SetResultsCount(fernTestValueResultsCount)
-		assert.Equal(t, fernTestValueResultsCount, obj.ResultsCount)
+		var fernTestValueResultCount *int
+		obj.SetResultCount(fernTestValueResultCount)
+		assert.Equal(t, fernTestValueResultCount, obj.ResultCount)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -297412,28 +297824,28 @@ func TestSettersZipcodeDistanceMatchResponse(t *testing.T) {
 }
 
 func TestGettersZipcodeDistanceMatchResponse(t *testing.T) {
-	t.Run("GetResultsCount", func(t *testing.T) {
+	t.Run("GetResultCount", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ZipcodeDistanceMatchResponse{}
-		var expected *string
-		obj.ResultsCount = expected
+		var expected *int
+		obj.ResultCount = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetResultsCount(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetResultCount(), "getter should return the property value")
 	})
 
-	t.Run("GetResultsCount_NilValue", func(t *testing.T) {
+	t.Run("GetResultCount_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ZipcodeDistanceMatchResponse{}
-		obj.ResultsCount = nil
+		obj.ResultCount = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetResultsCount(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetResultCount(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetResultsCount_NilReceiver", func(t *testing.T) {
+	t.Run("GetResultCount_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *ZipcodeDistanceMatchResponse
 		// Should not panic - getters should handle nil receiver gracefully
@@ -297442,7 +297854,7 @@ func TestGettersZipcodeDistanceMatchResponse(t *testing.T) {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetResultsCount() // Should return zero value
+		_ = obj.GetResultCount() // Should return zero value
 	})
 
 	t.Run("GetResults", func(t *testing.T) {
@@ -297481,14 +297893,14 @@ func TestGettersZipcodeDistanceMatchResponse(t *testing.T) {
 }
 
 func TestSettersMarkExplicitZipcodeDistanceMatchResponse(t *testing.T) {
-	t.Run("SetResultsCount_MarksExplicit", func(t *testing.T) {
+	t.Run("SetResultCount_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ZipcodeDistanceMatchResponse{}
-		var fernTestValueResultsCount *string
+		var fernTestValueResultCount *int
 
 		// Act
-		obj.SetResultsCount(fernTestValueResultsCount)
+		obj.SetResultCount(fernTestValueResultCount)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -297771,11 +298183,11 @@ func TestSettersMarkExplicitZipcodeDistanceMatchResponseResultsItem(t *testing.T
 }
 
 func TestSettersZipcodeDistanceResponse(t *testing.T) {
-	t.Run("SetResultsCount", func(t *testing.T) {
+	t.Run("SetResultCount", func(t *testing.T) {
 		obj := &ZipcodeDistanceResponse{}
-		var fernTestValueResultsCount *string
-		obj.SetResultsCount(fernTestValueResultsCount)
-		assert.Equal(t, fernTestValueResultsCount, obj.ResultsCount)
+		var fernTestValueResultCount *int
+		obj.SetResultCount(fernTestValueResultCount)
+		assert.Equal(t, fernTestValueResultCount, obj.ResultCount)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -297790,28 +298202,28 @@ func TestSettersZipcodeDistanceResponse(t *testing.T) {
 }
 
 func TestGettersZipcodeDistanceResponse(t *testing.T) {
-	t.Run("GetResultsCount", func(t *testing.T) {
+	t.Run("GetResultCount", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ZipcodeDistanceResponse{}
-		var expected *string
-		obj.ResultsCount = expected
+		var expected *int
+		obj.ResultCount = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetResultsCount(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetResultCount(), "getter should return the property value")
 	})
 
-	t.Run("GetResultsCount_NilValue", func(t *testing.T) {
+	t.Run("GetResultCount_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ZipcodeDistanceResponse{}
-		obj.ResultsCount = nil
+		obj.ResultCount = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetResultsCount(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetResultCount(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetResultsCount_NilReceiver", func(t *testing.T) {
+	t.Run("GetResultCount_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *ZipcodeDistanceResponse
 		// Should not panic - getters should handle nil receiver gracefully
@@ -297820,7 +298232,7 @@ func TestGettersZipcodeDistanceResponse(t *testing.T) {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetResultsCount() // Should return zero value
+		_ = obj.GetResultCount() // Should return zero value
 	})
 
 	t.Run("GetResults", func(t *testing.T) {
@@ -297859,14 +298271,14 @@ func TestGettersZipcodeDistanceResponse(t *testing.T) {
 }
 
 func TestSettersMarkExplicitZipcodeDistanceResponse(t *testing.T) {
-	t.Run("SetResultsCount_MarksExplicit", func(t *testing.T) {
+	t.Run("SetResultCount_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ZipcodeDistanceResponse{}
-		var fernTestValueResultsCount *string
+		var fernTestValueResultCount *int
 
 		// Act
-		obj.SetResultsCount(fernTestValueResultsCount)
+		obj.SetResultCount(fernTestValueResultCount)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -309812,11 +310224,11 @@ func TestJSONMarshalingDomainAvailabilityCheckResponse(t *testing.T) {
 	})
 }
 
-func TestJSONMarshalingDomainAvailabilitySuggestionsResponse(t *testing.T) {
+func TestJSONMarshalingDomainAvailabilitySuggestionsResponseDomain(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponse{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -309825,31 +310237,31 @@ func TestJSONMarshalingDomainAvailabilitySuggestionsResponse(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainAvailabilitySuggestionsResponse
+		var unmarshaled DomainAvailabilitySuggestionsResponseDomain
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainAvailabilitySuggestionsResponse
+		var obj DomainAvailabilitySuggestionsResponseDomain
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainAvailabilitySuggestionsResponse
+		var obj DomainAvailabilitySuggestionsResponseDomain
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem(t *testing.T) {
+func TestJSONMarshalingDomainAvailabilitySuggestionsResponseDomainAvailableResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -309858,21 +310270,54 @@ func TestJSONMarshalingDomainAvailabilitySuggestionsResponseDomainAvailableRespo
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+		var unmarshaled DomainAvailabilitySuggestionsResponseDomainAvailableResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+		var obj DomainAvailabilitySuggestionsResponseDomainAvailableResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+		var obj DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingDomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -311660,11 +312105,11 @@ func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensions
 	})
 }
 
-func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -311673,31 +312118,31 @@ func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensions
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var unmarshaled DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -311706,31 +312151,31 @@ func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensions
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var unmarshaled DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -311739,31 +312184,31 @@ func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensions
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var unmarshaled DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -311772,21 +312217,21 @@ func TestJSONMarshalingDomainSslChainLookupResponseSslCertificatesItemExtensions
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var unmarshaled DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -312056,11 +312501,11 @@ func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsAutho
 	})
 }
 
-func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -312069,31 +312514,31 @@ func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCerti
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var unmarshaled DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -312102,31 +312547,31 @@ func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCerti
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var unmarshaled DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -312135,31 +312580,31 @@ func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCerti
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var unmarshaled DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -312168,21 +312613,21 @@ func TestJSONMarshalingDomainSslLookupResponseSslCertificatesItemExtensionsCerti
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var unmarshaled DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -324719,33 +325164,49 @@ func TestStringDomainAvailabilityCheckResponse(t *testing.T) {
 	})
 }
 
-func TestStringDomainAvailabilitySuggestionsResponse(t *testing.T) {
+func TestStringDomainAvailabilitySuggestionsResponseDomain(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainAvailabilitySuggestionsResponse{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainAvailabilitySuggestionsResponse
+		var obj *DomainAvailabilitySuggestionsResponseDomain
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem(t *testing.T) {
+func TestStringDomainAvailabilitySuggestionsResponseDomainAvailableResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringDomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -325615,65 +326076,65 @@ func TestStringDomainSslChainLookupResponseSslCertificatesItemExtensionsAuthorit
 	})
 }
 
-func TestStringDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestStringDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestStringDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestStringDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestStringDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -325807,65 +326268,65 @@ func TestStringDomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfo
 	})
 }
 
-func TestStringDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestStringDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestStringDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestStringDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestStringDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -341779,10 +342240,10 @@ func TestExtraPropertiesDomainAvailabilityCheckResponse(t *testing.T) {
 	})
 }
 
-func TestExtraPropertiesDomainAvailabilitySuggestionsResponse(t *testing.T) {
+func TestExtraPropertiesDomainAvailabilitySuggestionsResponseDomain(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainAvailabilitySuggestionsResponse{}
+		obj := &DomainAvailabilitySuggestionsResponseDomain{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -341796,16 +342257,16 @@ func TestExtraPropertiesDomainAvailabilitySuggestionsResponse(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainAvailabilitySuggestionsResponse
+		var obj *DomainAvailabilitySuggestionsResponseDomain
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDomainAvailabilitySuggestionsResponseDomainAvailableResponseItem(t *testing.T) {
+func TestExtraPropertiesDomainAvailabilitySuggestionsResponseDomainAvailableResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem{}
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -341819,7 +342280,30 @@ func TestExtraPropertiesDomainAvailabilitySuggestionsResponseDomainAvailableResp
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesDomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
@@ -343067,10 +343551,10 @@ func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtension
 	})
 }
 
-func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -343084,16 +343568,16 @@ func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtension
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -343107,16 +343591,16 @@ func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtension
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -343130,16 +343614,16 @@ func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtension
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -343153,7 +343637,7 @@ func TestExtraPropertiesDomainSslChainLookupResponseSslCertificatesItemExtension
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
@@ -343343,10 +343827,10 @@ func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsAuth
 	})
 }
 
-func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies(t *testing.T) {
+func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -343360,16 +343844,16 @@ func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCert
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(t *testing.T) {
+func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -343383,16 +343867,16 @@ func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCert
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(t *testing.T) {
+func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -343406,16 +343890,16 @@ func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCert
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
+func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef{}
+		obj := &DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -343429,7 +343913,7 @@ func TestExtraPropertiesDomainSslLookupResponseSslCertificatesItemExtensionsCert
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+		var obj *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})

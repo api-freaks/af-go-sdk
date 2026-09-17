@@ -563,6 +563,7 @@ var (
 	bulkDomainDNSLookupRequestFieldFormat      = big.NewInt(1 << 1)
 	bulkDomainDNSLookupRequestFieldType        = big.NewInt(1 << 2)
 	bulkDomainDNSLookupRequestFieldDomainNames = big.NewInt(1 << 3)
+	bulkDomainDNSLookupRequestFieldIPAddresses = big.NewInt(1 << 4)
 )
 
 type BulkDomainDNSLookupRequest struct {
@@ -575,6 +576,8 @@ type BulkDomainDNSLookupRequest struct {
 	Type []*string `json:"-" url:"type,omitempty"`
 	// List of hostnames to lookup DNS records for
 	DomainNames []string `json:"domainNames" url:"-"`
+	// Array of IP addresses to include in the lookup for PTR record enrichment.
+	IPAddresses []string `json:"ipAddresses,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -613,6 +616,13 @@ func (b *BulkDomainDNSLookupRequest) SetType(type_ []*string) {
 func (b *BulkDomainDNSLookupRequest) SetDomainNames(domainNames []string) {
 	b.DomainNames = domainNames
 	b.require(bulkDomainDNSLookupRequestFieldDomainNames)
+}
+
+// SetIPAddresses sets the IPAddresses field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (b *BulkDomainDNSLookupRequest) SetIPAddresses(ipAddresses []string) {
+	b.IPAddresses = ipAddresses
+	b.require(bulkDomainDNSLookupRequestFieldIPAddresses)
 }
 
 func (b *BulkDomainDNSLookupRequest) UnmarshalJSON(data []byte) error {
@@ -1282,7 +1292,7 @@ type BulkUserAgentLookupRequest struct {
 	APIKey string `json:"-" url:"apiKey"`
 	// Format of the response
 	Format *BulkUserAgentLookupRequestFormat `json:"-" url:"format,omitempty"`
-	// List of user agent strings to parse
+	// Array of User-Agent strings to parse. Maximum 100 strings per request — exceeding that returns a 413.
 	UaStrings []string `json:"uaStrings" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -2819,6 +2829,7 @@ var (
 	domainAvailabilitySuggestionsRequestFieldDomain = big.NewInt(1 << 2)
 	domainAvailabilitySuggestionsRequestFieldSource = big.NewInt(1 << 3)
 	domainAvailabilitySuggestionsRequestFieldCount  = big.NewInt(1 << 4)
+	domainAvailabilitySuggestionsRequestFieldSug    = big.NewInt(1 << 5)
 )
 
 type DomainAvailabilitySuggestionsRequest struct {
@@ -2830,8 +2841,10 @@ type DomainAvailabilitySuggestionsRequest struct {
 	Domain string `json:"-" url:"domain"`
 	// Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
 	Source *DomainAvailabilitySuggestionsRequestSource `json:"-" url:"source,omitempty"`
-	// Number of suggestions to retrieve.
+	// Number of suggestions to retrieve. The API returns a minimum of 5 suggestions regardless of a lower value.
 	Count *int `json:"-" url:"count,omitempty"`
+	// Controls the response shape. When `false`, returns a single availability object for the queried domain only. When omitted or `true`, returns an array of suggested domains instead.
+	Sug *bool `json:"-" url:"sug,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2877,6 +2890,13 @@ func (d *DomainAvailabilitySuggestionsRequest) SetSource(source *DomainAvailabil
 func (d *DomainAvailabilitySuggestionsRequest) SetCount(count *int) {
 	d.Count = count
 	d.require(domainAvailabilitySuggestionsRequestFieldCount)
+}
+
+// SetSug sets the Sug field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DomainAvailabilitySuggestionsRequest) SetSug(sug *bool) {
+	d.Sug = sug
+	d.require(domainAvailabilitySuggestionsRequestFieldSug)
 }
 
 var (
@@ -9537,8 +9557,8 @@ var (
 )
 
 type AirQualityResponseCurrent struct {
-	// ISO 8601 formatted timestamp (iso8601).
-	Timestamp time.Time `json:"timestamp" url:"timestamp"`
+	// Local timestamp of the observation (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp string `json:"timestamp" url:"timestamp"`
 	// Consolidated European Air Quality Index representing the highest value among individual pollutant indices. Ranges: 0-20 (good), 20-40 (fair), 40-60 (moderate), 60-80 (poor), 80-100 (very poor), >100 (extremely poor).
 	EuropeanAqi int `json:"european_aqi" url:"european_aqi"`
 	// Consolidated U.S. Air Quality Index representing the highest value among individual pollutant indices. Ranges: 0-50 (good), 51-100 (moderate), 101-150 (unhealthy for sensitive groups), 151-200 (unhealthy), 201-300 (very unhealthy), 301-500 (hazardous).
@@ -9571,9 +9591,9 @@ type AirQualityResponseCurrent struct {
 	rawJSON         json.RawMessage
 }
 
-func (a *AirQualityResponseCurrent) GetTimestamp() time.Time {
+func (a *AirQualityResponseCurrent) GetTimestamp() string {
 	if a == nil {
-		return time.Time{}
+		return ""
 	}
 	return a.Timestamp
 }
@@ -9678,7 +9698,7 @@ func (a *AirQualityResponseCurrent) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseCurrent) SetTimestamp(timestamp time.Time) {
+func (a *AirQualityResponseCurrent) SetTimestamp(timestamp string) {
 	a.Timestamp = timestamp
 	a.require(airQualityResponseCurrentFieldTimestamp)
 }
@@ -9768,18 +9788,12 @@ func (a *AirQualityResponseCurrent) SetUvIndexClearSky(uvIndexClearSky float64) 
 }
 
 func (a *AirQualityResponseCurrent) UnmarshalJSON(data []byte) error {
-	type embed AirQualityResponseCurrent
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
-	}{
-		embed: embed(*a),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler AirQualityResponseCurrent
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*a = AirQualityResponseCurrent(unmarshaler.embed)
-	a.Timestamp = unmarshaler.Timestamp.Time()
+	*a = AirQualityResponseCurrent(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *a)
 	if err != nil {
 		return err
@@ -9793,10 +9807,8 @@ func (a *AirQualityResponseCurrent) MarshalJSON() ([]byte, error) {
 	type embed AirQualityResponseCurrent
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
 	}{
-		embed:     embed(*a),
-		Timestamp: internal.NewDateTime(a.Timestamp),
+		embed: embed(*a),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -9918,8 +9930,8 @@ var (
 )
 
 type AirQualityResponseForecastValueHourlyItem struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Concentration of particulate matter ≤10 micrometers (μg/m³)
 	Pm10 *float64 `json:"pm10,omitempty" url:"pm10,omitempty"`
 	// Concentration of carbon monoxide (μg/m³)
@@ -9950,7 +9962,7 @@ type AirQualityResponseForecastValueHourlyItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (a *AirQualityResponseForecastValueHourlyItem) GetTimestamp() *time.Time {
+func (a *AirQualityResponseForecastValueHourlyItem) GetTimestamp() *string {
 	if a == nil {
 		return nil
 	}
@@ -10050,7 +10062,7 @@ func (a *AirQualityResponseForecastValueHourlyItem) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseForecastValueHourlyItem) SetTimestamp(timestamp *time.Time) {
+func (a *AirQualityResponseForecastValueHourlyItem) SetTimestamp(timestamp *string) {
 	a.Timestamp = timestamp
 	a.require(airQualityResponseForecastValueHourlyItemFieldTimestamp)
 }
@@ -10133,18 +10145,12 @@ func (a *AirQualityResponseForecastValueHourlyItem) SetUvIndexClearSky(uvIndexCl
 }
 
 func (a *AirQualityResponseForecastValueHourlyItem) UnmarshalJSON(data []byte) error {
-	type embed AirQualityResponseForecastValueHourlyItem
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*a),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler AirQualityResponseForecastValueHourlyItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*a = AirQualityResponseForecastValueHourlyItem(unmarshaler.embed)
-	a.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*a = AirQualityResponseForecastValueHourlyItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *a)
 	if err != nil {
 		return err
@@ -10158,10 +10164,8 @@ func (a *AirQualityResponseForecastValueHourlyItem) MarshalJSON() ([]byte, error
 	type embed AirQualityResponseForecastValueHourlyItem
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*a),
-		Timestamp: internal.NewOptionalDateTime(a.Timestamp),
+		embed: embed(*a),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -10291,11 +10295,11 @@ type AirQualityResponseLocationCity struct {
 	// Specific locality, neighborhood, suburb, or village within the geocoded area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Elevation above mean sea level in meters at the geocoded coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
@@ -10343,21 +10347,21 @@ func (a *AirQualityResponseLocationCity) GetLocality() *string {
 	return a.Locality
 }
 
-func (a *AirQualityResponseLocationCity) GetLatitude() float64 {
+func (a *AirQualityResponseLocationCity) GetLatitude() string {
 	if a == nil {
-		return 0
+		return ""
 	}
 	return a.Latitude
 }
 
-func (a *AirQualityResponseLocationCity) GetLongitude() float64 {
+func (a *AirQualityResponseLocationCity) GetLongitude() string {
 	if a == nil {
-		return 0
+		return ""
 	}
 	return a.Longitude
 }
 
-func (a *AirQualityResponseLocationCity) GetElevation() *float64 {
+func (a *AirQualityResponseLocationCity) GetElevation() *string {
 	if a == nil {
 		return nil
 	}
@@ -10429,21 +10433,21 @@ func (a *AirQualityResponseLocationCity) SetLocality(locality *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseLocationCity) SetLatitude(latitude float64) {
+func (a *AirQualityResponseLocationCity) SetLatitude(latitude string) {
 	a.Latitude = latitude
 	a.require(airQualityResponseLocationCityFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseLocationCity) SetLongitude(longitude float64) {
+func (a *AirQualityResponseLocationCity) SetLongitude(longitude string) {
 	a.Longitude = longitude
 	a.require(airQualityResponseLocationCityFieldLongitude)
 }
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseLocationCity) SetElevation(elevation *float64) {
+func (a *AirQualityResponseLocationCity) SetElevation(elevation *string) {
 	a.Elevation = elevation
 	a.require(airQualityResponseLocationCityFieldElevation)
 }
@@ -10551,13 +10555,13 @@ type AirQualityResponseLocationContinentCode struct {
 	// Postal code or ZIP code for the approximate location of the IP address.
 	Zipcode *string `json:"zipcode,omitempty" url:"zipcode,omitempty"`
 	// Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Specific locality, neighborhood, or small area designation within the city.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Elevation above mean sea level in meters for the IP geolocation.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
@@ -10654,16 +10658,16 @@ func (a *AirQualityResponseLocationContinentCode) GetZipcode() *string {
 	return a.Zipcode
 }
 
-func (a *AirQualityResponseLocationContinentCode) GetLatitude() float64 {
+func (a *AirQualityResponseLocationContinentCode) GetLatitude() string {
 	if a == nil {
-		return 0
+		return ""
 	}
 	return a.Latitude
 }
 
-func (a *AirQualityResponseLocationContinentCode) GetLongitude() float64 {
+func (a *AirQualityResponseLocationContinentCode) GetLongitude() string {
 	if a == nil {
-		return 0
+		return ""
 	}
 	return a.Longitude
 }
@@ -10675,7 +10679,7 @@ func (a *AirQualityResponseLocationContinentCode) GetLocality() *string {
 	return a.Locality
 }
 
-func (a *AirQualityResponseLocationContinentCode) GetElevation() *float64 {
+func (a *AirQualityResponseLocationContinentCode) GetElevation() *string {
 	if a == nil {
 		return nil
 	}
@@ -10796,14 +10800,14 @@ func (a *AirQualityResponseLocationContinentCode) SetZipcode(zipcode *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseLocationContinentCode) SetLatitude(latitude float64) {
+func (a *AirQualityResponseLocationContinentCode) SetLatitude(latitude string) {
 	a.Latitude = latitude
 	a.require(airQualityResponseLocationContinentCodeFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseLocationContinentCode) SetLongitude(longitude float64) {
+func (a *AirQualityResponseLocationContinentCode) SetLongitude(longitude string) {
 	a.Longitude = longitude
 	a.require(airQualityResponseLocationContinentCodeFieldLongitude)
 }
@@ -10817,7 +10821,7 @@ func (a *AirQualityResponseLocationContinentCode) SetLocality(locality *string) 
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseLocationContinentCode) SetElevation(elevation *float64) {
+func (a *AirQualityResponseLocationContinentCode) SetElevation(elevation *string) {
 	a.Elevation = elevation
 	a.require(airQualityResponseLocationContinentCodeFieldElevation)
 }
@@ -10892,9 +10896,9 @@ var (
 
 type AirQualityResponseLocationZero struct {
 	// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Full name of the country corresponding to the provided coordinates.
 	CountryName string `json:"country_name" url:"country_name"`
 	// State, province, or primary administrative division name for the location.
@@ -10904,7 +10908,7 @@ type AirQualityResponseLocationZero struct {
 	// Specific locality, neighborhood, district, or village name within the broader area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Height above mean sea level in meters for the specified coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
@@ -10917,16 +10921,16 @@ type AirQualityResponseLocationZero struct {
 	rawJSON         json.RawMessage
 }
 
-func (a *AirQualityResponseLocationZero) GetLatitude() float64 {
+func (a *AirQualityResponseLocationZero) GetLatitude() string {
 	if a == nil {
-		return 0
+		return ""
 	}
 	return a.Latitude
 }
 
-func (a *AirQualityResponseLocationZero) GetLongitude() float64 {
+func (a *AirQualityResponseLocationZero) GetLongitude() string {
 	if a == nil {
-		return 0
+		return ""
 	}
 	return a.Longitude
 }
@@ -10959,7 +10963,7 @@ func (a *AirQualityResponseLocationZero) GetLocality() *string {
 	return a.Locality
 }
 
-func (a *AirQualityResponseLocationZero) GetElevation() *float64 {
+func (a *AirQualityResponseLocationZero) GetElevation() *string {
 	if a == nil {
 		return nil
 	}
@@ -10996,14 +11000,14 @@ func (a *AirQualityResponseLocationZero) require(field *big.Int) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseLocationZero) SetLatitude(latitude float64) {
+func (a *AirQualityResponseLocationZero) SetLatitude(latitude string) {
 	a.Latitude = latitude
 	a.require(airQualityResponseLocationZeroFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseLocationZero) SetLongitude(longitude float64) {
+func (a *AirQualityResponseLocationZero) SetLongitude(longitude string) {
 	a.Longitude = longitude
 	a.require(airQualityResponseLocationZeroFieldLongitude)
 }
@@ -11038,7 +11042,7 @@ func (a *AirQualityResponseLocationZero) SetLocality(locality *string) {
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AirQualityResponseLocationZero) SetElevation(elevation *float64) {
+func (a *AirQualityResponseLocationZero) SetElevation(elevation *string) {
 	a.Elevation = elevation
 	a.require(airQualityResponseLocationZeroFieldElevation)
 }
@@ -16877,8 +16881,8 @@ var (
 )
 
 type BulkCurrentWeatherResponseBulkItemCurrent struct {
-	// ISO 8601 formatted timestamp of the current weather observation.
-	Timestamp time.Time `json:"timestamp" url:"timestamp"`
+	// Local timestamp of the current weather observation (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp string `json:"timestamp" url:"timestamp"`
 	// Current air temperature (°C) measured at 2 meters above ground.
 	Temperature2M float64 `json:"temperature_2m" url:"temperature_2m"`
 	// Current relative humidity percentage at 2 meters above ground.
@@ -16919,9 +16923,9 @@ type BulkCurrentWeatherResponseBulkItemCurrent struct {
 	rawJSON         json.RawMessage
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemCurrent) GetTimestamp() time.Time {
+func (b *BulkCurrentWeatherResponseBulkItemCurrent) GetTimestamp() string {
 	if b == nil {
-		return time.Time{}
+		return ""
 	}
 	return b.Timestamp
 }
@@ -17054,7 +17058,7 @@ func (b *BulkCurrentWeatherResponseBulkItemCurrent) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemCurrent) SetTimestamp(timestamp time.Time) {
+func (b *BulkCurrentWeatherResponseBulkItemCurrent) SetTimestamp(timestamp string) {
 	b.Timestamp = timestamp
 	b.require(bulkCurrentWeatherResponseBulkItemCurrentFieldTimestamp)
 }
@@ -17172,18 +17176,12 @@ func (b *BulkCurrentWeatherResponseBulkItemCurrent) SetAirQuality(airQuality *Bu
 }
 
 func (b *BulkCurrentWeatherResponseBulkItemCurrent) UnmarshalJSON(data []byte) error {
-	type embed BulkCurrentWeatherResponseBulkItemCurrent
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
-	}{
-		embed: embed(*b),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler BulkCurrentWeatherResponseBulkItemCurrent
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*b = BulkCurrentWeatherResponseBulkItemCurrent(unmarshaler.embed)
-	b.Timestamp = unmarshaler.Timestamp.Time()
+	*b = BulkCurrentWeatherResponseBulkItemCurrent(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *b)
 	if err != nil {
 		return err
@@ -17197,10 +17195,8 @@ func (b *BulkCurrentWeatherResponseBulkItemCurrent) MarshalJSON() ([]byte, error
 	type embed BulkCurrentWeatherResponseBulkItemCurrent
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
 	}{
-		embed:     embed(*b),
-		Timestamp: internal.NewDateTime(b.Timestamp),
+		embed: embed(*b),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, b.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -17239,8 +17235,8 @@ var (
 )
 
 type BulkCurrentWeatherResponseBulkItemCurrentAirQuality struct {
-	// ISO 8601 formatted timestamp (iso8601).
-	Timestamp time.Time `json:"timestamp" url:"timestamp"`
+	// Local timestamp of the observation (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp string `json:"timestamp" url:"timestamp"`
 	// Consolidated European Air Quality Index representing the highest value among individual pollutant indices. Ranges: 0-20 (good), 20-40 (fair), 40-60 (moderate), 60-80 (poor), 80-100 (very poor), >100 (extremely poor).
 	EuropeanAqi int `json:"european_aqi" url:"european_aqi"`
 	// Consolidated U.S. Air Quality Index representing the highest value among individual pollutant indices. Ranges: 0-50 (good), 51-100 (moderate), 101-150 (unhealthy for sensitive groups), 151-200 (unhealthy), 201-300 (very unhealthy), 301-500 (hazardous).
@@ -17273,9 +17269,9 @@ type BulkCurrentWeatherResponseBulkItemCurrentAirQuality struct {
 	rawJSON         json.RawMessage
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemCurrentAirQuality) GetTimestamp() time.Time {
+func (b *BulkCurrentWeatherResponseBulkItemCurrentAirQuality) GetTimestamp() string {
 	if b == nil {
-		return time.Time{}
+		return ""
 	}
 	return b.Timestamp
 }
@@ -17380,7 +17376,7 @@ func (b *BulkCurrentWeatherResponseBulkItemCurrentAirQuality) require(field *big
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemCurrentAirQuality) SetTimestamp(timestamp time.Time) {
+func (b *BulkCurrentWeatherResponseBulkItemCurrentAirQuality) SetTimestamp(timestamp string) {
 	b.Timestamp = timestamp
 	b.require(bulkCurrentWeatherResponseBulkItemCurrentAirQualityFieldTimestamp)
 }
@@ -17470,18 +17466,12 @@ func (b *BulkCurrentWeatherResponseBulkItemCurrentAirQuality) SetUvIndexClearSky
 }
 
 func (b *BulkCurrentWeatherResponseBulkItemCurrentAirQuality) UnmarshalJSON(data []byte) error {
-	type embed BulkCurrentWeatherResponseBulkItemCurrentAirQuality
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
-	}{
-		embed: embed(*b),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler BulkCurrentWeatherResponseBulkItemCurrentAirQuality
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*b = BulkCurrentWeatherResponseBulkItemCurrentAirQuality(unmarshaler.embed)
-	b.Timestamp = unmarshaler.Timestamp.Time()
+	*b = BulkCurrentWeatherResponseBulkItemCurrentAirQuality(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *b)
 	if err != nil {
 		return err
@@ -17495,10 +17485,8 @@ func (b *BulkCurrentWeatherResponseBulkItemCurrentAirQuality) MarshalJSON() ([]b
 	type embed BulkCurrentWeatherResponseBulkItemCurrentAirQuality
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
 	}{
-		embed:     embed(*b),
-		Timestamp: internal.NewDateTime(b.Timestamp),
+		embed: embed(*b),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, b.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -17926,11 +17914,11 @@ type BulkCurrentWeatherResponseBulkItemLocationCity struct {
 	// Specific locality, neighborhood, suburb, or village within the geocoded area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Elevation above mean sea level in meters at the geocoded coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
@@ -17978,21 +17966,21 @@ func (b *BulkCurrentWeatherResponseBulkItemLocationCity) GetLocality() *string {
 	return b.Locality
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemLocationCity) GetLatitude() float64 {
+func (b *BulkCurrentWeatherResponseBulkItemLocationCity) GetLatitude() string {
 	if b == nil {
-		return 0
+		return ""
 	}
 	return b.Latitude
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemLocationCity) GetLongitude() float64 {
+func (b *BulkCurrentWeatherResponseBulkItemLocationCity) GetLongitude() string {
 	if b == nil {
-		return 0
+		return ""
 	}
 	return b.Longitude
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemLocationCity) GetElevation() *float64 {
+func (b *BulkCurrentWeatherResponseBulkItemLocationCity) GetElevation() *string {
 	if b == nil {
 		return nil
 	}
@@ -18064,21 +18052,21 @@ func (b *BulkCurrentWeatherResponseBulkItemLocationCity) SetLocality(locality *s
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemLocationCity) SetLatitude(latitude float64) {
+func (b *BulkCurrentWeatherResponseBulkItemLocationCity) SetLatitude(latitude string) {
 	b.Latitude = latitude
 	b.require(bulkCurrentWeatherResponseBulkItemLocationCityFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemLocationCity) SetLongitude(longitude float64) {
+func (b *BulkCurrentWeatherResponseBulkItemLocationCity) SetLongitude(longitude string) {
 	b.Longitude = longitude
 	b.require(bulkCurrentWeatherResponseBulkItemLocationCityFieldLongitude)
 }
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemLocationCity) SetElevation(elevation *float64) {
+func (b *BulkCurrentWeatherResponseBulkItemLocationCity) SetElevation(elevation *string) {
 	b.Elevation = elevation
 	b.require(bulkCurrentWeatherResponseBulkItemLocationCityFieldElevation)
 }
@@ -18186,13 +18174,13 @@ type BulkCurrentWeatherResponseBulkItemLocationContinentCode struct {
 	// Postal code or ZIP code for the approximate location of the IP address.
 	Zipcode *string `json:"zipcode,omitempty" url:"zipcode,omitempty"`
 	// Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Specific locality, neighborhood, or small area designation within the city.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Elevation above mean sea level in meters for the IP geolocation.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
@@ -18289,16 +18277,16 @@ func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) GetZipcode() *
 	return b.Zipcode
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) GetLatitude() float64 {
+func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) GetLatitude() string {
 	if b == nil {
-		return 0
+		return ""
 	}
 	return b.Latitude
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) GetLongitude() float64 {
+func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) GetLongitude() string {
 	if b == nil {
-		return 0
+		return ""
 	}
 	return b.Longitude
 }
@@ -18310,7 +18298,7 @@ func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) GetLocality() 
 	return b.Locality
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) GetElevation() *float64 {
+func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) GetElevation() *string {
 	if b == nil {
 		return nil
 	}
@@ -18431,14 +18419,14 @@ func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) SetZipcode(zip
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) SetLatitude(latitude float64) {
+func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) SetLatitude(latitude string) {
 	b.Latitude = latitude
 	b.require(bulkCurrentWeatherResponseBulkItemLocationContinentCodeFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) SetLongitude(longitude float64) {
+func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) SetLongitude(longitude string) {
 	b.Longitude = longitude
 	b.require(bulkCurrentWeatherResponseBulkItemLocationContinentCodeFieldLongitude)
 }
@@ -18452,7 +18440,7 @@ func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) SetLocality(lo
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) SetElevation(elevation *float64) {
+func (b *BulkCurrentWeatherResponseBulkItemLocationContinentCode) SetElevation(elevation *string) {
 	b.Elevation = elevation
 	b.require(bulkCurrentWeatherResponseBulkItemLocationContinentCodeFieldElevation)
 }
@@ -18527,9 +18515,9 @@ var (
 
 type BulkCurrentWeatherResponseBulkItemLocationZero struct {
 	// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Full name of the country corresponding to the provided coordinates.
 	CountryName string `json:"country_name" url:"country_name"`
 	// State, province, or primary administrative division name for the location.
@@ -18539,7 +18527,7 @@ type BulkCurrentWeatherResponseBulkItemLocationZero struct {
 	// Specific locality, neighborhood, district, or village name within the broader area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Height above mean sea level in meters for the specified coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
@@ -18552,16 +18540,16 @@ type BulkCurrentWeatherResponseBulkItemLocationZero struct {
 	rawJSON         json.RawMessage
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemLocationZero) GetLatitude() float64 {
+func (b *BulkCurrentWeatherResponseBulkItemLocationZero) GetLatitude() string {
 	if b == nil {
-		return 0
+		return ""
 	}
 	return b.Latitude
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemLocationZero) GetLongitude() float64 {
+func (b *BulkCurrentWeatherResponseBulkItemLocationZero) GetLongitude() string {
 	if b == nil {
-		return 0
+		return ""
 	}
 	return b.Longitude
 }
@@ -18594,7 +18582,7 @@ func (b *BulkCurrentWeatherResponseBulkItemLocationZero) GetLocality() *string {
 	return b.Locality
 }
 
-func (b *BulkCurrentWeatherResponseBulkItemLocationZero) GetElevation() *float64 {
+func (b *BulkCurrentWeatherResponseBulkItemLocationZero) GetElevation() *string {
 	if b == nil {
 		return nil
 	}
@@ -18631,14 +18619,14 @@ func (b *BulkCurrentWeatherResponseBulkItemLocationZero) require(field *big.Int)
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemLocationZero) SetLatitude(latitude float64) {
+func (b *BulkCurrentWeatherResponseBulkItemLocationZero) SetLatitude(latitude string) {
 	b.Latitude = latitude
 	b.require(bulkCurrentWeatherResponseBulkItemLocationZeroFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemLocationZero) SetLongitude(longitude float64) {
+func (b *BulkCurrentWeatherResponseBulkItemLocationZero) SetLongitude(longitude string) {
 	b.Longitude = longitude
 	b.require(bulkCurrentWeatherResponseBulkItemLocationZeroFieldLongitude)
 }
@@ -18673,7 +18661,7 @@ func (b *BulkCurrentWeatherResponseBulkItemLocationZero) SetLocality(locality *s
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkCurrentWeatherResponseBulkItemLocationZero) SetElevation(elevation *float64) {
+func (b *BulkCurrentWeatherResponseBulkItemLocationZero) SetElevation(elevation *string) {
 	b.Elevation = elevation
 	b.require(bulkCurrentWeatherResponseBulkItemLocationZeroFieldElevation)
 }
@@ -19089,20 +19077,23 @@ var (
 	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldQueryTime        = big.NewInt(1 << 1)
 	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDomainName       = big.NewInt(1 << 2)
 	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDomainRegistered = big.NewInt(1 << 3)
-	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDNSTypes         = big.NewInt(1 << 4)
-	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDNSRecords       = big.NewInt(1 << 5)
+	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldIPAddress        = big.NewInt(1 << 4)
+	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDNSTypes         = big.NewInt(1 << 5)
+	bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDNSRecords       = big.NewInt(1 << 6)
 )
 
 type BulkDomainDNSLookupResponseBulkDNSInfoItem struct {
 	// Indicates whether the query was processed successfully.
 	Status bool `json:"status" url:"status"`
-	// Time at which the query was made (Format:YYYY-MM-DD HH:mm:ss).
-	QueryTime time.Time `json:"queryTime" url:"queryTime"`
-	// Queried domain.
-	DomainName string `json:"domainName" url:"domainName"`
-	// Indicates whether the domain is registered.
-	DomainRegistered bool                                                `json:"domainRegistered" url:"domainRegistered"`
-	DNSTypes         *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes `json:"dnsTypes" url:"dnsTypes"`
+	// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime string `json:"queryTime" url:"queryTime"`
+	// Queried domain. Absent when this result is for a queried IP address instead (see `ipAddress`).
+	DomainName *string `json:"domainName,omitempty" url:"domainName,omitempty"`
+	// Indicates whether the domain is registered. Absent when this result is for a queried IP address instead.
+	DomainRegistered *bool `json:"domainRegistered,omitempty" url:"domainRegistered,omitempty"`
+	// Queried IP address, present when this result is for reverse DNS (PTR) enrichment instead of a domain name.
+	IPAddress *string                                             `json:"ipAddress,omitempty" url:"ipAddress,omitempty"`
+	DNSTypes  *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes `json:"dnsTypes" url:"dnsTypes"`
 	// List of DNS records, each based on its type.
 	DNSRecords []*BulkDomainDNSLookupResponseBulkDNSInfoItemDNSRecordsItem `json:"dnsRecords" url:"dnsRecords"`
 
@@ -19120,25 +19111,32 @@ func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetStatus() bool {
 	return b.Status
 }
 
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetQueryTime() time.Time {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetQueryTime() string {
 	if b == nil {
-		return time.Time{}
+		return ""
 	}
 	return b.QueryTime
 }
 
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetDomainName() string {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetDomainName() *string {
 	if b == nil {
-		return ""
+		return nil
 	}
 	return b.DomainName
 }
 
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetDomainRegistered() bool {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetDomainRegistered() *bool {
 	if b == nil {
-		return false
+		return nil
 	}
 	return b.DomainRegistered
+}
+
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetIPAddress() *string {
+	if b == nil {
+		return nil
+	}
+	return b.IPAddress
 }
 
 func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) GetDNSTypes() *BulkDomainDNSLookupResponseBulkDNSInfoItemDNSTypes {
@@ -19178,23 +19176,30 @@ func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetStatus(status bool) {
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetQueryTime(queryTime time.Time) {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetQueryTime(queryTime string) {
 	b.QueryTime = queryTime
 	b.require(bulkDomainDNSLookupResponseBulkDNSInfoItemFieldQueryTime)
 }
 
 // SetDomainName sets the DomainName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetDomainName(domainName string) {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetDomainName(domainName *string) {
 	b.DomainName = domainName
 	b.require(bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDomainName)
 }
 
 // SetDomainRegistered sets the DomainRegistered field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetDomainRegistered(domainRegistered bool) {
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetDomainRegistered(domainRegistered *bool) {
 	b.DomainRegistered = domainRegistered
 	b.require(bulkDomainDNSLookupResponseBulkDNSInfoItemFieldDomainRegistered)
+}
+
+// SetIPAddress sets the IPAddress field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetIPAddress(ipAddress *string) {
+	b.IPAddress = ipAddress
+	b.require(bulkDomainDNSLookupResponseBulkDNSInfoItemFieldIPAddress)
 }
 
 // SetDNSTypes sets the DNSTypes field and marks it as non-optional;
@@ -19212,18 +19217,12 @@ func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) SetDNSRecords(dnsRecords []
 }
 
 func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) UnmarshalJSON(data []byte) error {
-	type embed BulkDomainDNSLookupResponseBulkDNSInfoItem
-	var unmarshaler = struct {
-		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
-	}{
-		embed: embed(*b),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler BulkDomainDNSLookupResponseBulkDNSInfoItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*b = BulkDomainDNSLookupResponseBulkDNSInfoItem(unmarshaler.embed)
-	b.QueryTime = unmarshaler.QueryTime.Time()
+	*b = BulkDomainDNSLookupResponseBulkDNSInfoItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *b)
 	if err != nil {
 		return err
@@ -19237,10 +19236,8 @@ func (b *BulkDomainDNSLookupResponseBulkDNSInfoItem) MarshalJSON() ([]byte, erro
 	type embed BulkDomainDNSLookupResponseBulkDNSInfoItem
 	var marshaler = struct {
 		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
 	}{
-		embed:     embed(*b),
-		QueryTime: internal.NewDateTime(b.QueryTime),
+		embed: embed(*b),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, b.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -21046,9 +21043,10 @@ var (
 )
 
 type BulkDomainWhoisLookupResponseBulkWhoisResponseItem struct {
-	Status                *bool                                                                    `json:"status,omitempty" url:"status,omitempty"`
-	DomainName            *string                                                                  `json:"domain_name,omitempty" url:"domain_name,omitempty"`
-	QueryTime             *time.Time                                                               `json:"query_time,omitempty" url:"query_time,omitempty"`
+	Status     *bool   `json:"status,omitempty" url:"status,omitempty"`
+	DomainName *string `json:"domain_name,omitempty" url:"domain_name,omitempty"`
+	// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime             *string                                                                  `json:"query_time,omitempty" url:"query_time,omitempty"`
 	WhoisServer           *string                                                                  `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	DomainRegistered      *BulkDomainWhoisLookupResponseBulkWhoisResponseItemDomainRegistered      `json:"domain_registered,omitempty" url:"domain_registered,omitempty"`
 	CreateDate            *time.Time                                                               `json:"create_date,omitempty" url:"create_date,omitempty" format:"date"`
@@ -21086,7 +21084,7 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItem) GetDomainName() *st
 	return b.DomainName
 }
 
-func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItem) GetQueryTime() *time.Time {
+func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItem) GetQueryTime() *string {
 	if b == nil {
 		return nil
 	}
@@ -21228,7 +21226,7 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItem) SetDomainName(domai
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItem) SetQueryTime(queryTime *time.Time) {
+func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItem) SetQueryTime(queryTime *string) {
 	b.QueryTime = queryTime
 	b.require(bulkDomainWhoisLookupResponseBulkWhoisResponseItemFieldQueryTime)
 }
@@ -21342,10 +21340,9 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItem) UnmarshalJSON(data 
 	type embed BulkDomainWhoisLookupResponseBulkWhoisResponseItem
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*b),
 	}
@@ -21353,7 +21350,6 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItem) UnmarshalJSON(data 
 		return err
 	}
 	*b = BulkDomainWhoisLookupResponseBulkWhoisResponseItem(unmarshaler.embed)
-	b.QueryTime = unmarshaler.QueryTime.TimePtr()
 	b.CreateDate = unmarshaler.CreateDate.TimePtr()
 	b.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	b.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -21370,13 +21366,11 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItem) MarshalJSON() ([]by
 	type embed BulkDomainWhoisLookupResponseBulkWhoisResponseItem
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*b),
-		QueryTime:  internal.NewOptionalDateTime(b.QueryTime),
 		CreateDate: internal.NewOptionalDate(b.CreateDate),
 		UpdateDate: internal.NewOptionalDate(b.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(b.ExpiryDate),
@@ -22384,8 +22378,9 @@ var (
 )
 
 type BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData struct {
-	DomainName       *string                                                                         `json:"domain_name,omitempty" url:"domain_name,omitempty"`
-	QueryTime        *time.Time                                                                      `json:"query_time,omitempty" url:"query_time,omitempty"`
+	DomainName *string `json:"domain_name,omitempty" url:"domain_name,omitempty"`
+	// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime        *string                                                                         `json:"query_time,omitempty" url:"query_time,omitempty"`
 	WhoisServer      *string                                                                         `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	DomainRegistered *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryDataDomainRegistered `json:"domain_registered,omitempty" url:"domain_registered,omitempty"`
 	CreateDate       *time.Time                                                                      `json:"create_date,omitempty" url:"create_date,omitempty" format:"date"`
@@ -22410,7 +22405,7 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData) GetDoma
 	return b.DomainName
 }
 
-func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData) GetQueryTime() *time.Time {
+func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData) GetQueryTime() *string {
 	if b == nil {
 		return nil
 	}
@@ -22503,7 +22498,7 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData) SetDoma
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData) SetQueryTime(queryTime *time.Time) {
+func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData) SetQueryTime(queryTime *string) {
 	b.QueryTime = queryTime
 	b.require(bulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryDataFieldQueryTime)
 }
@@ -22575,10 +22570,9 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData) Unmarsh
 	type embed BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*b),
 	}
@@ -22586,7 +22580,6 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData) Unmarsh
 		return err
 	}
 	*b = BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData(unmarshaler.embed)
-	b.QueryTime = unmarshaler.QueryTime.TimePtr()
 	b.CreateDate = unmarshaler.CreateDate.TimePtr()
 	b.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	b.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -22603,13 +22596,11 @@ func (b *BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData) Marshal
 	type embed BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*b),
-		QueryTime:  internal.NewOptionalDateTime(b.QueryTime),
 		CreateDate: internal.NewOptionalDate(b.CreateDate),
 		UpdateDate: internal.NewOptionalDate(b.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(b.ExpiryDate),
@@ -23548,7 +23539,7 @@ type BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact struct {
 	// Timestamp when the WHOIS query was executed.
 	QueryTime string `json:"query_time" url:"query_time"`
 	// WHOIS or RDAP server that provided this record.
-	WhoisServer string `json:"whois_server" url:"whois_server"`
+	WhoisServer *string `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	// Domain registration status; 'restricted' means the registry withholds registration details.
 	DomainRegistered BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactDomainRegistered `json:"domain_registered" url:"domain_registered"`
 	// Indicates if DNSSEC or secure DNS is enabled for the domain.
@@ -23614,9 +23605,9 @@ func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact) GetQu
 	return b.QueryTime
 }
 
-func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact) GetWhoisServer() string {
+func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact) GetWhoisServer() *string {
 	if b == nil {
-		return ""
+		return nil
 	}
 	return b.WhoisServer
 }
@@ -23784,7 +23775,7 @@ func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact) SetQu
 
 // SetWhoisServer sets the WhoisServer field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact) SetWhoisServer(whoisServer string) {
+func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact) SetWhoisServer(whoisServer *string) {
 	b.WhoisServer = whoisServer
 	b.require(bulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactFieldWhoisServer)
 }
@@ -25451,8 +25442,8 @@ var (
 type BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData struct {
 	// Domain name as recorded by the registry.
 	DomainName *string `json:"domain_name,omitempty" url:"domain_name,omitempty"`
-	// Timestamp when the registry-level record was queried.
-	QueryTime *time.Time `json:"query_time,omitempty" url:"query_time,omitempty"`
+	// Timestamp when the registry-level record was queried (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime *string `json:"query_time,omitempty" url:"query_time,omitempty"`
 	// Registry WHOIS server that returned this data.
 	WhoisServer *string `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	// Domain registration status as recorded by the registry.
@@ -25486,7 +25477,7 @@ func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistr
 	return b.DomainName
 }
 
-func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData) GetQueryTime() *time.Time {
+func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData) GetQueryTime() *string {
 	if b == nil {
 		return nil
 	}
@@ -25579,7 +25570,7 @@ func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistr
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData) SetQueryTime(queryTime *time.Time) {
+func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData) SetQueryTime(queryTime *string) {
 	b.QueryTime = queryTime
 	b.require(bulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryDataFieldQueryTime)
 }
@@ -25651,10 +25642,9 @@ func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistr
 	type embed BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*b),
 	}
@@ -25662,7 +25652,6 @@ func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistr
 		return err
 	}
 	*b = BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData(unmarshaler.embed)
-	b.QueryTime = unmarshaler.QueryTime.TimePtr()
 	b.CreateDate = unmarshaler.CreateDate.TimePtr()
 	b.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	b.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -25679,13 +25668,11 @@ func (b *BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistr
 	type embed BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactRegistryData
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*b),
-		QueryTime:  internal.NewOptionalDateTime(b.QueryTime),
 		CreateDate: internal.NewOptionalDate(b.CreateDate),
 		UpdateDate: internal.NewOptionalDate(b.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(b.ExpiryDate),
@@ -36752,8 +36739,8 @@ type BulkScreenshotCaptureResponseResultsItemURL struct {
 	OmitBackground        *bool            `json:"omit_background,omitempty" url:"omit_background,omitempty"`
 	DestroyScreenshot     *bool            `json:"destroy_screenshot,omitempty" url:"destroy_screenshot,omitempty"`
 	FailOnError           *bool            `json:"fail_on_error,omitempty" url:"fail_on_error,omitempty"`
-	Longitude             *float64         `json:"longitude,omitempty" url:"longitude,omitempty"`
-	Latitude              *float64         `json:"latitude,omitempty" url:"latitude,omitempty"`
+	Longitude             *string          `json:"longitude,omitempty" url:"longitude,omitempty"`
+	Latitude              *string          `json:"latitude,omitempty" url:"latitude,omitempty"`
 	Proxy                 *string          `json:"proxy,omitempty" url:"proxy,omitempty"`
 	NoCookieBanners       *bool            `json:"no_cookie_banners,omitempty" url:"no_cookie_banners,omitempty"`
 	BlockAds              *bool            `json:"block_ads,omitempty" url:"block_ads,omitempty"`
@@ -36891,14 +36878,14 @@ func (b *BulkScreenshotCaptureResponseResultsItemURL) GetFailOnError() *bool {
 	return b.FailOnError
 }
 
-func (b *BulkScreenshotCaptureResponseResultsItemURL) GetLongitude() *float64 {
+func (b *BulkScreenshotCaptureResponseResultsItemURL) GetLongitude() *string {
 	if b == nil {
 		return nil
 	}
 	return b.Longitude
 }
 
-func (b *BulkScreenshotCaptureResponseResultsItemURL) GetLatitude() *float64 {
+func (b *BulkScreenshotCaptureResponseResultsItemURL) GetLatitude() *string {
 	if b == nil {
 		return nil
 	}
@@ -37397,14 +37384,14 @@ func (b *BulkScreenshotCaptureResponseResultsItemURL) SetFailOnError(failOnError
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkScreenshotCaptureResponseResultsItemURL) SetLongitude(longitude *float64) {
+func (b *BulkScreenshotCaptureResponseResultsItemURL) SetLongitude(longitude *string) {
 	b.Longitude = longitude
 	b.require(bulkScreenshotCaptureResponseResultsItemURLFieldLongitude)
 }
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (b *BulkScreenshotCaptureResponseResultsItemURL) SetLatitude(latitude *float64) {
+func (b *BulkScreenshotCaptureResponseResultsItemURL) SetLatitude(latitude *string) {
 	b.Latitude = latitude
 	b.require(bulkScreenshotCaptureResponseResultsItemURLFieldLatitude)
 }
@@ -45548,8 +45535,8 @@ var (
 )
 
 type CurrentWeatherResponseCurrent struct {
-	// ISO 8601 formatted timestamp of the current weather observation.
-	Timestamp time.Time `json:"timestamp" url:"timestamp"`
+	// Local timestamp of the current weather observation (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp string `json:"timestamp" url:"timestamp"`
 	// Current air temperature (°C) measured at 2 meters above ground.
 	Temperature2M float64 `json:"temperature_2m" url:"temperature_2m"`
 	// Current relative humidity percentage at 2 meters above ground.
@@ -45590,9 +45577,9 @@ type CurrentWeatherResponseCurrent struct {
 	rawJSON         json.RawMessage
 }
 
-func (c *CurrentWeatherResponseCurrent) GetTimestamp() time.Time {
+func (c *CurrentWeatherResponseCurrent) GetTimestamp() string {
 	if c == nil {
-		return time.Time{}
+		return ""
 	}
 	return c.Timestamp
 }
@@ -45725,7 +45712,7 @@ func (c *CurrentWeatherResponseCurrent) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseCurrent) SetTimestamp(timestamp time.Time) {
+func (c *CurrentWeatherResponseCurrent) SetTimestamp(timestamp string) {
 	c.Timestamp = timestamp
 	c.require(currentWeatherResponseCurrentFieldTimestamp)
 }
@@ -45843,18 +45830,12 @@ func (c *CurrentWeatherResponseCurrent) SetAirQuality(airQuality *CurrentWeather
 }
 
 func (c *CurrentWeatherResponseCurrent) UnmarshalJSON(data []byte) error {
-	type embed CurrentWeatherResponseCurrent
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
-	}{
-		embed: embed(*c),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler CurrentWeatherResponseCurrent
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*c = CurrentWeatherResponseCurrent(unmarshaler.embed)
-	c.Timestamp = unmarshaler.Timestamp.Time()
+	*c = CurrentWeatherResponseCurrent(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *c)
 	if err != nil {
 		return err
@@ -45868,10 +45849,8 @@ func (c *CurrentWeatherResponseCurrent) MarshalJSON() ([]byte, error) {
 	type embed CurrentWeatherResponseCurrent
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
 	}{
-		embed:     embed(*c),
-		Timestamp: internal.NewDateTime(c.Timestamp),
+		embed: embed(*c),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -45910,8 +45889,8 @@ var (
 )
 
 type CurrentWeatherResponseCurrentAirQuality struct {
-	// ISO 8601 formatted timestamp (iso8601).
-	Timestamp time.Time `json:"timestamp" url:"timestamp"`
+	// Local timestamp of the observation (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp string `json:"timestamp" url:"timestamp"`
 	// Consolidated European Air Quality Index representing the highest value among individual pollutant indices. Ranges: 0-20 (good), 20-40 (fair), 40-60 (moderate), 60-80 (poor), 80-100 (very poor), >100 (extremely poor).
 	EuropeanAqi int `json:"european_aqi" url:"european_aqi"`
 	// Consolidated U.S. Air Quality Index representing the highest value among individual pollutant indices. Ranges: 0-50 (good), 51-100 (moderate), 101-150 (unhealthy for sensitive groups), 151-200 (unhealthy), 201-300 (very unhealthy), 301-500 (hazardous).
@@ -45944,9 +45923,9 @@ type CurrentWeatherResponseCurrentAirQuality struct {
 	rawJSON         json.RawMessage
 }
 
-func (c *CurrentWeatherResponseCurrentAirQuality) GetTimestamp() time.Time {
+func (c *CurrentWeatherResponseCurrentAirQuality) GetTimestamp() string {
 	if c == nil {
-		return time.Time{}
+		return ""
 	}
 	return c.Timestamp
 }
@@ -46051,7 +46030,7 @@ func (c *CurrentWeatherResponseCurrentAirQuality) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseCurrentAirQuality) SetTimestamp(timestamp time.Time) {
+func (c *CurrentWeatherResponseCurrentAirQuality) SetTimestamp(timestamp string) {
 	c.Timestamp = timestamp
 	c.require(currentWeatherResponseCurrentAirQualityFieldTimestamp)
 }
@@ -46141,18 +46120,12 @@ func (c *CurrentWeatherResponseCurrentAirQuality) SetUvIndexClearSky(uvIndexClea
 }
 
 func (c *CurrentWeatherResponseCurrentAirQuality) UnmarshalJSON(data []byte) error {
-	type embed CurrentWeatherResponseCurrentAirQuality
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
-	}{
-		embed: embed(*c),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler CurrentWeatherResponseCurrentAirQuality
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*c = CurrentWeatherResponseCurrentAirQuality(unmarshaler.embed)
-	c.Timestamp = unmarshaler.Timestamp.Time()
+	*c = CurrentWeatherResponseCurrentAirQuality(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *c)
 	if err != nil {
 		return err
@@ -46166,10 +46139,8 @@ func (c *CurrentWeatherResponseCurrentAirQuality) MarshalJSON() ([]byte, error) 
 	type embed CurrentWeatherResponseCurrentAirQuality
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp"`
 	}{
-		embed:     embed(*c),
-		Timestamp: internal.NewDateTime(c.Timestamp),
+		embed: embed(*c),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -46597,11 +46568,11 @@ type CurrentWeatherResponseLocationCity struct {
 	// Specific locality, neighborhood, suburb, or village within the geocoded area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Elevation above mean sea level in meters at the geocoded coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
@@ -46649,21 +46620,21 @@ func (c *CurrentWeatherResponseLocationCity) GetLocality() *string {
 	return c.Locality
 }
 
-func (c *CurrentWeatherResponseLocationCity) GetLatitude() float64 {
+func (c *CurrentWeatherResponseLocationCity) GetLatitude() string {
 	if c == nil {
-		return 0
+		return ""
 	}
 	return c.Latitude
 }
 
-func (c *CurrentWeatherResponseLocationCity) GetLongitude() float64 {
+func (c *CurrentWeatherResponseLocationCity) GetLongitude() string {
 	if c == nil {
-		return 0
+		return ""
 	}
 	return c.Longitude
 }
 
-func (c *CurrentWeatherResponseLocationCity) GetElevation() *float64 {
+func (c *CurrentWeatherResponseLocationCity) GetElevation() *string {
 	if c == nil {
 		return nil
 	}
@@ -46735,21 +46706,21 @@ func (c *CurrentWeatherResponseLocationCity) SetLocality(locality *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseLocationCity) SetLatitude(latitude float64) {
+func (c *CurrentWeatherResponseLocationCity) SetLatitude(latitude string) {
 	c.Latitude = latitude
 	c.require(currentWeatherResponseLocationCityFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseLocationCity) SetLongitude(longitude float64) {
+func (c *CurrentWeatherResponseLocationCity) SetLongitude(longitude string) {
 	c.Longitude = longitude
 	c.require(currentWeatherResponseLocationCityFieldLongitude)
 }
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseLocationCity) SetElevation(elevation *float64) {
+func (c *CurrentWeatherResponseLocationCity) SetElevation(elevation *string) {
 	c.Elevation = elevation
 	c.require(currentWeatherResponseLocationCityFieldElevation)
 }
@@ -46857,13 +46828,13 @@ type CurrentWeatherResponseLocationContinentCode struct {
 	// Postal code or ZIP code for the approximate location of the IP address.
 	Zipcode *string `json:"zipcode,omitempty" url:"zipcode,omitempty"`
 	// Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Specific locality, neighborhood, or small area designation within the city.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Elevation above mean sea level in meters for the IP geolocation.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
@@ -46960,16 +46931,16 @@ func (c *CurrentWeatherResponseLocationContinentCode) GetZipcode() *string {
 	return c.Zipcode
 }
 
-func (c *CurrentWeatherResponseLocationContinentCode) GetLatitude() float64 {
+func (c *CurrentWeatherResponseLocationContinentCode) GetLatitude() string {
 	if c == nil {
-		return 0
+		return ""
 	}
 	return c.Latitude
 }
 
-func (c *CurrentWeatherResponseLocationContinentCode) GetLongitude() float64 {
+func (c *CurrentWeatherResponseLocationContinentCode) GetLongitude() string {
 	if c == nil {
-		return 0
+		return ""
 	}
 	return c.Longitude
 }
@@ -46981,7 +46952,7 @@ func (c *CurrentWeatherResponseLocationContinentCode) GetLocality() *string {
 	return c.Locality
 }
 
-func (c *CurrentWeatherResponseLocationContinentCode) GetElevation() *float64 {
+func (c *CurrentWeatherResponseLocationContinentCode) GetElevation() *string {
 	if c == nil {
 		return nil
 	}
@@ -47102,14 +47073,14 @@ func (c *CurrentWeatherResponseLocationContinentCode) SetZipcode(zipcode *string
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseLocationContinentCode) SetLatitude(latitude float64) {
+func (c *CurrentWeatherResponseLocationContinentCode) SetLatitude(latitude string) {
 	c.Latitude = latitude
 	c.require(currentWeatherResponseLocationContinentCodeFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseLocationContinentCode) SetLongitude(longitude float64) {
+func (c *CurrentWeatherResponseLocationContinentCode) SetLongitude(longitude string) {
 	c.Longitude = longitude
 	c.require(currentWeatherResponseLocationContinentCodeFieldLongitude)
 }
@@ -47123,7 +47094,7 @@ func (c *CurrentWeatherResponseLocationContinentCode) SetLocality(locality *stri
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseLocationContinentCode) SetElevation(elevation *float64) {
+func (c *CurrentWeatherResponseLocationContinentCode) SetElevation(elevation *string) {
 	c.Elevation = elevation
 	c.require(currentWeatherResponseLocationContinentCodeFieldElevation)
 }
@@ -47198,9 +47169,9 @@ var (
 
 type CurrentWeatherResponseLocationZero struct {
 	// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Full name of the country corresponding to the provided coordinates.
 	CountryName string `json:"country_name" url:"country_name"`
 	// State, province, or primary administrative division name for the location.
@@ -47210,7 +47181,7 @@ type CurrentWeatherResponseLocationZero struct {
 	// Specific locality, neighborhood, district, or village name within the broader area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Height above mean sea level in meters for the specified coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
@@ -47223,16 +47194,16 @@ type CurrentWeatherResponseLocationZero struct {
 	rawJSON         json.RawMessage
 }
 
-func (c *CurrentWeatherResponseLocationZero) GetLatitude() float64 {
+func (c *CurrentWeatherResponseLocationZero) GetLatitude() string {
 	if c == nil {
-		return 0
+		return ""
 	}
 	return c.Latitude
 }
 
-func (c *CurrentWeatherResponseLocationZero) GetLongitude() float64 {
+func (c *CurrentWeatherResponseLocationZero) GetLongitude() string {
 	if c == nil {
-		return 0
+		return ""
 	}
 	return c.Longitude
 }
@@ -47265,7 +47236,7 @@ func (c *CurrentWeatherResponseLocationZero) GetLocality() *string {
 	return c.Locality
 }
 
-func (c *CurrentWeatherResponseLocationZero) GetElevation() *float64 {
+func (c *CurrentWeatherResponseLocationZero) GetElevation() *string {
 	if c == nil {
 		return nil
 	}
@@ -47302,14 +47273,14 @@ func (c *CurrentWeatherResponseLocationZero) require(field *big.Int) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseLocationZero) SetLatitude(latitude float64) {
+func (c *CurrentWeatherResponseLocationZero) SetLatitude(latitude string) {
 	c.Latitude = latitude
 	c.require(currentWeatherResponseLocationZeroFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseLocationZero) SetLongitude(longitude float64) {
+func (c *CurrentWeatherResponseLocationZero) SetLongitude(longitude string) {
 	c.Longitude = longitude
 	c.require(currentWeatherResponseLocationZeroFieldLongitude)
 }
@@ -47344,7 +47315,7 @@ func (c *CurrentWeatherResponseLocationZero) SetLocality(locality *string) {
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CurrentWeatherResponseLocationZero) SetElevation(elevation *float64) {
+func (c *CurrentWeatherResponseLocationZero) SetElevation(elevation *string) {
 	c.Elevation = elevation
 	c.require(currentWeatherResponseLocationZeroFieldElevation)
 }
@@ -47610,12 +47581,79 @@ func (d DomainAvailabilitySuggestionsRequestSource) Ptr() *DomainAvailabilitySug
 	return &d
 }
 
+type DomainAvailabilitySuggestionsResponse struct {
+	// Returned when `sug=false` — availability for the queried domain only, no suggestions.
+	DomainAvailabilitySuggestionsResponseDomain *DomainAvailabilitySuggestionsResponseDomain
+	// Returned when `sug` is omitted or `true` — the queried domain plus suggested alternatives.
+	DomainAvailabilitySuggestionsResponseDomainAvailableResponse *DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+
+	typ string
+}
+
+func (d *DomainAvailabilitySuggestionsResponse) GetDomainAvailabilitySuggestionsResponseDomain() *DomainAvailabilitySuggestionsResponseDomain {
+	if d == nil {
+		return nil
+	}
+	return d.DomainAvailabilitySuggestionsResponseDomain
+}
+
+func (d *DomainAvailabilitySuggestionsResponse) GetDomainAvailabilitySuggestionsResponseDomainAvailableResponse() *DomainAvailabilitySuggestionsResponseDomainAvailableResponse {
+	if d == nil {
+		return nil
+	}
+	return d.DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+}
+
+func (d *DomainAvailabilitySuggestionsResponse) UnmarshalJSON(data []byte) error {
+	valueDomainAvailabilitySuggestionsResponseDomain := new(DomainAvailabilitySuggestionsResponseDomain)
+	if err := json.Unmarshal(data, &valueDomainAvailabilitySuggestionsResponseDomain); err == nil {
+		d.typ = "DomainAvailabilitySuggestionsResponseDomain"
+		d.DomainAvailabilitySuggestionsResponseDomain = valueDomainAvailabilitySuggestionsResponseDomain
+		return nil
+	}
+	valueDomainAvailabilitySuggestionsResponseDomainAvailableResponse := new(DomainAvailabilitySuggestionsResponseDomainAvailableResponse)
+	if err := json.Unmarshal(data, &valueDomainAvailabilitySuggestionsResponseDomainAvailableResponse); err == nil {
+		d.typ = "DomainAvailabilitySuggestionsResponseDomainAvailableResponse"
+		d.DomainAvailabilitySuggestionsResponseDomainAvailableResponse = valueDomainAvailabilitySuggestionsResponseDomainAvailableResponse
+		return nil
+	}
+	return fmt.Errorf("%s cannot be deserialized as a %T", data, d)
+}
+
+func (d DomainAvailabilitySuggestionsResponse) MarshalJSON() ([]byte, error) {
+	if d.typ == "DomainAvailabilitySuggestionsResponseDomain" || d.DomainAvailabilitySuggestionsResponseDomain != nil {
+		return json.Marshal(d.DomainAvailabilitySuggestionsResponseDomain)
+	}
+	if d.typ == "DomainAvailabilitySuggestionsResponseDomainAvailableResponse" || d.DomainAvailabilitySuggestionsResponseDomainAvailableResponse != nil {
+		return json.Marshal(d.DomainAvailabilitySuggestionsResponseDomainAvailableResponse)
+	}
+	return nil, fmt.Errorf("type %T does not include a non-empty union type", d)
+}
+
+type DomainAvailabilitySuggestionsResponseVisitor interface {
+	VisitDomainAvailabilitySuggestionsResponseDomain(*DomainAvailabilitySuggestionsResponseDomain) error
+	VisitDomainAvailabilitySuggestionsResponseDomainAvailableResponse(*DomainAvailabilitySuggestionsResponseDomainAvailableResponse) error
+}
+
+func (d *DomainAvailabilitySuggestionsResponse) Accept(visitor DomainAvailabilitySuggestionsResponseVisitor) error {
+	if d.typ == "DomainAvailabilitySuggestionsResponseDomain" || d.DomainAvailabilitySuggestionsResponseDomain != nil {
+		return visitor.VisitDomainAvailabilitySuggestionsResponseDomain(d.DomainAvailabilitySuggestionsResponseDomain)
+	}
+	if d.typ == "DomainAvailabilitySuggestionsResponseDomainAvailableResponse" || d.DomainAvailabilitySuggestionsResponseDomainAvailableResponse != nil {
+		return visitor.VisitDomainAvailabilitySuggestionsResponseDomainAvailableResponse(d.DomainAvailabilitySuggestionsResponseDomainAvailableResponse)
+	}
+	return fmt.Errorf("type %T does not include a non-empty union type", d)
+}
+
+// Returned when `sug=false` — availability for the queried domain only, no suggestions.
 var (
-	domainAvailabilitySuggestionsResponseFieldDomainAvailableResponse = big.NewInt(1 << 0)
+	domainAvailabilitySuggestionsResponseDomainFieldDomain             = big.NewInt(1 << 0)
+	domainAvailabilitySuggestionsResponseDomainFieldDomainAvailability = big.NewInt(1 << 1)
 )
 
-type DomainAvailabilitySuggestionsResponse struct {
-	DomainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem `json:"domain_available_response,omitempty" url:"domain_available_response,omitempty"`
+type DomainAvailabilitySuggestionsResponseDomain struct {
+	Domain             *string `json:"domain,omitempty" url:"domain,omitempty"`
+	DomainAvailability *bool   `json:"domainAvailability,omitempty" url:"domainAvailability,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -47624,41 +47662,55 @@ type DomainAvailabilitySuggestionsResponse struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainAvailabilitySuggestionsResponse) GetDomainAvailableResponse() []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem {
+func (d *DomainAvailabilitySuggestionsResponseDomain) GetDomain() *string {
 	if d == nil {
 		return nil
 	}
-	return d.DomainAvailableResponse
+	return d.Domain
 }
 
-func (d *DomainAvailabilitySuggestionsResponse) GetExtraProperties() map[string]interface{} {
+func (d *DomainAvailabilitySuggestionsResponseDomain) GetDomainAvailability() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.DomainAvailability
+}
+
+func (d *DomainAvailabilitySuggestionsResponseDomain) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainAvailabilitySuggestionsResponse) require(field *big.Int) {
+func (d *DomainAvailabilitySuggestionsResponseDomain) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
 	d.explicitFields.Or(d.explicitFields, field)
 }
 
-// SetDomainAvailableResponse sets the DomainAvailableResponse field and marks it as non-optional;
+// SetDomain sets the Domain field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilitySuggestionsResponse) SetDomainAvailableResponse(domainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) {
-	d.DomainAvailableResponse = domainAvailableResponse
-	d.require(domainAvailabilitySuggestionsResponseFieldDomainAvailableResponse)
+func (d *DomainAvailabilitySuggestionsResponseDomain) SetDomain(domain *string) {
+	d.Domain = domain
+	d.require(domainAvailabilitySuggestionsResponseDomainFieldDomain)
 }
 
-func (d *DomainAvailabilitySuggestionsResponse) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainAvailabilitySuggestionsResponse
+// SetDomainAvailability sets the DomainAvailability field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DomainAvailabilitySuggestionsResponseDomain) SetDomainAvailability(domainAvailability *bool) {
+	d.DomainAvailability = domainAvailability
+	d.require(domainAvailabilitySuggestionsResponseDomainFieldDomainAvailability)
+}
+
+func (d *DomainAvailabilitySuggestionsResponseDomain) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainAvailabilitySuggestionsResponseDomain
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainAvailabilitySuggestionsResponse(value)
+	*d = DomainAvailabilitySuggestionsResponseDomain(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -47668,8 +47720,8 @@ func (d *DomainAvailabilitySuggestionsResponse) UnmarshalJSON(data []byte) error
 	return nil
 }
 
-func (d *DomainAvailabilitySuggestionsResponse) MarshalJSON() ([]byte, error) {
-	type embed DomainAvailabilitySuggestionsResponse
+func (d *DomainAvailabilitySuggestionsResponseDomain) MarshalJSON() ([]byte, error) {
+	type embed DomainAvailabilitySuggestionsResponseDomain
 	var marshaler = struct {
 		embed
 	}{
@@ -47679,7 +47731,92 @@ func (d *DomainAvailabilitySuggestionsResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainAvailabilitySuggestionsResponse) String() string {
+func (d *DomainAvailabilitySuggestionsResponseDomain) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+// Returned when `sug` is omitted or `true` — the queried domain plus suggested alternatives.
+var (
+	domainAvailabilitySuggestionsResponseDomainAvailableResponseFieldDomainAvailableResponse = big.NewInt(1 << 0)
+)
+
+type DomainAvailabilitySuggestionsResponseDomainAvailableResponse struct {
+	DomainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem `json:"domain_available_response,omitempty" url:"domain_available_response,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponse) GetDomainAvailableResponse() []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem {
+	if d == nil {
+		return nil
+	}
+	return d.DomainAvailableResponse
+}
+
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponse) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponse) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDomainAvailableResponse sets the DomainAvailableResponse field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponse) SetDomainAvailableResponse(domainAvailableResponse []*DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) {
+	d.DomainAvailableResponse = domainAvailableResponse
+	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseFieldDomainAvailableResponse)
+}
+
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DomainAvailabilitySuggestionsResponseDomainAvailableResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponse) MarshalJSON() ([]byte, error) {
+	type embed DomainAvailabilitySuggestionsResponseDomainAvailableResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -47695,12 +47832,12 @@ func (d *DomainAvailabilitySuggestionsResponse) String() string {
 }
 
 var (
-	domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldDomain             = big.NewInt(1 << 0)
-	domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldDomainAvailability = big.NewInt(1 << 1)
-	domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldMessage            = big.NewInt(1 << 2)
+	domainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItemFieldDomain             = big.NewInt(1 << 0)
+	domainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItemFieldDomainAvailability = big.NewInt(1 << 1)
+	domainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItemFieldMessage            = big.NewInt(1 << 2)
 )
 
-type DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem struct {
+type DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem struct {
 	Domain             *string `json:"domain,omitempty" url:"domain,omitempty"`
 	DomainAvailability *bool   `json:"domainAvailability,omitempty" url:"domainAvailability,omitempty"`
 	// Extra details if the domain is not registered.
@@ -47713,35 +47850,35 @@ type DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetDomain() *string {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) GetDomain() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Domain
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetDomainAvailability() *bool {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) GetDomainAvailability() *bool {
 	if d == nil {
 		return nil
 	}
 	return d.DomainAvailability
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetMessage() *string {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) GetMessage() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Message
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) GetExtraProperties() map[string]interface{} {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) require(field *big.Int) {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -47750,32 +47887,32 @@ func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) requi
 
 // SetDomain sets the Domain field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) SetDomain(domain *string) {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) SetDomain(domain *string) {
 	d.Domain = domain
-	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldDomain)
+	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItemFieldDomain)
 }
 
 // SetDomainAvailability sets the DomainAvailability field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) SetDomainAvailability(domainAvailability *bool) {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) SetDomainAvailability(domainAvailability *bool) {
 	d.DomainAvailability = domainAvailability
-	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldDomainAvailability)
+	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItemFieldDomainAvailability)
 }
 
 // SetMessage sets the Message field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) SetMessage(message *string) {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) SetMessage(message *string) {
 	d.Message = message
-	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseItemFieldMessage)
+	d.require(domainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItemFieldMessage)
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem(value)
+	*d = DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -47785,8 +47922,8 @@ func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) Unmar
 	return nil
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) MarshalJSON() ([]byte, error) {
-	type embed DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) MarshalJSON() ([]byte, error) {
+	type embed DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem
 	var marshaler = struct {
 		embed
 	}{
@@ -47796,7 +47933,7 @@ func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) Marsh
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem) String() string {
+func (d *DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -47974,7 +48111,8 @@ var (
 )
 
 type DomainDNSHistoryResponseHistoricalDNSRecordsItem struct {
-	QueryTime        time.Time                                                         `json:"queryTime" url:"queryTime"`
+	// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime        string                                                            `json:"queryTime" url:"queryTime"`
 	DomainName       string                                                            `json:"domainName" url:"domainName"`
 	DomainRegistered bool                                                              `json:"domainRegistered" url:"domainRegistered"`
 	DNSTypes         *DomainDNSHistoryResponseHistoricalDNSRecordsItemDNSTypes         `json:"dnsTypes" url:"dnsTypes"`
@@ -47987,9 +48125,9 @@ type DomainDNSHistoryResponseHistoricalDNSRecordsItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) GetQueryTime() time.Time {
+func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) GetQueryTime() string {
 	if d == nil {
-		return time.Time{}
+		return ""
 	}
 	return d.QueryTime
 }
@@ -48038,7 +48176,7 @@ func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) require(field *big.In
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) SetQueryTime(queryTime time.Time) {
+func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) SetQueryTime(queryTime string) {
 	d.QueryTime = queryTime
 	d.require(domainDNSHistoryResponseHistoricalDNSRecordsItemFieldQueryTime)
 }
@@ -48072,18 +48210,12 @@ func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) SetDNSRecords(dnsReco
 }
 
 func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) UnmarshalJSON(data []byte) error {
-	type embed DomainDNSHistoryResponseHistoricalDNSRecordsItem
-	var unmarshaler = struct {
-		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
-	}{
-		embed: embed(*d),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler DomainDNSHistoryResponseHistoricalDNSRecordsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainDNSHistoryResponseHistoricalDNSRecordsItem(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.Time()
+	*d = DomainDNSHistoryResponseHistoricalDNSRecordsItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -48097,10 +48229,8 @@ func (d *DomainDNSHistoryResponseHistoricalDNSRecordsItem) MarshalJSON() ([]byte
 	type embed DomainDNSHistoryResponseHistoricalDNSRecordsItem
 	var marshaler = struct {
 		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
 	}{
-		embed:     embed(*d),
-		QueryTime: internal.NewDateTime(d.QueryTime),
+		embed: embed(*d),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -49812,8 +49942,8 @@ var (
 type DomainDNSLookupResponse struct {
 	// Indicates whether the query was processed successfully.
 	Status bool `json:"status" url:"status"`
-	// Time at which the query was made (Format:YYYY-MM-DD HH:mm:ss).
-	QueryTime time.Time `json:"queryTime" url:"queryTime"`
+	// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime string `json:"queryTime" url:"queryTime"`
 	// Queried domain.
 	DomainName string `json:"domainName" url:"domainName"`
 	// Indicates whether the domain is registered.
@@ -49836,9 +49966,9 @@ func (d *DomainDNSLookupResponse) GetStatus() bool {
 	return d.Status
 }
 
-func (d *DomainDNSLookupResponse) GetQueryTime() time.Time {
+func (d *DomainDNSLookupResponse) GetQueryTime() string {
 	if d == nil {
-		return time.Time{}
+		return ""
 	}
 	return d.QueryTime
 }
@@ -49894,7 +50024,7 @@ func (d *DomainDNSLookupResponse) SetStatus(status bool) {
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainDNSLookupResponse) SetQueryTime(queryTime time.Time) {
+func (d *DomainDNSLookupResponse) SetQueryTime(queryTime string) {
 	d.QueryTime = queryTime
 	d.require(domainDNSLookupResponseFieldQueryTime)
 }
@@ -49928,18 +50058,12 @@ func (d *DomainDNSLookupResponse) SetDNSRecords(dnsRecords []*DomainDNSLookupRes
 }
 
 func (d *DomainDNSLookupResponse) UnmarshalJSON(data []byte) error {
-	type embed DomainDNSLookupResponse
-	var unmarshaler = struct {
-		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
-	}{
-		embed: embed(*d),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler DomainDNSLookupResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainDNSLookupResponse(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.Time()
+	*d = DomainDNSLookupResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -49953,10 +50077,8 @@ func (d *DomainDNSLookupResponse) MarshalJSON() ([]byte, error) {
 	type embed DomainDNSLookupResponse
 	var marshaler = struct {
 		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
 	}{
-		embed:     embed(*d),
-		QueryTime: internal.NewDateTime(d.QueryTime),
+		embed: embed(*d),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -51837,7 +51959,8 @@ var (
 )
 
 type DomainDNSReverseResponseReverseDNSRecordsItem struct {
-	QueryTime        time.Time                                                      `json:"queryTime" url:"queryTime"`
+	// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime        string                                                         `json:"queryTime" url:"queryTime"`
 	DomainName       string                                                         `json:"domainName" url:"domainName"`
 	DomainRegistered bool                                                           `json:"domainRegistered" url:"domainRegistered"`
 	DNSTypes         *DomainDNSReverseResponseReverseDNSRecordsItemDNSTypes         `json:"dnsTypes" url:"dnsTypes"`
@@ -51850,9 +51973,9 @@ type DomainDNSReverseResponseReverseDNSRecordsItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainDNSReverseResponseReverseDNSRecordsItem) GetQueryTime() time.Time {
+func (d *DomainDNSReverseResponseReverseDNSRecordsItem) GetQueryTime() string {
 	if d == nil {
-		return time.Time{}
+		return ""
 	}
 	return d.QueryTime
 }
@@ -51901,7 +52024,7 @@ func (d *DomainDNSReverseResponseReverseDNSRecordsItem) require(field *big.Int) 
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainDNSReverseResponseReverseDNSRecordsItem) SetQueryTime(queryTime time.Time) {
+func (d *DomainDNSReverseResponseReverseDNSRecordsItem) SetQueryTime(queryTime string) {
 	d.QueryTime = queryTime
 	d.require(domainDNSReverseResponseReverseDNSRecordsItemFieldQueryTime)
 }
@@ -51935,18 +52058,12 @@ func (d *DomainDNSReverseResponseReverseDNSRecordsItem) SetDNSRecords(dnsRecords
 }
 
 func (d *DomainDNSReverseResponseReverseDNSRecordsItem) UnmarshalJSON(data []byte) error {
-	type embed DomainDNSReverseResponseReverseDNSRecordsItem
-	var unmarshaler = struct {
-		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
-	}{
-		embed: embed(*d),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler DomainDNSReverseResponseReverseDNSRecordsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainDNSReverseResponseReverseDNSRecordsItem(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.Time()
+	*d = DomainDNSReverseResponseReverseDNSRecordsItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -51960,10 +52077,8 @@ func (d *DomainDNSReverseResponseReverseDNSRecordsItem) MarshalJSON() ([]byte, e
 	type embed DomainDNSReverseResponseReverseDNSRecordsItem
 	var marshaler = struct {
 		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
 	}{
-		embed:     embed(*d),
-		QueryTime: internal.NewDateTime(d.QueryTime),
+		embed: embed(*d),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -57545,8 +57660,9 @@ var (
 )
 
 type DomainSslChainLookupResponse struct {
-	DomainName      string                                             `json:"domainName" url:"domainName"`
-	QueryTime       time.Time                                          `json:"queryTime" url:"queryTime"`
+	DomainName string `json:"domainName" url:"domainName"`
+	// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime       string                                             `json:"queryTime" url:"queryTime"`
 	SslCertificates []*DomainSslChainLookupResponseSslCertificatesItem `json:"sslCertificates" url:"sslCertificates"`
 	SslRaw          *string                                            `json:"sslRaw,omitempty" url:"sslRaw,omitempty"`
 
@@ -57564,9 +57680,9 @@ func (d *DomainSslChainLookupResponse) GetDomainName() string {
 	return d.DomainName
 }
 
-func (d *DomainSslChainLookupResponse) GetQueryTime() time.Time {
+func (d *DomainSslChainLookupResponse) GetQueryTime() string {
 	if d == nil {
-		return time.Time{}
+		return ""
 	}
 	return d.QueryTime
 }
@@ -57608,7 +57724,7 @@ func (d *DomainSslChainLookupResponse) SetDomainName(domainName string) {
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponse) SetQueryTime(queryTime time.Time) {
+func (d *DomainSslChainLookupResponse) SetQueryTime(queryTime string) {
 	d.QueryTime = queryTime
 	d.require(domainSslChainLookupResponseFieldQueryTime)
 }
@@ -57628,18 +57744,12 @@ func (d *DomainSslChainLookupResponse) SetSslRaw(sslRaw *string) {
 }
 
 func (d *DomainSslChainLookupResponse) UnmarshalJSON(data []byte) error {
-	type embed DomainSslChainLookupResponse
-	var unmarshaler = struct {
-		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
-	}{
-		embed: embed(*d),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler DomainSslChainLookupResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslChainLookupResponse(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.Time()
+	*d = DomainSslChainLookupResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -57653,10 +57763,8 @@ func (d *DomainSslChainLookupResponse) MarshalJSON() ([]byte, error) {
 	type embed DomainSslChainLookupResponse
 	var marshaler = struct {
 		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
 	}{
-		embed:     embed(*d),
-		QueryTime: internal.NewDateTime(d.QueryTime),
+		embed: embed(*d),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -57934,14 +58042,14 @@ var (
 )
 
 type DomainSslChainLookupResponseSslCertificatesItemExtensions struct {
-	AuthorityKeyIdentifier  string                                                                            `json:"authorityKeyIdentifier" url:"authorityKeyIdentifier"`
-	SubjectKeyIdentifier    string                                                                            `json:"subjectKeyIdentifier" url:"subjectKeyIdentifier"`
-	KeyUsages               []string                                                                          `json:"keyUsages" url:"keyUsages"`
-	ExtendedKeyUsages       []string                                                                          `json:"extendedKeyUsages" url:"extendedKeyUsages"`
-	CrlDistributionPoints   []string                                                                          `json:"crlDistributionPoints,omitempty" url:"crlDistributionPoints,omitempty"`
-	AuthorityInfoAccess     *DomainSslChainLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess     `json:"authorityInfoAccess" url:"authorityInfoAccess"`
-	SubjectAlternativeNames *DomainSslChainLookupResponseSslCertificatesItemExtensionsSubjectAlternativeNames `json:"subjectAlternativeNames,omitempty" url:"subjectAlternativeNames,omitempty"`
-	CertificatePolicies     *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies     `json:"certificatePolicies" url:"certificatePolicies"`
+	AuthorityKeyIdentifier  string                                                                              `json:"authorityKeyIdentifier" url:"authorityKeyIdentifier"`
+	SubjectKeyIdentifier    string                                                                              `json:"subjectKeyIdentifier" url:"subjectKeyIdentifier"`
+	KeyUsages               []string                                                                            `json:"keyUsages" url:"keyUsages"`
+	ExtendedKeyUsages       []string                                                                            `json:"extendedKeyUsages,omitempty" url:"extendedKeyUsages,omitempty"`
+	CrlDistributionPoints   []string                                                                            `json:"crlDistributionPoints,omitempty" url:"crlDistributionPoints,omitempty"`
+	AuthorityInfoAccess     *DomainSslChainLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess       `json:"authorityInfoAccess,omitempty" url:"authorityInfoAccess,omitempty"`
+	SubjectAlternativeNames *DomainSslChainLookupResponseSslCertificatesItemExtensionsSubjectAlternativeNames   `json:"subjectAlternativeNames,omitempty" url:"subjectAlternativeNames,omitempty"`
+	CertificatePolicies     []*DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem `json:"certificatePolicies,omitempty" url:"certificatePolicies,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -57999,7 +58107,7 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensions) GetSubjectAl
 	return d.SubjectAlternativeNames
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensions) GetCertificatePolicies() *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensions) GetCertificatePolicies() []*DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem {
 	if d == nil {
 		return nil
 	}
@@ -58071,7 +58179,7 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensions) SetSubjectAl
 
 // SetCertificatePolicies sets the CertificatePolicies field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensions) SetCertificatePolicies(certificatePolicies *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensions) SetCertificatePolicies(certificatePolicies []*DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) {
 	d.CertificatePolicies = certificatePolicies
 	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsFieldCertificatePolicies)
 }
@@ -58124,8 +58232,8 @@ var (
 )
 
 type DomainSslChainLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess struct {
-	Issuers []string `json:"issuers" url:"issuers"`
-	Ocsp    []string `json:"ocsp" url:"ocsp"`
+	Issuers []string `json:"issuers,omitempty" url:"issuers,omitempty"`
+	Ocsp    []string `json:"ocsp,omitempty" url:"ocsp,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -58219,13 +58327,15 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsAuthorityInfoA
 }
 
 var (
-	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesFieldPolicyID        = big.NewInt(1 << 0)
-	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesFieldPolicyQualifier = big.NewInt(1 << 1)
+	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemFieldPolicyID        = big.NewInt(1 << 0)
+	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemFieldPolicyQualifier = big.NewInt(1 << 1)
 )
 
-type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies struct {
-	PolicyID        string                                                                                       `json:"policyId" url:"policyId"`
-	PolicyQualifier *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier `json:"policyQualifier,omitempty" url:"policyQualifier,omitempty"`
+type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem struct {
+	// Policy identifier
+	PolicyID string `json:"policyId" url:"policyId"`
+	// Policy qualifier details
+	PolicyQualifier *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier `json:"policyQualifier,omitempty" url:"policyQualifier,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -58234,28 +58344,28 @@ type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicie
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) GetPolicyID() string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) GetPolicyID() string {
 	if d == nil {
 		return ""
 	}
 	return d.PolicyID
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) GetPolicyQualifier() *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) GetPolicyQualifier() *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier {
 	if d == nil {
 		return nil
 	}
 	return d.PolicyQualifier
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) GetExtraProperties() map[string]interface{} {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) require(field *big.Int) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -58264,25 +58374,25 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 
 // SetPolicyID sets the PolicyID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) SetPolicyID(policyID string) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) SetPolicyID(policyID string) {
 	d.PolicyID = policyID
-	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesFieldPolicyID)
+	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemFieldPolicyID)
 }
 
 // SetPolicyQualifier sets the PolicyQualifier field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) SetPolicyQualifier(policyQualifier *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) SetPolicyQualifier(policyQualifier *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) {
 	d.PolicyQualifier = policyQualifier
-	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesFieldPolicyQualifier)
+	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemFieldPolicyQualifier)
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies(value)
+	*d = DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -58292,8 +58402,8 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 	return nil
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) MarshalJSON() ([]byte, error) {
-	type embed DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) MarshalJSON() ([]byte, error) {
+	type embed DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 	var marshaler = struct {
 		embed
 	}{
@@ -58303,7 +58413,7 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies) String() string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -58318,16 +58428,19 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 	return fmt.Sprintf("%#v", d)
 }
 
+// Policy qualifier details
 var (
-	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldOid        = big.NewInt(1 << 0)
-	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldCpsURI     = big.NewInt(1 << 1)
-	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldUserNotice = big.NewInt(1 << 2)
+	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldOid        = big.NewInt(1 << 0)
+	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldCpsURI     = big.NewInt(1 << 1)
+	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldUserNotice = big.NewInt(1 << 2)
 )
 
-type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier struct {
-	Oid        *string                                                                                                `json:"oid,omitempty" url:"oid,omitempty"`
-	CpsURI     *string                                                                                                `json:"cpsUri,omitempty" url:"cpsUri,omitempty"`
-	UserNotice *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice `json:"userNotice,omitempty" url:"userNotice,omitempty"`
+type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier struct {
+	// Object identifier
+	Oid *string `json:"oid,omitempty" url:"oid,omitempty"`
+	// URI of the CPS
+	CpsURI     *string                                                                                                    `json:"cpsUri,omitempty" url:"cpsUri,omitempty"`
+	UserNotice *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice `json:"userNotice,omitempty" url:"userNotice,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -58336,35 +58449,35 @@ type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicie
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) GetOid() *string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) GetOid() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Oid
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) GetCpsURI() *string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) GetCpsURI() *string {
 	if d == nil {
 		return nil
 	}
 	return d.CpsURI
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) GetUserNotice() *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) GetUserNotice() *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice {
 	if d == nil {
 		return nil
 	}
 	return d.UserNotice
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) GetExtraProperties() map[string]interface{} {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) require(field *big.Int) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -58373,32 +58486,32 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 
 // SetOid sets the Oid field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) SetOid(oid *string) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) SetOid(oid *string) {
 	d.Oid = oid
-	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldOid)
+	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldOid)
 }
 
 // SetCpsURI sets the CpsURI field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) SetCpsURI(cpsURI *string) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) SetCpsURI(cpsURI *string) {
 	d.CpsURI = cpsURI
-	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldCpsURI)
+	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldCpsURI)
 }
 
 // SetUserNotice sets the UserNotice field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) SetUserNotice(userNotice *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) SetUserNotice(userNotice *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) {
 	d.UserNotice = userNotice
-	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldUserNotice)
+	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldUserNotice)
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(value)
+	*d = DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -58408,8 +58521,8 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 	return nil
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) MarshalJSON() ([]byte, error) {
-	type embed DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) MarshalJSON() ([]byte, error) {
+	type embed DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 	var marshaler = struct {
 		embed
 	}{
@@ -58419,7 +58532,7 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) String() string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -58435,13 +58548,14 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 }
 
 var (
-	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeFieldExplicitText = big.NewInt(1 << 0)
-	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeFieldNoticeRef    = big.NewInt(1 << 1)
+	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeFieldExplicitText = big.NewInt(1 << 0)
+	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeFieldNoticeRef    = big.NewInt(1 << 1)
 )
 
-type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice struct {
-	ExplicitText *string                                                                                                         `json:"explicitText,omitempty" url:"explicitText,omitempty"`
-	NoticeRef    *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef `json:"noticeRef,omitempty" url:"noticeRef,omitempty"`
+type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice struct {
+	// Explicit text notice
+	ExplicitText *string                                                                                                             `json:"explicitText,omitempty" url:"explicitText,omitempty"`
+	NoticeRef    *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef `json:"noticeRef,omitempty" url:"noticeRef,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -58450,28 +58564,28 @@ type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicie
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) GetExplicitText() *string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) GetExplicitText() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ExplicitText
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) GetNoticeRef() *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) GetNoticeRef() *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef {
 	if d == nil {
 		return nil
 	}
 	return d.NoticeRef
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) GetExtraProperties() map[string]interface{} {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) require(field *big.Int) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -58480,25 +58594,25 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 
 // SetExplicitText sets the ExplicitText field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) SetExplicitText(explicitText *string) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) SetExplicitText(explicitText *string) {
 	d.ExplicitText = explicitText
-	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeFieldExplicitText)
+	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeFieldExplicitText)
 }
 
 // SetNoticeRef sets the NoticeRef field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) SetNoticeRef(noticeRef *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) SetNoticeRef(noticeRef *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) {
 	d.NoticeRef = noticeRef
-	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeFieldNoticeRef)
+	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeFieldNoticeRef)
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(value)
+	*d = DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -58508,8 +58622,8 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 	return nil
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) MarshalJSON() ([]byte, error) {
-	type embed DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) MarshalJSON() ([]byte, error) {
+	type embed DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 	var marshaler = struct {
 		embed
 	}{
@@ -58519,7 +58633,7 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) String() string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -58535,12 +58649,14 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 }
 
 var (
-	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRefFieldOrganization  = big.NewInt(1 << 0)
-	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRefFieldNoticeNumbers = big.NewInt(1 << 1)
+	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRefFieldOrganization  = big.NewInt(1 << 0)
+	domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRefFieldNoticeNumbers = big.NewInt(1 << 1)
 )
 
-type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef struct {
-	Organization  *string `json:"organization,omitempty" url:"organization,omitempty"`
+type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef struct {
+	// Organization providing the notice
+	Organization *string `json:"organization,omitempty" url:"organization,omitempty"`
+	// Notice numbers
 	NoticeNumbers *string `json:"noticeNumbers,omitempty" url:"noticeNumbers,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -58550,28 +58666,28 @@ type DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicie
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) GetOrganization() *string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) GetOrganization() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Organization
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) GetNoticeNumbers() *string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) GetNoticeNumbers() *string {
 	if d == nil {
 		return nil
 	}
 	return d.NoticeNumbers
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) GetExtraProperties() map[string]interface{} {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) require(field *big.Int) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -58580,25 +58696,25 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 
 // SetOrganization sets the Organization field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) SetOrganization(organization *string) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) SetOrganization(organization *string) {
 	d.Organization = organization
-	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRefFieldOrganization)
+	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRefFieldOrganization)
 }
 
 // SetNoticeNumbers sets the NoticeNumbers field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) SetNoticeNumbers(noticeNumbers *string) {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) SetNoticeNumbers(noticeNumbers *string) {
 	d.NoticeNumbers = noticeNumbers
-	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRefFieldNoticeNumbers)
+	d.require(domainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRefFieldNoticeNumbers)
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(value)
+	*d = DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -58608,8 +58724,8 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 	return nil
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) MarshalJSON() ([]byte, error) {
-	type embed DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) MarshalJSON() ([]byte, error) {
+	type embed DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 	var marshaler = struct {
 		embed
 	}{
@@ -58619,7 +58735,7 @@ func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePol
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) String() string {
+func (d *DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -59432,8 +59548,9 @@ var (
 )
 
 type DomainSslLookupResponse struct {
-	DomainName      string                                        `json:"domainName" url:"domainName"`
-	QueryTime       time.Time                                     `json:"queryTime" url:"queryTime"`
+	DomainName string `json:"domainName" url:"domainName"`
+	// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime       string                                        `json:"queryTime" url:"queryTime"`
 	SslCertificates []*DomainSslLookupResponseSslCertificatesItem `json:"sslCertificates" url:"sslCertificates"`
 	SslRaw          *string                                       `json:"sslRaw,omitempty" url:"sslRaw,omitempty"`
 
@@ -59451,9 +59568,9 @@ func (d *DomainSslLookupResponse) GetDomainName() string {
 	return d.DomainName
 }
 
-func (d *DomainSslLookupResponse) GetQueryTime() time.Time {
+func (d *DomainSslLookupResponse) GetQueryTime() string {
 	if d == nil {
-		return time.Time{}
+		return ""
 	}
 	return d.QueryTime
 }
@@ -59495,7 +59612,7 @@ func (d *DomainSslLookupResponse) SetDomainName(domainName string) {
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponse) SetQueryTime(queryTime time.Time) {
+func (d *DomainSslLookupResponse) SetQueryTime(queryTime string) {
 	d.QueryTime = queryTime
 	d.require(domainSslLookupResponseFieldQueryTime)
 }
@@ -59515,18 +59632,12 @@ func (d *DomainSslLookupResponse) SetSslRaw(sslRaw *string) {
 }
 
 func (d *DomainSslLookupResponse) UnmarshalJSON(data []byte) error {
-	type embed DomainSslLookupResponse
-	var unmarshaler = struct {
-		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
-	}{
-		embed: embed(*d),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler DomainSslLookupResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslLookupResponse(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.Time()
+	*d = DomainSslLookupResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -59540,10 +59651,8 @@ func (d *DomainSslLookupResponse) MarshalJSON() ([]byte, error) {
 	type embed DomainSslLookupResponse
 	var marshaler = struct {
 		embed
-		QueryTime *internal.DateTime `json:"queryTime"`
 	}{
-		embed:     embed(*d),
-		QueryTime: internal.NewDateTime(d.QueryTime),
+		embed: embed(*d),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -59821,14 +59930,14 @@ var (
 )
 
 type DomainSslLookupResponseSslCertificatesItemExtensions struct {
-	AuthorityKeyIdentifier  string                                                                       `json:"authorityKeyIdentifier" url:"authorityKeyIdentifier"`
-	SubjectKeyIdentifier    string                                                                       `json:"subjectKeyIdentifier" url:"subjectKeyIdentifier"`
-	KeyUsages               []string                                                                     `json:"keyUsages" url:"keyUsages"`
-	ExtendedKeyUsages       []string                                                                     `json:"extendedKeyUsages" url:"extendedKeyUsages"`
-	CrlDistributionPoints   []string                                                                     `json:"crlDistributionPoints,omitempty" url:"crlDistributionPoints,omitempty"`
-	AuthorityInfoAccess     *DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess     `json:"authorityInfoAccess" url:"authorityInfoAccess"`
-	SubjectAlternativeNames *DomainSslLookupResponseSslCertificatesItemExtensionsSubjectAlternativeNames `json:"subjectAlternativeNames,omitempty" url:"subjectAlternativeNames,omitempty"`
-	CertificatePolicies     *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies     `json:"certificatePolicies" url:"certificatePolicies"`
+	AuthorityKeyIdentifier  string                                                                         `json:"authorityKeyIdentifier" url:"authorityKeyIdentifier"`
+	SubjectKeyIdentifier    string                                                                         `json:"subjectKeyIdentifier" url:"subjectKeyIdentifier"`
+	KeyUsages               []string                                                                       `json:"keyUsages" url:"keyUsages"`
+	ExtendedKeyUsages       []string                                                                       `json:"extendedKeyUsages,omitempty" url:"extendedKeyUsages,omitempty"`
+	CrlDistributionPoints   []string                                                                       `json:"crlDistributionPoints,omitempty" url:"crlDistributionPoints,omitempty"`
+	AuthorityInfoAccess     *DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess       `json:"authorityInfoAccess,omitempty" url:"authorityInfoAccess,omitempty"`
+	SubjectAlternativeNames *DomainSslLookupResponseSslCertificatesItemExtensionsSubjectAlternativeNames   `json:"subjectAlternativeNames,omitempty" url:"subjectAlternativeNames,omitempty"`
+	CertificatePolicies     []*DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem `json:"certificatePolicies,omitempty" url:"certificatePolicies,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -59886,7 +59995,7 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensions) GetSubjectAlterna
 	return d.SubjectAlternativeNames
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensions) GetCertificatePolicies() *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensions) GetCertificatePolicies() []*DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem {
 	if d == nil {
 		return nil
 	}
@@ -59958,7 +60067,7 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensions) SetSubjectAlterna
 
 // SetCertificatePolicies sets the CertificatePolicies field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensions) SetCertificatePolicies(certificatePolicies *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensions) SetCertificatePolicies(certificatePolicies []*DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) {
 	d.CertificatePolicies = certificatePolicies
 	d.require(domainSslLookupResponseSslCertificatesItemExtensionsFieldCertificatePolicies)
 }
@@ -60011,8 +60120,8 @@ var (
 )
 
 type DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess struct {
-	Issuers []string `json:"issuers" url:"issuers"`
-	Ocsp    []string `json:"ocsp" url:"ocsp"`
+	Issuers []string `json:"issuers,omitempty" url:"issuers,omitempty"`
+	Ocsp    []string `json:"ocsp,omitempty" url:"ocsp,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -60106,13 +60215,15 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess
 }
 
 var (
-	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesFieldPolicyID        = big.NewInt(1 << 0)
-	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesFieldPolicyQualifier = big.NewInt(1 << 1)
+	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemFieldPolicyID        = big.NewInt(1 << 0)
+	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemFieldPolicyQualifier = big.NewInt(1 << 1)
 )
 
-type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies struct {
-	PolicyID        string                                                                                  `json:"policyId" url:"policyId"`
-	PolicyQualifier *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier `json:"policyQualifier,omitempty" url:"policyQualifier,omitempty"`
+type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem struct {
+	// Policy identifier
+	PolicyID string `json:"policyId" url:"policyId"`
+	// Policy qualifier details
+	PolicyQualifier *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier `json:"policyQualifier,omitempty" url:"policyQualifier,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -60121,28 +60232,28 @@ type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies str
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) GetPolicyID() string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) GetPolicyID() string {
 	if d == nil {
 		return ""
 	}
 	return d.PolicyID
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) GetPolicyQualifier() *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) GetPolicyQualifier() *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier {
 	if d == nil {
 		return nil
 	}
 	return d.PolicyQualifier
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) GetExtraProperties() map[string]interface{} {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) require(field *big.Int) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -60151,25 +60262,25 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 
 // SetPolicyID sets the PolicyID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) SetPolicyID(policyID string) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) SetPolicyID(policyID string) {
 	d.PolicyID = policyID
-	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesFieldPolicyID)
+	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemFieldPolicyID)
 }
 
 // SetPolicyQualifier sets the PolicyQualifier field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) SetPolicyQualifier(policyQualifier *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) SetPolicyQualifier(policyQualifier *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) {
 	d.PolicyQualifier = policyQualifier
-	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesFieldPolicyQualifier)
+	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemFieldPolicyQualifier)
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies(value)
+	*d = DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -60179,8 +60290,8 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 	return nil
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) MarshalJSON() ([]byte, error) {
-	type embed DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) MarshalJSON() ([]byte, error) {
+	type embed DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem
 	var marshaler = struct {
 		embed
 	}{
@@ -60190,7 +60301,7 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies) String() string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -60205,16 +60316,19 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 	return fmt.Sprintf("%#v", d)
 }
 
+// Policy qualifier details
 var (
-	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldOid        = big.NewInt(1 << 0)
-	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldCpsURI     = big.NewInt(1 << 1)
-	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldUserNotice = big.NewInt(1 << 2)
+	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldOid        = big.NewInt(1 << 0)
+	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldCpsURI     = big.NewInt(1 << 1)
+	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldUserNotice = big.NewInt(1 << 2)
 )
 
-type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier struct {
-	Oid        *string                                                                                           `json:"oid,omitempty" url:"oid,omitempty"`
-	CpsURI     *string                                                                                           `json:"cpsUri,omitempty" url:"cpsUri,omitempty"`
-	UserNotice *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice `json:"userNotice,omitempty" url:"userNotice,omitempty"`
+type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier struct {
+	// Object identifier
+	Oid *string `json:"oid,omitempty" url:"oid,omitempty"`
+	// URI of the CPS
+	CpsURI     *string                                                                                               `json:"cpsUri,omitempty" url:"cpsUri,omitempty"`
+	UserNotice *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice `json:"userNotice,omitempty" url:"userNotice,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -60223,35 +60337,35 @@ type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPoli
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) GetOid() *string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) GetOid() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Oid
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) GetCpsURI() *string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) GetCpsURI() *string {
 	if d == nil {
 		return nil
 	}
 	return d.CpsURI
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) GetUserNotice() *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) GetUserNotice() *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice {
 	if d == nil {
 		return nil
 	}
 	return d.UserNotice
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) GetExtraProperties() map[string]interface{} {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) require(field *big.Int) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -60260,32 +60374,32 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 
 // SetOid sets the Oid field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) SetOid(oid *string) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) SetOid(oid *string) {
 	d.Oid = oid
-	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldOid)
+	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldOid)
 }
 
 // SetCpsURI sets the CpsURI field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) SetCpsURI(cpsURI *string) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) SetCpsURI(cpsURI *string) {
 	d.CpsURI = cpsURI
-	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldCpsURI)
+	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldCpsURI)
 }
 
 // SetUserNotice sets the UserNotice field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) SetUserNotice(userNotice *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) SetUserNotice(userNotice *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) {
 	d.UserNotice = userNotice
-	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierFieldUserNotice)
+	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierFieldUserNotice)
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier(value)
+	*d = DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -60295,8 +60409,8 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 	return nil
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) MarshalJSON() ([]byte, error) {
-	type embed DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) MarshalJSON() ([]byte, error) {
+	type embed DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier
 	var marshaler = struct {
 		embed
 	}{
@@ -60306,7 +60420,7 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier) String() string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -60322,13 +60436,14 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 }
 
 var (
-	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeFieldExplicitText = big.NewInt(1 << 0)
-	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeFieldNoticeRef    = big.NewInt(1 << 1)
+	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeFieldExplicitText = big.NewInt(1 << 0)
+	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeFieldNoticeRef    = big.NewInt(1 << 1)
 )
 
-type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice struct {
-	ExplicitText *string                                                                                                    `json:"explicitText,omitempty" url:"explicitText,omitempty"`
-	NoticeRef    *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef `json:"noticeRef,omitempty" url:"noticeRef,omitempty"`
+type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice struct {
+	// Explicit text notice
+	ExplicitText *string                                                                                                        `json:"explicitText,omitempty" url:"explicitText,omitempty"`
+	NoticeRef    *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef `json:"noticeRef,omitempty" url:"noticeRef,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -60337,28 +60452,28 @@ type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPoli
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) GetExplicitText() *string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) GetExplicitText() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ExplicitText
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) GetNoticeRef() *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) GetNoticeRef() *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef {
 	if d == nil {
 		return nil
 	}
 	return d.NoticeRef
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) GetExtraProperties() map[string]interface{} {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) require(field *big.Int) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -60367,25 +60482,25 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 
 // SetExplicitText sets the ExplicitText field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) SetExplicitText(explicitText *string) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) SetExplicitText(explicitText *string) {
 	d.ExplicitText = explicitText
-	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeFieldExplicitText)
+	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeFieldExplicitText)
 }
 
 // SetNoticeRef sets the NoticeRef field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) SetNoticeRef(noticeRef *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) SetNoticeRef(noticeRef *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) {
 	d.NoticeRef = noticeRef
-	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeFieldNoticeRef)
+	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeFieldNoticeRef)
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice(value)
+	*d = DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -60395,8 +60510,8 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 	return nil
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) MarshalJSON() ([]byte, error) {
-	type embed DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) MarshalJSON() ([]byte, error) {
+	type embed DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice
 	var marshaler = struct {
 		embed
 	}{
@@ -60406,7 +60521,7 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice) String() string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -60422,12 +60537,14 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 }
 
 var (
-	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRefFieldOrganization  = big.NewInt(1 << 0)
-	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRefFieldNoticeNumbers = big.NewInt(1 << 1)
+	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRefFieldOrganization  = big.NewInt(1 << 0)
+	domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRefFieldNoticeNumbers = big.NewInt(1 << 1)
 )
 
-type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef struct {
-	Organization  *string `json:"organization,omitempty" url:"organization,omitempty"`
+type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef struct {
+	// Organization providing the notice
+	Organization *string `json:"organization,omitempty" url:"organization,omitempty"`
+	// Notice numbers
 	NoticeNumbers *string `json:"noticeNumbers,omitempty" url:"noticeNumbers,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -60437,28 +60554,28 @@ type DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPoli
 	rawJSON         json.RawMessage
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) GetOrganization() *string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) GetOrganization() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Organization
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) GetNoticeNumbers() *string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) GetNoticeNumbers() *string {
 	if d == nil {
 		return nil
 	}
 	return d.NoticeNumbers
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) GetExtraProperties() map[string]interface{} {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) require(field *big.Int) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -60467,25 +60584,25 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 
 // SetOrganization sets the Organization field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) SetOrganization(organization *string) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) SetOrganization(organization *string) {
 	d.Organization = organization
-	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRefFieldOrganization)
+	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRefFieldOrganization)
 }
 
 // SetNoticeNumbers sets the NoticeNumbers field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) SetNoticeNumbers(noticeNumbers *string) {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) SetNoticeNumbers(noticeNumbers *string) {
 	d.NoticeNumbers = noticeNumbers
-	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRefFieldNoticeNumbers)
+	d.require(domainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRefFieldNoticeNumbers)
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) UnmarshalJSON(data []byte) error {
-	type unmarshaler DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) UnmarshalJSON(data []byte) error {
+	type unmarshaler DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef(value)
+	*d = DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -60495,8 +60612,8 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 	return nil
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) MarshalJSON() ([]byte, error) {
-	type embed DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) MarshalJSON() ([]byte, error) {
+	type embed DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef
 	var marshaler = struct {
 		embed
 	}{
@@ -60506,7 +60623,7 @@ func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef) String() string {
+func (d *DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -61850,8 +61967,8 @@ type DomainWhoisHistoryResponseWhoisDomainsHistoricalItem struct {
 	Status bool `json:"status" url:"status"`
 	// Domain name which was queried.
 	DomainName string `json:"domain_name" url:"domain_name"`
-	// The timestamp when the query was made.
-	QueryTime time.Time `json:"query_time" url:"query_time"`
+	// The timestamp when the query was made (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime string `json:"query_time" url:"query_time"`
 	// The WHOIS server that provided the domain information.
 	WhoisServer string `json:"whois_server" url:"whois_server"`
 	// Domain registration status.
@@ -61901,9 +62018,9 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItem) GetDomainName() s
 	return d.DomainName
 }
 
-func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItem) GetQueryTime() time.Time {
+func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItem) GetQueryTime() string {
 	if d == nil {
-		return time.Time{}
+		return ""
 	}
 	return d.QueryTime
 }
@@ -62050,7 +62167,7 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItem) SetDomainName(dom
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItem) SetQueryTime(queryTime time.Time) {
+func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItem) SetQueryTime(queryTime string) {
 	d.QueryTime = queryTime
 	d.require(domainWhoisHistoryResponseWhoisDomainsHistoricalItemFieldQueryTime)
 }
@@ -62164,10 +62281,9 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItem) UnmarshalJSON(dat
 	type embed DomainWhoisHistoryResponseWhoisDomainsHistoricalItem
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*d),
 	}
@@ -62175,7 +62291,6 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItem) UnmarshalJSON(dat
 		return err
 	}
 	*d = DomainWhoisHistoryResponseWhoisDomainsHistoricalItem(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.Time()
 	d.CreateDate = unmarshaler.CreateDate.TimePtr()
 	d.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	d.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -62192,13 +62307,11 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItem) MarshalJSON() ([]
 	type embed DomainWhoisHistoryResponseWhoisDomainsHistoricalItem
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*d),
-		QueryTime:  internal.NewDateTime(d.QueryTime),
 		CreateDate: internal.NewOptionalDate(d.CreateDate),
 		UpdateDate: internal.NewOptionalDate(d.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(d.ExpiryDate),
@@ -63207,8 +63320,9 @@ var (
 )
 
 type DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData struct {
-	DomainName       *string                                                                           `json:"domain_name,omitempty" url:"domain_name,omitempty"`
-	QueryTime        *time.Time                                                                        `json:"query_time,omitempty" url:"query_time,omitempty"`
+	DomainName *string `json:"domain_name,omitempty" url:"domain_name,omitempty"`
+	// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime        *string                                                                           `json:"query_time,omitempty" url:"query_time,omitempty"`
 	WhoisServer      *string                                                                           `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	DomainRegistered *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDomainRegistered `json:"domain_registered,omitempty" url:"domain_registered,omitempty"`
 	CreateDate       *time.Time                                                                        `json:"create_date,omitempty" url:"create_date,omitempty" format:"date"`
@@ -63233,7 +63347,7 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData) GetDo
 	return d.DomainName
 }
 
-func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData) GetQueryTime() *time.Time {
+func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData) GetQueryTime() *string {
 	if d == nil {
 		return nil
 	}
@@ -63326,7 +63440,7 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData) SetDo
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData) SetQueryTime(queryTime *time.Time) {
+func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData) SetQueryTime(queryTime *string) {
 	d.QueryTime = queryTime
 	d.require(domainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataFieldQueryTime)
 }
@@ -63398,10 +63512,9 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData) Unmar
 	type embed DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*d),
 	}
@@ -63409,7 +63522,6 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData) Unmar
 		return err
 	}
 	*d = DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.TimePtr()
 	d.CreateDate = unmarshaler.CreateDate.TimePtr()
 	d.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	d.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -63426,13 +63538,11 @@ func (d *DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData) Marsh
 	type embed DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*d),
-		QueryTime:  internal.NewOptionalDateTime(d.QueryTime),
 		CreateDate: internal.NewOptionalDate(d.CreateDate),
 		UpdateDate: internal.NewOptionalDate(d.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(d.ExpiryDate),
@@ -64209,9 +64319,10 @@ var (
 )
 
 type DomainWhoisLookupResponse struct {
-	Status                *bool                                           `json:"status,omitempty" url:"status,omitempty"`
-	DomainName            *string                                         `json:"domain_name,omitempty" url:"domain_name,omitempty"`
-	QueryTime             *time.Time                                      `json:"query_time,omitempty" url:"query_time,omitempty"`
+	Status     *bool   `json:"status,omitempty" url:"status,omitempty"`
+	DomainName *string `json:"domain_name,omitempty" url:"domain_name,omitempty"`
+	// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime             *string                                         `json:"query_time,omitempty" url:"query_time,omitempty"`
 	WhoisServer           *string                                         `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	DomainRegistered      *DomainWhoisLookupResponseDomainRegistered      `json:"domain_registered,omitempty" url:"domain_registered,omitempty"`
 	CreateDate            *time.Time                                      `json:"create_date,omitempty" url:"create_date,omitempty" format:"date"`
@@ -64249,7 +64360,7 @@ func (d *DomainWhoisLookupResponse) GetDomainName() *string {
 	return d.DomainName
 }
 
-func (d *DomainWhoisLookupResponse) GetQueryTime() *time.Time {
+func (d *DomainWhoisLookupResponse) GetQueryTime() *string {
 	if d == nil {
 		return nil
 	}
@@ -64391,7 +64502,7 @@ func (d *DomainWhoisLookupResponse) SetDomainName(domainName *string) {
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainWhoisLookupResponse) SetQueryTime(queryTime *time.Time) {
+func (d *DomainWhoisLookupResponse) SetQueryTime(queryTime *string) {
 	d.QueryTime = queryTime
 	d.require(domainWhoisLookupResponseFieldQueryTime)
 }
@@ -64505,10 +64616,9 @@ func (d *DomainWhoisLookupResponse) UnmarshalJSON(data []byte) error {
 	type embed DomainWhoisLookupResponse
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*d),
 	}
@@ -64516,7 +64626,6 @@ func (d *DomainWhoisLookupResponse) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	*d = DomainWhoisLookupResponse(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.TimePtr()
 	d.CreateDate = unmarshaler.CreateDate.TimePtr()
 	d.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	d.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -64533,13 +64642,11 @@ func (d *DomainWhoisLookupResponse) MarshalJSON() ([]byte, error) {
 	type embed DomainWhoisLookupResponse
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*d),
-		QueryTime:  internal.NewOptionalDateTime(d.QueryTime),
 		CreateDate: internal.NewOptionalDate(d.CreateDate),
 		UpdateDate: internal.NewOptionalDate(d.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(d.ExpiryDate),
@@ -65547,8 +65654,9 @@ var (
 )
 
 type DomainWhoisLookupResponseRegistryData struct {
-	DomainName       *string                                                `json:"domain_name,omitempty" url:"domain_name,omitempty"`
-	QueryTime        *time.Time                                             `json:"query_time,omitempty" url:"query_time,omitempty"`
+	DomainName *string `json:"domain_name,omitempty" url:"domain_name,omitempty"`
+	// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime        *string                                                `json:"query_time,omitempty" url:"query_time,omitempty"`
 	WhoisServer      *string                                                `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	DomainRegistered *DomainWhoisLookupResponseRegistryDataDomainRegistered `json:"domain_registered,omitempty" url:"domain_registered,omitempty"`
 	CreateDate       *time.Time                                             `json:"create_date,omitempty" url:"create_date,omitempty" format:"date"`
@@ -65573,7 +65681,7 @@ func (d *DomainWhoisLookupResponseRegistryData) GetDomainName() *string {
 	return d.DomainName
 }
 
-func (d *DomainWhoisLookupResponseRegistryData) GetQueryTime() *time.Time {
+func (d *DomainWhoisLookupResponseRegistryData) GetQueryTime() *string {
 	if d == nil {
 		return nil
 	}
@@ -65666,7 +65774,7 @@ func (d *DomainWhoisLookupResponseRegistryData) SetDomainName(domainName *string
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainWhoisLookupResponseRegistryData) SetQueryTime(queryTime *time.Time) {
+func (d *DomainWhoisLookupResponseRegistryData) SetQueryTime(queryTime *string) {
 	d.QueryTime = queryTime
 	d.require(domainWhoisLookupResponseRegistryDataFieldQueryTime)
 }
@@ -65738,10 +65846,9 @@ func (d *DomainWhoisLookupResponseRegistryData) UnmarshalJSON(data []byte) error
 	type embed DomainWhoisLookupResponseRegistryData
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*d),
 	}
@@ -65749,7 +65856,6 @@ func (d *DomainWhoisLookupResponseRegistryData) UnmarshalJSON(data []byte) error
 		return err
 	}
 	*d = DomainWhoisLookupResponseRegistryData(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.TimePtr()
 	d.CreateDate = unmarshaler.CreateDate.TimePtr()
 	d.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	d.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -65766,13 +65872,11 @@ func (d *DomainWhoisLookupResponseRegistryData) MarshalJSON() ([]byte, error) {
 	type embed DomainWhoisLookupResponseRegistryData
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*d),
-		QueryTime:  internal.NewOptionalDateTime(d.QueryTime),
 		CreateDate: internal.NewOptionalDate(d.CreateDate),
 		UpdateDate: internal.NewOptionalDate(d.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(d.ExpiryDate),
@@ -66561,7 +66665,7 @@ type DomainWhoisLookupV2Response struct {
 	// Timestamp when the WHOIS query was executed.
 	QueryTime string `json:"query_time" url:"query_time"`
 	// WHOIS or RDAP server that provided this record.
-	WhoisServer string `json:"whois_server" url:"whois_server"`
+	WhoisServer *string `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	// Domain registration status; 'restricted' means the registry withholds registration details.
 	DomainRegistered DomainWhoisLookupV2ResponseDomainRegistered `json:"domain_registered" url:"domain_registered"`
 	// Indicates if DNSSEC or secure DNS is enabled for the domain.
@@ -66627,9 +66731,9 @@ func (d *DomainWhoisLookupV2Response) GetQueryTime() string {
 	return d.QueryTime
 }
 
-func (d *DomainWhoisLookupV2Response) GetWhoisServer() string {
+func (d *DomainWhoisLookupV2Response) GetWhoisServer() *string {
 	if d == nil {
-		return ""
+		return nil
 	}
 	return d.WhoisServer
 }
@@ -66797,7 +66901,7 @@ func (d *DomainWhoisLookupV2Response) SetQueryTime(queryTime string) {
 
 // SetWhoisServer sets the WhoisServer field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainWhoisLookupV2Response) SetWhoisServer(whoisServer string) {
+func (d *DomainWhoisLookupV2Response) SetWhoisServer(whoisServer *string) {
 	d.WhoisServer = whoisServer
 	d.require(domainWhoisLookupV2ResponseFieldWhoisServer)
 }
@@ -68464,8 +68568,8 @@ var (
 type DomainWhoisLookupV2ResponseRegistryData struct {
 	// Domain name as recorded by the registry.
 	DomainName *string `json:"domain_name,omitempty" url:"domain_name,omitempty"`
-	// Timestamp when the registry-level record was queried.
-	QueryTime *time.Time `json:"query_time,omitempty" url:"query_time,omitempty"`
+	// Timestamp when the registry-level record was queried (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime *string `json:"query_time,omitempty" url:"query_time,omitempty"`
 	// Registry WHOIS server that returned this data.
 	WhoisServer *string `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	// Domain registration status as recorded by the registry.
@@ -68499,7 +68603,7 @@ func (d *DomainWhoisLookupV2ResponseRegistryData) GetDomainName() *string {
 	return d.DomainName
 }
 
-func (d *DomainWhoisLookupV2ResponseRegistryData) GetQueryTime() *time.Time {
+func (d *DomainWhoisLookupV2ResponseRegistryData) GetQueryTime() *string {
 	if d == nil {
 		return nil
 	}
@@ -68592,7 +68696,7 @@ func (d *DomainWhoisLookupV2ResponseRegistryData) SetDomainName(domainName *stri
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainWhoisLookupV2ResponseRegistryData) SetQueryTime(queryTime *time.Time) {
+func (d *DomainWhoisLookupV2ResponseRegistryData) SetQueryTime(queryTime *string) {
 	d.QueryTime = queryTime
 	d.require(domainWhoisLookupV2ResponseRegistryDataFieldQueryTime)
 }
@@ -68664,10 +68768,9 @@ func (d *DomainWhoisLookupV2ResponseRegistryData) UnmarshalJSON(data []byte) err
 	type embed DomainWhoisLookupV2ResponseRegistryData
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*d),
 	}
@@ -68675,7 +68778,6 @@ func (d *DomainWhoisLookupV2ResponseRegistryData) UnmarshalJSON(data []byte) err
 		return err
 	}
 	*d = DomainWhoisLookupV2ResponseRegistryData(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.TimePtr()
 	d.CreateDate = unmarshaler.CreateDate.TimePtr()
 	d.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	d.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -68692,13 +68794,11 @@ func (d *DomainWhoisLookupV2ResponseRegistryData) MarshalJSON() ([]byte, error) 
 	type embed DomainWhoisLookupV2ResponseRegistryData
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*d),
-		QueryTime:  internal.NewOptionalDateTime(d.QueryTime),
 		CreateDate: internal.NewOptionalDate(d.CreateDate),
 		UpdateDate: internal.NewOptionalDate(d.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(d.ExpiryDate),
@@ -69913,10 +70013,11 @@ var (
 )
 
 type DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact struct {
-	Num                   int                                                                                             `json:"num" url:"num"`
-	Status                bool                                                                                            `json:"status" url:"status"`
-	DomainName            string                                                                                          `json:"domain_name" url:"domain_name"`
-	QueryTime             time.Time                                                                                       `json:"query_time" url:"query_time"`
+	Num        int    `json:"num" url:"num"`
+	Status     bool   `json:"status" url:"status"`
+	DomainName string `json:"domain_name" url:"domain_name"`
+	// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime             string                                                                                          `json:"query_time" url:"query_time"`
 	WhoisServer           string                                                                                          `json:"whois_server" url:"whois_server"`
 	DomainRegistered      DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered       `json:"domain_registered" url:"domain_registered"`
 	CreateDate            *time.Time                                                                                      `json:"create_date,omitempty" url:"create_date,omitempty" format:"date"`
@@ -69961,9 +70062,9 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 	return d.DomainName
 }
 
-func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact) GetQueryTime() time.Time {
+func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact) GetQueryTime() string {
 	if d == nil {
-		return time.Time{}
+		return ""
 	}
 	return d.QueryTime
 }
@@ -70110,7 +70211,7 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact) SetQueryTime(queryTime time.Time) {
+func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact) SetQueryTime(queryTime string) {
 	d.QueryTime = queryTime
 	d.require(domainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactFieldQueryTime)
 }
@@ -70224,10 +70325,9 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 	type embed DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*d),
 	}
@@ -70235,7 +70335,6 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 		return err
 	}
 	*d = DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.Time()
 	d.CreateDate = unmarshaler.CreateDate.TimePtr()
 	d.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	d.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -70252,13 +70351,11 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 	type embed DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*d),
-		QueryTime:  internal.NewDateTime(d.QueryTime),
 		CreateDate: internal.NewOptionalDate(d.CreateDate),
 		UpdateDate: internal.NewOptionalDate(d.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(d.ExpiryDate),
@@ -71266,8 +71363,9 @@ var (
 )
 
 type DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData struct {
-	DomainName       *string                                                                                                `json:"domain_name,omitempty" url:"domain_name,omitempty"`
-	QueryTime        *time.Time                                                                                             `json:"query_time,omitempty" url:"query_time,omitempty"`
+	DomainName *string `json:"domain_name,omitempty" url:"domain_name,omitempty"`
+	// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	QueryTime        *string                                                                                                `json:"query_time,omitempty" url:"query_time,omitempty"`
 	WhoisServer      *string                                                                                                `json:"whois_server,omitempty" url:"whois_server,omitempty"`
 	DomainRegistered *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryDataDomainRegistered `json:"domain_registered,omitempty" url:"domain_registered,omitempty"`
 	CreateDate       *time.Time                                                                                             `json:"create_date,omitempty" url:"create_date,omitempty" format:"date"`
@@ -71292,7 +71390,7 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 	return d.DomainName
 }
 
-func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData) GetQueryTime() *time.Time {
+func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData) GetQueryTime() *string {
 	if d == nil {
 		return nil
 	}
@@ -71385,7 +71483,7 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 
 // SetQueryTime sets the QueryTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData) SetQueryTime(queryTime *time.Time) {
+func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData) SetQueryTime(queryTime *string) {
 	d.QueryTime = queryTime
 	d.require(domainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryDataFieldQueryTime)
 }
@@ -71457,10 +71555,9 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 	type embed DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData
 	var unmarshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed: embed(*d),
 	}
@@ -71468,7 +71565,6 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 		return err
 	}
 	*d = DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData(unmarshaler.embed)
-	d.QueryTime = unmarshaler.QueryTime.TimePtr()
 	d.CreateDate = unmarshaler.CreateDate.TimePtr()
 	d.UpdateDate = unmarshaler.UpdateDate.TimePtr()
 	d.ExpiryDate = unmarshaler.ExpiryDate.TimePtr()
@@ -71485,13 +71581,11 @@ func (d *DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeConta
 	type embed DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactRegistryData
 	var marshaler = struct {
 		embed
-		QueryTime  *internal.DateTime `json:"query_time,omitempty"`
-		CreateDate *internal.Date     `json:"create_date,omitempty"`
-		UpdateDate *internal.Date     `json:"update_date,omitempty"`
-		ExpiryDate *internal.Date     `json:"expiry_date,omitempty"`
+		CreateDate *internal.Date `json:"create_date,omitempty"`
+		UpdateDate *internal.Date `json:"update_date,omitempty"`
+		ExpiryDate *internal.Date `json:"expiry_date,omitempty"`
 	}{
 		embed:      embed(*d),
-		QueryTime:  internal.NewOptionalDateTime(d.QueryTime),
 		CreateDate: internal.NewOptionalDate(d.CreateDate),
 		UpdateDate: internal.NewOptionalDate(d.UpdateDate),
 		ExpiryDate: internal.NewOptionalDate(d.ExpiryDate),
@@ -73966,8 +74060,8 @@ var (
 )
 
 type FloodForecastResponseForecastValueDaily struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// The observed river discharge value (m³/s)
 	RiverDischarge *float64 `json:"river_discharge,omitempty" url:"river_discharge,omitempty"`
 	// The mean river discharge (m³/s)
@@ -73990,7 +74084,7 @@ type FloodForecastResponseForecastValueDaily struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FloodForecastResponseForecastValueDaily) GetTimestamp() *time.Time {
+func (f *FloodForecastResponseForecastValueDaily) GetTimestamp() *string {
 	if f == nil {
 		return nil
 	}
@@ -74062,7 +74156,7 @@ func (f *FloodForecastResponseForecastValueDaily) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseForecastValueDaily) SetTimestamp(timestamp *time.Time) {
+func (f *FloodForecastResponseForecastValueDaily) SetTimestamp(timestamp *string) {
 	f.Timestamp = timestamp
 	f.require(floodForecastResponseForecastValueDailyFieldTimestamp)
 }
@@ -74117,18 +74211,12 @@ func (f *FloodForecastResponseForecastValueDaily) SetRiverDischargeP75(riverDisc
 }
 
 func (f *FloodForecastResponseForecastValueDaily) UnmarshalJSON(data []byte) error {
-	type embed FloodForecastResponseForecastValueDaily
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*f),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler FloodForecastResponseForecastValueDaily
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*f = FloodForecastResponseForecastValueDaily(unmarshaler.embed)
-	f.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*f = FloodForecastResponseForecastValueDaily(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -74142,10 +74230,8 @@ func (f *FloodForecastResponseForecastValueDaily) MarshalJSON() ([]byte, error) 
 	type embed FloodForecastResponseForecastValueDaily
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*f),
-		Timestamp: internal.NewOptionalDateTime(f.Timestamp),
+		embed: embed(*f),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -74275,11 +74361,11 @@ type FloodForecastResponseLocationCity struct {
 	// Specific locality, neighborhood, suburb, or village within the geocoded area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Elevation above mean sea level in meters at the geocoded coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
@@ -74327,21 +74413,21 @@ func (f *FloodForecastResponseLocationCity) GetLocality() *string {
 	return f.Locality
 }
 
-func (f *FloodForecastResponseLocationCity) GetLatitude() float64 {
+func (f *FloodForecastResponseLocationCity) GetLatitude() string {
 	if f == nil {
-		return 0
+		return ""
 	}
 	return f.Latitude
 }
 
-func (f *FloodForecastResponseLocationCity) GetLongitude() float64 {
+func (f *FloodForecastResponseLocationCity) GetLongitude() string {
 	if f == nil {
-		return 0
+		return ""
 	}
 	return f.Longitude
 }
 
-func (f *FloodForecastResponseLocationCity) GetElevation() *float64 {
+func (f *FloodForecastResponseLocationCity) GetElevation() *string {
 	if f == nil {
 		return nil
 	}
@@ -74413,21 +74499,21 @@ func (f *FloodForecastResponseLocationCity) SetLocality(locality *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseLocationCity) SetLatitude(latitude float64) {
+func (f *FloodForecastResponseLocationCity) SetLatitude(latitude string) {
 	f.Latitude = latitude
 	f.require(floodForecastResponseLocationCityFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseLocationCity) SetLongitude(longitude float64) {
+func (f *FloodForecastResponseLocationCity) SetLongitude(longitude string) {
 	f.Longitude = longitude
 	f.require(floodForecastResponseLocationCityFieldLongitude)
 }
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseLocationCity) SetElevation(elevation *float64) {
+func (f *FloodForecastResponseLocationCity) SetElevation(elevation *string) {
 	f.Elevation = elevation
 	f.require(floodForecastResponseLocationCityFieldElevation)
 }
@@ -74535,13 +74621,13 @@ type FloodForecastResponseLocationContinentCode struct {
 	// Postal code or ZIP code for the approximate location of the IP address.
 	Zipcode *string `json:"zipcode,omitempty" url:"zipcode,omitempty"`
 	// Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Specific locality, neighborhood, or small area designation within the city.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Elevation above mean sea level in meters for the IP geolocation.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
@@ -74638,16 +74724,16 @@ func (f *FloodForecastResponseLocationContinentCode) GetZipcode() *string {
 	return f.Zipcode
 }
 
-func (f *FloodForecastResponseLocationContinentCode) GetLatitude() float64 {
+func (f *FloodForecastResponseLocationContinentCode) GetLatitude() string {
 	if f == nil {
-		return 0
+		return ""
 	}
 	return f.Latitude
 }
 
-func (f *FloodForecastResponseLocationContinentCode) GetLongitude() float64 {
+func (f *FloodForecastResponseLocationContinentCode) GetLongitude() string {
 	if f == nil {
-		return 0
+		return ""
 	}
 	return f.Longitude
 }
@@ -74659,7 +74745,7 @@ func (f *FloodForecastResponseLocationContinentCode) GetLocality() *string {
 	return f.Locality
 }
 
-func (f *FloodForecastResponseLocationContinentCode) GetElevation() *float64 {
+func (f *FloodForecastResponseLocationContinentCode) GetElevation() *string {
 	if f == nil {
 		return nil
 	}
@@ -74780,14 +74866,14 @@ func (f *FloodForecastResponseLocationContinentCode) SetZipcode(zipcode *string)
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseLocationContinentCode) SetLatitude(latitude float64) {
+func (f *FloodForecastResponseLocationContinentCode) SetLatitude(latitude string) {
 	f.Latitude = latitude
 	f.require(floodForecastResponseLocationContinentCodeFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseLocationContinentCode) SetLongitude(longitude float64) {
+func (f *FloodForecastResponseLocationContinentCode) SetLongitude(longitude string) {
 	f.Longitude = longitude
 	f.require(floodForecastResponseLocationContinentCodeFieldLongitude)
 }
@@ -74801,7 +74887,7 @@ func (f *FloodForecastResponseLocationContinentCode) SetLocality(locality *strin
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseLocationContinentCode) SetElevation(elevation *float64) {
+func (f *FloodForecastResponseLocationContinentCode) SetElevation(elevation *string) {
 	f.Elevation = elevation
 	f.require(floodForecastResponseLocationContinentCodeFieldElevation)
 }
@@ -74876,9 +74962,9 @@ var (
 
 type FloodForecastResponseLocationZero struct {
 	// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Full name of the country corresponding to the provided coordinates.
 	CountryName string `json:"country_name" url:"country_name"`
 	// State, province, or primary administrative division name for the location.
@@ -74888,7 +74974,7 @@ type FloodForecastResponseLocationZero struct {
 	// Specific locality, neighborhood, district, or village name within the broader area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Height above mean sea level in meters for the specified coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
@@ -74901,16 +74987,16 @@ type FloodForecastResponseLocationZero struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FloodForecastResponseLocationZero) GetLatitude() float64 {
+func (f *FloodForecastResponseLocationZero) GetLatitude() string {
 	if f == nil {
-		return 0
+		return ""
 	}
 	return f.Latitude
 }
 
-func (f *FloodForecastResponseLocationZero) GetLongitude() float64 {
+func (f *FloodForecastResponseLocationZero) GetLongitude() string {
 	if f == nil {
-		return 0
+		return ""
 	}
 	return f.Longitude
 }
@@ -74943,7 +75029,7 @@ func (f *FloodForecastResponseLocationZero) GetLocality() *string {
 	return f.Locality
 }
 
-func (f *FloodForecastResponseLocationZero) GetElevation() *float64 {
+func (f *FloodForecastResponseLocationZero) GetElevation() *string {
 	if f == nil {
 		return nil
 	}
@@ -74980,14 +75066,14 @@ func (f *FloodForecastResponseLocationZero) require(field *big.Int) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseLocationZero) SetLatitude(latitude float64) {
+func (f *FloodForecastResponseLocationZero) SetLatitude(latitude string) {
 	f.Latitude = latitude
 	f.require(floodForecastResponseLocationZeroFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseLocationZero) SetLongitude(longitude float64) {
+func (f *FloodForecastResponseLocationZero) SetLongitude(longitude string) {
 	f.Longitude = longitude
 	f.require(floodForecastResponseLocationZeroFieldLongitude)
 }
@@ -75022,7 +75108,7 @@ func (f *FloodForecastResponseLocationZero) SetLocality(locality *string) {
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FloodForecastResponseLocationZero) SetElevation(elevation *float64) {
+func (f *FloodForecastResponseLocationZero) SetElevation(elevation *string) {
 	f.Elevation = elevation
 	f.require(floodForecastResponseLocationZeroFieldElevation)
 }
@@ -85721,8 +85807,8 @@ var (
 )
 
 type HistoricalWeatherResponseHistoricalDaily struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Weather condition code
 	WeatherCode *int `json:"weather_code,omitempty" url:"weather_code,omitempty"`
 	// Daily mean air temperature at 2 meters (°C)
@@ -85787,7 +85873,7 @@ type HistoricalWeatherResponseHistoricalDaily struct {
 	rawJSON         json.RawMessage
 }
 
-func (h *HistoricalWeatherResponseHistoricalDaily) GetTimestamp() *time.Time {
+func (h *HistoricalWeatherResponseHistoricalDaily) GetTimestamp() *string {
 	if h == nil {
 		return nil
 	}
@@ -86006,7 +86092,7 @@ func (h *HistoricalWeatherResponseHistoricalDaily) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseHistoricalDaily) SetTimestamp(timestamp *time.Time) {
+func (h *HistoricalWeatherResponseHistoricalDaily) SetTimestamp(timestamp *string) {
 	h.Timestamp = timestamp
 	h.require(historicalWeatherResponseHistoricalDailyFieldTimestamp)
 }
@@ -86208,18 +86294,12 @@ func (h *HistoricalWeatherResponseHistoricalDaily) SetSurfacePressureMean(surfac
 }
 
 func (h *HistoricalWeatherResponseHistoricalDaily) UnmarshalJSON(data []byte) error {
-	type embed HistoricalWeatherResponseHistoricalDaily
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*h),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler HistoricalWeatherResponseHistoricalDaily
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*h = HistoricalWeatherResponseHistoricalDaily(unmarshaler.embed)
-	h.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*h = HistoricalWeatherResponseHistoricalDaily(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *h)
 	if err != nil {
 		return err
@@ -86233,10 +86313,8 @@ func (h *HistoricalWeatherResponseHistoricalDaily) MarshalJSON() ([]byte, error)
 	type embed HistoricalWeatherResponseHistoricalDaily
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*h),
-		Timestamp: internal.NewOptionalDateTime(h.Timestamp),
+		embed: embed(*h),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, h.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -86283,8 +86361,8 @@ var (
 )
 
 type HistoricalWeatherResponseHistoricalHourlyItem struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Air temperature at 2 meters (°C)
 	Temperature2M *float64 `json:"temperature_2m,omitempty" url:"temperature_2m,omitempty"`
 	// Relative humidity at 2 meters (%)
@@ -86335,7 +86413,7 @@ type HistoricalWeatherResponseHistoricalHourlyItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (h *HistoricalWeatherResponseHistoricalHourlyItem) GetTimestamp() *time.Time {
+func (h *HistoricalWeatherResponseHistoricalHourlyItem) GetTimestamp() *string {
 	if h == nil {
 		return nil
 	}
@@ -86505,7 +86583,7 @@ func (h *HistoricalWeatherResponseHistoricalHourlyItem) require(field *big.Int) 
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseHistoricalHourlyItem) SetTimestamp(timestamp *time.Time) {
+func (h *HistoricalWeatherResponseHistoricalHourlyItem) SetTimestamp(timestamp *string) {
 	h.Timestamp = timestamp
 	h.require(historicalWeatherResponseHistoricalHourlyItemFieldTimestamp)
 }
@@ -86658,18 +86736,12 @@ func (h *HistoricalWeatherResponseHistoricalHourlyItem) SetGlobalTiltedIrradianc
 }
 
 func (h *HistoricalWeatherResponseHistoricalHourlyItem) UnmarshalJSON(data []byte) error {
-	type embed HistoricalWeatherResponseHistoricalHourlyItem
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*h),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler HistoricalWeatherResponseHistoricalHourlyItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*h = HistoricalWeatherResponseHistoricalHourlyItem(unmarshaler.embed)
-	h.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*h = HistoricalWeatherResponseHistoricalHourlyItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *h)
 	if err != nil {
 		return err
@@ -86683,10 +86755,8 @@ func (h *HistoricalWeatherResponseHistoricalHourlyItem) MarshalJSON() ([]byte, e
 	type embed HistoricalWeatherResponseHistoricalHourlyItem
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*h),
-		Timestamp: internal.NewOptionalDateTime(h.Timestamp),
+		embed: embed(*h),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, h.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -86816,11 +86886,11 @@ type HistoricalWeatherResponseLocationCity struct {
 	// Specific locality, neighborhood, suburb, or village within the geocoded area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Elevation above mean sea level in meters at the geocoded coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
@@ -86868,21 +86938,21 @@ func (h *HistoricalWeatherResponseLocationCity) GetLocality() *string {
 	return h.Locality
 }
 
-func (h *HistoricalWeatherResponseLocationCity) GetLatitude() float64 {
+func (h *HistoricalWeatherResponseLocationCity) GetLatitude() string {
 	if h == nil {
-		return 0
+		return ""
 	}
 	return h.Latitude
 }
 
-func (h *HistoricalWeatherResponseLocationCity) GetLongitude() float64 {
+func (h *HistoricalWeatherResponseLocationCity) GetLongitude() string {
 	if h == nil {
-		return 0
+		return ""
 	}
 	return h.Longitude
 }
 
-func (h *HistoricalWeatherResponseLocationCity) GetElevation() *float64 {
+func (h *HistoricalWeatherResponseLocationCity) GetElevation() *string {
 	if h == nil {
 		return nil
 	}
@@ -86954,21 +87024,21 @@ func (h *HistoricalWeatherResponseLocationCity) SetLocality(locality *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseLocationCity) SetLatitude(latitude float64) {
+func (h *HistoricalWeatherResponseLocationCity) SetLatitude(latitude string) {
 	h.Latitude = latitude
 	h.require(historicalWeatherResponseLocationCityFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseLocationCity) SetLongitude(longitude float64) {
+func (h *HistoricalWeatherResponseLocationCity) SetLongitude(longitude string) {
 	h.Longitude = longitude
 	h.require(historicalWeatherResponseLocationCityFieldLongitude)
 }
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseLocationCity) SetElevation(elevation *float64) {
+func (h *HistoricalWeatherResponseLocationCity) SetElevation(elevation *string) {
 	h.Elevation = elevation
 	h.require(historicalWeatherResponseLocationCityFieldElevation)
 }
@@ -87076,13 +87146,13 @@ type HistoricalWeatherResponseLocationContinentCode struct {
 	// Postal code or ZIP code for the approximate location of the IP address.
 	Zipcode *string `json:"zipcode,omitempty" url:"zipcode,omitempty"`
 	// Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Specific locality, neighborhood, or small area designation within the city.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Elevation above mean sea level in meters for the IP geolocation.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
@@ -87179,16 +87249,16 @@ func (h *HistoricalWeatherResponseLocationContinentCode) GetZipcode() *string {
 	return h.Zipcode
 }
 
-func (h *HistoricalWeatherResponseLocationContinentCode) GetLatitude() float64 {
+func (h *HistoricalWeatherResponseLocationContinentCode) GetLatitude() string {
 	if h == nil {
-		return 0
+		return ""
 	}
 	return h.Latitude
 }
 
-func (h *HistoricalWeatherResponseLocationContinentCode) GetLongitude() float64 {
+func (h *HistoricalWeatherResponseLocationContinentCode) GetLongitude() string {
 	if h == nil {
-		return 0
+		return ""
 	}
 	return h.Longitude
 }
@@ -87200,7 +87270,7 @@ func (h *HistoricalWeatherResponseLocationContinentCode) GetLocality() *string {
 	return h.Locality
 }
 
-func (h *HistoricalWeatherResponseLocationContinentCode) GetElevation() *float64 {
+func (h *HistoricalWeatherResponseLocationContinentCode) GetElevation() *string {
 	if h == nil {
 		return nil
 	}
@@ -87321,14 +87391,14 @@ func (h *HistoricalWeatherResponseLocationContinentCode) SetZipcode(zipcode *str
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseLocationContinentCode) SetLatitude(latitude float64) {
+func (h *HistoricalWeatherResponseLocationContinentCode) SetLatitude(latitude string) {
 	h.Latitude = latitude
 	h.require(historicalWeatherResponseLocationContinentCodeFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseLocationContinentCode) SetLongitude(longitude float64) {
+func (h *HistoricalWeatherResponseLocationContinentCode) SetLongitude(longitude string) {
 	h.Longitude = longitude
 	h.require(historicalWeatherResponseLocationContinentCodeFieldLongitude)
 }
@@ -87342,7 +87412,7 @@ func (h *HistoricalWeatherResponseLocationContinentCode) SetLocality(locality *s
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseLocationContinentCode) SetElevation(elevation *float64) {
+func (h *HistoricalWeatherResponseLocationContinentCode) SetElevation(elevation *string) {
 	h.Elevation = elevation
 	h.require(historicalWeatherResponseLocationContinentCodeFieldElevation)
 }
@@ -87417,9 +87487,9 @@ var (
 
 type HistoricalWeatherResponseLocationZero struct {
 	// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Full name of the country corresponding to the provided coordinates.
 	CountryName string `json:"country_name" url:"country_name"`
 	// State, province, or primary administrative division name for the location.
@@ -87429,7 +87499,7 @@ type HistoricalWeatherResponseLocationZero struct {
 	// Specific locality, neighborhood, district, or village name within the broader area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Height above mean sea level in meters for the specified coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
@@ -87442,16 +87512,16 @@ type HistoricalWeatherResponseLocationZero struct {
 	rawJSON         json.RawMessage
 }
 
-func (h *HistoricalWeatherResponseLocationZero) GetLatitude() float64 {
+func (h *HistoricalWeatherResponseLocationZero) GetLatitude() string {
 	if h == nil {
-		return 0
+		return ""
 	}
 	return h.Latitude
 }
 
-func (h *HistoricalWeatherResponseLocationZero) GetLongitude() float64 {
+func (h *HistoricalWeatherResponseLocationZero) GetLongitude() string {
 	if h == nil {
-		return 0
+		return ""
 	}
 	return h.Longitude
 }
@@ -87484,7 +87554,7 @@ func (h *HistoricalWeatherResponseLocationZero) GetLocality() *string {
 	return h.Locality
 }
 
-func (h *HistoricalWeatherResponseLocationZero) GetElevation() *float64 {
+func (h *HistoricalWeatherResponseLocationZero) GetElevation() *string {
 	if h == nil {
 		return nil
 	}
@@ -87521,14 +87591,14 @@ func (h *HistoricalWeatherResponseLocationZero) require(field *big.Int) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseLocationZero) SetLatitude(latitude float64) {
+func (h *HistoricalWeatherResponseLocationZero) SetLatitude(latitude string) {
 	h.Latitude = latitude
 	h.require(historicalWeatherResponseLocationZeroFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseLocationZero) SetLongitude(longitude float64) {
+func (h *HistoricalWeatherResponseLocationZero) SetLongitude(longitude string) {
 	h.Longitude = longitude
 	h.require(historicalWeatherResponseLocationZeroFieldLongitude)
 }
@@ -87563,7 +87633,7 @@ func (h *HistoricalWeatherResponseLocationZero) SetLocality(locality *string) {
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (h *HistoricalWeatherResponseLocationZero) SetElevation(elevation *float64) {
+func (h *HistoricalWeatherResponseLocationZero) SetElevation(elevation *string) {
 	h.Elevation = elevation
 	h.require(historicalWeatherResponseLocationZeroFieldElevation)
 }
@@ -91345,8 +91415,8 @@ var (
 )
 
 type MarineWeatherResponseCurrent struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Significant height of combined sea waves (m)
 	WaveHeight *float64 `json:"wave_height,omitempty" url:"wave_height,omitempty"`
 	// Direction from which the combined waves are coming (°)
@@ -91381,7 +91451,7 @@ type MarineWeatherResponseCurrent struct {
 	rawJSON         json.RawMessage
 }
 
-func (m *MarineWeatherResponseCurrent) GetTimestamp() *time.Time {
+func (m *MarineWeatherResponseCurrent) GetTimestamp() *string {
 	if m == nil {
 		return nil
 	}
@@ -91495,7 +91565,7 @@ func (m *MarineWeatherResponseCurrent) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseCurrent) SetTimestamp(timestamp *time.Time) {
+func (m *MarineWeatherResponseCurrent) SetTimestamp(timestamp *string) {
 	m.Timestamp = timestamp
 	m.require(marineWeatherResponseCurrentFieldTimestamp)
 }
@@ -91592,18 +91662,12 @@ func (m *MarineWeatherResponseCurrent) SetOceanCurrentDirection(oceanCurrentDire
 }
 
 func (m *MarineWeatherResponseCurrent) UnmarshalJSON(data []byte) error {
-	type embed MarineWeatherResponseCurrent
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*m),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler MarineWeatherResponseCurrent
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*m = MarineWeatherResponseCurrent(unmarshaler.embed)
-	m.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*m = MarineWeatherResponseCurrent(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *m)
 	if err != nil {
 		return err
@@ -91617,10 +91681,8 @@ func (m *MarineWeatherResponseCurrent) MarshalJSON() ([]byte, error) {
 	type embed MarineWeatherResponseCurrent
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*m),
-		Timestamp: internal.NewOptionalDateTime(m.Timestamp),
+		embed: embed(*m),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, m.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -91777,8 +91839,8 @@ var (
 )
 
 type MarineWeatherResponseForecastValueDaily struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Maximum significant wave height (m)
 	WaveHeightMax *float64 `json:"wave_height_max,omitempty" url:"wave_height_max,omitempty"`
 	// Dominant direction of waves (°)
@@ -91809,7 +91871,7 @@ type MarineWeatherResponseForecastValueDaily struct {
 	rawJSON         json.RawMessage
 }
 
-func (m *MarineWeatherResponseForecastValueDaily) GetTimestamp() *time.Time {
+func (m *MarineWeatherResponseForecastValueDaily) GetTimestamp() *string {
 	if m == nil {
 		return nil
 	}
@@ -91909,7 +91971,7 @@ func (m *MarineWeatherResponseForecastValueDaily) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseForecastValueDaily) SetTimestamp(timestamp *time.Time) {
+func (m *MarineWeatherResponseForecastValueDaily) SetTimestamp(timestamp *string) {
 	m.Timestamp = timestamp
 	m.require(marineWeatherResponseForecastValueDailyFieldTimestamp)
 }
@@ -91992,18 +92054,12 @@ func (m *MarineWeatherResponseForecastValueDaily) SetSwellWavePeakPeriodMax(swel
 }
 
 func (m *MarineWeatherResponseForecastValueDaily) UnmarshalJSON(data []byte) error {
-	type embed MarineWeatherResponseForecastValueDaily
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*m),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler MarineWeatherResponseForecastValueDaily
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*m = MarineWeatherResponseForecastValueDaily(unmarshaler.embed)
-	m.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*m = MarineWeatherResponseForecastValueDaily(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *m)
 	if err != nil {
 		return err
@@ -92017,10 +92073,8 @@ func (m *MarineWeatherResponseForecastValueDaily) MarshalJSON() ([]byte, error) 
 	type embed MarineWeatherResponseForecastValueDaily
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*m),
-		Timestamp: internal.NewOptionalDateTime(m.Timestamp),
+		embed: embed(*m),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, m.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -92061,8 +92115,8 @@ var (
 )
 
 type MarineWeatherResponseForecastValueHourlyItem struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Significant wave height at the given time (m)
 	WaveHeight *float64 `json:"wave_height,omitempty" url:"wave_height,omitempty"`
 	// Wave direction (°)
@@ -92101,7 +92155,7 @@ type MarineWeatherResponseForecastValueHourlyItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (m *MarineWeatherResponseForecastValueHourlyItem) GetTimestamp() *time.Time {
+func (m *MarineWeatherResponseForecastValueHourlyItem) GetTimestamp() *string {
 	if m == nil {
 		return nil
 	}
@@ -92229,7 +92283,7 @@ func (m *MarineWeatherResponseForecastValueHourlyItem) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseForecastValueHourlyItem) SetTimestamp(timestamp *time.Time) {
+func (m *MarineWeatherResponseForecastValueHourlyItem) SetTimestamp(timestamp *string) {
 	m.Timestamp = timestamp
 	m.require(marineWeatherResponseForecastValueHourlyItemFieldTimestamp)
 }
@@ -92340,18 +92394,12 @@ func (m *MarineWeatherResponseForecastValueHourlyItem) SetOceanCurrentDirection(
 }
 
 func (m *MarineWeatherResponseForecastValueHourlyItem) UnmarshalJSON(data []byte) error {
-	type embed MarineWeatherResponseForecastValueHourlyItem
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*m),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler MarineWeatherResponseForecastValueHourlyItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*m = MarineWeatherResponseForecastValueHourlyItem(unmarshaler.embed)
-	m.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*m = MarineWeatherResponseForecastValueHourlyItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *m)
 	if err != nil {
 		return err
@@ -92365,10 +92413,8 @@ func (m *MarineWeatherResponseForecastValueHourlyItem) MarshalJSON() ([]byte, er
 	type embed MarineWeatherResponseForecastValueHourlyItem
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*m),
-		Timestamp: internal.NewOptionalDateTime(m.Timestamp),
+		embed: embed(*m),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, m.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -92397,8 +92443,8 @@ var (
 )
 
 type MarineWeatherResponseForecastValueMinutelyItem struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Speed of ocean current (km/h)
 	OceanCurrentVelocity *float64 `json:"ocean_current_velocity,omitempty" url:"ocean_current_velocity,omitempty"`
 	// Direction of ocean current (°)
@@ -92413,7 +92459,7 @@ type MarineWeatherResponseForecastValueMinutelyItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (m *MarineWeatherResponseForecastValueMinutelyItem) GetTimestamp() *time.Time {
+func (m *MarineWeatherResponseForecastValueMinutelyItem) GetTimestamp() *string {
 	if m == nil {
 		return nil
 	}
@@ -92457,7 +92503,7 @@ func (m *MarineWeatherResponseForecastValueMinutelyItem) require(field *big.Int)
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseForecastValueMinutelyItem) SetTimestamp(timestamp *time.Time) {
+func (m *MarineWeatherResponseForecastValueMinutelyItem) SetTimestamp(timestamp *string) {
 	m.Timestamp = timestamp
 	m.require(marineWeatherResponseForecastValueMinutelyItemFieldTimestamp)
 }
@@ -92484,18 +92530,12 @@ func (m *MarineWeatherResponseForecastValueMinutelyItem) SetSeaLevelHeightMsl(se
 }
 
 func (m *MarineWeatherResponseForecastValueMinutelyItem) UnmarshalJSON(data []byte) error {
-	type embed MarineWeatherResponseForecastValueMinutelyItem
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*m),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler MarineWeatherResponseForecastValueMinutelyItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*m = MarineWeatherResponseForecastValueMinutelyItem(unmarshaler.embed)
-	m.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*m = MarineWeatherResponseForecastValueMinutelyItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *m)
 	if err != nil {
 		return err
@@ -92509,10 +92549,8 @@ func (m *MarineWeatherResponseForecastValueMinutelyItem) MarshalJSON() ([]byte, 
 	type embed MarineWeatherResponseForecastValueMinutelyItem
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*m),
-		Timestamp: internal.NewOptionalDateTime(m.Timestamp),
+		embed: embed(*m),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, m.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -92642,11 +92680,11 @@ type MarineWeatherResponseLocationCity struct {
 	// Specific locality, neighborhood, suburb, or village within the geocoded area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Elevation above mean sea level in meters at the geocoded coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
@@ -92694,21 +92732,21 @@ func (m *MarineWeatherResponseLocationCity) GetLocality() *string {
 	return m.Locality
 }
 
-func (m *MarineWeatherResponseLocationCity) GetLatitude() float64 {
+func (m *MarineWeatherResponseLocationCity) GetLatitude() string {
 	if m == nil {
-		return 0
+		return ""
 	}
 	return m.Latitude
 }
 
-func (m *MarineWeatherResponseLocationCity) GetLongitude() float64 {
+func (m *MarineWeatherResponseLocationCity) GetLongitude() string {
 	if m == nil {
-		return 0
+		return ""
 	}
 	return m.Longitude
 }
 
-func (m *MarineWeatherResponseLocationCity) GetElevation() *float64 {
+func (m *MarineWeatherResponseLocationCity) GetElevation() *string {
 	if m == nil {
 		return nil
 	}
@@ -92780,21 +92818,21 @@ func (m *MarineWeatherResponseLocationCity) SetLocality(locality *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseLocationCity) SetLatitude(latitude float64) {
+func (m *MarineWeatherResponseLocationCity) SetLatitude(latitude string) {
 	m.Latitude = latitude
 	m.require(marineWeatherResponseLocationCityFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseLocationCity) SetLongitude(longitude float64) {
+func (m *MarineWeatherResponseLocationCity) SetLongitude(longitude string) {
 	m.Longitude = longitude
 	m.require(marineWeatherResponseLocationCityFieldLongitude)
 }
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseLocationCity) SetElevation(elevation *float64) {
+func (m *MarineWeatherResponseLocationCity) SetElevation(elevation *string) {
 	m.Elevation = elevation
 	m.require(marineWeatherResponseLocationCityFieldElevation)
 }
@@ -92902,13 +92940,13 @@ type MarineWeatherResponseLocationContinentCode struct {
 	// Postal code or ZIP code for the approximate location of the IP address.
 	Zipcode *string `json:"zipcode,omitempty" url:"zipcode,omitempty"`
 	// Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Specific locality, neighborhood, or small area designation within the city.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Elevation above mean sea level in meters for the IP geolocation.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
@@ -93005,16 +93043,16 @@ func (m *MarineWeatherResponseLocationContinentCode) GetZipcode() *string {
 	return m.Zipcode
 }
 
-func (m *MarineWeatherResponseLocationContinentCode) GetLatitude() float64 {
+func (m *MarineWeatherResponseLocationContinentCode) GetLatitude() string {
 	if m == nil {
-		return 0
+		return ""
 	}
 	return m.Latitude
 }
 
-func (m *MarineWeatherResponseLocationContinentCode) GetLongitude() float64 {
+func (m *MarineWeatherResponseLocationContinentCode) GetLongitude() string {
 	if m == nil {
-		return 0
+		return ""
 	}
 	return m.Longitude
 }
@@ -93026,7 +93064,7 @@ func (m *MarineWeatherResponseLocationContinentCode) GetLocality() *string {
 	return m.Locality
 }
 
-func (m *MarineWeatherResponseLocationContinentCode) GetElevation() *float64 {
+func (m *MarineWeatherResponseLocationContinentCode) GetElevation() *string {
 	if m == nil {
 		return nil
 	}
@@ -93147,14 +93185,14 @@ func (m *MarineWeatherResponseLocationContinentCode) SetZipcode(zipcode *string)
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseLocationContinentCode) SetLatitude(latitude float64) {
+func (m *MarineWeatherResponseLocationContinentCode) SetLatitude(latitude string) {
 	m.Latitude = latitude
 	m.require(marineWeatherResponseLocationContinentCodeFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseLocationContinentCode) SetLongitude(longitude float64) {
+func (m *MarineWeatherResponseLocationContinentCode) SetLongitude(longitude string) {
 	m.Longitude = longitude
 	m.require(marineWeatherResponseLocationContinentCodeFieldLongitude)
 }
@@ -93168,7 +93206,7 @@ func (m *MarineWeatherResponseLocationContinentCode) SetLocality(locality *strin
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseLocationContinentCode) SetElevation(elevation *float64) {
+func (m *MarineWeatherResponseLocationContinentCode) SetElevation(elevation *string) {
 	m.Elevation = elevation
 	m.require(marineWeatherResponseLocationContinentCodeFieldElevation)
 }
@@ -93243,9 +93281,9 @@ var (
 
 type MarineWeatherResponseLocationZero struct {
 	// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Full name of the country corresponding to the provided coordinates.
 	CountryName string `json:"country_name" url:"country_name"`
 	// State, province, or primary administrative division name for the location.
@@ -93255,7 +93293,7 @@ type MarineWeatherResponseLocationZero struct {
 	// Specific locality, neighborhood, district, or village name within the broader area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Height above mean sea level in meters for the specified coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
@@ -93268,16 +93306,16 @@ type MarineWeatherResponseLocationZero struct {
 	rawJSON         json.RawMessage
 }
 
-func (m *MarineWeatherResponseLocationZero) GetLatitude() float64 {
+func (m *MarineWeatherResponseLocationZero) GetLatitude() string {
 	if m == nil {
-		return 0
+		return ""
 	}
 	return m.Latitude
 }
 
-func (m *MarineWeatherResponseLocationZero) GetLongitude() float64 {
+func (m *MarineWeatherResponseLocationZero) GetLongitude() string {
 	if m == nil {
-		return 0
+		return ""
 	}
 	return m.Longitude
 }
@@ -93310,7 +93348,7 @@ func (m *MarineWeatherResponseLocationZero) GetLocality() *string {
 	return m.Locality
 }
 
-func (m *MarineWeatherResponseLocationZero) GetElevation() *float64 {
+func (m *MarineWeatherResponseLocationZero) GetElevation() *string {
 	if m == nil {
 		return nil
 	}
@@ -93347,14 +93385,14 @@ func (m *MarineWeatherResponseLocationZero) require(field *big.Int) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseLocationZero) SetLatitude(latitude float64) {
+func (m *MarineWeatherResponseLocationZero) SetLatitude(latitude string) {
 	m.Latitude = latitude
 	m.require(marineWeatherResponseLocationZeroFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseLocationZero) SetLongitude(longitude float64) {
+func (m *MarineWeatherResponseLocationZero) SetLongitude(longitude string) {
 	m.Longitude = longitude
 	m.require(marineWeatherResponseLocationZeroFieldLongitude)
 }
@@ -93389,7 +93427,7 @@ func (m *MarineWeatherResponseLocationZero) SetLocality(locality *string) {
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MarineWeatherResponseLocationZero) SetElevation(elevation *float64) {
+func (m *MarineWeatherResponseLocationZero) SetElevation(elevation *string) {
 	m.Elevation = elevation
 	m.require(marineWeatherResponseLocationZeroFieldElevation)
 }
@@ -100769,10 +100807,10 @@ var (
 )
 
 type TimezoneConvertResponse struct {
-	// Original time before conversion
-	OriginalTime time.Time `json:"original_time" url:"original_time"`
-	// Time after conversion
-	ConvertedTime time.Time `json:"converted_time" url:"converted_time"`
+	// Original time before conversion (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	OriginalTime string `json:"original_time" url:"original_time"`
+	// Time after conversion (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+	ConvertedTime string `json:"converted_time" url:"converted_time"`
 	// Difference in hours
 	DiffHour float64 `json:"diff_hour" url:"diff_hour"`
 	// Difference in minutes
@@ -100785,16 +100823,16 @@ type TimezoneConvertResponse struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TimezoneConvertResponse) GetOriginalTime() time.Time {
+func (t *TimezoneConvertResponse) GetOriginalTime() string {
 	if t == nil {
-		return time.Time{}
+		return ""
 	}
 	return t.OriginalTime
 }
 
-func (t *TimezoneConvertResponse) GetConvertedTime() time.Time {
+func (t *TimezoneConvertResponse) GetConvertedTime() string {
 	if t == nil {
-		return time.Time{}
+		return ""
 	}
 	return t.ConvertedTime
 }
@@ -100829,14 +100867,14 @@ func (t *TimezoneConvertResponse) require(field *big.Int) {
 
 // SetOriginalTime sets the OriginalTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneConvertResponse) SetOriginalTime(originalTime time.Time) {
+func (t *TimezoneConvertResponse) SetOriginalTime(originalTime string) {
 	t.OriginalTime = originalTime
 	t.require(timezoneConvertResponseFieldOriginalTime)
 }
 
 // SetConvertedTime sets the ConvertedTime field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneConvertResponse) SetConvertedTime(convertedTime time.Time) {
+func (t *TimezoneConvertResponse) SetConvertedTime(convertedTime string) {
 	t.ConvertedTime = convertedTime
 	t.require(timezoneConvertResponseFieldConvertedTime)
 }
@@ -100856,20 +100894,12 @@ func (t *TimezoneConvertResponse) SetDiffMin(diffMin float64) {
 }
 
 func (t *TimezoneConvertResponse) UnmarshalJSON(data []byte) error {
-	type embed TimezoneConvertResponse
-	var unmarshaler = struct {
-		embed
-		OriginalTime  *internal.DateTime `json:"original_time"`
-		ConvertedTime *internal.DateTime `json:"converted_time"`
-	}{
-		embed: embed(*t),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler TimezoneConvertResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*t = TimezoneConvertResponse(unmarshaler.embed)
-	t.OriginalTime = unmarshaler.OriginalTime.Time()
-	t.ConvertedTime = unmarshaler.ConvertedTime.Time()
+	*t = TimezoneConvertResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -100883,12 +100913,8 @@ func (t *TimezoneConvertResponse) MarshalJSON() ([]byte, error) {
 	type embed TimezoneConvertResponse
 	var marshaler = struct {
 		embed
-		OriginalTime  *internal.DateTime `json:"original_time"`
-		ConvertedTime *internal.DateTime `json:"converted_time"`
 	}{
-		embed:         embed(*t),
-		OriginalTime:  internal.NewDateTime(t.OriginalTime),
-		ConvertedTime: internal.NewDateTime(t.ConvertedTime),
+		embed: embed(*t),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -102952,9 +102978,9 @@ type TimezoneLookupV2ResponseAirportDetails struct {
 	// The full name of the airport.
 	Name *string `json:"name,omitempty" url:"name,omitempty"`
 	// The latitude coordinate of the airport.
-	Latitude *float64 `json:"latitude,omitempty" url:"latitude,omitempty"`
+	Latitude *string `json:"latitude,omitempty" url:"latitude,omitempty"`
 	// The longitude coordinate of the airport.
-	Longitude *float64 `json:"longitude,omitempty" url:"longitude,omitempty"`
+	Longitude *string `json:"longitude,omitempty" url:"longitude,omitempty"`
 	// The elevation of the airport above sea level, measured in feet.
 	ElevationFt *int `json:"elevation_ft,omitempty" url:"elevation_ft,omitempty"`
 	// The two-letter code of the continent.
@@ -102993,14 +103019,14 @@ func (t *TimezoneLookupV2ResponseAirportDetails) GetName() *string {
 	return t.Name
 }
 
-func (t *TimezoneLookupV2ResponseAirportDetails) GetLatitude() *float64 {
+func (t *TimezoneLookupV2ResponseAirportDetails) GetLatitude() *string {
 	if t == nil {
 		return nil
 	}
 	return t.Latitude
 }
 
-func (t *TimezoneLookupV2ResponseAirportDetails) GetLongitude() *float64 {
+func (t *TimezoneLookupV2ResponseAirportDetails) GetLongitude() *string {
 	if t == nil {
 		return nil
 	}
@@ -103093,14 +103119,14 @@ func (t *TimezoneLookupV2ResponseAirportDetails) SetName(name *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupV2ResponseAirportDetails) SetLatitude(latitude *float64) {
+func (t *TimezoneLookupV2ResponseAirportDetails) SetLatitude(latitude *string) {
 	t.Latitude = latitude
 	t.require(timezoneLookupV2ResponseAirportDetailsFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupV2ResponseAirportDetails) SetLongitude(longitude *float64) {
+func (t *TimezoneLookupV2ResponseAirportDetails) SetLongitude(longitude *string) {
 	t.Longitude = longitude
 	t.require(timezoneLookupV2ResponseAirportDetailsFieldLongitude)
 }
@@ -103229,9 +103255,9 @@ type TimezoneLookupV2ResponseLoCodeDetails struct {
 	// The type of location as comma-separated list of facilities (e.g., Port, Rail Terminal, Road Terminal, Airport).
 	LocationType *string `json:"location_type,omitempty" url:"location_type,omitempty"`
 	// The latitude coordinate of the location.
-	Latitude *float64 `json:"latitude,omitempty" url:"latitude,omitempty"`
+	Latitude *string `json:"latitude,omitempty" url:"latitude,omitempty"`
 	// The longitude coordinate of the location.
-	Longitude *float64 `json:"longitude,omitempty" url:"longitude,omitempty"`
+	Longitude *string `json:"longitude,omitempty" url:"longitude,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -103282,14 +103308,14 @@ func (t *TimezoneLookupV2ResponseLoCodeDetails) GetLocationType() *string {
 	return t.LocationType
 }
 
-func (t *TimezoneLookupV2ResponseLoCodeDetails) GetLatitude() *float64 {
+func (t *TimezoneLookupV2ResponseLoCodeDetails) GetLatitude() *string {
 	if t == nil {
 		return nil
 	}
 	return t.Latitude
 }
 
-func (t *TimezoneLookupV2ResponseLoCodeDetails) GetLongitude() *float64 {
+func (t *TimezoneLookupV2ResponseLoCodeDetails) GetLongitude() *string {
 	if t == nil {
 		return nil
 	}
@@ -103354,14 +103380,14 @@ func (t *TimezoneLookupV2ResponseLoCodeDetails) SetLocationType(locationType *st
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupV2ResponseLoCodeDetails) SetLatitude(latitude *float64) {
+func (t *TimezoneLookupV2ResponseLoCodeDetails) SetLatitude(latitude *string) {
 	t.Latitude = latitude
 	t.require(timezoneLookupV2ResponseLoCodeDetailsFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TimezoneLookupV2ResponseLoCodeDetails) SetLongitude(longitude *float64) {
+func (t *TimezoneLookupV2ResponseLoCodeDetails) SetLongitude(longitude *string) {
 	t.Longitude = longitude
 	t.require(timezoneLookupV2ResponseLoCodeDetailsFieldLongitude)
 }
@@ -107690,8 +107716,8 @@ var (
 )
 
 type WeatherForecastResponseForecastValueDaily struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Weather condition code
 	WeatherCode *int `json:"weather_code,omitempty" url:"weather_code,omitempty"`
 	// Maximum air temperature at 2m (°C)
@@ -107766,7 +107792,7 @@ type WeatherForecastResponseForecastValueDaily struct {
 	rawJSON         json.RawMessage
 }
 
-func (w *WeatherForecastResponseForecastValueDaily) GetTimestamp() *time.Time {
+func (w *WeatherForecastResponseForecastValueDaily) GetTimestamp() *string {
 	if w == nil {
 		return nil
 	}
@@ -108020,7 +108046,7 @@ func (w *WeatherForecastResponseForecastValueDaily) require(field *big.Int) {
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseForecastValueDaily) SetTimestamp(timestamp *time.Time) {
+func (w *WeatherForecastResponseForecastValueDaily) SetTimestamp(timestamp *string) {
 	w.Timestamp = timestamp
 	w.require(weatherForecastResponseForecastValueDailyFieldTimestamp)
 }
@@ -108257,18 +108283,12 @@ func (w *WeatherForecastResponseForecastValueDaily) SetEt0FaoEvapotranspirationS
 }
 
 func (w *WeatherForecastResponseForecastValueDaily) UnmarshalJSON(data []byte) error {
-	type embed WeatherForecastResponseForecastValueDaily
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*w),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler WeatherForecastResponseForecastValueDaily
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*w = WeatherForecastResponseForecastValueDaily(unmarshaler.embed)
-	w.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*w = WeatherForecastResponseForecastValueDaily(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *w)
 	if err != nil {
 		return err
@@ -108282,10 +108302,8 @@ func (w *WeatherForecastResponseForecastValueDaily) MarshalJSON() ([]byte, error
 	type embed WeatherForecastResponseForecastValueDaily
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*w),
-		Timestamp: internal.NewOptionalDateTime(w.Timestamp),
+		embed: embed(*w),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, w.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -108336,8 +108354,8 @@ var (
 )
 
 type WeatherForecastResponseForecastValueHourlyItem struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Air temperature at 2m (°C)
 	Temperature2M *float64 `json:"temperature_2m,omitempty" url:"temperature_2m,omitempty"`
 	// Relative humidity at 2m (%)
@@ -108396,7 +108414,7 @@ type WeatherForecastResponseForecastValueHourlyItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (w *WeatherForecastResponseForecastValueHourlyItem) GetTimestamp() *time.Time {
+func (w *WeatherForecastResponseForecastValueHourlyItem) GetTimestamp() *string {
 	if w == nil {
 		return nil
 	}
@@ -108594,7 +108612,7 @@ func (w *WeatherForecastResponseForecastValueHourlyItem) require(field *big.Int)
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseForecastValueHourlyItem) SetTimestamp(timestamp *time.Time) {
+func (w *WeatherForecastResponseForecastValueHourlyItem) SetTimestamp(timestamp *string) {
 	w.Timestamp = timestamp
 	w.require(weatherForecastResponseForecastValueHourlyItemFieldTimestamp)
 }
@@ -108775,18 +108793,12 @@ func (w *WeatherForecastResponseForecastValueHourlyItem) SetGlobalTiltedIrradian
 }
 
 func (w *WeatherForecastResponseForecastValueHourlyItem) UnmarshalJSON(data []byte) error {
-	type embed WeatherForecastResponseForecastValueHourlyItem
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*w),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler WeatherForecastResponseForecastValueHourlyItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*w = WeatherForecastResponseForecastValueHourlyItem(unmarshaler.embed)
-	w.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*w = WeatherForecastResponseForecastValueHourlyItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *w)
 	if err != nil {
 		return err
@@ -108800,10 +108812,8 @@ func (w *WeatherForecastResponseForecastValueHourlyItem) MarshalJSON() ([]byte, 
 	type embed WeatherForecastResponseForecastValueHourlyItem
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*w),
-		Timestamp: internal.NewOptionalDateTime(w.Timestamp),
+		embed: embed(*w),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, w.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -108846,8 +108856,8 @@ var (
 )
 
 type WeatherForecastResponseForecastValueMinutelyItem struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Air temperature at 2m (°C)
 	Temperature2M *float64 `json:"temperature_2m,omitempty" url:"temperature_2m,omitempty"`
 	// Relative humidity at 2m (%)
@@ -108890,7 +108900,7 @@ type WeatherForecastResponseForecastValueMinutelyItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (w *WeatherForecastResponseForecastValueMinutelyItem) GetTimestamp() *time.Time {
+func (w *WeatherForecastResponseForecastValueMinutelyItem) GetTimestamp() *string {
 	if w == nil {
 		return nil
 	}
@@ -109032,7 +109042,7 @@ func (w *WeatherForecastResponseForecastValueMinutelyItem) require(field *big.In
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseForecastValueMinutelyItem) SetTimestamp(timestamp *time.Time) {
+func (w *WeatherForecastResponseForecastValueMinutelyItem) SetTimestamp(timestamp *string) {
 	w.Timestamp = timestamp
 	w.require(weatherForecastResponseForecastValueMinutelyItemFieldTimestamp)
 }
@@ -109157,18 +109167,12 @@ func (w *WeatherForecastResponseForecastValueMinutelyItem) SetGlobalTiltedIrradi
 }
 
 func (w *WeatherForecastResponseForecastValueMinutelyItem) UnmarshalJSON(data []byte) error {
-	type embed WeatherForecastResponseForecastValueMinutelyItem
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*w),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler WeatherForecastResponseForecastValueMinutelyItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*w = WeatherForecastResponseForecastValueMinutelyItem(unmarshaler.embed)
-	w.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*w = WeatherForecastResponseForecastValueMinutelyItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *w)
 	if err != nil {
 		return err
@@ -109182,10 +109186,8 @@ func (w *WeatherForecastResponseForecastValueMinutelyItem) MarshalJSON() ([]byte
 	type embed WeatherForecastResponseForecastValueMinutelyItem
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*w),
-		Timestamp: internal.NewOptionalDateTime(w.Timestamp),
+		embed: embed(*w),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, w.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -109315,11 +109317,11 @@ type WeatherForecastResponseLocationCity struct {
 	// Specific locality, neighborhood, suburb, or village within the geocoded area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Elevation above mean sea level in meters at the geocoded coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
@@ -109367,21 +109369,21 @@ func (w *WeatherForecastResponseLocationCity) GetLocality() *string {
 	return w.Locality
 }
 
-func (w *WeatherForecastResponseLocationCity) GetLatitude() float64 {
+func (w *WeatherForecastResponseLocationCity) GetLatitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Latitude
 }
 
-func (w *WeatherForecastResponseLocationCity) GetLongitude() float64 {
+func (w *WeatherForecastResponseLocationCity) GetLongitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Longitude
 }
 
-func (w *WeatherForecastResponseLocationCity) GetElevation() *float64 {
+func (w *WeatherForecastResponseLocationCity) GetElevation() *string {
 	if w == nil {
 		return nil
 	}
@@ -109453,21 +109455,21 @@ func (w *WeatherForecastResponseLocationCity) SetLocality(locality *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseLocationCity) SetLatitude(latitude float64) {
+func (w *WeatherForecastResponseLocationCity) SetLatitude(latitude string) {
 	w.Latitude = latitude
 	w.require(weatherForecastResponseLocationCityFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseLocationCity) SetLongitude(longitude float64) {
+func (w *WeatherForecastResponseLocationCity) SetLongitude(longitude string) {
 	w.Longitude = longitude
 	w.require(weatherForecastResponseLocationCityFieldLongitude)
 }
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseLocationCity) SetElevation(elevation *float64) {
+func (w *WeatherForecastResponseLocationCity) SetElevation(elevation *string) {
 	w.Elevation = elevation
 	w.require(weatherForecastResponseLocationCityFieldElevation)
 }
@@ -109575,13 +109577,13 @@ type WeatherForecastResponseLocationContinentCode struct {
 	// Postal code or ZIP code for the approximate location of the IP address.
 	Zipcode *string `json:"zipcode,omitempty" url:"zipcode,omitempty"`
 	// Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Specific locality, neighborhood, or small area designation within the city.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Elevation above mean sea level in meters for the IP geolocation.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
@@ -109678,16 +109680,16 @@ func (w *WeatherForecastResponseLocationContinentCode) GetZipcode() *string {
 	return w.Zipcode
 }
 
-func (w *WeatherForecastResponseLocationContinentCode) GetLatitude() float64 {
+func (w *WeatherForecastResponseLocationContinentCode) GetLatitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Latitude
 }
 
-func (w *WeatherForecastResponseLocationContinentCode) GetLongitude() float64 {
+func (w *WeatherForecastResponseLocationContinentCode) GetLongitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Longitude
 }
@@ -109699,7 +109701,7 @@ func (w *WeatherForecastResponseLocationContinentCode) GetLocality() *string {
 	return w.Locality
 }
 
-func (w *WeatherForecastResponseLocationContinentCode) GetElevation() *float64 {
+func (w *WeatherForecastResponseLocationContinentCode) GetElevation() *string {
 	if w == nil {
 		return nil
 	}
@@ -109820,14 +109822,14 @@ func (w *WeatherForecastResponseLocationContinentCode) SetZipcode(zipcode *strin
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseLocationContinentCode) SetLatitude(latitude float64) {
+func (w *WeatherForecastResponseLocationContinentCode) SetLatitude(latitude string) {
 	w.Latitude = latitude
 	w.require(weatherForecastResponseLocationContinentCodeFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseLocationContinentCode) SetLongitude(longitude float64) {
+func (w *WeatherForecastResponseLocationContinentCode) SetLongitude(longitude string) {
 	w.Longitude = longitude
 	w.require(weatherForecastResponseLocationContinentCodeFieldLongitude)
 }
@@ -109841,7 +109843,7 @@ func (w *WeatherForecastResponseLocationContinentCode) SetLocality(locality *str
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseLocationContinentCode) SetElevation(elevation *float64) {
+func (w *WeatherForecastResponseLocationContinentCode) SetElevation(elevation *string) {
 	w.Elevation = elevation
 	w.require(weatherForecastResponseLocationContinentCodeFieldElevation)
 }
@@ -109916,9 +109918,9 @@ var (
 
 type WeatherForecastResponseLocationZero struct {
 	// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Full name of the country corresponding to the provided coordinates.
 	CountryName string `json:"country_name" url:"country_name"`
 	// State, province, or primary administrative division name for the location.
@@ -109928,7 +109930,7 @@ type WeatherForecastResponseLocationZero struct {
 	// Specific locality, neighborhood, district, or village name within the broader area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Height above mean sea level in meters for the specified coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
@@ -109941,16 +109943,16 @@ type WeatherForecastResponseLocationZero struct {
 	rawJSON         json.RawMessage
 }
 
-func (w *WeatherForecastResponseLocationZero) GetLatitude() float64 {
+func (w *WeatherForecastResponseLocationZero) GetLatitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Latitude
 }
 
-func (w *WeatherForecastResponseLocationZero) GetLongitude() float64 {
+func (w *WeatherForecastResponseLocationZero) GetLongitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Longitude
 }
@@ -109983,7 +109985,7 @@ func (w *WeatherForecastResponseLocationZero) GetLocality() *string {
 	return w.Locality
 }
 
-func (w *WeatherForecastResponseLocationZero) GetElevation() *float64 {
+func (w *WeatherForecastResponseLocationZero) GetElevation() *string {
 	if w == nil {
 		return nil
 	}
@@ -110020,14 +110022,14 @@ func (w *WeatherForecastResponseLocationZero) require(field *big.Int) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseLocationZero) SetLatitude(latitude float64) {
+func (w *WeatherForecastResponseLocationZero) SetLatitude(latitude string) {
 	w.Latitude = latitude
 	w.require(weatherForecastResponseLocationZeroFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseLocationZero) SetLongitude(longitude float64) {
+func (w *WeatherForecastResponseLocationZero) SetLongitude(longitude string) {
 	w.Longitude = longitude
 	w.require(weatherForecastResponseLocationZeroFieldLongitude)
 }
@@ -110062,7 +110064,7 @@ func (w *WeatherForecastResponseLocationZero) SetLocality(locality *string) {
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherForecastResponseLocationZero) SetElevation(elevation *float64) {
+func (w *WeatherForecastResponseLocationZero) SetElevation(elevation *string) {
 	w.Elevation = elevation
 	w.require(weatherForecastResponseLocationZeroFieldElevation)
 }
@@ -110720,8 +110722,8 @@ var (
 )
 
 type WeatherTimeSeriesResponseHistoricalValueDaily struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Date of this daily entry, `YYYY-MM-DD`.
+	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty" format:"date"`
 	// Weather condition code
 	WeatherCode *int `json:"weather_code,omitempty" url:"weather_code,omitempty"`
 	// Daily mean air temperature at 2 meters (°C)
@@ -111210,7 +111212,7 @@ func (w *WeatherTimeSeriesResponseHistoricalValueDaily) UnmarshalJSON(data []byt
 	type embed WeatherTimeSeriesResponseHistoricalValueDaily
 	var unmarshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
+		Timestamp *internal.Date `json:"timestamp,omitempty"`
 	}{
 		embed: embed(*w),
 	}
@@ -111232,10 +111234,10 @@ func (w *WeatherTimeSeriesResponseHistoricalValueDaily) MarshalJSON() ([]byte, e
 	type embed WeatherTimeSeriesResponseHistoricalValueDaily
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
+		Timestamp *internal.Date `json:"timestamp,omitempty"`
 	}{
 		embed:     embed(*w),
-		Timestamp: internal.NewOptionalDateTime(w.Timestamp),
+		Timestamp: internal.NewOptionalDate(w.Timestamp),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, w.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -111282,8 +111284,8 @@ var (
 )
 
 type WeatherTimeSeriesResponseHistoricalValueHourlyItem struct {
-	// ISO 8601 formatted timestamp
-	Timestamp *time.Time `json:"timestamp,omitempty" url:"timestamp,omitempty"`
+	// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+	Timestamp *string `json:"timestamp,omitempty" url:"timestamp,omitempty"`
 	// Air temperature at 2 meters (°C)
 	Temperature2M *float64 `json:"temperature_2m,omitempty" url:"temperature_2m,omitempty"`
 	// Relative humidity at 2 meters (%)
@@ -111334,7 +111336,7 @@ type WeatherTimeSeriesResponseHistoricalValueHourlyItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (w *WeatherTimeSeriesResponseHistoricalValueHourlyItem) GetTimestamp() *time.Time {
+func (w *WeatherTimeSeriesResponseHistoricalValueHourlyItem) GetTimestamp() *string {
 	if w == nil {
 		return nil
 	}
@@ -111504,7 +111506,7 @@ func (w *WeatherTimeSeriesResponseHistoricalValueHourlyItem) require(field *big.
 
 // SetTimestamp sets the Timestamp field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseHistoricalValueHourlyItem) SetTimestamp(timestamp *time.Time) {
+func (w *WeatherTimeSeriesResponseHistoricalValueHourlyItem) SetTimestamp(timestamp *string) {
 	w.Timestamp = timestamp
 	w.require(weatherTimeSeriesResponseHistoricalValueHourlyItemFieldTimestamp)
 }
@@ -111657,18 +111659,12 @@ func (w *WeatherTimeSeriesResponseHistoricalValueHourlyItem) SetGlobalTiltedIrra
 }
 
 func (w *WeatherTimeSeriesResponseHistoricalValueHourlyItem) UnmarshalJSON(data []byte) error {
-	type embed WeatherTimeSeriesResponseHistoricalValueHourlyItem
-	var unmarshaler = struct {
-		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
-	}{
-		embed: embed(*w),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+	type unmarshaler WeatherTimeSeriesResponseHistoricalValueHourlyItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*w = WeatherTimeSeriesResponseHistoricalValueHourlyItem(unmarshaler.embed)
-	w.Timestamp = unmarshaler.Timestamp.TimePtr()
+	*w = WeatherTimeSeriesResponseHistoricalValueHourlyItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *w)
 	if err != nil {
 		return err
@@ -111682,10 +111678,8 @@ func (w *WeatherTimeSeriesResponseHistoricalValueHourlyItem) MarshalJSON() ([]by
 	type embed WeatherTimeSeriesResponseHistoricalValueHourlyItem
 	var marshaler = struct {
 		embed
-		Timestamp *internal.DateTime `json:"timestamp,omitempty"`
 	}{
-		embed:     embed(*w),
-		Timestamp: internal.NewOptionalDateTime(w.Timestamp),
+		embed: embed(*w),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, w.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -111815,11 +111809,11 @@ type WeatherTimeSeriesResponseLocationCity struct {
 	// Specific locality, neighborhood, suburb, or village within the geocoded area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Elevation above mean sea level in meters at the geocoded coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
@@ -111867,21 +111861,21 @@ func (w *WeatherTimeSeriesResponseLocationCity) GetLocality() *string {
 	return w.Locality
 }
 
-func (w *WeatherTimeSeriesResponseLocationCity) GetLatitude() float64 {
+func (w *WeatherTimeSeriesResponseLocationCity) GetLatitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Latitude
 }
 
-func (w *WeatherTimeSeriesResponseLocationCity) GetLongitude() float64 {
+func (w *WeatherTimeSeriesResponseLocationCity) GetLongitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Longitude
 }
 
-func (w *WeatherTimeSeriesResponseLocationCity) GetElevation() *float64 {
+func (w *WeatherTimeSeriesResponseLocationCity) GetElevation() *string {
 	if w == nil {
 		return nil
 	}
@@ -111953,21 +111947,21 @@ func (w *WeatherTimeSeriesResponseLocationCity) SetLocality(locality *string) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseLocationCity) SetLatitude(latitude float64) {
+func (w *WeatherTimeSeriesResponseLocationCity) SetLatitude(latitude string) {
 	w.Latitude = latitude
 	w.require(weatherTimeSeriesResponseLocationCityFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseLocationCity) SetLongitude(longitude float64) {
+func (w *WeatherTimeSeriesResponseLocationCity) SetLongitude(longitude string) {
 	w.Longitude = longitude
 	w.require(weatherTimeSeriesResponseLocationCityFieldLongitude)
 }
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseLocationCity) SetElevation(elevation *float64) {
+func (w *WeatherTimeSeriesResponseLocationCity) SetElevation(elevation *string) {
 	w.Elevation = elevation
 	w.require(weatherTimeSeriesResponseLocationCityFieldElevation)
 }
@@ -112075,13 +112069,13 @@ type WeatherTimeSeriesResponseLocationContinentCode struct {
 	// Postal code or ZIP code for the approximate location of the IP address.
 	Zipcode *string `json:"zipcode,omitempty" url:"zipcode,omitempty"`
 	// Geographic latitude in decimal degrees for the IP geolocation, ranging from -90 to +90.
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude in decimal degrees for the IP geolocation, ranging from -180 to +180.
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Specific locality, neighborhood, or small area designation within the city.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Elevation above mean sea level in meters for the IP geolocation.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the IP location (e.g., America/Chicago, Asia/Tokyo).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Current timezone abbreviation based on local offset (e.g., CST, JST, UTC).
@@ -112178,16 +112172,16 @@ func (w *WeatherTimeSeriesResponseLocationContinentCode) GetZipcode() *string {
 	return w.Zipcode
 }
 
-func (w *WeatherTimeSeriesResponseLocationContinentCode) GetLatitude() float64 {
+func (w *WeatherTimeSeriesResponseLocationContinentCode) GetLatitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Latitude
 }
 
-func (w *WeatherTimeSeriesResponseLocationContinentCode) GetLongitude() float64 {
+func (w *WeatherTimeSeriesResponseLocationContinentCode) GetLongitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Longitude
 }
@@ -112199,7 +112193,7 @@ func (w *WeatherTimeSeriesResponseLocationContinentCode) GetLocality() *string {
 	return w.Locality
 }
 
-func (w *WeatherTimeSeriesResponseLocationContinentCode) GetElevation() *float64 {
+func (w *WeatherTimeSeriesResponseLocationContinentCode) GetElevation() *string {
 	if w == nil {
 		return nil
 	}
@@ -112320,14 +112314,14 @@ func (w *WeatherTimeSeriesResponseLocationContinentCode) SetZipcode(zipcode *str
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseLocationContinentCode) SetLatitude(latitude float64) {
+func (w *WeatherTimeSeriesResponseLocationContinentCode) SetLatitude(latitude string) {
 	w.Latitude = latitude
 	w.require(weatherTimeSeriesResponseLocationContinentCodeFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseLocationContinentCode) SetLongitude(longitude float64) {
+func (w *WeatherTimeSeriesResponseLocationContinentCode) SetLongitude(longitude string) {
 	w.Longitude = longitude
 	w.require(weatherTimeSeriesResponseLocationContinentCodeFieldLongitude)
 }
@@ -112341,7 +112335,7 @@ func (w *WeatherTimeSeriesResponseLocationContinentCode) SetLocality(locality *s
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseLocationContinentCode) SetElevation(elevation *float64) {
+func (w *WeatherTimeSeriesResponseLocationContinentCode) SetElevation(elevation *string) {
 	w.Elevation = elevation
 	w.require(weatherTimeSeriesResponseLocationContinentCodeFieldElevation)
 }
@@ -112416,9 +112410,9 @@ var (
 
 type WeatherTimeSeriesResponseLocationZero struct {
 	// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
-	Latitude float64 `json:"latitude" url:"latitude"`
+	Latitude string `json:"latitude" url:"latitude"`
 	// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
-	Longitude float64 `json:"longitude" url:"longitude"`
+	Longitude string `json:"longitude" url:"longitude"`
 	// Full name of the country corresponding to the provided coordinates.
 	CountryName string `json:"country_name" url:"country_name"`
 	// State, province, or primary administrative division name for the location.
@@ -112428,7 +112422,7 @@ type WeatherTimeSeriesResponseLocationZero struct {
 	// Specific locality, neighborhood, district, or village name within the broader area.
 	Locality *string `json:"locality,omitempty" url:"locality,omitempty"`
 	// Height above mean sea level in meters for the specified coordinates.
-	Elevation *float64 `json:"elevation,omitempty" url:"elevation,omitempty"`
+	Elevation *string `json:"elevation,omitempty" url:"elevation,omitempty"`
 	// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
 	Timezone string `json:"timezone" url:"timezone"`
 	// Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
@@ -112441,16 +112435,16 @@ type WeatherTimeSeriesResponseLocationZero struct {
 	rawJSON         json.RawMessage
 }
 
-func (w *WeatherTimeSeriesResponseLocationZero) GetLatitude() float64 {
+func (w *WeatherTimeSeriesResponseLocationZero) GetLatitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Latitude
 }
 
-func (w *WeatherTimeSeriesResponseLocationZero) GetLongitude() float64 {
+func (w *WeatherTimeSeriesResponseLocationZero) GetLongitude() string {
 	if w == nil {
-		return 0
+		return ""
 	}
 	return w.Longitude
 }
@@ -112483,7 +112477,7 @@ func (w *WeatherTimeSeriesResponseLocationZero) GetLocality() *string {
 	return w.Locality
 }
 
-func (w *WeatherTimeSeriesResponseLocationZero) GetElevation() *float64 {
+func (w *WeatherTimeSeriesResponseLocationZero) GetElevation() *string {
 	if w == nil {
 		return nil
 	}
@@ -112520,14 +112514,14 @@ func (w *WeatherTimeSeriesResponseLocationZero) require(field *big.Int) {
 
 // SetLatitude sets the Latitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseLocationZero) SetLatitude(latitude float64) {
+func (w *WeatherTimeSeriesResponseLocationZero) SetLatitude(latitude string) {
 	w.Latitude = latitude
 	w.require(weatherTimeSeriesResponseLocationZeroFieldLatitude)
 }
 
 // SetLongitude sets the Longitude field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseLocationZero) SetLongitude(longitude float64) {
+func (w *WeatherTimeSeriesResponseLocationZero) SetLongitude(longitude string) {
 	w.Longitude = longitude
 	w.require(weatherTimeSeriesResponseLocationZeroFieldLongitude)
 }
@@ -112562,7 +112556,7 @@ func (w *WeatherTimeSeriesResponseLocationZero) SetLocality(locality *string) {
 
 // SetElevation sets the Elevation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WeatherTimeSeriesResponseLocationZero) SetElevation(elevation *float64) {
+func (w *WeatherTimeSeriesResponseLocationZero) SetElevation(elevation *string) {
 	w.Elevation = elevation
 	w.require(weatherTimeSeriesResponseLocationZeroFieldElevation)
 }
@@ -117133,14 +117127,14 @@ func (z ZipcodeDistanceMatchRequestUnit) Ptr() *ZipcodeDistanceMatchRequestUnit 
 }
 
 var (
-	zipcodeDistanceMatchResponseFieldResultsCount = big.NewInt(1 << 0)
-	zipcodeDistanceMatchResponseFieldResults      = big.NewInt(1 << 1)
+	zipcodeDistanceMatchResponseFieldResultCount = big.NewInt(1 << 0)
+	zipcodeDistanceMatchResponseFieldResults     = big.NewInt(1 << 1)
 )
 
 type ZipcodeDistanceMatchResponse struct {
-	// Number of matching ZIP/postal code pairs returned
-	ResultsCount *string                                    `json:"results_count,omitempty" url:"results_count,omitempty"`
-	Results      []*ZipcodeDistanceMatchResponseResultsItem `json:"results,omitempty" url:"results,omitempty"`
+	// Number of matching ZIP/postal code pairs returned. Zero when no pairs fall within the threshold.
+	ResultCount *int                                       `json:"result_count,omitempty" url:"result_count,omitempty"`
+	Results     []*ZipcodeDistanceMatchResponseResultsItem `json:"results,omitempty" url:"results,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -117149,11 +117143,11 @@ type ZipcodeDistanceMatchResponse struct {
 	rawJSON         json.RawMessage
 }
 
-func (z *ZipcodeDistanceMatchResponse) GetResultsCount() *string {
+func (z *ZipcodeDistanceMatchResponse) GetResultCount() *int {
 	if z == nil {
 		return nil
 	}
-	return z.ResultsCount
+	return z.ResultCount
 }
 
 func (z *ZipcodeDistanceMatchResponse) GetResults() []*ZipcodeDistanceMatchResponseResultsItem {
@@ -117177,11 +117171,11 @@ func (z *ZipcodeDistanceMatchResponse) require(field *big.Int) {
 	z.explicitFields.Or(z.explicitFields, field)
 }
 
-// SetResultsCount sets the ResultsCount field and marks it as non-optional;
+// SetResultCount sets the ResultCount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (z *ZipcodeDistanceMatchResponse) SetResultsCount(resultsCount *string) {
-	z.ResultsCount = resultsCount
-	z.require(zipcodeDistanceMatchResponseFieldResultsCount)
+func (z *ZipcodeDistanceMatchResponse) SetResultCount(resultCount *int) {
+	z.ResultCount = resultCount
+	z.require(zipcodeDistanceMatchResponseFieldResultCount)
 }
 
 // SetResults sets the Results field and marks it as non-optional;
@@ -117410,14 +117404,14 @@ func (z ZipcodeDistanceRequestUnit) Ptr() *ZipcodeDistanceRequestUnit {
 }
 
 var (
-	zipcodeDistanceResponseFieldResultsCount = big.NewInt(1 << 0)
-	zipcodeDistanceResponseFieldResults      = big.NewInt(1 << 1)
+	zipcodeDistanceResponseFieldResultCount = big.NewInt(1 << 0)
+	zipcodeDistanceResponseFieldResults     = big.NewInt(1 << 1)
 )
 
 type ZipcodeDistanceResponse struct {
-	// Number of distance results returned
-	ResultsCount *string                               `json:"results_count,omitempty" url:"results_count,omitempty"`
-	Results      []*ZipcodeDistanceResponseResultsItem `json:"results,omitempty" url:"results,omitempty"`
+	// Number of distance results returned (may be less than the number of requested compare codes).
+	ResultCount *int                                  `json:"result_count,omitempty" url:"result_count,omitempty"`
+	Results     []*ZipcodeDistanceResponseResultsItem `json:"results,omitempty" url:"results,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -117426,11 +117420,11 @@ type ZipcodeDistanceResponse struct {
 	rawJSON         json.RawMessage
 }
 
-func (z *ZipcodeDistanceResponse) GetResultsCount() *string {
+func (z *ZipcodeDistanceResponse) GetResultCount() *int {
 	if z == nil {
 		return nil
 	}
-	return z.ResultsCount
+	return z.ResultCount
 }
 
 func (z *ZipcodeDistanceResponse) GetResults() []*ZipcodeDistanceResponseResultsItem {
@@ -117454,11 +117448,11 @@ func (z *ZipcodeDistanceResponse) require(field *big.Int) {
 	z.explicitFields.Or(z.explicitFields, field)
 }
 
-// SetResultsCount sets the ResultsCount field and marks it as non-optional;
+// SetResultCount sets the ResultCount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (z *ZipcodeDistanceResponse) SetResultsCount(resultsCount *string) {
-	z.ResultsCount = resultsCount
-	z.require(zipcodeDistanceResponseFieldResultsCount)
+func (z *ZipcodeDistanceResponse) SetResultCount(resultCount *int) {
+	z.ResultCount = resultCount
+	z.require(zipcodeDistanceResponseFieldResultCount)
 }
 
 // SetResults sets the Results field and marks it as non-optional;
@@ -118644,6 +118638,8 @@ var (
 type UserAgentLookupRequest struct {
 	// Your API key
 	APIKey string `json:"-" url:"apiKey"`
+	// The User-Agent string to parse.
+	UserAgent string `json:"-" url:"-"`
 	// Format of the response
 	Format *UserAgentLookupRequestFormat `json:"-" url:"format,omitempty"`
 

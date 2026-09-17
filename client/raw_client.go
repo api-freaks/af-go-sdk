@@ -6006,6 +6006,7 @@ func (r *RawClient) UserAgentLookup(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
+	headers.Add("User-Agent", request.UserAgent)
 	var response *afgosdk.UserAgentLookupResponse
 	raw, err := r.caller.Call(
 		ctx,
