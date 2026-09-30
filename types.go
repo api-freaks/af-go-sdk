@@ -1292,7 +1292,7 @@ type BulkUserAgentLookupRequest struct {
 	APIKey string `json:"-" url:"apiKey"`
 	// Format of the response
 	Format *BulkUserAgentLookupRequestFormat `json:"-" url:"format,omitempty"`
-	// Array of User-Agent strings to parse. Maximum 100 strings per request — exceeding that returns a 413.
+	// Array of User-Agent strings to parse. Maximum 20000 strings per request — exceeding that returns a 413.
 	UaStrings []string `json:"uaStrings" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
