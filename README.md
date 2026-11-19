@@ -43,6 +43,8 @@ import (
 
 A full reference for this library is available [here](./reference.md).
 
+> **Note:** `GetCreditsUsage` (`get_credits_usage`) requires an organization admin API key. Other keys get a `403` (`*sdk.ForbiddenError`).
+
 ## Usage
 
 Instantiate and use the client with the following:
@@ -200,7 +202,10 @@ func main() {
 
     var badRequest *sdk.BadRequestError
     if errors.As(err, &badRequest) {
-        fmt.Printf("Bad request: %+v\n", badRequest.Body)
+        // Body is the parsed error payload (timestamp, status, error, message, path).
+        if body := badRequest.GetBody(); body != nil && body.Message != nil {
+            fmt.Printf("Bad request: %s\n", *body.Message)
+        }
         return
     }
 
@@ -213,6 +218,10 @@ func main() {
     log.Fatal(err)
 }
 ```
+
+If an error response body isn't a JSON object of that shape (for example `format=xml`), the SDK returns the plain `*core.APIError` instead of the typed error; its `Error()` still contains the raw body.
+
+If a successful (2xx) response body can't be decoded into the expected response type, the SDK returns a `*core.APIError` that carries the status code and headers and wraps a `*core.ResponseDecodeError`. That error holds the raw response `Body` and the underlying decoding error (for example `*json.UnmarshalTypeError`), and `errors.As` can reach each of them.
 
 ## Request Types
 

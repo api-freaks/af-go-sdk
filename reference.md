@@ -27,13 +27,12 @@ Get detailed geolocation data for an IP address including country, city, timezon
 
 ```go
 request := &afgosdk.GeolocationLookupRequest{
-        APIKey: "apiKey",
-    }
-client.GeolocationLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.GeolocationLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -137,16 +136,15 @@ Supports up to `50,000` IP-addresses/host-names per request.
 
 ```go
 request := &afgosdk.BulkGeolocationLookupRequest{
-        APIKey: "apiKey",
-        Ips: []string{
-            "ips",
-        },
-    }
-client.BulkGeolocationLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Ips: []string{
+        "ips",
+    },
 }
+_, err := client.BulkGeolocationLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -249,13 +247,12 @@ Get comprehensive security information for a given IP address. Detects VPNs, pro
 
 ```go
 request := &afgosdk.IPSecurityLookupRequest{
-        APIKey: "apiKey",
-    }
-client.IPSecurityLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.IPSecurityLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -342,16 +339,15 @@ The Bulk IP Security Lookup API allows you to retrieve security details for up t
 
 ```go
 request := &afgosdk.BulkIPSecurityLookupRequest{
-        APIKey: "apiKey",
-        Ips: []string{
-            "ips",
-        },
-    }
-client.BulkIPSecurityLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Ips: []string{
+        "ips",
+    },
 }
+_, err := client.BulkIPSecurityLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -438,14 +434,13 @@ Convert a given address or place name into geographic coordinates (latitude and 
 
 ```go
 request := &afgosdk.GeocoderSearchRequest{
-        APIKey: "apiKey",
-        Query: "query",
-    }
-client.GeocoderSearch(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Query: "query",
 }
+_, err := client.GeocoderSearch(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -564,15 +559,14 @@ Convert geographic coordinates (latitude and longitude) into a human-readable ad
 
 ```go
 request := &afgosdk.GeocoderReverseRequest{
-        APIKey: "apiKey",
-        Lat: 1.1,
-        Lon: 1.1,
-    }
-client.GeocoderReverse(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Lat: 1.1,
+    Lon: 1.1,
 }
+_, err := client.GeocoderReverse(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -661,14 +655,13 @@ dates, nameservers, and registrant information.
 
 ```go
 request := &afgosdk.DomainWhoisLookupRequest{
-        APIKey: "apiKey",
-        DomainName: "domainName",
-    }
-client.DomainWhoisLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    DomainName: "domainName",
 }
+_, err := client.DomainWhoisLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -739,16 +732,15 @@ Retrieve WHOIS information for `100 Domains per Request`.
 
 ```go
 request := &afgosdk.BulkDomainWhoisLookupRequest{
-        APIKey: "apiKey",
-        DomainNames: []string{
-            "domainNames",
-        },
-    }
-client.BulkDomainWhoisLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    DomainNames: []string{
+        "domainNames",
+    },
 }
+_, err := client.BulkDomainWhoisLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -819,14 +811,13 @@ Returns WHOIS registration details for a specified IP address (IPv4 or IPv6).
 
 ```go
 request := &afgosdk.IPWhoisLookupRequest{
-        APIKey: "apiKey",
-        IP: "ip",
-    }
-client.IPWhoisLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    IP: "ip",
 }
+_, err := client.IPWhoisLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -897,14 +888,13 @@ Returns WHOIS registration details for a specified ASN, with or without the 'as'
 
 ```go
 request := &afgosdk.AsnWhoisLookupRequest{
-        APIKey: "apiKey",
-        Asn: "asn",
-    }
-client.AsnWhoisLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Asn: "asn",
 }
+_, err := client.AsnWhoisLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -976,14 +966,13 @@ This endpoint provides a timeline of all recorded changes in domain registration
 
 ```go
 request := &afgosdk.DomainWhoisHistoryRequest{
-        APIKey: "apiKey",
-        DomainName: "domainName",
-    }
-client.DomainWhoisHistory(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    DomainName: "domainName",
 }
+_, err := client.DomainWhoisHistory(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -1054,13 +1043,12 @@ Performs a reverse WHOIS search using one or more search parameters like keyword
 
 ```go
 request := &afgosdk.DomainWhoisReverseRequest{
-        APIKey: "apiKey",
-    }
-client.DomainWhoisReverse(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.DomainWhoisReverse(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -1179,18 +1167,17 @@ Retrieve real-time DNS records for any hostname. Supports multiple record types 
 
 ```go
 request := &afgosdk.DomainDNSLookupRequest{
-        APIKey: "apiKey",
-        Type: []*string{
-            afgosdk.String(
-                "type",
-            ),
-        },
-    }
-client.DomainDNSLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Type: []*string{
+        afgosdk.String(
+            "type",
+        ),
+    },
 }
+_, err := client.DomainDNSLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -1221,7 +1208,7 @@ client.DomainDNSLookup(
 <dl>
 <dd>
 
-**hostName:** `*string` — Hostname or URL whose DNS records are required.
+**hostName:** `*string` — Hostname or URL whose DNS records are required. Give either `host-name` or `ipAddress`.
     
 </dd>
 </dl>
@@ -1229,7 +1216,7 @@ client.DomainDNSLookup(
 <dl>
 <dd>
 
-**ipAddress:** `*string` — The IP address for requested DNS's PTR record. 'type' parameter must be set to 'all'.
+**ipAddress:** `*string` — The IP address whose PTR (reverse DNS) record is required. Give either `host-name` or `ipAddress`; with `ipAddress`, set `type` to `all` or `PTR`.
     
 </dd>
 </dl>
@@ -1237,7 +1224,7 @@ client.DomainDNSLookup(
 <dl>
 <dd>
 
-**type_:** `*string` — A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be "all".
+**type_:** `*string` — DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, PTR, or all. When ipAddress is provided, use "all" or "PTR".
     
 </dd>
 </dl>
@@ -1278,21 +1265,20 @@ and returns DNS records including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME reco
 
 ```go
 request := &afgosdk.BulkDomainDNSLookupRequest{
-        APIKey: "apiKey",
-        Type: []*string{
-            afgosdk.String(
-                "type",
-            ),
-        },
-        DomainNames: []string{
-            "domainNames",
-        },
-    }
-client.BulkDomainDNSLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Type: []*string{
+        afgosdk.String(
+            "type",
+        ),
+    },
+    DomainNames: []string{
+        "domainNames",
+    },
 }
+_, err := client.BulkDomainDNSLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -1323,10 +1309,7 @@ client.BulkDomainDNSLookup(
 <dl>
 <dd>
 
-**type_:** `*string` 
-
-A comma-separated list of DNS record types for lookup.
-Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
+**type_:** `*string` — DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all.
     
 </dd>
 </dl>
@@ -1342,7 +1325,7 @@ Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
 <dl>
 <dd>
 
-**ipAddresses:** `[]string` — List of IP addresses to lookup DNS records for (e.g. for PTR records)
+**ipAddresses:** `[]string` — Array of IP addresses to include in the lookup for PTR record enrichment.
     
 </dd>
 </dl>
@@ -1383,19 +1366,18 @@ including subdomains. Results are paginated with up to 100 unique records per pa
 
 ```go
 request := &afgosdk.DomainDNSHistoryRequest{
-        APIKey: "apiKey",
-        HostName: "host-name",
-        Type: []*string{
-            afgosdk.String(
-                "type",
-            ),
-        },
-    }
-client.DomainDNSHistory(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    HostName: "host-name",
+    Type: []*string{
+        afgosdk.String(
+            "type",
+        ),
+    },
 }
+_, err := client.DomainDNSHistory(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -1434,10 +1416,7 @@ client.DomainDNSHistory(
 <dl>
 <dd>
 
-**type_:** `*string` 
-
-A comma-separated list of DNS record types for lookup.
-Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
+**type_:** `*string` — DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all.
     
 </dd>
 </dl>
@@ -1485,15 +1464,14 @@ Retrieve all the hostnames associated with any particular A, AAAA, MX, NS, SOA, 
 
 ```go
 request := &afgosdk.DomainDNSReverseRequest{
-        APIKey: "apiKey",
-        Type: afgosdk.DomainDNSReverseRequestTypeA,
-        Value: "value",
-    }
-client.DomainDNSReverse(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Type: afgosdk.DomainDNSReverseRequestTypeA,
+    Value: "value",
 }
+_, err := client.DomainDNSReverse(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -1524,7 +1502,7 @@ client.DomainDNSReverse(
 <dl>
 <dd>
 
-**type_:** `*afgosdk.DomainDNSReverseRequestType` 
+**type_:** `afgosdk.DomainDNSReverseRequestType` 
 
 The type of reverse DNS lookup to perform. Determines how the value parameter is interpreted:
 - A: IPv4 CIDR block
@@ -1598,108 +1576,32 @@ Supports various operations like form filling, clicking, data extraction, and CA
 
 ```go
 request := &afgosdk.WebScrapeRequest{
-        APIKey: "apiKey",
-        URL: "https://example.com",
-        Body: &afgosdk.WebScrapeRequestBody{
-            WebScrapeRequestBodyBlockURL: &afgosdk.WebScrapeRequestBodyBlockURL{
-                BlockURL: []string{
-                    "https://example.com/ads.js",
-                    "https://tracker.example.com/*",
-                },
-                Cookies: []*afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
-                    &afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
-                        Name: "sessionid",
-                        Value: "abc123",
-                    },
-                    &afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
-                        Name: "user_pref",
-                        Value: "darkmode",
+    APIKey: "apiKey",
+    URL: "https://example.com",
+    Body: &afgosdk.WebScrapeRequestBody{
+        WebScrapeRequestBodyBlockURL: &afgosdk.WebScrapeRequestBodyBlockURL{
+            Instructions: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+                    Extract: map[string]string{
+                        "profile": "#profile",
+                        "userInfo": "#user-info",
+                        "welcomeMessage": "#welcome-message",
                     },
                 },
-                Instructions: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemFill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
-                            Fill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
-                                Place: "#username",
-                                Value: "myuser",
-                            },
-                        },
-                    },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemFill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
-                            Fill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
-                                Place: "#password",
-                                Value: "mypassword",
-                            },
-                        },
-                    },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemClick: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemClick{
-                            Click: afgosdk.String(
-                                "#loginButton",
-                            ),
-                        },
-                    },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemWait: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemWait{
-                            Wait: afgosdk.Int(
-                                2000,
-                            ),
-                        },
-                    },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemExtract: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemExtract{
-                            Extract: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemExtractExtract{
-                                HTML: afgosdk.String(
-                                    "#profile",
-                                ),
-                                Text: afgosdk.String(
-                                    "#welcome-message",
-                                ),
-                                UserData: afgosdk.String(
-                                    "#user-info",
-                                ),
-                            },
-                        },
-                    },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemBlockElement: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemBlockElement{
-                            BlockElement: []string{
-                                ".ad-banner",
-                                "//div[@class='popup']",
-                            },
-                        },
-                    },
-                    &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-                        WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha{
-                            GeneralImageCaptcha: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
-                                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
-                                    ImagePath: afgosdk.String(
-                                        "#captcha-img",
-                                    ),
-                                    TextField: afgosdk.String(
-                                        "#captcha-input",
-                                    ),
-                                    ImageUpdatePath: afgosdk.String(
-                                        "#refresh-captcha",
-                                    ),
-                                    CaptchaFailedPath: afgosdk.String(
-                                        "#captcha-error",
-                                    ),
-                                    Model: afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItemModelMiniOcrV1.Ptr(),
-                                },
-                            },
-                        },
-                    },
-                },
+                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
             },
         },
-    }
-client.WebScrape(
-        context.TODO(),
-        request,
-    )
+    },
 }
+_, err := client.WebScrape(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -1759,7 +1661,7 @@ Set  `true` to handle websites with JavaScript. Set `false` to handle static htm
 <dl>
 <dd>
 
-**proxy:** `*afgosdk.WebScrapeRequestProxy` — Use proxy for requests
+**proxy:** `*afgosdk.WebScrapeRequestProxy` — Use a proxy for the request. Pass true/false to toggle the default proxy pool, or a proxy URL string to use a specific proxy.
     
 </dd>
 </dl>
@@ -1859,14 +1761,13 @@ Validates a single email address and returns result.
 
 ```go
 request := &afgosdk.EmailValidateRequest{
-        APIKey: "apiKey",
-        Email: "email",
-    }
-client.EmailValidate(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Email: "email",
 }
+_, err := client.EmailValidate(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -1953,18 +1854,17 @@ Validates a bulk of email addresses and returns result for each. Maximum `10` em
 
 ```go
 request := &afgosdk.BulkEmailValidateRequest{
-        APIKey: "apiKey",
-        EmailData: []*afgosdk.BulkEmailValidateRequestEmailDataItem{
-            &afgosdk.BulkEmailValidateRequestEmailDataItem{
-                Email: "email",
-            },
+    APIKey: "apiKey",
+    EmailData: []*afgosdk.BulkEmailValidateRequestEmailDataItem{
+        &afgosdk.BulkEmailValidateRequestEmailDataItem{
+            Email: "email",
         },
-    }
-client.BulkEmailValidate(
-        context.TODO(),
-        request,
-    )
+    },
 }
+_, err := client.BulkEmailValidate(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2007,6 +1907,181 @@ client.BulkEmailValidate(
 </dl>
 </details>
 
+<details><summary><code>client.DisposableEmailCheckV2(request) -> *afgosdk.DisposableEmailCheckV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validates email syntax and checks the domain for disposable, free, spam, and role-account signals, plus MX/A DNS records. Send the email (and optionally an ip) as a JSON request body. When an ip is included, the response also carries geolocation and security data for it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.DisposableEmailCheckV2Request{
+    APIKey: "apiKey",
+    Email: "test@sogetthis.com",
+}
+_, err := client.DisposableEmailCheckV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.DisposableEmailCheckV2RequestFormat` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `string` — The email address to check.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `*string` — Optional IP address to look up for location and security data, such as the IP the signup came from.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.BulkDisposableEmailCheckV2(request) -> *afgosdk.BulkDisposableEmailCheckV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Checks a bulk of email addresses (each with an optional ip) and returns a disposable email check result for each, in the same order as the request. Maximum `100` entries per request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.BulkDisposableEmailCheckV2Request{
+    APIKey: "apiKey",
+    EmailData: []*afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+        &afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+            Email: "abc",
+        },
+        &afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+            Email: "john@microsoft.com",
+            IP: afgosdk.String(
+                "8.8.8.8",
+            ),
+        },
+        &afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+            Email: "test@mailinator.com",
+        },
+    },
+}
+_, err := client.BulkDisposableEmailCheckV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.BulkDisposableEmailCheckV2RequestFormat` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**emailData:** `[]*afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem` — Entries to check. Maximum 100 per request. Must not be empty, and must not contain null entries or entries without a valid email.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.PhoneValidate(request) -> *afgosdk.PhoneValidateResponse</code></summary>
 <dl>
 <dd>
@@ -2035,14 +2110,13 @@ Validates a single phone number and returns detailed metadata including carrier,
 
 ```go
 request := &afgosdk.PhoneValidateRequest{
-        APIKey: "apiKey",
-        Number: "+14155552671",
-    }
-client.PhoneValidate(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Number: "+14155552671",
 }
+_, err := client.PhoneValidate(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2129,24 +2203,23 @@ Validates up to 100 phone numbers in a single request. Each number is processed 
 
 ```go
 request := &afgosdk.BulkPhoneValidateRequest{
-        APIKey: "apiKey",
-        Numbers: []*afgosdk.BulkPhoneValidateRequestNumbersItem{
-            &afgosdk.BulkPhoneValidateRequestNumbersItem{
-                Number: "+14155552671",
-            },
-            &afgosdk.BulkPhoneValidateRequestNumbersItem{
-                Number: "+447911123456",
-            },
-            &afgosdk.BulkPhoneValidateRequestNumbersItem{
-                Number: "+919876543210",
-            },
+    APIKey: "apiKey",
+    Numbers: []*afgosdk.BulkPhoneValidateRequestNumbersItem{
+        &afgosdk.BulkPhoneValidateRequestNumbersItem{
+            Number: "+14155552671",
         },
-    }
-client.BulkPhoneValidate(
-        context.TODO(),
-        request,
-    )
+        &afgosdk.BulkPhoneValidateRequestNumbersItem{
+            Number: "+447911123456",
+        },
+        &afgosdk.BulkPhoneValidateRequestNumbersItem{
+            Number: "+919876543210",
+        },
+    },
 }
+_, err := client.BulkPhoneValidate(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2218,14 +2291,13 @@ This endpoint provides detailed information about the SSL certificate including 
 
 ```go
 request := &afgosdk.DomainSslLookupRequest{
-        APIKey: "apiKey",
-        DomainName: "domainName",
-    }
-client.DomainSslLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    DomainName: "domainName",
 }
+_, err := client.DomainSslLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2305,14 +2377,13 @@ This endpoint provides comprehensive information about each certificate in the c
 
 ```go
 request := &afgosdk.DomainSslChainLookupRequest{
-        APIKey: "apiKey",
-        DomainName: "domainName",
-    }
-client.DomainSslChainLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    DomainName: "domainName",
 }
+_, err := client.DomainSslChainLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2391,14 +2462,13 @@ The Domain Search API is designed to simplify the process of finding available d
 
 ```go
 request := &afgosdk.DomainAvailabilityCheckRequest{
-        APIKey: "apiKey",
-        Domain: "domain",
-    }
-client.DomainAvailabilityCheck(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Domain: "domain",
 }
+_, err := client.DomainAvailabilityCheck(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2477,16 +2547,15 @@ Perform Bulk Domain Availability checks using a list of domains. Supports upto `
 
 ```go
 request := &afgosdk.BulkDomainAvailabilityCheckRequest{
-        APIKey: "apiKey",
-        DomainNames: []string{
-            "domainNames",
-        },
-    }
-client.BulkDomainAvailabilityCheck(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    DomainNames: []string{
+        "domainNames",
+    },
 }
+_, err := client.BulkDomainAvailabilityCheck(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2565,14 +2634,13 @@ The Domain Search API is designed to simplify the process of finding available d
 
 ```go
 request := &afgosdk.DomainAvailabilitySuggestionsRequest{
-        APIKey: "apiKey",
-        Domain: "domain",
-    }
-client.DomainAvailabilitySuggestions(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Domain: "domain",
 }
+_, err := client.DomainAvailabilitySuggestions(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2619,7 +2687,7 @@ client.DomainAvailabilitySuggestions(
 <dl>
 <dd>
 
-**count:** `*int` — Number of suggestions to retrieve.
+**count:** `*int` — Number of suggestions to retrieve. The API returns a minimum of 5 suggestions regardless of a lower value.
     
 </dd>
 </dl>
@@ -2627,7 +2695,7 @@ client.DomainAvailabilitySuggestions(
 <dl>
 <dd>
 
-**sug:** `*bool` — Whether to return domain name suggestions.
+**sug:** `*bool` — Controls the response shape. When `false`, returns a single availability object for the queried domain only. When omitted or `true`, returns an array of suggested domains instead.
     
 </dd>
 </dl>
@@ -2667,14 +2735,13 @@ The Subdomain Lookup API is designed to retrieve subdomains related to the given
 
 ```go
 request := &afgosdk.SubdomainsLookupRequest{
-        APIKey: "apiKey",
-        Domain: "domain",
-    }
-client.SubdomainsLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Domain: "domain",
 }
+_, err := client.SubdomainsLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2749,6 +2816,1382 @@ client.SubdomainsLookup(
 </dl>
 </details>
 
+<details><summary><code>client.DomainTyposquatting() -> *afgosdk.DomainTyposquattingResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The Domain Typosquatting API searches for registered domains that are typo or look-alike variants of a brand keyword, or that match a wildcard pattern. Results include registration lifecycle data and drop status across 1529+ TLDs, paginated at 100 domains per page.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.DomainTyposquattingRequest{
+    APIKey: "apiKey",
+}
+_, err := client.DomainTyposquatting(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.DomainTyposquattingRequestFormat` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**keyword:** `*string` — Brand or label to find typo variants for. 3-63 characters, letters, digits, or hyphens, a single label with no dots. Case-insensitive. Use either keyword or pattern, never both.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pattern:** `*string` — Wildcard search string that combines fuzzy matching with * wildcards. 3-63 characters total, * is the only supported wildcard and each one matches zero or more characters, maximum 3 asterisks per request. Use either keyword or pattern, never both.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pageToken:** `*string` — Token from nextPageToken in the previous response. Required to retrieve page 2 and onward. The original keyword or pattern must be passed alongside the token on every page request. Results page at 100 domains per page.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.DomainReputation() -> *afgosdk.DomainReputationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The Domain Reputation API evaluates a domain against threat intelligence sources, DGA (domain generation algorithm) scoring, trust signals, and email deliverability configuration, returning a consolidated risk assessment with a verdict, severity, and supporting evidence.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.DomainReputationRequest{
+    APIKey: "apiKey",
+    DomainName: "domainName",
+}
+_, err := client.DomainReputation(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.DomainReputationRequestFormat` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**domainName:** `string` — The domain name to assess (e.g. example.com). Must contain at least one dot and be at most 253 characters. Automatically lowercased.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.AstronomyLookupV2() -> *afgosdk.AstronomyLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.AstronomyLookupV2Request{
+    APIKey: "apiKey",
+}
+_, err := client.AstronomyLookupV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.AstronomyLookupV2RequestFormat` — Format of the response. Can be "json" or "xml".
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location:** `*string` — Extract astronomy information using location (preferably city)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lat:** `*float64` — Latitude to extract astronomy information using location coordinates
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**long:** `*float64` — Longitude to extract astronomy information using location coordinates
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `*string` — IPv4 or IPv6 address to extract astronomy information using IP address
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `*afgosdk.AstronomyLookupV2RequestLang` — Response language of "location" field in case of lookup through IP address only.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date:** `*time.Time` — Specific date (format YYYY-MM-DD) for which astronomy data is required
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**elevation:** `*float64` — Elevation above sea level at the location, in meters. The value should be between 0 meter and a maximum value of 10,000 meters. Negative value is set to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timeZone:** `*string` — Time zone to receive all time-based data in your preferred local time.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.TimezoneLookupV2() -> *afgosdk.TimezoneLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.TimezoneLookupV2Request{
+    APIKey: "apiKey",
+}
+_, err := client.TimezoneLookupV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.TimezoneLookupV2RequestFormat` — Format of the response. Possible values: json, xml.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `*string` — IPv4 or IPv6 address to extract timezone information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tz:** `*string` — Timezone name in IANA format (e.g., Asia/Kolkata) to retrieve information directly.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location:** `*string` — Location string (preferably city and country) to extract timezone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lat:** `*float64` — Latitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**long:** `*float64` — Longitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `*afgosdk.TimezoneLookupV2RequestLang` — Response language for location fields. Default: en.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**iataCode:** `*string` — 3-letter IATA airport code (e.g., LHR) to extract timezone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**icaoCode:** `*string` — 4-letter ICAO airport code (e.g., KJFK) to extract timezone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**loCode:** `*string` — 5-letter UN/LOCODE city code to extract timezone.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.GeolocationLookupV2() -> *afgosdk.GeolocationLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.GeolocationLookupV2Request{
+    APIKey: "apiKey",
+}
+_, err := client.GeolocationLookupV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.GeolocationLookupV2RequestFormat` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `*string` — IPv4, IPv6, or hostname for geolocation lookup.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `*afgosdk.GeolocationLookupV2RequestLang` — Response language for location fields. Default: en.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `*string` — Comma-separated list of fields to include in response. For example, `location` includes all location fields, `location.city` is a specific field.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**excludes:** `*string` — Comma-separated list of fields to exclude from response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include:** `*string` — Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), hostnameFallbackLive (hostname with live fallback), user_agent (parse User-Agent header), abuse (abuse contact info), dma_code (DMA code), geo_accuracy (accuracy_radius, confidence, locality), * (all modules).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.BulkGeolocationLookupV2(request) -> []*afgosdk.BulkGeolocationLookupV2ResponseItem</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.BulkGeolocationLookupV2Request{
+    APIKey: "apiKey",
+    Ips: []string{
+        "ips",
+    },
+}
+_, err := client.BulkGeolocationLookupV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.BulkGeolocationLookupV2RequestFormat` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `*afgosdk.BulkGeolocationLookupV2RequestLang` — Response language for location fields. Default: en.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `*string` — Comma-separated list of fields to include in the response. For example, `location` includes all location fields, `location.city` is a specific field.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**excludes:** `*string` — Comma-separated list of fields to exclude from response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include:** `*string` — Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), user_agent (parse User-Agent header), abuse (abuse contact info), * (all modules).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ips:** `[]string` — List of IP addresses or hostnames to lookup.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.DomainWhoisLookupV2() -> *afgosdk.DomainWhoisLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.DomainWhoisLookupV2Request{
+    APIKey: "apiKey",
+    DomainName: "domainName",
+}
+_, err := client.DomainWhoisLookupV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.DomainWhoisLookupV2RequestFormat` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**domainName:** `string` — Domain name to retrieve WHOIS data for (e.g. example.com).
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.BulkDomainWhoisLookupV2(request) -> *afgosdk.BulkDomainWhoisLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.BulkDomainWhoisLookupV2Request{
+    APIKey: "apiKey",
+    DomainNames: []string{
+        "domainNames",
+    },
+}
+_, err := client.BulkDomainWhoisLookupV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.BulkDomainWhoisLookupV2RequestFormat` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**domainNames:** `[]string` — List of domain names to retrieve WHOIS data for.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.CommodityLatestRatesV2() -> *afgosdk.CommodityLatestRatesV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the current live price for the requested commodity symbols. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.CommodityLatestRatesV2Request{
+    APIKey: "apiKey",
+    Symbols: []*string{
+        afgosdk.String(
+            "symbols",
+        ),
+    },
+}
+_, err := client.CommodityLatestRatesV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.CommodityLatestRatesV2RequestFormat` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `*string` — Comma-separated list of commodity symbols (e.g., XAU, WTIOIL-SPOT). Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quote:** `*string` — Target currency for the exchange rate. If omitted (or set to `default`), the default quote currency of each commodity is used. Requires a premium plan; ignored on lower-tier plans.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.CommodityHistoricalRatesV2() -> *afgosdk.CommodityHistoricalRatesV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns OHLC price data for the requested commodity symbols on a specific date. Falls back to the nearest earlier rate if none exists for the exact date. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.CommodityHistoricalRatesV2Request{
+    APIKey: "apiKey",
+    Symbols: []*string{
+        afgosdk.String(
+            "symbols",
+        ),
+    },
+    Date: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+}
+_, err := client.CommodityHistoricalRatesV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.CommodityHistoricalRatesV2RequestFormat` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `*string` — Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date:** `time.Time` — Date in YYYY-MM-DD format. Data available from 1990 onwards.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.CommodityFluctuationV2() -> *afgosdk.CommodityFluctuationV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range. For monthly-updated commodities the range snaps to month boundaries. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.CommodityFluctuationV2Request{
+    APIKey: "apiKey",
+    Symbols: []*string{
+        afgosdk.String(
+            "symbols",
+        ),
+    },
+    StartDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+    EndDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+}
+_, err := client.CommodityFluctuationV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.CommodityFluctuationV2RequestFormat` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `*string` — Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**startDate:** `time.Time` — Start date (YYYY-MM-DD)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**endDate:** `time.Time` — End date (YYYY-MM-DD)
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.CommodityTimeSeriesV2() -> *afgosdk.CommodityTimeSeriesV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns day-by-day OHLC data for the requested commodity symbols within a date range, indexed by date. Non-trading days are excluded. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.CommodityTimeSeriesV2Request{
+    APIKey: "apiKey",
+    Symbols: []*string{
+        afgosdk.String(
+            "symbols",
+        ),
+    },
+    StartDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+    EndDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+}
+_, err := client.CommodityTimeSeriesV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.CommodityTimeSeriesV2RequestFormat` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `*string` — Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**startDate:** `time.Time` — Start date (YYYY-MM-DD)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**endDate:** `time.Time` — End date (YYYY-MM-DD). Maximum range is 365 days.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.CommoditySymbolsV2() -> *afgosdk.CommoditySymbolsV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the list of supported commodity symbols with metadata. Deprecated symbols stay listed with status "inactive" and a deprecationDate.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.CommoditySymbolsV2Request{
+    APIKey: "apiKey",
+}
+_, err := client.CommoditySymbolsV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.CommoditySymbolsV2RequestFormat` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.CommodityIntradayRatesV2() -> *afgosdk.CommodityIntradayRatesV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the prices of one commodity through a UTC day at the requested interval, keyed by UTC timestamp. Each request costs a flat 50 credits however many points it returns.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.CommodityIntradayRatesV2Request{
+    APIKey: "apiKey",
+    Symbols: "symbols",
+    Interval: afgosdk.CommodityIntradayRatesV2RequestIntervalOneM,
+    Date: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+}
+_, err := client.CommodityIntradayRatesV2(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `string` — Exactly one commodity symbol. Case-insensitive. Sending two or more returns a 400. Only symbols updated every second, every minute, or every 10 minutes have intraday rates; symbols updated hourly or less often return a 400. Use the Commodity Symbols endpoint for all valid values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**interval:** `afgosdk.CommodityIntradayRatesV2RequestInterval` — Spacing between points. Case-insensitive. Symbols updated every 10 minutes accept only `10m`, `30m`, `1h`, `2h`, `4h`, `8h`, `12h`, `1d`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date:** `time.Time` — The UTC day to read, in `YYYY-MM-DD` format. Cannot be in the future. For today, points stop at the current UTC minute.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**startTime:** `*string` — First mark of the window, as a 24-hour UTC time in `HH:mm`. Must fall on a mark of the interval (for example, `14:30` works for `5m` or `30m`, but not for `1h`). For `1d` it can only be `00:00`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `*bool` — Whether to include the `metadata` object. Pass `false` to receive only the prices.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.PdfMerge(request) -> *afgosdk.PdfMergeResponse</code></summary>
 <dl>
 <dd>
@@ -2777,13 +4220,12 @@ This API merges multiple PDF files into a single PDF, in the order they are prov
 
 ```go
 request := &afgosdk.PdfMergeRequest{
-        APIKey: "apiKey",
-    }
-client.PdfMerge(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.PdfMerge(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -2894,17 +4336,16 @@ This API removes a selection or range of pages from a PDF file.
 
 ```go
 request := &afgosdk.PdfRemovePagesRequest{
-        APIKey: "apiKey",
-        Pages: "pages",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfRemovePages(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Pages: "pages",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfRemovePages(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -3023,16 +4464,15 @@ This API splits a PDF into multiple parts based on specified page numbers or ran
 
 ```go
 request := &afgosdk.PdfSplitRequest{
-        APIKey: "apiKey",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfSplit(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfSplit(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -3171,17 +4611,16 @@ This API rotates pages of a PDF by a specified angle (in multiples of 90 degrees
 
 ```go
 request := &afgosdk.PdfRotateRequest{
-        APIKey: "apiKey",
-        Rotate: 1,
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfRotate(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Rotate: 1,
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfRotate(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -3308,17 +4747,16 @@ This API compresses a given PDF file to reduce its file size.
 
 ```go
 request := &afgosdk.PdfCompressRequest{
-        APIKey: "apiKey",
-        CompressionLevel: afgosdk.PdfCompressRequestCompressionLevelLow,
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfCompress(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    CompressionLevel: afgosdk.PdfCompressRequestCompressionLevelLow,
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfCompress(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -3365,7 +4803,7 @@ client.PdfCompress(
 <dl>
 <dd>
 
-**compressionLevel:** `*afgosdk.PdfCompressRequestCompressionLevel` — Controls how aggressively the PDF is compressed. Lower levels preserve more quality, while higher levels reduce file size more.
+**compressionLevel:** `afgosdk.PdfCompressRequestCompressionLevel` — Controls how aggressively the PDF is compressed. Lower levels preserve more quality, while higher levels reduce file size more.
     
 </dd>
 </dl>
@@ -3437,17 +4875,16 @@ This API extracts specific pages or page ranges from a PDF file and returns them
 
 ```go
 request := &afgosdk.PdfExtractPagesRequest{
-        APIKey: "apiKey",
-        Pages: "pages",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfExtractPages(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Pages: "pages",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfExtractPages(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -3574,16 +5011,15 @@ API endpoint that linearizes any given PDF, restructuring it for faster loading 
 
 ```go
 request := &afgosdk.PdfLinearizeRequest{
-        APIKey: "apiKey",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfLinearize(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfLinearize(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -3694,17 +5130,16 @@ This API encrypts a PDF file by setting a password required to open it.
 
 ```go
 request := &afgosdk.PdfEncryptRequest{
-        APIKey: "apiKey",
-        UserPassword: "user_password",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfEncrypt(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    UserPassword: "user_password",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfEncrypt(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -3839,17 +5274,16 @@ This API decrypts PDF files, removing all encryption, including open passwords a
 
 ```go
 request := &afgosdk.PdfDecryptRequest{
-        APIKey: "apiKey",
-        FilePassword: "file_password",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfDecrypt(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    FilePassword: "file_password",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfDecrypt(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -3968,20 +5402,19 @@ This API applies permission restrictions on a PDF file, such as disabling printi
 
 ```go
 request := &afgosdk.PdfRestrictRequest{
-        APIKey: "apiKey",
-        UserPassword: "user_password",
-        Restrictions: []*afgosdk.PdfRestrictRequestRestrictionsItem{
-            afgosdk.PdfRestrictRequestRestrictionsItemPrintHigh.Ptr(),
-        },
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfRestrict(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    UserPassword: "user_password",
+    Restrictions: []*afgosdk.PdfRestrictRequestRestrictionsItem{
+        afgosdk.PdfRestrictRequestRestrictionsItemPrintHigh.Ptr(),
+    },
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfRestrict(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -4136,17 +5569,17 @@ This API removes permission restrictions from a PDF while keeping it encrypted. 
 
 ```go
 request := &afgosdk.PdfUnrestrictRequest{
-        APIKey: "apiKey",
-        FilePassword: "file_password",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfUnrestrict(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    FilePassword: "file_password",
+    UserPassword: "user_password",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfUnrestrict(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -4209,7 +5642,7 @@ client.PdfUnrestrict(
 <dl>
 <dd>
 
-**userPassword:** `*string` — Sets the user password for the PDF file. Password Length should be between 6 and 128 characters.
+**userPassword:** `string` — Sets the user password for the PDF file. Password Length should be between 6 and 128 characters.
     
 </dd>
 </dl>
@@ -4281,16 +5714,15 @@ This API converts a given PDF file into a sequence of PNG images.
 
 ```go
 request := &afgosdk.PdfConvertToPngRequest{
-        APIKey: "apiKey",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfConvertToPng(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfConvertToPng(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -4433,16 +5865,15 @@ This API converts a given PDF file into a sequence of JPG images.
 
 ```go
 request := &afgosdk.PdfConvertToJpgRequest{
-        APIKey: "apiKey",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfConvertToJpg(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfConvertToJpg(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -4593,16 +6024,15 @@ This API converts a given PDF file into a sequence of TIFF images. The output im
 
 ```go
 request := &afgosdk.PdfConvertToTiffRequest{
-        APIKey: "apiKey",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfConvertToTiff(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfConvertToTiff(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -4745,16 +6175,15 @@ Converts a PDF file to a BMP image.
 
 ```go
 request := &afgosdk.PdfConvertToBmpRequest{
-        APIKey: "apiKey",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfConvertToBmp(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfConvertToBmp(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -4897,16 +6326,15 @@ This API converts a given PDF file into a sequence of GIF images.
 
 ```go
 request := &afgosdk.PdfConvertToGifRequest{
-        APIKey: "apiKey",
-        File: strings.NewReader(
-            "",
-        ),
-    }
-client.PdfConvertToGif(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.PdfConvertToGif(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -5049,13 +6477,12 @@ This API uploads multiple PDF files to the API Freaks server and generates their
 
 ```go
 request := &afgosdk.PdfUploadResourcesRequest{
-        APIKey: "apiKey",
-    }
-client.PdfUploadResources(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.PdfUploadResources(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -5079,6 +6506,96 @@ client.PdfUploadResources(
 <dd>
 
 **format:** `*afgosdk.PdfUploadResourcesRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.PdfUploadBinary(request) -> *afgosdk.PdfUploadBinaryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This API uploads PDF files to the API Freaks server in binary format. The request body is the raw PDF bytes, sent as `application/octet-stream`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+pdfBytes, err := os.ReadFile("sample.pdf")
+if err != nil {
+    return err
+}
+request := &afgosdk.PdfUploadBinaryRequest{
+    APIKey: "apiKey",
+    FileName: "sample.pdf",
+    Body: pdfBytes,
+}
+_, err = client.PdfUploadBinary(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.PdfUploadBinaryRequestFormat` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fileName:** `string` — The desired name for the uploaded PDF file. This name will be used for storage on the server. It must have the `.pdf` extension.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**body:** `[]byte` — The raw bytes of the PDF file.
     
 </dd>
 </dl>
@@ -5118,14 +6635,13 @@ This API downloads PDF files or ZIP archives from the server using their unique 
 
 ```go
 request := &afgosdk.PdfDownloadResourceRequest{
-        APIKey: "apiKey",
-        ResourceID: "resource_id",
-    }
-client.PdfDownloadResource(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    ResourceID: "resource_id",
 }
+_, err := client.PdfDownloadResource(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -5196,14 +6712,13 @@ This API checks the status of a previously initiated PDF processing task using i
 
 ```go
 request := &afgosdk.PdfGetTaskStatusRequest{
-        APIKey: "apiKey",
-        TaskID: "task_id",
-    }
-client.PdfGetTaskStatus(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    TaskID: "task_id",
 }
+_, err := client.PdfGetTaskStatus(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -5274,14 +6789,13 @@ This API checks the status of a PDF file using its unique file ID, providing inf
 
 ```go
 request := &afgosdk.PdfGetFileStatusRequest{
-        APIKey: "apiKey",
-        FileID: "file_id",
-    }
-client.PdfGetFileStatus(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    FileID: "file_id",
 }
+_, err := client.PdfGetFileStatus(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -5352,13 +6866,12 @@ This API retrieves a list of all PDF files uploaded and generated by a specific 
 
 ```go
 request := &afgosdk.PdfListFilesRequest{
-        APIKey: "apiKey",
-    }
-client.PdfListFiles(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.PdfListFiles(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -5421,14 +6934,13 @@ This API deletes a PDF file using its unique file ID.
 
 ```go
 request := &afgosdk.PdfDeleteFileRequest{
-        APIKey: "apiKey",
-        FileID: "file_id",
-    }
-client.PdfDeleteFile(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    FileID: "file_id",
 }
+_, err := client.PdfDeleteFile(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -5471,7 +6983,223 @@ client.PdfDeleteFile(
 </dl>
 </details>
 
-<details><summary><code>client.ScreenshotCapture() -> string</code></summary>
+<details><summary><code>client.PdfGenerateFromTemplate(request) -> *afgosdk.PdfGenerateFromTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Renders the template identified by template_id with the JSON data supplied in the request body (or fetched from data_url). Returns a hosted URL for the generated PDF. Provide either a request body or a data_url; one of the two is required. The keys of the data object are the fields you bound when you designed the template in the APIFreaks PDF Template Builder, so the exact shape is up to you. Pin the version parameter to a specific template version (e.g. version=v2) so later design changes never touch what is already live; omit it to use the latest version.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.PdfGenerateFromTemplateRequest{
+    APIKey: "apiKey",
+    TemplateID: "template_id",
+    Body: map[string]any{
+        "candidate_name": "Ava Thompson",
+        "candidate_title": "Senior Operations Analyst",
+        "certification_1": "Certified Business Analysis Professional (CBAP)",
+        "certification_2": "Six Sigma Green Belt",
+        "city": "Austin, TX",
+        "company_name": "Northwind Logistics",
+        "degree": "B.S. in Information Systems",
+        "email": "ava.thompson@example.com",
+        "employment_period": "2021 - Present",
+        "graduation_year": "2018",
+        "institution": "University of Texas",
+        "job_achievement_1": "Led weekly KPI reporting for finance, fulfillment, and customer success stakeholders across three business units.",
+        "job_achievement_2": "Reduced manual reconciliation work by 35% through workflow redesign and documentation automation.",
+        "job_achievement_3": "Spearheaded a cross-team initiative that improved on-time delivery metrics by 18% within six months.",
+        "job_title": "Operations Analyst",
+        "languages": "English (Native), Spanish (Professional)",
+        "phone": "+1 (555) 381-2048",
+        "portfolio_url": "portfolio.example.com",
+        "profile_summary": "Analytical operations professional with 8+ years of experience improving reporting pipelines, streamlining process documentation, and coordinating cross-functional delivery for distributed teams across multiple time zones.",
+        "skills": []any{
+            map[string]any{
+                "level": "Advanced",
+                "skill": "Process Improvement",
+                "years": "7",
+            },
+            map[string]any{
+                "level": "Expert",
+                "skill": "Stakeholder Reporting",
+                "years": "8",
+            },
+            map[string]any{
+                "level": "Advanced",
+                "skill": "Cross-functional Coordination",
+                "years": "5",
+            },
+            map[string]any{
+                "level": "Advanced",
+                "skill": "Workflow Documentation",
+                "years": "6",
+            },
+        },
+    },
+}
+_, err := client.PdfGenerateFromTemplate(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateID:** `string` — The template to render, from the APIFreaks PDF Template Builder. Copy it from your dashboard when you save the template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `*string` — Template version to render, e.g. v2. Must start with v. Omit this parameter entirely to use the latest version; the literal value 'latest' is not accepted by the API.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**dataURL:** `*string` — A URL the API fetches your JSON data from, instead of the request body. Provide this when you are not sending a request body.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `map[string]any` — Free-form JSON object whose keys map to the fields bound in the template.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.BulkPdfGenerateFromTemplate(request) -> []*afgosdk.BulkPdfGenerateFromTemplateResponseItem</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Upload a CSV file where each row is one record. The API generates one PDF per row and returns an array of results, each with its own pdf_url. Rows are processed independently, so a failure in one row does not block the rest of the batch. The response gives a row-by-row breakdown of which PDFs succeeded and which failed.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &afgosdk.BulkPdfGenerateFromTemplateRequest{
+    APIKey: "apiKey",
+    TemplateID: "template_id",
+    File: strings.NewReader(
+        "",
+    ),
+}
+_, err := client.BulkPdfGenerateFromTemplate(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateID:** `string` — The template to render, from the APIFreaks PDF Template Builder. Copy it from your dashboard when you save the template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `*string` — Template version to render, e.g. v2. Must start with v. Omit this parameter entirely to use the latest version; the literal value 'latest' is not accepted by the API.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ScreenshotCapture() -> *afgosdk.ScreenshotCaptureResponse</code></summary>
 <dl>
 <dd>
 
@@ -5500,14 +7228,13 @@ Supports multiple output formats including JSON, image, GIF, MP4, and WebM.
 
 ```go
 request := &afgosdk.ScreenshotCaptureRequest{
-        APIKey: "apiKey",
-        URL: "url",
-    }
-client.ScreenshotCapture(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    URL: "url",
 }
+_, err := client.ScreenshotCapture(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -5530,7 +7257,7 @@ client.ScreenshotCapture(
 <dl>
 <dd>
 
-**output:** `*afgosdk.ScreenshotCaptureRequestOutput` — Output format for screenshot results
+**output:** `*afgosdk.ScreenshotCaptureRequestOutput` — Output format for screenshot results. The SDKs support only `json`, which returns metadata with the captured file's URL in `screenshot`; download the file from that URL. (The API's `output=image`, which returns the raw file, is not supported by the SDK methods.)
     
 </dd>
 </dl>
@@ -6087,6 +7814,222 @@ Avoid using spaces or special characters; use hyphens or underscores to separate
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**captchaError:** `*string` — CSS selector of the message shown for a wrong answer. While it is visible, the solver tries again.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaImage:** `*string` — CSS selector of the captcha picture. Required when solve_captcha is true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaInput:** `*string` — CSS selector of the box the answer is typed into. Required when solve_captcha is true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaRefresh:** `*string` — CSS selector of the control that loads a new captcha picture before the next try.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaRetries:** `*int` — Number of guesses the solver makes, from 1 to 5.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaSubmit:** `*string` — CSS selector of the button to click after the answer is typed.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**classicProxy:** `*bool` — Loads the page through a datacenter proxy. Adds 20 credits per request. Ignored when premium_proxy is true or a custom proxy is set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clickRecursion:** `*int` — Number of times to click the selector (when set via `selector_to_click`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country:** `*string` — Two-letter country code, such as US or DE, for the exit address of classic_proxy or premium_proxy. Ignored when you send your own proxy. Any two-letter code is sent, including one that is not listed. Classic proxy countries: BG, GE, DE, HN, MD, UA, GB, US. Premium proxy countries: AF, AL, DZ, AO, AG, AR, AM, AW, AU, AT, AZ, BS, BH, BD, BB, BY, BE, BZ, BJ, BT, BO, BQ, BA, BW, BR, BN, BG, BF, BI, CV, KH, CM, CA, KY, CF, TD, CL, CN, CO, KM, CG, CR, CI, HR, CU, CW, CY, CZ, CD, DK, DJ, DM, DO, EC, EG, SV, GQ, EE, SZ, ET, FO, FJ, FI, FR, GF, PF, GA, GM, GE, DE, GH, GI, GR, GL, GD, GP, GU, GT, GG, GN, GW, GY, HT, HN, HK, HU, IS, IN, ID, IR, IQ, IE, IL, IT, JM, JP, JE, JO, KZ, KE, XK, KW, KG, LA, LV, LB, LS, LR, LY, LT, MO, MG, MW, MY, MV, ML, MT, MQ, MR, MU, YT, MX, MD, MN, ME, MA, MZ, MM, NA, NP, NL, NC, NZ, NI, NE, NG, MK, NO, OM, PK, PS, PA, PG, PY, PE, PH, PL, PT, PR, QA, RE, RO, RU, RW, KN, LC, VC, WS, SA, SN, RS, SC, SL, SG, SK, SI, SB, SO, ZA, KR, SS, ES, LK, SD, SR, SE, CH, SY, TW, TJ, TZ, TH, TL, TG, TO, TT, TN, TR, TM, UG, UA, AE, GB, US, UY, UZ, VE, VN, YE, ZM, ZW.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**extractMarkdown:** `*bool` — Extracts rendered page content as a structured .md (Markdown) file. Preserves headings, lists, links. Only with output=json.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.ScreenshotCaptureRequestFormat` — Response format: json (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**getImageURLs:** `*bool` — Extracts all image URLs from the rendered DOM and returns them in structured format. Only with output=json.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**gpu:** `*bool` — Renders the page with a GPU, including WebGL and canvas content. Adds 20 credits per request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**markdown:** `*string` — Markdown to render instead of loading a URL. Works like custom_html, so you can capture a README or notes without hosting a page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ocrModel:** `*afgosdk.ScreenshotCaptureRequestOcrModel` — Recognition model used by the captcha solver: mini-ocr-v1 (default) or ocr-v1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsFormat:** `*afgosdk.ScreenshotCaptureRequestPdfOptionsFormat` — Paper size of the PDF. Applies when file_type is PDF. Without it, width and height are used if set, otherwise the page renders as one long page: A0, A1, A2, A3, A4, A5, A6, Letter, Legal, Tabloid, or Ledger.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsLandscape:** `*bool` — Renders the PDF in landscape orientation, swapping the width and height of the paper size. Applies when file_type is PDF.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsMedia:** `*afgosdk.ScreenshotCaptureRequestPdfOptionsMedia` — CSS media type used to render the PDF: print or screen.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsPageRange:** `*string` — Pages to keep in the PDF, as start-end, for example 1-3 or 5-5. Pages are rendered first and then trimmed. Has no effect on a single-page PDF. Applies when file_type is PDF.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsPrintBackground:** `*bool` — Includes background colors and images in the PDF. Applies when file_type is PDF.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**premiumProxy:** `*bool` — Loads the page through a residential proxy. Adds 200 credits per request. Used instead of classic_proxy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scrollDelay:** `*int` — Delay in milliseconds between scroll steps when `lazy_load` is enabled. Use higher values for heavy pages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**selectorToClick:** `*string` — CSS selector for an element to click before capturing the screenshot. Useful for opening dropdowns, modals, or triggering content.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**solveCaptcha:** `*bool` — Solves a captcha made of text drawn in a picture, then takes the screenshot. Requires captcha_image and captcha_input. Adds 20 credits per request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stealth:** `*bool` — Makes the browser look like a regular visitor for pages that block automated traffic. No extra credits.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timezone:** `*string` — IANA timezone the browser uses while rendering, such as Asia/Karachi or Europe/London. Useful for clocks and localized dates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**video:** `*bool` — Records visible viewport only for a specified duration. Use with `duration` parameter. Ideal for dashboards and animations.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -6124,18 +8067,17 @@ Our Bulk Screenshot API allows you to capture screenshots of multiple webpages s
 
 ```go
 request := &afgosdk.BulkScreenshotCaptureRequest{
-        APIKey: "apiKey",
-        URLs: []*afgosdk.BulkScreenshotCaptureRequestURLsItem{
-            &afgosdk.BulkScreenshotCaptureRequestURLsItem{
-                URL: "url",
-            },
+    APIKey: "apiKey",
+    URLs: []*afgosdk.BulkScreenshotCaptureRequestURLsItem{
+        &afgosdk.BulkScreenshotCaptureRequestURLsItem{
+            URL: "url",
         },
-    }
-client.BulkScreenshotCapture(
-        context.TODO(),
-        request,
-    )
+    },
 }
+_, err := client.BulkScreenshotCapture(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -6206,13 +8148,12 @@ Get live forex rates for all world currencies with customizable update frequency
 
 ```go
 request := &afgosdk.CurrencyLatestRatesRequest{
-        APIKey: "apiKey",
-    }
-client.CurrencyLatestRates(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.CurrencyLatestRates(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -6299,16 +8240,15 @@ Get historical exchange rates for any specific date
 
 ```go
 request := &afgosdk.CurrencyHistoricalRatesRequest{
-        APIKey: "apiKey",
-        Date: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-    }
-client.CurrencyHistoricalRates(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Date: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
 }
+_, err := client.CurrencyHistoricalRates(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -6395,15 +8335,14 @@ Convert amount between currencies using the latest exchange rates
 
 ```go
 request := &afgosdk.CurrencyConvertLatestRequest{
-        APIKey: "apiKey",
-        From: "from",
-        To: "to",
-    }
-client.CurrencyConvertLatest(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    From: "from",
+    To: "to",
 }
+_, err := client.CurrencyConvertLatest(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -6450,7 +8389,7 @@ client.CurrencyConvertLatest(
 <dl>
 <dd>
 
-**amount:** `*string` — Amount to convert
+**amount:** `*float64` — Amount to convert
     
 </dd>
 </dl>
@@ -6498,18 +8437,17 @@ Convert amount between currencies using historical rates
 
 ```go
 request := &afgosdk.CurrencyConvertHistoricalRequest{
-        APIKey: "apiKey",
-        From: "from",
-        To: "to",
-        Date: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-    }
-client.CurrencyConvertHistorical(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    From: "from",
+    To: "to",
+    Date: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
 }
+_, err := client.CurrencyConvertHistorical(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -6556,7 +8494,7 @@ client.CurrencyConvertHistorical(
 <dl>
 <dd>
 
-**amount:** `*string` — The Amount to be converted
+**amount:** `*float64` — The Amount to be converted
     
 </dd>
 </dl>
@@ -6604,16 +8542,15 @@ Get exchange rates for a time range
 
 ```go
 request := &afgosdk.CurrencyTimeSeriesRequest{
-        APIKey: "apiKey",
-        StartDate: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-    }
-client.CurrencyTimeSeries(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    StartDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
 }
+_, err := client.CurrencyTimeSeries(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -6708,19 +8645,18 @@ Get currency fluctuation data for a time period
 
 ```go
 request := &afgosdk.CurrencyFluctuationRequest{
-        APIKey: "apiKey",
-        StartDate: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-        Base: afgosdk.String(
-            "USD",
-        ),
-    }
-client.CurrencyFluctuation(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    StartDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+    Base: afgosdk.String(
+        "USD",
+    ),
 }
+_, err := client.CurrencyFluctuation(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -6815,14 +8751,13 @@ Convert amount using user's location
 
 ```go
 request := &afgosdk.CurrencyConvertByIPRequest{
-        APIKey: "apiKey",
-        From: "from",
-    }
-client.CurrencyConvertByIP(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    From: "from",
 }
+_, err := client.CurrencyConvertByIP(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -6877,7 +8812,7 @@ client.CurrencyConvertByIP(
 <dl>
 <dd>
 
-**amount:** `*string` — Amount to convert
+**amount:** `*float64` — Amount to convert
     
 </dd>
 </dl>
@@ -6917,13 +8852,12 @@ Get list of all supported currencies with their metadata
 
 ```go
 request := &afgosdk.CurrencySupportedRequest{
-        APIKey: "apiKey",
-    }
-client.CurrencySupported(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.CurrencySupported(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -6986,13 +8920,12 @@ Get currency symbols and codes
 
 ```go
 request := &afgosdk.CurrencySymbolsRequest{
-        APIKey: "apiKey",
-    }
-client.CurrencySymbols(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.CurrencySymbols(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7055,13 +8988,12 @@ Get information about historical data availability and limits
 
 ```go
 request := &afgosdk.CurrencyHistoricalLimitsRequest{
-        APIKey: "apiKey",
-    }
-client.CurrencyHistoricalLimits(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.CurrencyHistoricalLimits(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7124,19 +9056,18 @@ Get live commodity rates with customizable update frequency
 
 ```go
 request := &afgosdk.CommodityLatestRatesRequest{
-        APIKey: "apiKey",
-        Symbols: []*string{
-            afgosdk.String(
-                "symbols",
-            ),
-        },
-        Updates: afgosdk.CommodityLatestRatesRequestUpdatesTenM,
-    }
-client.CommodityLatestRates(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Symbols: []*string{
+        afgosdk.String(
+            "symbols",
+        ),
+    },
+    Updates: afgosdk.CommodityLatestRatesRequestUpdatesTenM,
 }
+_, err := client.CommodityLatestRates(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7175,7 +9106,7 @@ client.CommodityLatestRates(
 <dl>
 <dd>
 
-**updates:** `*afgosdk.CommodityLatestRatesRequestUpdates` — Exchange rates update period. Possible values are: (1) `10m` - 10 minute update (2) `1m` - 1 minute update **Required**
+**updates:** `afgosdk.CommodityLatestRatesRequestUpdates` — Exchange rates update period. Possible values are: (1) `10m` - 10 minute update (2) `1m` - 1 minute update **Required**
     
 </dd>
 </dl>
@@ -7223,21 +9154,20 @@ Get historical commodity rates for a specific date
 
 ```go
 request := &afgosdk.CommodityHistoricalRatesRequest{
-        APIKey: "apiKey",
-        Date: afgosdk.MustParseDate(
-            "2023-01-15",
+    APIKey: "apiKey",
+    Date: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+    Symbols: []*string{
+        afgosdk.String(
+            "symbols",
         ),
-        Symbols: []*string{
-            afgosdk.String(
-                "symbols",
-            ),
-        },
-    }
-client.CommodityHistoricalRates(
-        context.TODO(),
-        request,
-    )
+    },
 }
+_, err := client.CommodityHistoricalRates(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7316,24 +9246,23 @@ Get commodity price fluctuation data for a time period
 
 ```go
 request := &afgosdk.CommodityFluctuationRequest{
-        APIKey: "apiKey",
-        Symbols: []*string{
-            afgosdk.String(
-                "symbols",
-            ),
-        },
-        StartDate: afgosdk.MustParseDate(
-            "2023-01-15",
+    APIKey: "apiKey",
+    Symbols: []*string{
+        afgosdk.String(
+            "symbols",
         ),
-        EndDate: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-    }
-client.CommodityFluctuation(
-        context.TODO(),
-        request,
-    )
+    },
+    StartDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+    EndDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
 }
+_, err := client.CommodityFluctuation(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7420,24 +9349,23 @@ Get commodity rates for a time range
 
 ```go
 request := &afgosdk.CommodityTimeSeriesRequest{
-        APIKey: "apiKey",
-        Symbols: []*string{
-            afgosdk.String(
-                "symbols",
-            ),
-        },
-        StartDate: afgosdk.MustParseDate(
-            "2023-01-15",
+    APIKey: "apiKey",
+    Symbols: []*string{
+        afgosdk.String(
+            "symbols",
         ),
-        EndDate: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-    }
-client.CommodityTimeSeries(
-        context.TODO(),
-        request,
-    )
+    },
+    StartDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+    EndDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
 }
+_, err := client.CommodityTimeSeries(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7524,13 +9452,12 @@ Get list of supported commodities
 
 ```go
 request := &afgosdk.CommoditySymbolsRequest{
-        APIKey: "apiKey",
-    }
-client.CommoditySymbols(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.CommoditySymbols(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7593,13 +9520,12 @@ Retrieves a list of supported countries.
 
 ```go
 request := &afgosdk.VatSupportedCountriesRequest{
-        APIKey: "apiKey",
-    }
-client.VatSupportedCountries(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.VatSupportedCountries(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7630,7 +9556,7 @@ client.VatSupportedCountries(
 <dl>
 <dd>
 
-**type_:** `*afgosdk.VatSupportedCountriesRequestType` — Type of supported country. Supported values: IBAN, SWIFT, VAT. By default, it returns all supported countries for all types.
+**type_:** `*afgosdk.VatSupportedCountriesRequestType` — Which list to return: VAT (`VAT_Supported_Countries_And_States`), IBAN (`IBAN_Supported_Countries`) or SWIFT (`SWIFT_Supported_Countries`). Each value returns only its own list. If omitted (or unknown), all three lists are returned.
     
 </dd>
 </dl>
@@ -7670,13 +9596,12 @@ Fetches VAT rate based on the specified or originating IP address.
 
 ```go
 request := &afgosdk.VatRateByIPRequest{
-        APIKey: "apiKey",
-    }
-client.VatRateByIP(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.VatRateByIP(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7747,14 +9672,13 @@ Fetches VAT rates for a single country or state provided via query parameters.
 
 ```go
 request := &afgosdk.VatRateByCountryRequest{
-        APIKey: "apiKey",
-        Country: "country",
-    }
-client.VatRateByCountry(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Country: "country",
 }
+_, err := client.VatRateByCountry(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7805,7 +9729,7 @@ client.VatRateByCountry(
 </dl>
 </details>
 
-<details><summary><code>client.BulkVatRateByCountry(request) -> *afgosdk.BulkVatRateByCountryResponse</code></summary>
+<details><summary><code>client.BulkVatRateByCountry(request) -> []*afgosdk.BulkVatRateByCountryResponseItem</code></summary>
 <dl>
 <dd>
 
@@ -7833,24 +9757,23 @@ Retrieves VAT details for multiple countries or country-state combinations in a 
 
 ```go
 request := &afgosdk.BulkVatRateByCountryRequest{
-        APIKey: "apiKey",
-        Countries: []*afgosdk.BulkVatRateByCountryRequestCountriesItem{
-            &afgosdk.BulkVatRateByCountryRequestCountriesItem{
-                Country: "PAK",
-            },
-            &afgosdk.BulkVatRateByCountryRequestCountriesItem{
-                Country: "United_States",
-                State: afgosdk.String(
-                    "New_York",
-                ),
-            },
+    APIKey: "apiKey",
+    Countries: []*afgosdk.BulkVatRateByCountryRequestCountriesItem{
+        &afgosdk.BulkVatRateByCountryRequestCountriesItem{
+            Country: "PAK",
         },
-    }
-client.BulkVatRateByCountry(
-        context.TODO(),
-        request,
-    )
+        &afgosdk.BulkVatRateByCountryRequestCountriesItem{
+            Country: "United_States",
+            State: afgosdk.String(
+                "New_York",
+            ),
+        },
+    },
 }
+_, err := client.BulkVatRateByCountry(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -7921,14 +9844,13 @@ Validates an EU or UK VAT number and returns registration status details.
 
 ```go
 request := &afgosdk.VatValidateRequest{
-        APIKey: "apiKey",
-        VatNumber: "vatNumber",
-    }
-client.VatValidate(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    VatNumber: "vatNumber",
 }
+_, err := client.VatValidate(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8007,14 +9929,13 @@ Checks an IBAN for structural validity, checksum accuracy, and bank metadata.
 
 ```go
 request := &afgosdk.IbanValidateRequest{
-        APIKey: "apiKey",
-        Iban: "iban",
-    }
-client.IbanValidate(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Iban: "iban",
 }
+_, err := client.IbanValidate(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8085,13 +10006,12 @@ Fetches SWIFT codes for a given country, bank, and city.
 
 ```go
 request := &afgosdk.SwiftCodeFindRequest{
-        APIKey: "apiKey",
-    }
-client.SwiftCodeFind(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.SwiftCodeFind(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8178,14 +10098,13 @@ Fetches detailed information about a SWIFT code.
 
 ```go
 request := &afgosdk.SwiftCodeLookupRequest{
-        APIKey: "apiKey",
-        SwiftCode: "swiftCode",
-    }
-client.SwiftCodeLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    SwiftCode: "swiftCode",
 }
+_, err := client.SwiftCodeLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8242,14 +10161,13 @@ client.SwiftCodeLookup(
 
 ```go
 request := &afgosdk.ZipcodeLookupRequest{
-        APIKey: "apiKey",
-        Code: "code",
-    }
-client.ZipcodeLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Code: "code",
 }
+_, err := client.ZipcodeLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8328,16 +10246,15 @@ Validates a bulk of ZIP/postal codes and returns result for each. Maximum `100` 
 
 ```go
 request := &afgosdk.BulkZipcodeLookupRequest{
-        APIKey: "apiKey",
-        Codes: []string{
-            "codes",
-        },
-    }
-client.BulkZipcodeLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Codes: []string{
+        "codes",
+    },
 }
+_, err := client.BulkZipcodeLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8402,15 +10319,14 @@ client.BulkZipcodeLookup(
 
 ```go
 request := &afgosdk.ZipcodeSearchByCityRequest{
-        APIKey: "apiKey",
-        City: "city",
-        Country: "country",
-    }
-client.ZipcodeSearchByCity(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    City: "city",
+    Country: "country",
 }
+_, err := client.ZipcodeSearchByCity(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8491,15 +10407,13 @@ client.ZipcodeSearchByCity(
 
 ```go
 request := &afgosdk.ZipcodeSearchByRegionRequest{
-        APIKey: "apiKey",
-        Country: "country",
-        Region: "region",
-    }
-client.ZipcodeSearchByRegion(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Country: "country",
 }
+_, err := client.ZipcodeSearchByRegion(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8538,7 +10452,7 @@ client.ZipcodeSearchByRegion(
 <dl>
 <dd>
 
-**region:** `string` — Name of the region, state or province associated with the country.
+**region:** `*string` — Name of the region, state or province associated with the country. Either region or region_code is required; region_code takes priority if both are given.
     
 </dd>
 </dl>
@@ -8547,6 +10461,14 @@ client.ZipcodeSearchByRegion(
 <dd>
 
 **page:** `*int` — Page no. to retrieve paginated results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**regionCode:** `*string` — ISO code of the region, state, or province associated with the country. Either region or region_code is required. region_code takes priority if both are given.
     
 </dd>
 </dl>
@@ -8572,14 +10494,13 @@ client.ZipcodeSearchByRegion(
 
 ```go
 request := &afgosdk.ZipcodeSearchByRadiusRequest{
-        APIKey: "apiKey",
-        Radius: 1.1,
-    }
-client.ZipcodeSearchByRadius(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Radius: 1.1,
 }
+_, err := client.ZipcodeSearchByRadius(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8698,17 +10619,16 @@ Get distance between postal codes. Maximum `100` postal codes per request.
 
 ```go
 request := &afgosdk.ZipcodeDistanceRequest{
-        APIKey: "apiKey",
-        Compare: []string{
-            "compare",
-        },
-        Country: "country",
-    }
-client.ZipcodeDistance(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Compare: []string{
+        "compare",
+    },
+    Country: "country",
 }
+_, err := client.ZipcodeDistance(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8819,17 +10739,16 @@ Get matching ZIP/postal code pairs within a specified distance. Maximum `100` po
 
 ```go
 request := &afgosdk.ZipcodeDistanceMatchRequest{
-        APIKey: "apiKey",
-        Codes: []string{
-            "codes",
-        },
-        Country: "country",
-    }
-client.ZipcodeDistanceMatch(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Codes: []string{
+        "codes",
+    },
+    Country: "country",
 }
+_, err := client.ZipcodeDistanceMatch(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8924,13 +10843,12 @@ Get current weather data including temperature, humidity, precipitation, wind co
 
 ```go
 request := &afgosdk.CurrentWeatherRequest{
-        APIKey: "apiKey",
-    }
-client.CurrentWeather(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.CurrentWeather(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -8953,7 +10871,7 @@ client.CurrentWeather(
 <dl>
 <dd>
 
-**format:** `*afgosdk.CurrentWeatherRequestFormat` — Response format returned by the API.
+**format:** `*afgosdk.CurrentWeatherRequestFormat` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -9033,38 +10951,37 @@ Retrieve current weather conditions for up to `50 locations` in a single request
 
 ```go
 request := &afgosdk.BulkCurrentWeatherRequest{
-        APIKey: "apiKey",
-        Locations: []*afgosdk.BulkCurrentWeatherRequestLocationsItem{
-            &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-                Location: afgosdk.String(
-                    "lahore",
-                ),
-            },
-            &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-                Lat: afgosdk.Float64(
-                    32.5,
-                ),
-                Long: afgosdk.Float64(
-                    74.5,
-                ),
-            },
-            &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-                IP: afgosdk.String(
-                    "8.8.8.8",
-                ),
-            },
-            &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-                Location: afgosdk.String(
-                    "seoul",
-                ),
-            },
+    APIKey: "apiKey",
+    Locations: []*afgosdk.BulkCurrentWeatherRequestLocationsItem{
+        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
+            Location: afgosdk.String(
+                "lahore",
+            ),
         },
-    }
-client.BulkCurrentWeather(
-        context.TODO(),
-        request,
-    )
+        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
+            Lat: afgosdk.Float64(
+                32.5,
+            ),
+            Long: afgosdk.Float64(
+                74.5,
+            ),
+        },
+        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
+            IP: afgosdk.String(
+                "8.8.8.8",
+            ),
+        },
+        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
+            Location: afgosdk.String(
+                "seoul",
+            ),
+        },
+    },
 }
+_, err := client.BulkCurrentWeather(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -9087,7 +11004,7 @@ client.BulkCurrentWeather(
 <dl>
 <dd>
 
-**format:** `*afgosdk.BulkCurrentWeatherRequestFormat` — Response format returned by the API.
+**format:** `*afgosdk.BulkCurrentWeatherRequestFormat` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -9143,13 +11060,12 @@ Access comprehensive weather forecasts with customizable precision - choose from
 
 ```go
 request := &afgosdk.WeatherForecastRequest{
-        APIKey: "apiKey",
-    }
-client.WeatherForecast(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.WeatherForecast(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -9172,7 +11088,7 @@ client.WeatherForecast(
 <dl>
 <dd>
 
-**format:** `*afgosdk.WeatherForecastRequestFormat` — Response format returned by the API.
+**format:** `*afgosdk.WeatherForecastRequestFormat` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -9284,16 +11200,15 @@ Access past weather conditions for specific dates with records going back to 194
 
 ```go
 request := &afgosdk.HistoricalWeatherRequest{
-        APIKey: "apiKey",
-        Date: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-    }
-client.HistoricalWeather(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Date: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
 }
+_, err := client.HistoricalWeather(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -9316,7 +11231,7 @@ client.HistoricalWeather(
 <dl>
 <dd>
 
-**format:** `*afgosdk.HistoricalWeatherRequestFormat` — Response format returned by the API.
+**format:** `*afgosdk.HistoricalWeatherRequestFormat` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -9412,19 +11327,18 @@ Pull historical weather information for date ranges up to 90 days (daily data) o
 
 ```go
 request := &afgosdk.WeatherTimeSeriesRequest{
-        APIKey: "apiKey",
-        StartDate: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-        EndDate: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-    }
-client.WeatherTimeSeries(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    StartDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+    EndDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
 }
+_, err := client.WeatherTimeSeries(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -9447,7 +11361,7 @@ client.WeatherTimeSeries(
 <dl>
 <dd>
 
-**format:** `*afgosdk.WeatherTimeSeriesRequestFormat` — Response format returned by the API.
+**format:** `*afgosdk.WeatherTimeSeriesRequestFormat` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -9551,13 +11465,12 @@ Provides hourly forecasts of marine conditions including wave heights, wave dire
 
 ```go
 request := &afgosdk.MarineWeatherRequest{
-        APIKey: "apiKey",
-    }
-client.MarineWeather(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.MarineWeather(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -9580,7 +11493,7 @@ client.MarineWeather(
 <dl>
 <dd>
 
-**format:** `*afgosdk.MarineWeatherRequestFormat` — Response format returned by the API.
+**format:** `*afgosdk.MarineWeatherRequestFormat` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -9684,13 +11597,12 @@ Monitor and predict air quality conditions using European and US AQI standards. 
 
 ```go
 request := &afgosdk.AirQualityRequest{
-        APIKey: "apiKey",
-    }
-client.AirQuality(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.AirQuality(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -9713,7 +11625,7 @@ client.AirQuality(
 <dl>
 <dd>
 
-**format:** `*afgosdk.AirQualityRequestFormat` — Response format returned by the API.
+**format:** `*afgosdk.AirQualityRequestFormat` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -9817,19 +11729,18 @@ Provides flood forecast data for a given location, including river discharge met
 
 ```go
 request := &afgosdk.FloodForecastRequest{
-        APIKey: "apiKey",
-        StartDate: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-        EndDate: afgosdk.MustParseDate(
-            "2023-01-15",
-        ),
-    }
-client.FloodForecast(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    StartDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
+    EndDate: afgosdk.MustParseDate(
+        "2023-01-15",
+    ),
 }
+_, err := client.FloodForecast(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -9852,7 +11763,7 @@ client.FloodForecast(
 <dl>
 <dd>
 
-**format:** `*afgosdk.FloodForecastRequestFormat` — Response format returned by the API.
+**format:** `*afgosdk.FloodForecastRequestFormat` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -9956,13 +11867,12 @@ Retrieve countries, optionally filtered by region or subregion.
 
 ```go
 request := &afgosdk.GetCountriesRequest{
-        APIKey: "apiKey",
-    }
-client.GetCountries(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.GetCountries(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10027,14 +11937,13 @@ client.GetCountries(
 
 ```go
 request := &afgosdk.GetCountryDetailsRequest{
-        APIKey: "apiKey",
-        Country: "country",
-    }
-client.GetCountryDetails(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Country: "country",
 }
+_, err := client.GetCountryDetails(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10091,13 +12000,12 @@ client.GetCountryDetails(
 
 ```go
 request := &afgosdk.GetRegionsRequest{
-        APIKey: "apiKey",
-    }
-client.GetRegions(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.GetRegions(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10146,14 +12054,12 @@ client.GetRegions(
 
 ```go
 request := &afgosdk.GetSubregionsRequest{
-        APIKey: "apiKey",
-        Region: "region",
-    }
-client.GetSubregions(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.GetSubregions(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10184,7 +12090,7 @@ client.GetSubregions(
 <dl>
 <dd>
 
-**region:** `string` — Name of the region.
+**region:** `*string` — Name of the region. If omitted, all subregions are returned.
     
 </dd>
 </dl>
@@ -10224,14 +12130,13 @@ Retrieve administrative units based on ISO 3166-1 alpha-2 country code.
 
 ```go
 request := &afgosdk.GetAdminLevelsRequest{
-        APIKey: "apiKey",
-        Country: "country",
-    }
-client.GetAdminLevels(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Country: "country",
 }
+_, err := client.GetAdminLevels(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10302,14 +12207,13 @@ Retrieve administrative divisions for a given country using ISO 3166-1 alpha-2 c
 
 ```go
 request := &afgosdk.GetAdminUnitsRequest{
-        APIKey: "apiKey",
-        Country: "country",
-    }
-client.GetAdminUnits(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Country: "country",
 }
+_, err := client.GetAdminUnits(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10348,7 +12252,7 @@ client.GetAdminUnits(
 <dl>
 <dd>
 
-**adminLevels:** `*string` — Comma-separated list to filter results by one or more administrative levels.
+**adminLevel:** `*string` — Filter results by one or more administrative level names (e.g. `land`, `state`, `province`), sent as a comma-separated list. Use the admin levels endpoint to list the levels a country has.
     
 </dd>
 </dl>
@@ -10388,15 +12292,14 @@ Retrieve detailed administrative unit information by country and optionally filt
 
 ```go
 request := &afgosdk.GetAdminUnitDetailsRequest{
-        APIKey: "apiKey",
-        Country: "country",
-        AdminUnit: "admin_unit",
-    }
-client.GetAdminUnitDetails(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Country: "country",
+    AdminUnit: "admin_unit",
 }
+_, err := client.GetAdminUnitDetails(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10475,14 +12378,13 @@ Retrieve a list of cities within a country, optionally filtered by an administra
 
 ```go
 request := &afgosdk.GetCitiesRequest{
-        APIKey: "apiKey",
-        Country: "country",
-    }
-client.GetCities(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Country: "country",
 }
+_, err := client.GetCities(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10533,7 +12435,7 @@ client.GetCities(
 </dl>
 </details>
 
-<details><summary><code>client.GetSupportedFlags() -> []*afgosdk.GetSupportedFlagsResponseItem</code></summary>
+<details><summary><code>client.GetSupportedFlags() -> *afgosdk.GetSupportedFlagsResponse</code></summary>
 <dl>
 <dd>
 
@@ -10561,13 +12463,12 @@ Get list of all supported flags with their metadata
 
 ```go
 request := &afgosdk.GetSupportedFlagsRequest{
-        APIKey: "apiKey",
-    }
-client.GetSupportedFlags(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.GetSupportedFlags(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10622,16 +12523,15 @@ Retrieve the flag for a specific country
 
 ```go
 request := &afgosdk.GetFlagsRequest{
-        APIKey: "apiKey",
-        Name: "name",
-        Shape: afgosdk.GetFlagsRequestShapeFlat,
-        Type: afgosdk.GetFlagsRequestTypeCountry,
-    }
-client.GetFlags(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Name: "name",
+    Shape: afgosdk.GetFlagsRequestShapeFlat,
+    Type: afgosdk.GetFlagsRequestTypeCountry,
 }
+_, err := client.GetFlags(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10662,7 +12562,7 @@ client.GetFlags(
 <dl>
 <dd>
 
-**shape:** `*afgosdk.GetFlagsRequestShape` — Flag shape. One of: `'flat'` or `'round'`.
+**shape:** `afgosdk.GetFlagsRequestShape` — Flag shape. One of: `'flat'` or `'round'`.
     
 </dd>
 </dl>
@@ -10686,7 +12586,7 @@ client.GetFlags(
 <dl>
 <dd>
 
-**type_:** `*afgosdk.GetFlagsRequestType` — Type of flag. One of: `country` or `organization`.
+**type_:** `afgosdk.GetFlagsRequestType` — Type of flag. One of: `country` or `organization`.
     
 </dd>
 </dl>
@@ -10726,13 +12626,12 @@ Retrieve current time, date, and timezone-related information by specifying a ti
 
 ```go
 request := &afgosdk.TimezoneLookupRequest{
-        APIKey: "apiKey",
-    }
-client.TimezoneLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.TimezoneLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -10867,13 +12766,12 @@ Converts a given time from one timezone to another using various input types lik
 
 ```go
 request := &afgosdk.TimezoneConvertRequest{
-        APIKey: "apiKey",
-    }
-client.TimezoneConvert(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.TimezoneConvert(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -11056,14 +12954,12 @@ Parse User Agent string to get detailed browser, device, and operating system in
 
 ```go
 request := &afgosdk.UserAgentLookupRequest{
-        APIKey: "apiKey",
-        UserAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-    }
-client.UserAgentLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.UserAgentLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -11090,14 +12986,6 @@ client.UserAgentLookup(
     
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**user_agent:** `string` — The User-Agent string to look up. Sent as the `User-Agent` HTTP request header.
-    
-</dd>
-</dl>
 </dd>
 </dl>
 
@@ -11118,7 +13006,7 @@ client.UserAgentLookup(
 <dl>
 <dd>
 
-Parse up to `50,000 User-Agent strings` at once in a single request.
+Parse up to `20000 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
 </dd>
 </dl>
 </dd>
@@ -11134,16 +13022,15 @@ Parse up to `50,000 User-Agent strings` at once in a single request.
 
 ```go
 request := &afgosdk.BulkUserAgentLookupRequest{
-        APIKey: "apiKey",
-        UaStrings: []string{
-            "uaStrings",
-        },
-    }
-client.BulkUserAgentLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    UaStrings: []string{
+        "uaStrings",
+    },
 }
+_, err := client.BulkUserAgentLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -11174,7 +13061,7 @@ client.BulkUserAgentLookup(
 <dl>
 <dd>
 
-**uaStrings:** `[]string` — List of user agent strings to parse
+**uaStrings:** `[]string` — Array of User-Agent strings to parse. Maximum 20000 strings per request — exceeding that returns a 413.
     
 </dd>
 </dl>
@@ -11222,15 +13109,16 @@ Perform Optical Character Recognition (OCR) on images, PDFs, or ZIP archives. Su
 
 ```go
 request := &afgosdk.OcrPredictRequest{
-        APIKey: "apiKey",
-        Model: afgosdk.OcrPredictRequestModelMiniOcrV1,
-        OcrPredictRequestModel: afgosdk.OcrPredictRequestModelMiniOcrV1,
-    }
-client.OcrPredict(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Model: afgosdk.OcrPredictRequestModelMiniOcrV1,
+    File: strings.NewReader(
+        "",
+    ),
 }
+_, err := client.OcrPredict(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -11253,7 +13141,7 @@ client.OcrPredict(
 <dl>
 <dd>
 
-**url:** `*string` — URL of the image or PDF (required if `file` not provided)
+**model:** `afgosdk.OcrPredictRequestModel` — OCR model to use. `mini-ocr-v1` for CAPTCHA OCR, `ocr-v1` for general OCR.
     
 </dd>
 </dl>
@@ -11261,7 +13149,7 @@ client.OcrPredict(
 <dl>
 <dd>
 
-**model:** `*afgosdk.OcrPredictRequestModel` — OCR model to use.
+**url:** `*string` — URL of the image or PDF (required if `file` is not uploaded).
     
 </dd>
 </dl>
@@ -11285,47 +13173,7 @@ client.OcrPredict(
 <dl>
 <dd>
 
-**newLine:** `*int` — Set to 1 to split output text into individual lines (default: 0)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ocrPredictRequestURL:** `*string` — URL of the image or PDF (required if `file` not provided)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ocrPredictRequestModel:** `*afgosdk.OcrPredictRequestModel` — OCR model to use. `mini-ocr-v1` for CAPTCHA OCR, `ocr-v1` for general OCR
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ocrPredictRequestPageRange:** `*string` — Specify page range for multi-page PDFs (e.g., '1,3,5-10' or 'allpages'). **Note:** This parameter can only be used with .pdf file types.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ocrPredictRequestZone:** `*string` — Define OCR zones using coordinates (top:left:height:width). Multiple zones can be defined using commas. Only available for model 'ocr-v1'. **Note:** This parameter cannot be used with .pdf and .zip file types as it can only be applied to single image queries.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ocrPredictRequestNewLine:** `*int` — Set to 1 to split output text into individual lines (default: 0)
+**newLine:** `*int` — Set to 1 to split output text into individual lines (default: 0). This changes the shape of `OCRText` (see the response).
     
 </dd>
 </dl>
@@ -11365,14 +13213,13 @@ Analyze text for grammar errors and return the exact words flagged as grammatica
 
 ```go
 request := &afgosdk.GrammarDetectRequest{
-        APIKey: "apiKey",
-        Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
-    }
-client.GrammarDetect(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
 }
+_, err := client.GrammarDetect(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -11435,14 +13282,13 @@ Submit text with grammatical issues and receive a clean grammar-corrected result
 
 ```go
 request := &afgosdk.GrammarCorrectRequest{
-        APIKey: "apiKey",
-        Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
-    }
-client.GrammarCorrect(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
 }
+_, err := client.GrammarCorrect(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -11505,14 +13351,13 @@ Analyze text and return weak, vague, or filler words with zero-based word positi
 
 ```go
 request := &afgosdk.WeakWordsDetectRequest{
-        APIKey: "apiKey",
-        Text: "Many people cannot get the support they need to handle their conditions well.",
-    }
-client.WeakWordsDetect(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Text: "Many people cannot get the support they need to handle their conditions well.",
 }
+_, err := client.WeakWordsDetect(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -11575,14 +13420,13 @@ Analyze text readability using industry-standard formulas including Flesch Readi
 
 ```go
 request := &afgosdk.ReadabilityScoreRequest{
-        APIKey: "apiKey",
-        Text: "The global mental is health crisis is now a serious and compelex problem. It needs quick and ongoing action from policymakers, healthcare workers, and the whole society.",
-    }
-client.ReadabilityScore(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
+    Text: "The global mental is health crisis is now a serious and compelex problem. It needs quick and ongoing action from policymakers, healthcare workers, and the whole society.",
 }
+_, err := client.ReadabilityScore(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -11661,13 +13505,12 @@ Retrieve sunrise and sunset times, current position of the moon, and other relat
 
 ```go
 request := &afgosdk.AstronomyLookupRequest{
-        APIKey: "apiKey",
-    }
-client.AstronomyLookup(
-        context.TODO(),
-        request,
-    )
+    APIKey: "apiKey",
 }
+_, err := client.AstronomyLookup(
+    context.TODO(),
+    request,
+)
 ```
 </dd>
 </dl>
@@ -11766,12 +13609,7 @@ client.AstronomyLookup(
 </dl>
 </details>
 
-
-## v2.0 Endpoints
-
-The following endpoints target the `/v2.0/` API version. They accept the same request/response types as their `/v1.0/` counterparts documented above; only the underlying endpoint path differs. The original `/v1.0/` methods remain available and unchanged.
-
-<details><summary><code>client.GeolocationLookupV2() -> *afgosdk.GeolocationLookupResponse</code></summary>
+<details><summary><code>client.GetCreditsUsage() -> *afgosdk.GetCreditsUsageResponse</code></summary>
 <dl>
 <dd>
 
@@ -11783,7 +13621,7 @@ The following endpoints target the `/v2.0/` API version. They accept the same re
 <dl>
 <dd>
 
-Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information. Targets `GET /v2.0/geolocation/lookup`. Parameters are identical to `client.GeolocationLookup()`.
+Returns subscription, subscription-surcharge, and one-off credit balances for the authenticated organization's account.
 </dd>
 </dl>
 </dd>
@@ -11798,15 +13636,37 @@ Get detailed geolocation data for an IP address including country, city, timezon
 <dd>
 
 ```go
-request := &afgosdk.GeolocationLookupRequest{
-        APIKey: "apiKey",
-    }
-client.GeolocationLookupV2(
-        context.TODO(),
-        request,
-    )
+request := &afgosdk.GetCreditsUsageRequest{
+    APIKey: "apiKey",
 }
+_, err := client.GetCreditsUsage(
+    context.TODO(),
+    request,
+)
 ```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `string` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `*afgosdk.GetCreditsUsageRequestFormat` — Format of the response. Possible values: json, xml.
+    
 </dd>
 </dl>
 </dd>
@@ -11817,239 +13677,3 @@ client.GeolocationLookupV2(
 </dl>
 </details>
 
-<details><summary><code>client.BulkGeolocationLookupV2(request) -> []*afgosdk.BulkGeolocationLookupResponseItem</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve detailed geolocation data for multiple IP addresses in a single request. Supports up to `50,000` IP-addresses/host-names per request. Targets `POST /v2.0/geolocation/lookup`. Parameters are identical to `client.BulkGeolocationLookup()`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```go
-request := &afgosdk.BulkGeolocationLookupRequest{
-        APIKey: "apiKey",
-        Ips: []string{
-            "ips",
-        },
-    }
-client.BulkGeolocationLookupV2(
-        context.TODO(),
-        request,
-    )
-}
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.TimezoneLookupV2() -> *afgosdk.TimezoneLookupResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve timezone information by timezone name, coordinates, location, IP address, or airport code. Targets `GET /v2.0/geolocation/timezone`. Parameters are identical to `client.TimezoneLookup()`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```go
-request := &afgosdk.TimezoneLookupRequest{
-        APIKey: "apiKey",
-    }
-client.TimezoneLookupV2(
-        context.TODO(),
-        request,
-    )
-}
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.AstronomyLookupV2() -> *afgosdk.AstronomyLookupResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed. Targets `GET /v2.0/geolocation/astronomy`. Parameters are identical to `client.AstronomyLookup()`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```go
-request := &afgosdk.AstronomyLookupRequest{
-        APIKey: "apiKey",
-    }
-client.AstronomyLookupV2(
-        context.TODO(),
-        request,
-    )
-}
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.DomainWhoisLookupV2() -> *afgosdk.DomainWhoisLookupResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve live WHOIS information for a single domain. Targets `GET /v2.0/domain/whois/live`. Parameters are identical to `client.DomainWhoisLookup()`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```go
-request := &afgosdk.DomainWhoisLookupRequest{
-        APIKey: "apiKey",
-        DomainName: "domainName",
-    }
-client.DomainWhoisLookupV2(
-        context.TODO(),
-        request,
-    )
-}
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.BulkDomainWhoisLookupV2(request) -> *afgosdk.BulkDomainWhoisLookupResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve WHOIS information for `100 Domains per Request`. Targets `POST /v2.0/domain/whois/live`. Parameters are identical to `client.BulkDomainWhoisLookup()`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```go
-request := &afgosdk.BulkDomainWhoisLookupRequest{
-        APIKey: "apiKey",
-        DomainNames: []string{
-            "domainNames",
-        },
-    }
-client.BulkDomainWhoisLookupV2(
-        context.TODO(),
-        request,
-    )
-}
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>

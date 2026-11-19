@@ -987,6 +987,108 @@ func (r *RawClient) BulkEmailValidate(
 	}, nil
 }
 
+func (r *RawClient) DisposableEmailCheckV2(
+	ctx context.Context,
+	request *afgosdk.DisposableEmailCheckV2Request,
+	opts ...option.RequestOption,
+) (*core.Response[*afgosdk.DisposableEmailCheckV2Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://api.apifreaks.com",
+	)
+	endpointURL := baseURL + "/v2.0/email/disposable-check"
+	queryParams, err := internal.QueryValues(request)
+	if err != nil {
+		return nil, err
+	}
+	if len(queryParams) > 0 {
+		endpointURL += "?" + queryParams.Encode()
+	}
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	headers.Add("Content-Type", "application/json")
+	var response *afgosdk.DisposableEmailCheckV2Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*afgosdk.DisposableEmailCheckV2Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
+func (r *RawClient) BulkDisposableEmailCheckV2(
+	ctx context.Context,
+	request *afgosdk.BulkDisposableEmailCheckV2Request,
+	opts ...option.RequestOption,
+) (*core.Response[*afgosdk.BulkDisposableEmailCheckV2Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://api.apifreaks.com",
+	)
+	endpointURL := baseURL + "/v2.0/email/disposable-check/bulk"
+	queryParams, err := internal.QueryValues(request)
+	if err != nil {
+		return nil, err
+	}
+	if len(queryParams) > 0 {
+		endpointURL += "?" + queryParams.Encode()
+	}
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	headers.Add("Content-Type", "application/json")
+	var response *afgosdk.BulkDisposableEmailCheckV2Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*afgosdk.BulkDisposableEmailCheckV2Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
 func (r *RawClient) PhoneValidate(
 	ctx context.Context,
 	request *afgosdk.PhoneValidateRequest,
@@ -2020,6 +2122,55 @@ func (r *RawClient) CommoditySymbolsV2(
 		return nil, err
 	}
 	return &core.Response[*afgosdk.CommoditySymbolsV2Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
+func (r *RawClient) CommodityIntradayRatesV2(
+	ctx context.Context,
+	request *afgosdk.CommodityIntradayRatesV2Request,
+	opts ...option.RequestOption,
+) (*core.Response[*afgosdk.CommodityIntradayRatesV2Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://api.apifreaks.com",
+	)
+	endpointURL := baseURL + "/v2.0/commodity/rates/intraday"
+	queryParams, err := internal.QueryValues(request)
+	if err != nil {
+		return nil, err
+	}
+	if len(queryParams) > 0 {
+		endpointURL += "?" + queryParams.Encode()
+	}
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	var response *afgosdk.CommodityIntradayRatesV2Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodGet,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*afgosdk.CommodityIntradayRatesV2Response]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -3163,7 +3314,7 @@ func (r *RawClient) PdfUploadBinary(
 			BodyProperties:  options.BodyProperties,
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
-			Request:         request,
+			Request:         bytes.NewReader(request.Body),
 			Response:        &response,
 			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
@@ -3423,11 +3574,121 @@ func (r *RawClient) PdfDeleteFile(
 	}, nil
 }
 
+func (r *RawClient) PdfGenerateFromTemplate(
+	ctx context.Context,
+	request *afgosdk.PdfGenerateFromTemplateRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*afgosdk.PdfGenerateFromTemplateResponse], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://api.apifreaks.com",
+	)
+	endpointURL := baseURL + "/v1.0/pdf/template/generate"
+	queryParams, err := internal.QueryValues(request)
+	if err != nil {
+		return nil, err
+	}
+	if len(queryParams) > 0 {
+		endpointURL += "?" + queryParams.Encode()
+	}
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	headers.Add("Content-Type", "application/json")
+	var response *afgosdk.PdfGenerateFromTemplateResponse
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*afgosdk.PdfGenerateFromTemplateResponse]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
+func (r *RawClient) BulkPdfGenerateFromTemplate(
+	ctx context.Context,
+	request *afgosdk.BulkPdfGenerateFromTemplateRequest,
+	opts ...option.RequestOption,
+) (*core.Response[[]*afgosdk.BulkPdfGenerateFromTemplateResponseItem], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://api.apifreaks.com",
+	)
+	endpointURL := baseURL + "/v1.0/pdf/template/generate/bulk"
+	queryParams, err := internal.QueryValues(request)
+	if err != nil {
+		return nil, err
+	}
+	if len(queryParams) > 0 {
+		endpointURL += "?" + queryParams.Encode()
+	}
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	writer := internal.NewMultipartWriter()
+	if err := writer.WriteFile("file", request.File); err != nil {
+		return nil, err
+	}
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
+	headers.Set("Content-Type", writer.ContentType())
+
+	var response []*afgosdk.BulkPdfGenerateFromTemplateResponseItem
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         writer.Buffer(),
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[[]*afgosdk.BulkPdfGenerateFromTemplateResponseItem]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
 func (r *RawClient) ScreenshotCapture(
 	ctx context.Context,
 	request *afgosdk.ScreenshotCaptureRequest,
 	opts ...option.RequestOption,
-) (*core.Response[io.Reader], error) {
+) (*core.Response[*afgosdk.ScreenshotCaptureResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -3446,7 +3707,7 @@ func (r *RawClient) ScreenshotCapture(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	response := bytes.NewBuffer(nil)
+	var response *afgosdk.ScreenshotCaptureResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -3458,14 +3719,14 @@ func (r *RawClient) ScreenshotCapture(
 			BodyProperties:  options.BodyProperties,
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
-			Response:        response,
+			Response:        &response,
 			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[io.Reader]{
+	return &core.Response[*afgosdk.ScreenshotCaptureResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -4409,7 +4670,7 @@ func (r *RawClient) BulkVatRateByCountry(
 	ctx context.Context,
 	request *afgosdk.BulkVatRateByCountryRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*afgosdk.BulkVatRateByCountryResponse], error) {
+) (*core.Response[[]*afgosdk.BulkVatRateByCountryResponseItem], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -4429,7 +4690,7 @@ func (r *RawClient) BulkVatRateByCountry(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *afgosdk.BulkVatRateByCountryResponse
+	var response []*afgosdk.BulkVatRateByCountryResponseItem
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -4449,7 +4710,7 @@ func (r *RawClient) BulkVatRateByCountry(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*afgosdk.BulkVatRateByCountryResponse]{
+	return &core.Response[[]*afgosdk.BulkVatRateByCountryResponseItem]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -5791,7 +6052,7 @@ func (r *RawClient) GetSupportedFlags(
 	ctx context.Context,
 	request *afgosdk.GetSupportedFlagsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[[]*afgosdk.GetSupportedFlagsResponseItem], error) {
+) (*core.Response[*afgosdk.GetSupportedFlagsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -5810,7 +6071,7 @@ func (r *RawClient) GetSupportedFlags(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response []*afgosdk.GetSupportedFlagsResponseItem
+	var response *afgosdk.GetSupportedFlagsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -5829,7 +6090,7 @@ func (r *RawClient) GetSupportedFlags(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[[]*afgosdk.GetSupportedFlagsResponseItem]{
+	return &core.Response[*afgosdk.GetSupportedFlagsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -6107,7 +6368,17 @@ func (r *RawClient) OcrPredict(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	headers.Add("Content-Type", "application/json")
+	writer := internal.NewMultipartWriter()
+	if request.File != nil {
+		if err := writer.WriteFile("file", request.File); err != nil {
+			return nil, err
+		}
+	}
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
+	headers.Set("Content-Type", writer.ContentType())
+
 	var response *afgosdk.OcrPredictResponse
 	raw, err := r.caller.Call(
 		ctx,
@@ -6120,7 +6391,7 @@ func (r *RawClient) OcrPredict(
 			BodyProperties:  options.BodyProperties,
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
-			Request:         request,
+			Request:         writer.Buffer(),
 			Response:        &response,
 			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
 		},
@@ -6382,6 +6653,55 @@ func (r *RawClient) AstronomyLookup(
 		return nil, err
 	}
 	return &core.Response[*afgosdk.AstronomyLookupResponse]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
+func (r *RawClient) GetCreditsUsage(
+	ctx context.Context,
+	request *afgosdk.GetCreditsUsageRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*afgosdk.GetCreditsUsageResponse], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://api.apifreaks.com",
+	)
+	endpointURL := baseURL + "/v1.0/credits/usage/info"
+	queryParams, err := internal.QueryValues(request)
+	if err != nil {
+		return nil, err
+	}
+	if len(queryParams) > 0 {
+		endpointURL += "?" + queryParams.Encode()
+	}
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	var response *afgosdk.GetCreditsUsageResponse
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodGet,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(afgosdk.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*afgosdk.GetCreditsUsageResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

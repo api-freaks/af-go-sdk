@@ -37,6 +37,16 @@ func NewClient(opts ...option.RequestOption) *Client {
 }
 
 // Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information
+//
+// Example:
+//
+//	request := &afgosdk.GeolocationLookupRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.GeolocationLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GeolocationLookup(
 	ctx context.Context,
 	request *afgosdk.GeolocationLookupRequest,
@@ -55,6 +65,19 @@ func (c *Client) GeolocationLookup(
 
 // Retrieve detailed geolocation data for multiple IP addresses in a single request.
 // Supports up to `50,000` IP-addresses/host-names per request.
+//
+// Example:
+//
+//	request := &afgosdk.BulkGeolocationLookupRequest{
+//	    APIKey: "apiKey",
+//	    Ips: []string{
+//	        "ips",
+//	    },
+//	}
+//	_, err := client.BulkGeolocationLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkGeolocationLookup(
 	ctx context.Context,
 	request *afgosdk.BulkGeolocationLookupRequest,
@@ -72,6 +95,16 @@ func (c *Client) BulkGeolocationLookup(
 }
 
 // Get comprehensive security information for a given IP address. Detects VPNs, proxies, Tor nodes, and other security threats.
+//
+// Example:
+//
+//	request := &afgosdk.IPSecurityLookupRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.IPSecurityLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) IPSecurityLookup(
 	ctx context.Context,
 	request *afgosdk.IPSecurityLookupRequest,
@@ -89,6 +122,19 @@ func (c *Client) IPSecurityLookup(
 }
 
 // The Bulk IP Security Lookup API allows you to retrieve security details for up to `50,000` IP-addresses in a single request.
+//
+// Example:
+//
+//	request := &afgosdk.BulkIPSecurityLookupRequest{
+//	    APIKey: "apiKey",
+//	    Ips: []string{
+//	        "ips",
+//	    },
+//	}
+//	_, err := client.BulkIPSecurityLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkIPSecurityLookup(
 	ctx context.Context,
 	request *afgosdk.BulkIPSecurityLookupRequest,
@@ -106,6 +152,17 @@ func (c *Client) BulkIPSecurityLookup(
 }
 
 // Convert a given address or place name into geographic coordinates (latitude and longitude).
+//
+// Example:
+//
+//	request := &afgosdk.GeocoderSearchRequest{
+//	    APIKey: "apiKey",
+//	    Query: "query",
+//	}
+//	_, err := client.GeocoderSearch(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GeocoderSearch(
 	ctx context.Context,
 	request *afgosdk.GeocoderSearchRequest,
@@ -123,6 +180,18 @@ func (c *Client) GeocoderSearch(
 }
 
 // Convert geographic coordinates (latitude and longitude) into a human-readable address or place name.
+//
+// Example:
+//
+//	request := &afgosdk.GeocoderReverseRequest{
+//	    APIKey: "apiKey",
+//	    Lat: 1.1,
+//	    Lon: 1.1,
+//	}
+//	_, err := client.GeocoderReverse(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GeocoderReverse(
 	ctx context.Context,
 	request *afgosdk.GeocoderReverseRequest,
@@ -142,6 +211,17 @@ func (c *Client) GeocoderReverse(
 // Retrieve current WHOIS information for a domain name.
 // This endpoint provides detailed registration information including registrar details,
 // dates, nameservers, and registrant information.
+//
+// Example:
+//
+//	request := &afgosdk.DomainWhoisLookupRequest{
+//	    APIKey: "apiKey",
+//	    DomainName: "domainName",
+//	}
+//	_, err := client.DomainWhoisLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainWhoisLookup(
 	ctx context.Context,
 	request *afgosdk.DomainWhoisLookupRequest,
@@ -159,6 +239,19 @@ func (c *Client) DomainWhoisLookup(
 }
 
 // Retrieve WHOIS information for `100 Domains per Request`.
+//
+// Example:
+//
+//	request := &afgosdk.BulkDomainWhoisLookupRequest{
+//	    APIKey: "apiKey",
+//	    DomainNames: []string{
+//	        "domainNames",
+//	    },
+//	}
+//	_, err := client.BulkDomainWhoisLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkDomainWhoisLookup(
 	ctx context.Context,
 	request *afgosdk.BulkDomainWhoisLookupRequest,
@@ -176,6 +269,17 @@ func (c *Client) BulkDomainWhoisLookup(
 }
 
 // Returns WHOIS registration details for a specified IP address (IPv4 or IPv6).
+//
+// Example:
+//
+//	request := &afgosdk.IPWhoisLookupRequest{
+//	    APIKey: "apiKey",
+//	    IP: "ip",
+//	}
+//	_, err := client.IPWhoisLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) IPWhoisLookup(
 	ctx context.Context,
 	request *afgosdk.IPWhoisLookupRequest,
@@ -193,6 +297,17 @@ func (c *Client) IPWhoisLookup(
 }
 
 // Returns WHOIS registration details for a specified ASN, with or without the 'as' prefix.
+//
+// Example:
+//
+//	request := &afgosdk.AsnWhoisLookupRequest{
+//	    APIKey: "apiKey",
+//	    Asn: "asn",
+//	}
+//	_, err := client.AsnWhoisLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) AsnWhoisLookup(
 	ctx context.Context,
 	request *afgosdk.AsnWhoisLookupRequest,
@@ -211,6 +326,17 @@ func (c *Client) AsnWhoisLookup(
 
 // Retrieve historical WHOIS records for a domain name.
 // This endpoint provides a timeline of all recorded changes in domain registration information.
+//
+// Example:
+//
+//	request := &afgosdk.DomainWhoisHistoryRequest{
+//	    APIKey: "apiKey",
+//	    DomainName: "domainName",
+//	}
+//	_, err := client.DomainWhoisHistory(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainWhoisHistory(
 	ctx context.Context,
 	request *afgosdk.DomainWhoisHistoryRequest,
@@ -228,6 +354,16 @@ func (c *Client) DomainWhoisHistory(
 }
 
 // Performs a reverse WHOIS search using one or more search parameters like keyword, email, owner, or company.
+//
+// Example:
+//
+//	request := &afgosdk.DomainWhoisReverseRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.DomainWhoisReverse(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainWhoisReverse(
 	ctx context.Context,
 	request *afgosdk.DomainWhoisReverseRequest,
@@ -245,6 +381,21 @@ func (c *Client) DomainWhoisReverse(
 }
 
 // Retrieve real-time DNS records for any hostname. Supports multiple record types including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records.
+//
+// Example:
+//
+//	request := &afgosdk.DomainDNSLookupRequest{
+//	    APIKey: "apiKey",
+//	    Type: []*string{
+//	        afgosdk.String(
+//	            "type",
+//	        ),
+//	    },
+//	}
+//	_, err := client.DomainDNSLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainDNSLookup(
 	ctx context.Context,
 	request *afgosdk.DomainDNSLookupRequest,
@@ -263,6 +414,24 @@ func (c *Client) DomainDNSLookup(
 
 // Perform DNS lookups for multiple hostnames in a single request. Supports up to `100 host-names per request`
 // and returns DNS records including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records.
+//
+// Example:
+//
+//	request := &afgosdk.BulkDomainDNSLookupRequest{
+//	    APIKey: "apiKey",
+//	    Type: []*string{
+//	        afgosdk.String(
+//	            "type",
+//	        ),
+//	    },
+//	    DomainNames: []string{
+//	        "domainNames",
+//	    },
+//	}
+//	_, err := client.BulkDomainDNSLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkDomainDNSLookup(
 	ctx context.Context,
 	request *afgosdk.BulkDomainDNSLookupRequest,
@@ -281,6 +450,22 @@ func (c *Client) BulkDomainDNSLookup(
 
 // Retrieve historical DNS records for any hostname. Access unique historical data for A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records,
 // including subdomains. Results are paginated with up to 100 unique records per page.
+//
+// Example:
+//
+//	request := &afgosdk.DomainDNSHistoryRequest{
+//	    APIKey: "apiKey",
+//	    HostName: "host-name",
+//	    Type: []*string{
+//	        afgosdk.String(
+//	            "type",
+//	        ),
+//	    },
+//	}
+//	_, err := client.DomainDNSHistory(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainDNSHistory(
 	ctx context.Context,
 	request *afgosdk.DomainDNSHistoryRequest,
@@ -298,6 +483,18 @@ func (c *Client) DomainDNSHistory(
 }
 
 // Retrieve all the hostnames associated with any particular A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records. For instance, you can access all the hostnames hosted on any IP/CIDR notation, all the domain names using Cloudflare name servers, and all the domain names using Google Mailbox
+//
+// Example:
+//
+//	request := &afgosdk.DomainDNSReverseRequest{
+//	    APIKey: "apiKey",
+//	    Type: afgosdk.DomainDNSReverseRequestTypeA,
+//	    Value: "value",
+//	}
+//	_, err := client.DomainDNSReverse(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainDNSReverse(
 	ctx context.Context,
 	request *afgosdk.DomainDNSReverseRequest,
@@ -316,6 +513,36 @@ func (c *Client) DomainDNSReverse(
 
 // Execute a series of web scraping instructions on a target URL.
 // Supports various operations like form filling, clicking, data extraction, and CAPTCHA solving.
+//
+// Example:
+//
+//	request := &afgosdk.WebScrapeRequest{
+//	    APIKey: "apiKey",
+//	    URL: "https://example.com",
+//	    Body: &afgosdk.WebScrapeRequestBody{
+//	        WebScrapeRequestBodyBlockURL: &afgosdk.WebScrapeRequestBodyBlockURL{
+//	            Instructions: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+//	                    Extract: map[string]string{
+//	                        "profile": "#profile",
+//	                        "userInfo": "#user-info",
+//	                        "welcomeMessage": "#welcome-message",
+//	                    },
+//	                },
+//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	            },
+//	        },
+//	    },
+//	}
+//	_, err := client.WebScrape(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) WebScrape(
 	ctx context.Context,
 	request *afgosdk.WebScrapeRequest,
@@ -333,6 +560,17 @@ func (c *Client) WebScrape(
 }
 
 // Validates a single email address and returns result.
+//
+// Example:
+//
+//	request := &afgosdk.EmailValidateRequest{
+//	    APIKey: "apiKey",
+//	    Email: "email",
+//	}
+//	_, err := client.EmailValidate(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) EmailValidate(
 	ctx context.Context,
 	request *afgosdk.EmailValidateRequest,
@@ -350,6 +588,21 @@ func (c *Client) EmailValidate(
 }
 
 // Validates a bulk of email addresses and returns result for each. Maximum `10` email addresses per request.
+//
+// Example:
+//
+//	request := &afgosdk.BulkEmailValidateRequest{
+//	    APIKey: "apiKey",
+//	    EmailData: []*afgosdk.BulkEmailValidateRequestEmailDataItem{
+//	        &afgosdk.BulkEmailValidateRequestEmailDataItem{
+//	            Email: "email",
+//	        },
+//	    },
+//	}
+//	_, err := client.BulkEmailValidate(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkEmailValidate(
 	ctx context.Context,
 	request *afgosdk.BulkEmailValidateRequest,
@@ -366,7 +619,87 @@ func (c *Client) BulkEmailValidate(
 	return response.Body, nil
 }
 
+// Validates email syntax and checks the domain for disposable, free, spam, and role-account signals, plus MX/A DNS records. Send the email (and optionally an ip) as a JSON request body. When an ip is included, the response also carries geolocation and security data for it.
+//
+// Example:
+//
+//	request := &afgosdk.DisposableEmailCheckV2Request{
+//	    APIKey: "apiKey",
+//	    Email: "test@sogetthis.com",
+//	}
+//	_, err := client.DisposableEmailCheckV2(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) DisposableEmailCheckV2(
+	ctx context.Context,
+	request *afgosdk.DisposableEmailCheckV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.DisposableEmailCheckV2Response, error) {
+	response, err := c.WithRawResponse.DisposableEmailCheckV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Checks a bulk of email addresses (each with an optional ip) and returns a disposable email check result for each, in the same order as the request. Maximum `100` entries per request.
+//
+// Example:
+//
+//	request := &afgosdk.BulkDisposableEmailCheckV2Request{
+//	    APIKey: "apiKey",
+//	    EmailData: []*afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+//	        &afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+//	            Email: "abc",
+//	        },
+//	        &afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+//	            Email: "john@microsoft.com",
+//	            IP: afgosdk.String(
+//	                "8.8.8.8",
+//	            ),
+//	        },
+//	        &afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+//	            Email: "test@mailinator.com",
+//	        },
+//	    },
+//	}
+//	_, err := client.BulkDisposableEmailCheckV2(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) BulkDisposableEmailCheckV2(
+	ctx context.Context,
+	request *afgosdk.BulkDisposableEmailCheckV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.BulkDisposableEmailCheckV2Response, error) {
+	response, err := c.WithRawResponse.BulkDisposableEmailCheckV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Validates a single phone number and returns detailed metadata including carrier, line type, geolocation, time zones, and standardized formats.
+//
+// Example:
+//
+//	request := &afgosdk.PhoneValidateRequest{
+//	    APIKey: "apiKey",
+//	    Number: "+14155552671",
+//	}
+//	_, err := client.PhoneValidate(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PhoneValidate(
 	ctx context.Context,
 	request *afgosdk.PhoneValidateRequest,
@@ -384,6 +717,27 @@ func (c *Client) PhoneValidate(
 }
 
 // Validates up to 100 phone numbers in a single request. Each number is processed independently — invalid entries return per-number errors without affecting the rest of the batch.
+//
+// Example:
+//
+//	request := &afgosdk.BulkPhoneValidateRequest{
+//	    APIKey: "apiKey",
+//	    Numbers: []*afgosdk.BulkPhoneValidateRequestNumbersItem{
+//	        &afgosdk.BulkPhoneValidateRequestNumbersItem{
+//	            Number: "+14155552671",
+//	        },
+//	        &afgosdk.BulkPhoneValidateRequestNumbersItem{
+//	            Number: "+447911123456",
+//	        },
+//	        &afgosdk.BulkPhoneValidateRequestNumbersItem{
+//	            Number: "+919876543210",
+//	        },
+//	    },
+//	}
+//	_, err := client.BulkPhoneValidate(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkPhoneValidate(
 	ctx context.Context,
 	request *afgosdk.BulkPhoneValidateRequest,
@@ -402,6 +756,17 @@ func (c *Client) BulkPhoneValidate(
 
 // Retrieve comprehensive SSL certificate information without the certificate chain.
 // This endpoint provides detailed information about the SSL certificate including expiry dates, issuer details, and encryption methods.
+//
+// Example:
+//
+//	request := &afgosdk.DomainSslLookupRequest{
+//	    APIKey: "apiKey",
+//	    DomainName: "domainName",
+//	}
+//	_, err := client.DomainSslLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainSslLookup(
 	ctx context.Context,
 	request *afgosdk.DomainSslLookupRequest,
@@ -420,6 +785,17 @@ func (c *Client) DomainSslLookup(
 
 // Retrieve the complete SSL certificate chain from root Certificate Authority (CA) to end-user certificate.
 // This endpoint provides comprehensive information about each certificate in the chain.
+//
+// Example:
+//
+//	request := &afgosdk.DomainSslChainLookupRequest{
+//	    APIKey: "apiKey",
+//	    DomainName: "domainName",
+//	}
+//	_, err := client.DomainSslChainLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainSslChainLookup(
 	ctx context.Context,
 	request *afgosdk.DomainSslChainLookupRequest,
@@ -437,6 +813,17 @@ func (c *Client) DomainSslChainLookup(
 }
 
 // The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
+//
+// Example:
+//
+//	request := &afgosdk.DomainAvailabilityCheckRequest{
+//	    APIKey: "apiKey",
+//	    Domain: "domain",
+//	}
+//	_, err := client.DomainAvailabilityCheck(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainAvailabilityCheck(
 	ctx context.Context,
 	request *afgosdk.DomainAvailabilityCheckRequest,
@@ -454,6 +841,19 @@ func (c *Client) DomainAvailabilityCheck(
 }
 
 // Perform Bulk Domain Availability checks using a list of domains. Supports upto `100 Domains Per Request`.
+//
+// Example:
+//
+//	request := &afgosdk.BulkDomainAvailabilityCheckRequest{
+//	    APIKey: "apiKey",
+//	    DomainNames: []string{
+//	        "domainNames",
+//	    },
+//	}
+//	_, err := client.BulkDomainAvailabilityCheck(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkDomainAvailabilityCheck(
 	ctx context.Context,
 	request *afgosdk.BulkDomainAvailabilityCheckRequest,
@@ -471,6 +871,17 @@ func (c *Client) BulkDomainAvailabilityCheck(
 }
 
 // The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
+//
+// Example:
+//
+//	request := &afgosdk.DomainAvailabilitySuggestionsRequest{
+//	    APIKey: "apiKey",
+//	    Domain: "domain",
+//	}
+//	_, err := client.DomainAvailabilitySuggestions(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainAvailabilitySuggestions(
 	ctx context.Context,
 	request *afgosdk.DomainAvailabilitySuggestionsRequest,
@@ -488,6 +899,17 @@ func (c *Client) DomainAvailabilitySuggestions(
 }
 
 // The Subdomain Lookup API is designed to retrieve subdomains related to the given domain name. It helps you explore subdomains that are available for registration or usage.
+//
+// Example:
+//
+//	request := &afgosdk.SubdomainsLookupRequest{
+//	    APIKey: "apiKey",
+//	    Domain: "domain",
+//	}
+//	_, err := client.SubdomainsLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) SubdomainsLookup(
 	ctx context.Context,
 	request *afgosdk.SubdomainsLookupRequest,
@@ -505,6 +927,16 @@ func (c *Client) SubdomainsLookup(
 }
 
 // The Domain Typosquatting API searches for registered domains that are typo or look-alike variants of a brand keyword, or that match a wildcard pattern. Results include registration lifecycle data and drop status across 1529+ TLDs, paginated at 100 domains per page.
+//
+// Example:
+//
+//	request := &afgosdk.DomainTyposquattingRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.DomainTyposquatting(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainTyposquatting(
 	ctx context.Context,
 	request *afgosdk.DomainTyposquattingRequest,
@@ -522,6 +954,17 @@ func (c *Client) DomainTyposquatting(
 }
 
 // The Domain Reputation API evaluates a domain against threat intelligence sources, DGA (domain generation algorithm) scoring, trust signals, and email deliverability configuration, returning a consolidated risk assessment with a verdict, severity, and supporting evidence.
+//
+// Example:
+//
+//	request := &afgosdk.DomainReputationRequest{
+//	    APIKey: "apiKey",
+//	    DomainName: "domainName",
+//	}
+//	_, err := client.DomainReputation(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainReputation(
 	ctx context.Context,
 	request *afgosdk.DomainReputationRequest,
@@ -539,6 +982,16 @@ func (c *Client) DomainReputation(
 }
 
 // Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+//
+// Example:
+//
+//	request := &afgosdk.AstronomyLookupV2Request{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.AstronomyLookupV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) AstronomyLookupV2(
 	ctx context.Context,
 	request *afgosdk.AstronomyLookupV2Request,
@@ -556,6 +1009,16 @@ func (c *Client) AstronomyLookupV2(
 }
 
 // Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.
+//
+// Example:
+//
+//	request := &afgosdk.TimezoneLookupV2Request{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.TimezoneLookupV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) TimezoneLookupV2(
 	ctx context.Context,
 	request *afgosdk.TimezoneLookupV2Request,
@@ -573,6 +1036,16 @@ func (c *Client) TimezoneLookupV2(
 }
 
 // Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information.
+//
+// Example:
+//
+//	request := &afgosdk.GeolocationLookupV2Request{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.GeolocationLookupV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GeolocationLookupV2(
 	ctx context.Context,
 	request *afgosdk.GeolocationLookupV2Request,
@@ -590,6 +1063,19 @@ func (c *Client) GeolocationLookupV2(
 }
 
 // Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.
+//
+// Example:
+//
+//	request := &afgosdk.BulkGeolocationLookupV2Request{
+//	    APIKey: "apiKey",
+//	    Ips: []string{
+//	        "ips",
+//	    },
+//	}
+//	_, err := client.BulkGeolocationLookupV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkGeolocationLookupV2(
 	ctx context.Context,
 	request *afgosdk.BulkGeolocationLookupV2Request,
@@ -607,6 +1093,17 @@ func (c *Client) BulkGeolocationLookupV2(
 }
 
 // Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.
+//
+// Example:
+//
+//	request := &afgosdk.DomainWhoisLookupV2Request{
+//	    APIKey: "apiKey",
+//	    DomainName: "domainName",
+//	}
+//	_, err := client.DomainWhoisLookupV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) DomainWhoisLookupV2(
 	ctx context.Context,
 	request *afgosdk.DomainWhoisLookupV2Request,
@@ -624,6 +1121,19 @@ func (c *Client) DomainWhoisLookupV2(
 }
 
 // Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.
+//
+// Example:
+//
+//	request := &afgosdk.BulkDomainWhoisLookupV2Request{
+//	    APIKey: "apiKey",
+//	    DomainNames: []string{
+//	        "domainNames",
+//	    },
+//	}
+//	_, err := client.BulkDomainWhoisLookupV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkDomainWhoisLookupV2(
 	ctx context.Context,
 	request *afgosdk.BulkDomainWhoisLookupV2Request,
@@ -641,6 +1151,21 @@ func (c *Client) BulkDomainWhoisLookupV2(
 }
 
 // Returns the current live price for the requested commodity symbols. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+//
+// Example:
+//
+//	request := &afgosdk.CommodityLatestRatesV2Request{
+//	    APIKey: "apiKey",
+//	    Symbols: []*string{
+//	        afgosdk.String(
+//	            "symbols",
+//	        ),
+//	    },
+//	}
+//	_, err := client.CommodityLatestRatesV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommodityLatestRatesV2(
 	ctx context.Context,
 	request *afgosdk.CommodityLatestRatesV2Request,
@@ -658,6 +1183,24 @@ func (c *Client) CommodityLatestRatesV2(
 }
 
 // Returns OHLC price data for the requested commodity symbols on a specific date. Falls back to the nearest earlier rate if none exists for the exact date. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+//
+// Example:
+//
+//	request := &afgosdk.CommodityHistoricalRatesV2Request{
+//	    APIKey: "apiKey",
+//	    Symbols: []*string{
+//	        afgosdk.String(
+//	            "symbols",
+//	        ),
+//	    },
+//	    Date: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.CommodityHistoricalRatesV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommodityHistoricalRatesV2(
 	ctx context.Context,
 	request *afgosdk.CommodityHistoricalRatesV2Request,
@@ -675,6 +1218,27 @@ func (c *Client) CommodityHistoricalRatesV2(
 }
 
 // Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range. For monthly-updated commodities the range snaps to month boundaries. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+//
+// Example:
+//
+//	request := &afgosdk.CommodityFluctuationV2Request{
+//	    APIKey: "apiKey",
+//	    Symbols: []*string{
+//	        afgosdk.String(
+//	            "symbols",
+//	        ),
+//	    },
+//	    StartDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	    EndDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.CommodityFluctuationV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommodityFluctuationV2(
 	ctx context.Context,
 	request *afgosdk.CommodityFluctuationV2Request,
@@ -692,6 +1256,27 @@ func (c *Client) CommodityFluctuationV2(
 }
 
 // Returns day-by-day OHLC data for the requested commodity symbols within a date range, indexed by date. Non-trading days are excluded. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+//
+// Example:
+//
+//	request := &afgosdk.CommodityTimeSeriesV2Request{
+//	    APIKey: "apiKey",
+//	    Symbols: []*string{
+//	        afgosdk.String(
+//	            "symbols",
+//	        ),
+//	    },
+//	    StartDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	    EndDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.CommodityTimeSeriesV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommodityTimeSeriesV2(
 	ctx context.Context,
 	request *afgosdk.CommodityTimeSeriesV2Request,
@@ -709,6 +1294,16 @@ func (c *Client) CommodityTimeSeriesV2(
 }
 
 // Returns the list of supported commodity symbols with metadata. Deprecated symbols stay listed with status "inactive" and a deprecationDate.
+//
+// Example:
+//
+//	request := &afgosdk.CommoditySymbolsV2Request{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.CommoditySymbolsV2(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommoditySymbolsV2(
 	ctx context.Context,
 	request *afgosdk.CommoditySymbolsV2Request,
@@ -725,7 +1320,49 @@ func (c *Client) CommoditySymbolsV2(
 	return response.Body, nil
 }
 
+// Returns the prices of one commodity through a UTC day at the requested interval, keyed by UTC timestamp. Each request costs a flat 50 credits however many points it returns.
+//
+// Example:
+//
+//	request := &afgosdk.CommodityIntradayRatesV2Request{
+//	    APIKey: "apiKey",
+//	    Symbols: "symbols",
+//	    Interval: afgosdk.CommodityIntradayRatesV2RequestIntervalOneM,
+//	    Date: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.CommodityIntradayRatesV2(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) CommodityIntradayRatesV2(
+	ctx context.Context,
+	request *afgosdk.CommodityIntradayRatesV2Request,
+	opts ...option.RequestOption,
+) (*afgosdk.CommodityIntradayRatesV2Response, error) {
+	response, err := c.WithRawResponse.CommodityIntradayRatesV2(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // This API merges multiple PDF files into a single PDF, in the order they are provided
+//
+// Example:
+//
+//	request := &afgosdk.PdfMergeRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.PdfMerge(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfMerge(
 	ctx context.Context,
 	request *afgosdk.PdfMergeRequest,
@@ -743,6 +1380,20 @@ func (c *Client) PdfMerge(
 }
 
 // This API removes a selection or range of pages from a PDF file.
+//
+// Example:
+//
+//	request := &afgosdk.PdfRemovePagesRequest{
+//	    APIKey: "apiKey",
+//	    Pages: "pages",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfRemovePages(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfRemovePages(
 	ctx context.Context,
 	request *afgosdk.PdfRemovePagesRequest,
@@ -760,6 +1411,19 @@ func (c *Client) PdfRemovePages(
 }
 
 // This API splits a PDF into multiple parts based on specified page numbers or ranges.
+//
+// Example:
+//
+//	request := &afgosdk.PdfSplitRequest{
+//	    APIKey: "apiKey",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfSplit(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfSplit(
 	ctx context.Context,
 	request *afgosdk.PdfSplitRequest,
@@ -777,6 +1441,20 @@ func (c *Client) PdfSplit(
 }
 
 // This API rotates pages of a PDF by a specified angle (in multiples of 90 degrees).
+//
+// Example:
+//
+//	request := &afgosdk.PdfRotateRequest{
+//	    APIKey: "apiKey",
+//	    Rotate: 1,
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfRotate(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfRotate(
 	ctx context.Context,
 	request *afgosdk.PdfRotateRequest,
@@ -794,6 +1472,20 @@ func (c *Client) PdfRotate(
 }
 
 // This API compresses a given PDF file to reduce its file size.
+//
+// Example:
+//
+//	request := &afgosdk.PdfCompressRequest{
+//	    APIKey: "apiKey",
+//	    CompressionLevel: afgosdk.PdfCompressRequestCompressionLevelLow,
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfCompress(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfCompress(
 	ctx context.Context,
 	request *afgosdk.PdfCompressRequest,
@@ -811,6 +1503,20 @@ func (c *Client) PdfCompress(
 }
 
 // This API extracts specific pages or page ranges from a PDF file and returns them as a new PDF.
+//
+// Example:
+//
+//	request := &afgosdk.PdfExtractPagesRequest{
+//	    APIKey: "apiKey",
+//	    Pages: "pages",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfExtractPages(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfExtractPages(
 	ctx context.Context,
 	request *afgosdk.PdfExtractPagesRequest,
@@ -828,6 +1534,19 @@ func (c *Client) PdfExtractPages(
 }
 
 // API endpoint that linearizes any given PDF, restructuring it for faster loading and page-by-page viewing in web browsers.
+//
+// Example:
+//
+//	request := &afgosdk.PdfLinearizeRequest{
+//	    APIKey: "apiKey",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfLinearize(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfLinearize(
 	ctx context.Context,
 	request *afgosdk.PdfLinearizeRequest,
@@ -845,6 +1564,20 @@ func (c *Client) PdfLinearize(
 }
 
 // This API encrypts a PDF file by setting a password required to open it.
+//
+// Example:
+//
+//	request := &afgosdk.PdfEncryptRequest{
+//	    APIKey: "apiKey",
+//	    UserPassword: "user_password",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfEncrypt(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfEncrypt(
 	ctx context.Context,
 	request *afgosdk.PdfEncryptRequest,
@@ -862,6 +1595,20 @@ func (c *Client) PdfEncrypt(
 }
 
 // This API decrypts PDF files, removing all encryption, including open passwords and permission restrictions.
+//
+// Example:
+//
+//	request := &afgosdk.PdfDecryptRequest{
+//	    APIKey: "apiKey",
+//	    FilePassword: "file_password",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfDecrypt(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfDecrypt(
 	ctx context.Context,
 	request *afgosdk.PdfDecryptRequest,
@@ -879,6 +1626,23 @@ func (c *Client) PdfDecrypt(
 }
 
 // This API applies permission restrictions on a PDF file, such as disabling printing, copying, or editing. This can include password protection to enforce restrictions.
+//
+// Example:
+//
+//	request := &afgosdk.PdfRestrictRequest{
+//	    APIKey: "apiKey",
+//	    UserPassword: "user_password",
+//	    Restrictions: []*afgosdk.PdfRestrictRequestRestrictionsItem{
+//	        afgosdk.PdfRestrictRequestRestrictionsItemPrintHigh.Ptr(),
+//	    },
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfRestrict(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfRestrict(
 	ctx context.Context,
 	request *afgosdk.PdfRestrictRequest,
@@ -896,6 +1660,21 @@ func (c *Client) PdfRestrict(
 }
 
 // This API removes permission restrictions from a PDF while keeping it encrypted. If you want to remove all security (including encryption), use the `/pdf/decrypt` endpoint instead.
+//
+// Example:
+//
+//	request := &afgosdk.PdfUnrestrictRequest{
+//	    APIKey: "apiKey",
+//	    FilePassword: "file_password",
+//	    UserPassword: "user_password",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfUnrestrict(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfUnrestrict(
 	ctx context.Context,
 	request *afgosdk.PdfUnrestrictRequest,
@@ -913,6 +1692,19 @@ func (c *Client) PdfUnrestrict(
 }
 
 // This API converts a given PDF file into a sequence of PNG images.
+//
+// Example:
+//
+//	request := &afgosdk.PdfConvertToPngRequest{
+//	    APIKey: "apiKey",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfConvertToPng(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfConvertToPng(
 	ctx context.Context,
 	request *afgosdk.PdfConvertToPngRequest,
@@ -930,6 +1722,19 @@ func (c *Client) PdfConvertToPng(
 }
 
 // This API converts a given PDF file into a sequence of JPG images.
+//
+// Example:
+//
+//	request := &afgosdk.PdfConvertToJpgRequest{
+//	    APIKey: "apiKey",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfConvertToJpg(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfConvertToJpg(
 	ctx context.Context,
 	request *afgosdk.PdfConvertToJpgRequest,
@@ -947,6 +1752,19 @@ func (c *Client) PdfConvertToJpg(
 }
 
 // This API converts a given PDF file into a sequence of TIFF images. The output images can be saved as a single TIFF file, or as a sequence of TIFF files.
+//
+// Example:
+//
+//	request := &afgosdk.PdfConvertToTiffRequest{
+//	    APIKey: "apiKey",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfConvertToTiff(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfConvertToTiff(
 	ctx context.Context,
 	request *afgosdk.PdfConvertToTiffRequest,
@@ -964,6 +1782,19 @@ func (c *Client) PdfConvertToTiff(
 }
 
 // Converts a PDF file to a BMP image.
+//
+// Example:
+//
+//	request := &afgosdk.PdfConvertToBmpRequest{
+//	    APIKey: "apiKey",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfConvertToBmp(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfConvertToBmp(
 	ctx context.Context,
 	request *afgosdk.PdfConvertToBmpRequest,
@@ -981,6 +1812,19 @@ func (c *Client) PdfConvertToBmp(
 }
 
 // This API converts a given PDF file into a sequence of GIF images.
+//
+// Example:
+//
+//	request := &afgosdk.PdfConvertToGifRequest{
+//	    APIKey: "apiKey",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.PdfConvertToGif(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfConvertToGif(
 	ctx context.Context,
 	request *afgosdk.PdfConvertToGifRequest,
@@ -998,6 +1842,16 @@ func (c *Client) PdfConvertToGif(
 }
 
 // This API uploads multiple PDF files to the API Freaks server and generates their unique file IDs.
+//
+// Example:
+//
+//	request := &afgosdk.PdfUploadResourcesRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.PdfUploadResources(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfUploadResources(
 	ctx context.Context,
 	request *afgosdk.PdfUploadResourcesRequest,
@@ -1032,6 +1886,17 @@ func (c *Client) PdfUploadBinary(
 }
 
 // This API downloads PDF files or ZIP archives from the server using their unique resource ID.
+//
+// Example:
+//
+//	request := &afgosdk.PdfDownloadResourceRequest{
+//	    APIKey: "apiKey",
+//	    ResourceID: "resource_id",
+//	}
+//	_, err := client.PdfDownloadResource(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfDownloadResource(
 	ctx context.Context,
 	request *afgosdk.PdfDownloadResourceRequest,
@@ -1049,6 +1914,17 @@ func (c *Client) PdfDownloadResource(
 }
 
 // This API checks the status of a previously initiated PDF processing task using its unique task ID.
+//
+// Example:
+//
+//	request := &afgosdk.PdfGetTaskStatusRequest{
+//	    APIKey: "apiKey",
+//	    TaskID: "task_id",
+//	}
+//	_, err := client.PdfGetTaskStatus(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfGetTaskStatus(
 	ctx context.Context,
 	request *afgosdk.PdfGetTaskStatusRequest,
@@ -1066,6 +1942,17 @@ func (c *Client) PdfGetTaskStatus(
 }
 
 // This API checks the status of a PDF file using its unique file ID, providing information about its creation and potential deletion time.
+//
+// Example:
+//
+//	request := &afgosdk.PdfGetFileStatusRequest{
+//	    APIKey: "apiKey",
+//	    FileID: "file_id",
+//	}
+//	_, err := client.PdfGetFileStatus(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfGetFileStatus(
 	ctx context.Context,
 	request *afgosdk.PdfGetFileStatusRequest,
@@ -1083,6 +1970,16 @@ func (c *Client) PdfGetFileStatus(
 }
 
 // This API retrieves a list of all PDF files uploaded and generated by a specific user. Please note that if the user is part of an organization, only the Organization Administrator can access this endpoint. Organization Members cannot access this endpoint.
+//
+// Example:
+//
+//	request := &afgosdk.PdfListFilesRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.PdfListFiles(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfListFiles(
 	ctx context.Context,
 	request *afgosdk.PdfListFilesRequest,
@@ -1100,6 +1997,17 @@ func (c *Client) PdfListFiles(
 }
 
 // This API deletes a PDF file using its unique file ID.
+//
+// Example:
+//
+//	request := &afgosdk.PdfDeleteFileRequest{
+//	    APIKey: "apiKey",
+//	    FileID: "file_id",
+//	}
+//	_, err := client.PdfDeleteFile(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) PdfDeleteFile(
 	ctx context.Context,
 	request *afgosdk.PdfDeleteFileRequest,
@@ -1116,13 +2024,126 @@ func (c *Client) PdfDeleteFile(
 	return response.Body, nil
 }
 
+// Renders the template identified by template_id with the JSON data supplied in the request body (or fetched from data_url). Returns a hosted URL for the generated PDF. Provide either a request body or a data_url; one of the two is required. The keys of the data object are the fields you bound when you designed the template in the APIFreaks PDF Template Builder, so the exact shape is up to you. Pin the version parameter to a specific template version (e.g. version=v2) so later design changes never touch what is already live; omit it to use the latest version.
+//
+// Example:
+//
+//	request := &afgosdk.PdfGenerateFromTemplateRequest{
+//	    APIKey: "apiKey",
+//	    TemplateID: "template_id",
+//	    Body: map[string]any{
+//	        "candidate_name": "Ava Thompson",
+//	        "candidate_title": "Senior Operations Analyst",
+//	        "certification_1": "Certified Business Analysis Professional (CBAP)",
+//	        "certification_2": "Six Sigma Green Belt",
+//	        "city": "Austin, TX",
+//	        "company_name": "Northwind Logistics",
+//	        "degree": "B.S. in Information Systems",
+//	        "email": "ava.thompson@example.com",
+//	        "employment_period": "2021 - Present",
+//	        "graduation_year": "2018",
+//	        "institution": "University of Texas",
+//	        "job_achievement_1": "Led weekly KPI reporting for finance, fulfillment, and customer success stakeholders across three business units.",
+//	        "job_achievement_2": "Reduced manual reconciliation work by 35% through workflow redesign and documentation automation.",
+//	        "job_achievement_3": "Spearheaded a cross-team initiative that improved on-time delivery metrics by 18% within six months.",
+//	        "job_title": "Operations Analyst",
+//	        "languages": "English (Native), Spanish (Professional)",
+//	        "phone": "+1 (555) 381-2048",
+//	        "portfolio_url": "portfolio.example.com",
+//	        "profile_summary": "Analytical operations professional with 8+ years of experience improving reporting pipelines, streamlining process documentation, and coordinating cross-functional delivery for distributed teams across multiple time zones.",
+//	        "skills": []any{
+//	            map[string]any{
+//	                "level": "Advanced",
+//	                "skill": "Process Improvement",
+//	                "years": "7",
+//	            },
+//	            map[string]any{
+//	                "level": "Expert",
+//	                "skill": "Stakeholder Reporting",
+//	                "years": "8",
+//	            },
+//	            map[string]any{
+//	                "level": "Advanced",
+//	                "skill": "Cross-functional Coordination",
+//	                "years": "5",
+//	            },
+//	            map[string]any{
+//	                "level": "Advanced",
+//	                "skill": "Workflow Documentation",
+//	                "years": "6",
+//	            },
+//	        },
+//	    },
+//	}
+//	_, err := client.PdfGenerateFromTemplate(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) PdfGenerateFromTemplate(
+	ctx context.Context,
+	request *afgosdk.PdfGenerateFromTemplateRequest,
+	opts ...option.RequestOption,
+) (*afgosdk.PdfGenerateFromTemplateResponse, error) {
+	response, err := c.WithRawResponse.PdfGenerateFromTemplate(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Upload a CSV file where each row is one record. The API generates one PDF per row and returns an array of results, each with its own pdf_url. Rows are processed independently, so a failure in one row does not block the rest of the batch. The response gives a row-by-row breakdown of which PDFs succeeded and which failed.
+//
+// Example:
+//
+//	request := &afgosdk.BulkPdfGenerateFromTemplateRequest{
+//	    APIKey: "apiKey",
+//	    TemplateID: "template_id",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.BulkPdfGenerateFromTemplate(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) BulkPdfGenerateFromTemplate(
+	ctx context.Context,
+	request *afgosdk.BulkPdfGenerateFromTemplateRequest,
+	opts ...option.RequestOption,
+) ([]*afgosdk.BulkPdfGenerateFromTemplateResponseItem, error) {
+	response, err := c.WithRawResponse.BulkPdfGenerateFromTemplate(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Capture full-page screenshots and videos of websites with advanced options like device simulation, custom code injection, cookie banner blocking, and scrollable content recording.
 // Supports multiple output formats including JSON, image, GIF, MP4, and WebM.
+//
+// Example:
+//
+//	request := &afgosdk.ScreenshotCaptureRequest{
+//	    APIKey: "apiKey",
+//	    URL: "url",
+//	}
+//	_, err := client.ScreenshotCapture(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) ScreenshotCapture(
 	ctx context.Context,
 	request *afgosdk.ScreenshotCaptureRequest,
 	opts ...option.RequestOption,
-) (io.Reader, error) {
+) (*afgosdk.ScreenshotCaptureResponse, error) {
 	response, err := c.WithRawResponse.ScreenshotCapture(
 		ctx,
 		request,
@@ -1137,6 +2158,21 @@ func (c *Client) ScreenshotCapture(
 // Our Bulk Screenshot API allows you to capture screenshots of multiple webpages simultaneously, saving you time and effort. Instead of manually capturing each page one by one, you can batch process URLs and receive high-quality screenshots in the format you choose.
 //
 //	Maximum `50 URLs` per request.
+//
+// Example:
+//
+//	request := &afgosdk.BulkScreenshotCaptureRequest{
+//	    APIKey: "apiKey",
+//	    URLs: []*afgosdk.BulkScreenshotCaptureRequestURLsItem{
+//	        &afgosdk.BulkScreenshotCaptureRequestURLsItem{
+//	            URL: "url",
+//	        },
+//	    },
+//	}
+//	_, err := client.BulkScreenshotCapture(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkScreenshotCapture(
 	ctx context.Context,
 	request *afgosdk.BulkScreenshotCaptureRequest,
@@ -1154,6 +2190,16 @@ func (c *Client) BulkScreenshotCapture(
 }
 
 // Get live forex rates for all world currencies with customizable update frequency
+//
+// Example:
+//
+//	request := &afgosdk.CurrencyLatestRatesRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.CurrencyLatestRates(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencyLatestRates(
 	ctx context.Context,
 	request *afgosdk.CurrencyLatestRatesRequest,
@@ -1171,6 +2217,19 @@ func (c *Client) CurrencyLatestRates(
 }
 
 // Get historical exchange rates for any specific date
+//
+// Example:
+//
+//	request := &afgosdk.CurrencyHistoricalRatesRequest{
+//	    APIKey: "apiKey",
+//	    Date: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.CurrencyHistoricalRates(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencyHistoricalRates(
 	ctx context.Context,
 	request *afgosdk.CurrencyHistoricalRatesRequest,
@@ -1188,6 +2247,18 @@ func (c *Client) CurrencyHistoricalRates(
 }
 
 // Convert amount between currencies using the latest exchange rates
+//
+// Example:
+//
+//	request := &afgosdk.CurrencyConvertLatestRequest{
+//	    APIKey: "apiKey",
+//	    From: "from",
+//	    To: "to",
+//	}
+//	_, err := client.CurrencyConvertLatest(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencyConvertLatest(
 	ctx context.Context,
 	request *afgosdk.CurrencyConvertLatestRequest,
@@ -1205,6 +2276,21 @@ func (c *Client) CurrencyConvertLatest(
 }
 
 // Convert amount between currencies using historical rates
+//
+// Example:
+//
+//	request := &afgosdk.CurrencyConvertHistoricalRequest{
+//	    APIKey: "apiKey",
+//	    From: "from",
+//	    To: "to",
+//	    Date: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.CurrencyConvertHistorical(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencyConvertHistorical(
 	ctx context.Context,
 	request *afgosdk.CurrencyConvertHistoricalRequest,
@@ -1222,6 +2308,19 @@ func (c *Client) CurrencyConvertHistorical(
 }
 
 // Get exchange rates for a time range
+//
+// Example:
+//
+//	request := &afgosdk.CurrencyTimeSeriesRequest{
+//	    APIKey: "apiKey",
+//	    StartDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.CurrencyTimeSeries(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencyTimeSeries(
 	ctx context.Context,
 	request *afgosdk.CurrencyTimeSeriesRequest,
@@ -1239,6 +2338,22 @@ func (c *Client) CurrencyTimeSeries(
 }
 
 // Get currency fluctuation data for a time period
+//
+// Example:
+//
+//	request := &afgosdk.CurrencyFluctuationRequest{
+//	    APIKey: "apiKey",
+//	    StartDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	    Base: afgosdk.String(
+//	        "USD",
+//	    ),
+//	}
+//	_, err := client.CurrencyFluctuation(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencyFluctuation(
 	ctx context.Context,
 	request *afgosdk.CurrencyFluctuationRequest,
@@ -1256,6 +2371,17 @@ func (c *Client) CurrencyFluctuation(
 }
 
 // Convert amount using user's location
+//
+// Example:
+//
+//	request := &afgosdk.CurrencyConvertByIPRequest{
+//	    APIKey: "apiKey",
+//	    From: "from",
+//	}
+//	_, err := client.CurrencyConvertByIP(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencyConvertByIP(
 	ctx context.Context,
 	request *afgosdk.CurrencyConvertByIPRequest,
@@ -1273,6 +2399,16 @@ func (c *Client) CurrencyConvertByIP(
 }
 
 // Get list of all supported currencies with their metadata
+//
+// Example:
+//
+//	request := &afgosdk.CurrencySupportedRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.CurrencySupported(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencySupported(
 	ctx context.Context,
 	request *afgosdk.CurrencySupportedRequest,
@@ -1290,6 +2426,16 @@ func (c *Client) CurrencySupported(
 }
 
 // Get currency symbols and codes
+//
+// Example:
+//
+//	request := &afgosdk.CurrencySymbolsRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.CurrencySymbols(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencySymbols(
 	ctx context.Context,
 	request *afgosdk.CurrencySymbolsRequest,
@@ -1307,6 +2453,16 @@ func (c *Client) CurrencySymbols(
 }
 
 // Get information about historical data availability and limits
+//
+// Example:
+//
+//	request := &afgosdk.CurrencyHistoricalLimitsRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.CurrencyHistoricalLimits(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrencyHistoricalLimits(
 	ctx context.Context,
 	request *afgosdk.CurrencyHistoricalLimitsRequest,
@@ -1324,6 +2480,22 @@ func (c *Client) CurrencyHistoricalLimits(
 }
 
 // Get live commodity rates with customizable update frequency
+//
+// Example:
+//
+//	request := &afgosdk.CommodityLatestRatesRequest{
+//	    APIKey: "apiKey",
+//	    Symbols: []*string{
+//	        afgosdk.String(
+//	            "symbols",
+//	        ),
+//	    },
+//	    Updates: afgosdk.CommodityLatestRatesRequestUpdatesTenM,
+//	}
+//	_, err := client.CommodityLatestRates(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommodityLatestRates(
 	ctx context.Context,
 	request *afgosdk.CommodityLatestRatesRequest,
@@ -1341,6 +2513,24 @@ func (c *Client) CommodityLatestRates(
 }
 
 // Get historical commodity rates for a specific date
+//
+// Example:
+//
+//	request := &afgosdk.CommodityHistoricalRatesRequest{
+//	    APIKey: "apiKey",
+//	    Date: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	    Symbols: []*string{
+//	        afgosdk.String(
+//	            "symbols",
+//	        ),
+//	    },
+//	}
+//	_, err := client.CommodityHistoricalRates(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommodityHistoricalRates(
 	ctx context.Context,
 	request *afgosdk.CommodityHistoricalRatesRequest,
@@ -1358,6 +2548,27 @@ func (c *Client) CommodityHistoricalRates(
 }
 
 // Get commodity price fluctuation data for a time period
+//
+// Example:
+//
+//	request := &afgosdk.CommodityFluctuationRequest{
+//	    APIKey: "apiKey",
+//	    Symbols: []*string{
+//	        afgosdk.String(
+//	            "symbols",
+//	        ),
+//	    },
+//	    StartDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	    EndDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.CommodityFluctuation(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommodityFluctuation(
 	ctx context.Context,
 	request *afgosdk.CommodityFluctuationRequest,
@@ -1375,6 +2586,27 @@ func (c *Client) CommodityFluctuation(
 }
 
 // Get commodity rates for a time range
+//
+// Example:
+//
+//	request := &afgosdk.CommodityTimeSeriesRequest{
+//	    APIKey: "apiKey",
+//	    Symbols: []*string{
+//	        afgosdk.String(
+//	            "symbols",
+//	        ),
+//	    },
+//	    StartDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	    EndDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.CommodityTimeSeries(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommodityTimeSeries(
 	ctx context.Context,
 	request *afgosdk.CommodityTimeSeriesRequest,
@@ -1392,6 +2624,16 @@ func (c *Client) CommodityTimeSeries(
 }
 
 // Get list of supported commodities
+//
+// Example:
+//
+//	request := &afgosdk.CommoditySymbolsRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.CommoditySymbols(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CommoditySymbols(
 	ctx context.Context,
 	request *afgosdk.CommoditySymbolsRequest,
@@ -1409,6 +2651,16 @@ func (c *Client) CommoditySymbols(
 }
 
 // Retrieves a list of supported countries.
+//
+// Example:
+//
+//	request := &afgosdk.VatSupportedCountriesRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.VatSupportedCountries(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) VatSupportedCountries(
 	ctx context.Context,
 	request *afgosdk.VatSupportedCountriesRequest,
@@ -1426,6 +2678,16 @@ func (c *Client) VatSupportedCountries(
 }
 
 // Fetches VAT rate based on the specified or originating IP address.
+//
+// Example:
+//
+//	request := &afgosdk.VatRateByIPRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.VatRateByIP(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) VatRateByIP(
 	ctx context.Context,
 	request *afgosdk.VatRateByIPRequest,
@@ -1443,6 +2705,17 @@ func (c *Client) VatRateByIP(
 }
 
 // Fetches VAT rates for a single country or state provided via query parameters.
+//
+// Example:
+//
+//	request := &afgosdk.VatRateByCountryRequest{
+//	    APIKey: "apiKey",
+//	    Country: "country",
+//	}
+//	_, err := client.VatRateByCountry(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) VatRateByCountry(
 	ctx context.Context,
 	request *afgosdk.VatRateByCountryRequest,
@@ -1460,11 +2733,32 @@ func (c *Client) VatRateByCountry(
 }
 
 // Retrieves VAT details for multiple countries or country-state combinations in a single request. Maximum of `100` entries per request are allowed.
+//
+// Example:
+//
+//	request := &afgosdk.BulkVatRateByCountryRequest{
+//	    APIKey: "apiKey",
+//	    Countries: []*afgosdk.BulkVatRateByCountryRequestCountriesItem{
+//	        &afgosdk.BulkVatRateByCountryRequestCountriesItem{
+//	            Country: "PAK",
+//	        },
+//	        &afgosdk.BulkVatRateByCountryRequestCountriesItem{
+//	            Country: "United_States",
+//	            State: afgosdk.String(
+//	                "New_York",
+//	            ),
+//	        },
+//	    },
+//	}
+//	_, err := client.BulkVatRateByCountry(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkVatRateByCountry(
 	ctx context.Context,
 	request *afgosdk.BulkVatRateByCountryRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkVatRateByCountryResponse, error) {
+) ([]*afgosdk.BulkVatRateByCountryResponseItem, error) {
 	response, err := c.WithRawResponse.BulkVatRateByCountry(
 		ctx,
 		request,
@@ -1477,6 +2771,17 @@ func (c *Client) BulkVatRateByCountry(
 }
 
 // Validates an EU or UK VAT number and returns registration status details.
+//
+// Example:
+//
+//	request := &afgosdk.VatValidateRequest{
+//	    APIKey: "apiKey",
+//	    VatNumber: "vatNumber",
+//	}
+//	_, err := client.VatValidate(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) VatValidate(
 	ctx context.Context,
 	request *afgosdk.VatValidateRequest,
@@ -1494,6 +2799,17 @@ func (c *Client) VatValidate(
 }
 
 // Checks an IBAN for structural validity, checksum accuracy, and bank metadata.
+//
+// Example:
+//
+//	request := &afgosdk.IbanValidateRequest{
+//	    APIKey: "apiKey",
+//	    Iban: "iban",
+//	}
+//	_, err := client.IbanValidate(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) IbanValidate(
 	ctx context.Context,
 	request *afgosdk.IbanValidateRequest,
@@ -1511,6 +2827,16 @@ func (c *Client) IbanValidate(
 }
 
 // Fetches SWIFT codes for a given country, bank, and city.
+//
+// Example:
+//
+//	request := &afgosdk.SwiftCodeFindRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.SwiftCodeFind(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) SwiftCodeFind(
 	ctx context.Context,
 	request *afgosdk.SwiftCodeFindRequest,
@@ -1528,6 +2854,17 @@ func (c *Client) SwiftCodeFind(
 }
 
 // Fetches detailed information about a SWIFT code.
+//
+// Example:
+//
+//	request := &afgosdk.SwiftCodeLookupRequest{
+//	    APIKey: "apiKey",
+//	    SwiftCode: "swiftCode",
+//	}
+//	_, err := client.SwiftCodeLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) SwiftCodeLookup(
 	ctx context.Context,
 	request *afgosdk.SwiftCodeLookupRequest,
@@ -1544,6 +2881,16 @@ func (c *Client) SwiftCodeLookup(
 	return response.Body, nil
 }
 
+// Example:
+//
+//	request := &afgosdk.ZipcodeLookupRequest{
+//	    APIKey: "apiKey",
+//	    Code: "code",
+//	}
+//	_, err := client.ZipcodeLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) ZipcodeLookup(
 	ctx context.Context,
 	request *afgosdk.ZipcodeLookupRequest,
@@ -1561,6 +2908,19 @@ func (c *Client) ZipcodeLookup(
 }
 
 // Validates a bulk of ZIP/postal codes and returns result for each. Maximum `100` ZIP/postal codes per request.
+//
+// Example:
+//
+//	request := &afgosdk.BulkZipcodeLookupRequest{
+//	    APIKey: "apiKey",
+//	    Codes: []string{
+//	        "codes",
+//	    },
+//	}
+//	_, err := client.BulkZipcodeLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkZipcodeLookup(
 	ctx context.Context,
 	request *afgosdk.BulkZipcodeLookupRequest,
@@ -1577,6 +2937,17 @@ func (c *Client) BulkZipcodeLookup(
 	return response.Body, nil
 }
 
+// Example:
+//
+//	request := &afgosdk.ZipcodeSearchByCityRequest{
+//	    APIKey: "apiKey",
+//	    City: "city",
+//	    Country: "country",
+//	}
+//	_, err := client.ZipcodeSearchByCity(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) ZipcodeSearchByCity(
 	ctx context.Context,
 	request *afgosdk.ZipcodeSearchByCityRequest,
@@ -1593,6 +2964,16 @@ func (c *Client) ZipcodeSearchByCity(
 	return response.Body, nil
 }
 
+// Example:
+//
+//	request := &afgosdk.ZipcodeSearchByRegionRequest{
+//	    APIKey: "apiKey",
+//	    Country: "country",
+//	}
+//	_, err := client.ZipcodeSearchByRegion(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) ZipcodeSearchByRegion(
 	ctx context.Context,
 	request *afgosdk.ZipcodeSearchByRegionRequest,
@@ -1609,6 +2990,16 @@ func (c *Client) ZipcodeSearchByRegion(
 	return response.Body, nil
 }
 
+// Example:
+//
+//	request := &afgosdk.ZipcodeSearchByRadiusRequest{
+//	    APIKey: "apiKey",
+//	    Radius: 1.1,
+//	}
+//	_, err := client.ZipcodeSearchByRadius(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) ZipcodeSearchByRadius(
 	ctx context.Context,
 	request *afgosdk.ZipcodeSearchByRadiusRequest,
@@ -1626,6 +3017,20 @@ func (c *Client) ZipcodeSearchByRadius(
 }
 
 // Get distance between postal codes. Maximum `100` postal codes per request.
+//
+// Example:
+//
+//	request := &afgosdk.ZipcodeDistanceRequest{
+//	    APIKey: "apiKey",
+//	    Compare: []string{
+//	        "compare",
+//	    },
+//	    Country: "country",
+//	}
+//	_, err := client.ZipcodeDistance(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) ZipcodeDistance(
 	ctx context.Context,
 	request *afgosdk.ZipcodeDistanceRequest,
@@ -1643,6 +3048,20 @@ func (c *Client) ZipcodeDistance(
 }
 
 // Get matching ZIP/postal code pairs within a specified distance. Maximum `100` postal codes per request.
+//
+// Example:
+//
+//	request := &afgosdk.ZipcodeDistanceMatchRequest{
+//	    APIKey: "apiKey",
+//	    Codes: []string{
+//	        "codes",
+//	    },
+//	    Country: "country",
+//	}
+//	_, err := client.ZipcodeDistanceMatch(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) ZipcodeDistanceMatch(
 	ctx context.Context,
 	request *afgosdk.ZipcodeDistanceMatchRequest,
@@ -1660,6 +3079,16 @@ func (c *Client) ZipcodeDistanceMatch(
 }
 
 // Get current weather data including temperature, humidity, precipitation, wind conditions, atmospheric pressure, and air quality for any location. Accepts city names, coordinates, or IP addresses. Also includes astronomy data and timezone-aware timestamps.
+//
+// Example:
+//
+//	request := &afgosdk.CurrentWeatherRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.CurrentWeather(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) CurrentWeather(
 	ctx context.Context,
 	request *afgosdk.CurrentWeatherRequest,
@@ -1677,6 +3106,41 @@ func (c *Client) CurrentWeather(
 }
 
 // Retrieve current weather conditions for up to `50 locations` in a single request. A maximum of 50 locations (city names, IP addresses, or geographic coordinates) can be included in the request body.
+//
+// Example:
+//
+//	request := &afgosdk.BulkCurrentWeatherRequest{
+//	    APIKey: "apiKey",
+//	    Locations: []*afgosdk.BulkCurrentWeatherRequestLocationsItem{
+//	        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
+//	            Location: afgosdk.String(
+//	                "lahore",
+//	            ),
+//	        },
+//	        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
+//	            Lat: afgosdk.Float64(
+//	                32.5,
+//	            ),
+//	            Long: afgosdk.Float64(
+//	                74.5,
+//	            ),
+//	        },
+//	        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
+//	            IP: afgosdk.String(
+//	                "8.8.8.8",
+//	            ),
+//	        },
+//	        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
+//	            Location: afgosdk.String(
+//	                "seoul",
+//	            ),
+//	        },
+//	    },
+//	}
+//	_, err := client.BulkCurrentWeather(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkCurrentWeather(
 	ctx context.Context,
 	request *afgosdk.BulkCurrentWeatherRequest,
@@ -1694,6 +3158,16 @@ func (c *Client) BulkCurrentWeather(
 }
 
 // Access comprehensive weather forecasts with customizable precision - choose from daily overviews, hourly breakdowns, or even minute-by-minute data. Configure your date ranges or use the default 7-day forecast for standard weather planning.
+//
+// Example:
+//
+//	request := &afgosdk.WeatherForecastRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.WeatherForecast(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) WeatherForecast(
 	ctx context.Context,
 	request *afgosdk.WeatherForecastRequest,
@@ -1711,6 +3185,19 @@ func (c *Client) WeatherForecast(
 }
 
 // Access past weather conditions for specific dates with records going back to 1940. Retrieve comprehensive historical data with both daily and hourly precision options.
+//
+// Example:
+//
+//	request := &afgosdk.HistoricalWeatherRequest{
+//	    APIKey: "apiKey",
+//	    Date: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.HistoricalWeather(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) HistoricalWeather(
 	ctx context.Context,
 	request *afgosdk.HistoricalWeatherRequest,
@@ -1728,6 +3215,22 @@ func (c *Client) HistoricalWeather(
 }
 
 // Pull historical weather information for date ranges up to 90 days (daily data) or 7 days (hourly data). Get consistent formatting across your specified date range with reliable historical weather patterns.
+//
+// Example:
+//
+//	request := &afgosdk.WeatherTimeSeriesRequest{
+//	    APIKey: "apiKey",
+//	    StartDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	    EndDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.WeatherTimeSeries(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) WeatherTimeSeries(
 	ctx context.Context,
 	request *afgosdk.WeatherTimeSeriesRequest,
@@ -1745,6 +3248,16 @@ func (c *Client) WeatherTimeSeries(
 }
 
 // Provides hourly forecasts of marine conditions including wave heights, wave directions, wave periods, swell info, sea surface temperatures, and ocean currents. Supports multiple geographical points and returns daily max wave statistics for up to 7 days. Ideal for maritime planning, navigation, and coastal activities.
+//
+// Example:
+//
+//	request := &afgosdk.MarineWeatherRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.MarineWeather(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) MarineWeather(
 	ctx context.Context,
 	request *afgosdk.MarineWeatherRequest,
@@ -1762,6 +3275,16 @@ func (c *Client) MarineWeather(
 }
 
 // Monitor and predict air quality conditions using European and US AQI standards. Track pollutant concentrations including PM10, PM2.5, carbon monoxide, nitrogen dioxide, sulfur dioxide, ozone, and dust particles. Get current readings plus hourly forecasts up to 5 days ahead, complete with UV index and aerosol measurements for comprehensive air quality assessment.
+//
+// Example:
+//
+//	request := &afgosdk.AirQualityRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.AirQuality(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) AirQuality(
 	ctx context.Context,
 	request *afgosdk.AirQualityRequest,
@@ -1779,6 +3302,22 @@ func (c *Client) AirQuality(
 }
 
 // Provides flood forecast data for a given location, including river discharge metrics such as mean, median, maximum, minimum, and percentile values (p25, p75). Requires a startDate and endDate, with the date range limited to 16 days. Location can be specified using city name, latitude/longitude, or IP address.
+//
+// Example:
+//
+//	request := &afgosdk.FloodForecastRequest{
+//	    APIKey: "apiKey",
+//	    StartDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	    EndDate: afgosdk.MustParseDate(
+//	        "2023-01-15",
+//	    ),
+//	}
+//	_, err := client.FloodForecast(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) FloodForecast(
 	ctx context.Context,
 	request *afgosdk.FloodForecastRequest,
@@ -1796,6 +3335,16 @@ func (c *Client) FloodForecast(
 }
 
 // Retrieve countries, optionally filtered by region or subregion.
+//
+// Example:
+//
+//	request := &afgosdk.GetCountriesRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.GetCountries(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetCountries(
 	ctx context.Context,
 	request *afgosdk.GetCountriesRequest,
@@ -1812,6 +3361,16 @@ func (c *Client) GetCountries(
 	return response.Body, nil
 }
 
+// Example:
+//
+//	request := &afgosdk.GetCountryDetailsRequest{
+//	    APIKey: "apiKey",
+//	    Country: "country",
+//	}
+//	_, err := client.GetCountryDetails(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetCountryDetails(
 	ctx context.Context,
 	request *afgosdk.GetCountryDetailsRequest,
@@ -1828,6 +3387,15 @@ func (c *Client) GetCountryDetails(
 	return response.Body, nil
 }
 
+// Example:
+//
+//	request := &afgosdk.GetRegionsRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.GetRegions(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetRegions(
 	ctx context.Context,
 	request *afgosdk.GetRegionsRequest,
@@ -1844,6 +3412,15 @@ func (c *Client) GetRegions(
 	return response.Body, nil
 }
 
+// Example:
+//
+//	request := &afgosdk.GetSubregionsRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.GetSubregions(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetSubregions(
 	ctx context.Context,
 	request *afgosdk.GetSubregionsRequest,
@@ -1861,6 +3438,17 @@ func (c *Client) GetSubregions(
 }
 
 // Retrieve administrative units based on ISO 3166-1 alpha-2 country code.
+//
+// Example:
+//
+//	request := &afgosdk.GetAdminLevelsRequest{
+//	    APIKey: "apiKey",
+//	    Country: "country",
+//	}
+//	_, err := client.GetAdminLevels(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetAdminLevels(
 	ctx context.Context,
 	request *afgosdk.GetAdminLevelsRequest,
@@ -1878,6 +3466,17 @@ func (c *Client) GetAdminLevels(
 }
 
 // Retrieve administrative divisions for a given country using ISO 3166-1 alpha-2 country codes. You can optionally filter by administrative levels.
+//
+// Example:
+//
+//	request := &afgosdk.GetAdminUnitsRequest{
+//	    APIKey: "apiKey",
+//	    Country: "country",
+//	}
+//	_, err := client.GetAdminUnits(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetAdminUnits(
 	ctx context.Context,
 	request *afgosdk.GetAdminUnitsRequest,
@@ -1895,6 +3494,18 @@ func (c *Client) GetAdminUnits(
 }
 
 // Retrieve detailed administrative unit information by country and optionally filtered by admin code.
+//
+// Example:
+//
+//	request := &afgosdk.GetAdminUnitDetailsRequest{
+//	    APIKey: "apiKey",
+//	    Country: "country",
+//	    AdminUnit: "admin_unit",
+//	}
+//	_, err := client.GetAdminUnitDetails(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetAdminUnitDetails(
 	ctx context.Context,
 	request *afgosdk.GetAdminUnitDetailsRequest,
@@ -1912,6 +3523,17 @@ func (c *Client) GetAdminUnitDetails(
 }
 
 // Retrieve a list of cities within a country, optionally filtered by an administrative unit code.
+//
+// Example:
+//
+//	request := &afgosdk.GetCitiesRequest{
+//	    APIKey: "apiKey",
+//	    Country: "country",
+//	}
+//	_, err := client.GetCities(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetCities(
 	ctx context.Context,
 	request *afgosdk.GetCitiesRequest,
@@ -1929,11 +3551,21 @@ func (c *Client) GetCities(
 }
 
 // Get list of all supported flags with their metadata
+//
+// Example:
+//
+//	request := &afgosdk.GetSupportedFlagsRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.GetSupportedFlags(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetSupportedFlags(
 	ctx context.Context,
 	request *afgosdk.GetSupportedFlagsRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.GetSupportedFlagsResponseItem, error) {
+) (*afgosdk.GetSupportedFlagsResponse, error) {
 	response, err := c.WithRawResponse.GetSupportedFlags(
 		ctx,
 		request,
@@ -1946,6 +3578,19 @@ func (c *Client) GetSupportedFlags(
 }
 
 // Retrieve the flag for a specific country
+//
+// Example:
+//
+//	request := &afgosdk.GetFlagsRequest{
+//	    APIKey: "apiKey",
+//	    Name: "name",
+//	    Shape: afgosdk.GetFlagsRequestShapeFlat,
+//	    Type: afgosdk.GetFlagsRequestTypeCountry,
+//	}
+//	_, err := client.GetFlags(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GetFlags(
 	ctx context.Context,
 	request *afgosdk.GetFlagsRequest,
@@ -1963,6 +3608,16 @@ func (c *Client) GetFlags(
 }
 
 // Retrieve current time, date, and timezone-related information by specifying a timezone name, location address, location coordinates, IP address, or use the client IP address if no parameter is passed.
+//
+// Example:
+//
+//	request := &afgosdk.TimezoneLookupRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.TimezoneLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) TimezoneLookup(
 	ctx context.Context,
 	request *afgosdk.TimezoneLookupRequest,
@@ -1980,6 +3635,16 @@ func (c *Client) TimezoneLookup(
 }
 
 // Converts a given time from one timezone to another using various input types like timezone name, coordinates, location, or codes.
+//
+// Example:
+//
+//	request := &afgosdk.TimezoneConvertRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.TimezoneConvert(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) TimezoneConvert(
 	ctx context.Context,
 	request *afgosdk.TimezoneConvertRequest,
@@ -1997,6 +3662,16 @@ func (c *Client) TimezoneConvert(
 }
 
 // Parse User Agent string to get detailed browser, device, and operating system information
+//
+// Example:
+//
+//	request := &afgosdk.UserAgentLookupRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.UserAgentLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) UserAgentLookup(
 	ctx context.Context,
 	request *afgosdk.UserAgentLookupRequest,
@@ -2014,6 +3689,19 @@ func (c *Client) UserAgentLookup(
 }
 
 // Parse up to `20000 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
+//
+// Example:
+//
+//	request := &afgosdk.BulkUserAgentLookupRequest{
+//	    APIKey: "apiKey",
+//	    UaStrings: []string{
+//	        "uaStrings",
+//	    },
+//	}
+//	_, err := client.BulkUserAgentLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) BulkUserAgentLookup(
 	ctx context.Context,
 	request *afgosdk.BulkUserAgentLookupRequest,
@@ -2039,6 +3727,20 @@ func (c *Client) BulkUserAgentLookup(
 // - The `mini-ocr-v1` model doesn’t support the following query parameters:
 //   - `page_range` (.pdf types)
 //   - `zone`
+//
+// Example:
+//
+//	request := &afgosdk.OcrPredictRequest{
+//	    APIKey: "apiKey",
+//	    Model: afgosdk.OcrPredictRequestModelMiniOcrV1,
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	_, err := client.OcrPredict(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) OcrPredict(
 	ctx context.Context,
 	request *afgosdk.OcrPredictRequest,
@@ -2056,6 +3758,17 @@ func (c *Client) OcrPredict(
 }
 
 // Analyze text for grammar errors and return the exact words flagged as grammatically incorrect with zero-based word positions.
+//
+// Example:
+//
+//	request := &afgosdk.GrammarDetectRequest{
+//	    APIKey: "apiKey",
+//	    Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
+//	}
+//	_, err := client.GrammarDetect(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GrammarDetect(
 	ctx context.Context,
 	request *afgosdk.GrammarDetectRequest,
@@ -2073,6 +3786,17 @@ func (c *Client) GrammarDetect(
 }
 
 // Submit text with grammatical issues and receive a clean grammar-corrected result for proofreading and content workflows.
+//
+// Example:
+//
+//	request := &afgosdk.GrammarCorrectRequest{
+//	    APIKey: "apiKey",
+//	    Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
+//	}
+//	_, err := client.GrammarCorrect(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) GrammarCorrect(
 	ctx context.Context,
 	request *afgosdk.GrammarCorrectRequest,
@@ -2090,6 +3814,17 @@ func (c *Client) GrammarCorrect(
 }
 
 // Analyze text and return weak, vague, or filler words with zero-based word positions to help writers produce clearer and more concise content.
+//
+// Example:
+//
+//	request := &afgosdk.WeakWordsDetectRequest{
+//	    APIKey: "apiKey",
+//	    Text: "Many people cannot get the support they need to handle their conditions well.",
+//	}
+//	_, err := client.WeakWordsDetect(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) WeakWordsDetect(
 	ctx context.Context,
 	request *afgosdk.WeakWordsDetectRequest,
@@ -2107,6 +3842,17 @@ func (c *Client) WeakWordsDetect(
 }
 
 // Analyze text readability using industry-standard formulas including Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog Index, SMOG Index, Coleman-Liau Index, and Automated Readability Index.
+//
+// Example:
+//
+//	request := &afgosdk.ReadabilityScoreRequest{
+//	    APIKey: "apiKey",
+//	    Text: "The global mental is health crisis is now a serious and compelex problem. It needs quick and ongoing action from policymakers, healthcare workers, and the whole society.",
+//	}
+//	_, err := client.ReadabilityScore(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) ReadabilityScore(
 	ctx context.Context,
 	request *afgosdk.ReadabilityScoreRequest,
@@ -2124,12 +3870,49 @@ func (c *Client) ReadabilityScore(
 }
 
 // Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+//
+// Example:
+//
+//	request := &afgosdk.AstronomyLookupRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.AstronomyLookup(
+//	    context.TODO(),
+//	    request,
+//	)
 func (c *Client) AstronomyLookup(
 	ctx context.Context,
 	request *afgosdk.AstronomyLookupRequest,
 	opts ...option.RequestOption,
 ) (*afgosdk.AstronomyLookupResponse, error) {
 	response, err := c.WithRawResponse.AstronomyLookup(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Returns subscription, subscription-surcharge, and one-off credit balances for the authenticated organization's account.
+//
+// Example:
+//
+//	request := &afgosdk.GetCreditsUsageRequest{
+//	    APIKey: "apiKey",
+//	}
+//	_, err := client.GetCreditsUsage(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) GetCreditsUsage(
+	ctx context.Context,
+	request *afgosdk.GetCreditsUsageRequest,
+	opts ...option.RequestOption,
+) (*afgosdk.GetCreditsUsageResponse, error) {
+	response, err := c.WithRawResponse.GetCreditsUsage(
 		ctx,
 		request,
 		opts...,

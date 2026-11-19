@@ -45,3 +45,30 @@ func (a *APIError) Error() string {
 	}
 	return fmt.Sprintf("%d: %s", a.StatusCode, a.err.Error())
 }
+
+// ResponseDecodeError is returned (wrapped in an *APIError that carries the
+// HTTP status code and headers) when a successful response body cannot be
+// decoded into the expected response type. Body holds the raw response body
+// and Err the underlying decoding error.
+type ResponseDecodeError struct {
+	Target string
+	Body   []byte
+	Err    error
+}
+
+// Error returns a description of the decoding failure, including the start
+// of the raw response body.
+func (e *ResponseDecodeError) Error() string {
+	body := e.Body
+	suffix := ""
+	if len(body) > 500 {
+		body = body[:500]
+		suffix = "..."
+	}
+	return fmt.Sprintf("failed to decode response body into %s: %v; body: %s%s", e.Target, e.Err, body, suffix)
+}
+
+// Unwrap returns the underlying decoding error.
+func (e *ResponseDecodeError) Unwrap() error {
+	return e.Err
+}

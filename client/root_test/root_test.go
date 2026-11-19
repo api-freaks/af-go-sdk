@@ -5,7 +5,9 @@ package root_test
 import (
 	bytes "bytes"
 	context "context"
+	base64 "encoding/base64"
 	json "encoding/json"
+	io "io"
 	http "net/http"
 	os "os"
 	strings "strings"
@@ -530,95 +532,20 @@ func TestWebScrapeWithWireMock(
 		URL:    "https://example.com",
 		Body: &afgosdk.WebScrapeRequestBody{
 			WebScrapeRequestBodyBlockURL: &afgosdk.WebScrapeRequestBodyBlockURL{
-				BlockURL: []string{
-					"https://example.com/ads.js",
-					"https://tracker.example.com/*",
-				},
-				Cookies: []*afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
-					&afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
-						Name:  "sessionid",
-						Value: "abc123",
-					},
-					&afgosdk.WebScrapeRequestBodyBlockURLCookiesItem{
-						Name:  "user_pref",
-						Value: "darkmode",
-					},
-				},
 				Instructions: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
 					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemFill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
-							Fill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
-								Place: "#username",
-								Value: "myuser",
-							},
+						Extract: map[string]string{
+							"profile":        "#profile",
+							"userInfo":       "#user-info",
+							"welcomeMessage": "#welcome-message",
 						},
 					},
-					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemFill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFill{
-							Fill: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemFillFill{
-								Place: "#password",
-								Value: "mypassword",
-							},
-						},
-					},
-					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemClick: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemClick{
-							Click: afgosdk.String(
-								"#loginButton",
-							),
-						},
-					},
-					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemWait: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemWait{
-							Wait: afgosdk.Int(
-								2000,
-							),
-						},
-					},
-					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemExtract: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemExtract{
-							Extract: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemExtractExtract{
-								HTML: afgosdk.String(
-									"#profile",
-								),
-								Text: afgosdk.String(
-									"#welcome-message",
-								),
-								UserData: afgosdk.String(
-									"#user-info",
-								),
-							},
-						},
-					},
-					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemBlockElement: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemBlockElement{
-							BlockElement: []string{
-								".ad-banner",
-								"//div[@class='popup']",
-							},
-						},
-					},
-					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-						WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha: &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptcha{
-							GeneralImageCaptcha: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
-								&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItem{
-									ImagePath: afgosdk.String(
-										"#captcha-img",
-									),
-									TextField: afgosdk.String(
-										"#captcha-input",
-									),
-									ImageUpdatePath: afgosdk.String(
-										"#refresh-captcha",
-									),
-									CaptchaFailedPath: afgosdk.String(
-										"#captcha-error",
-									),
-									Model: afgosdk.WebScrapeRequestBodyBlockURLInstructionsItemGeneralImageCaptchaGeneralImageCaptchaItemModelMiniOcrV1.Ptr(),
-								},
-							},
-						},
-					},
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+					&afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
 				},
 			},
 		},
@@ -689,6 +616,71 @@ func TestBulkEmailValidateWithWireMock(
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestBulkEmailValidateWithWireMock", "POST", "/v1.0/email-validation/bulk", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
+func TestDisposableEmailCheckV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.DisposableEmailCheckV2Request{
+		APIKey: "apiKey",
+		Email:  "test@sogetthis.com",
+	}
+	_, invocationErr := client.DisposableEmailCheckV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDisposableEmailCheckV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDisposableEmailCheckV2WithWireMock", "POST", "/v2.0/email/disposable-check", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
+func TestBulkDisposableEmailCheckV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.BulkDisposableEmailCheckV2Request{
+		APIKey: "apiKey",
+		EmailData: []*afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+			&afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+				Email: "abc",
+			},
+			&afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+				Email: "john@microsoft.com",
+				IP: afgosdk.String(
+					"8.8.8.8",
+				),
+			},
+			&afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+				Email: "test@mailinator.com",
+			},
+		},
+	}
+	_, invocationErr := client.BulkDisposableEmailCheckV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestBulkDisposableEmailCheckV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestBulkDisposableEmailCheckV2WithWireMock", "POST", "/v2.0/email/disposable-check/bulk", map[string]interface{}{"apiKey": "apiKey"}, 1)
 }
 
 func TestPhoneValidateWithWireMock(
@@ -1279,6 +1271,36 @@ func TestCommoditySymbolsV2WithWireMock(
 	VerifyRequestCount(t, "TestCommoditySymbolsV2WithWireMock", "GET", "/v2.0/commodity/symbols", map[string]interface{}{"apiKey": "apiKey"}, 1)
 }
 
+func TestCommodityIntradayRatesV2WithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.CommodityIntradayRatesV2Request{
+		APIKey:   "apiKey",
+		Symbols:  "symbols",
+		Interval: afgosdk.CommodityIntradayRatesV2RequestIntervalOneM,
+		Date: afgosdk.MustParseDate(
+			"2023-01-15",
+		),
+	}
+	_, invocationErr := client.CommodityIntradayRatesV2(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestCommodityIntradayRatesV2WithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestCommodityIntradayRatesV2WithWireMock", "GET", "/v2.0/commodity/rates/intraday", map[string]interface{}{"apiKey": "apiKey", "symbols": "symbols", "interval": "1m", "date": "2023-01-15"}, 1)
+}
+
 func TestPdfMergeWithWireMock(
 	t *testing.T,
 ) {
@@ -1579,6 +1601,7 @@ func TestPdfUnrestrictWithWireMock(
 	request := &afgosdk.PdfUnrestrictRequest{
 		APIKey:       "apiKey",
 		FilePassword: "file_password",
+		UserPassword: "user_password",
 		File: strings.NewReader(
 			"",
 		),
@@ -1592,7 +1615,7 @@ func TestPdfUnrestrictWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestPdfUnrestrictWithWireMock", "POST", "/v1.0/pdf/unrestrict", map[string]interface{}{"apiKey": "apiKey", "file_password": "file_password"}, 1)
+	VerifyRequestCount(t, "TestPdfUnrestrictWithWireMock", "POST", "/v1.0/pdf/unrestrict", map[string]interface{}{"apiKey": "apiKey", "file_password": "file_password", "user_password": "user_password"}, 1)
 }
 
 func TestPdfConvertToPngWithWireMock(
@@ -1774,7 +1797,7 @@ func TestPdfDownloadResourceWithWireMock(
 		APIKey:     "apiKey",
 		ResourceID: "resource_id",
 	}
-	_, invocationErr := client.PdfDownloadResource(
+	response, invocationErr := client.WithRawResponse.PdfDownloadResource(
 		context.TODO(),
 		request,
 		option.WithHTTPHeader(
@@ -1783,6 +1806,12 @@ func TestPdfDownloadResourceWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
+	require.Equal(t, "application/octet-stream", response.Header.Get("Content-Type"), "Response content type should match the served fixture")
+	actualBytes, readErr := io.ReadAll(response.Body)
+	require.NoError(t, readErr, "Response body should be readable to completion")
+	expectedBytes, decodeErr := base64.StdEncoding.DecodeString("JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSA+PgplbmRvYmoKeHJlZgowIDQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDAwNjQgMDAwMDAgbiAKMDAwMDAwMDEyMSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDQgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjE5MgolJUVPRgo=")
+	require.NoError(t, decodeErr, "Fixture bytes should decode")
+	require.Equal(t, expectedBytes, actualBytes, "Response body should match the served fixture bytes")
 	VerifyRequestCount(t, "TestPdfDownloadResourceWithWireMock", "GET", "/v1.0/pdf/resource/download", map[string]interface{}{"apiKey": "apiKey", "resource_id": "resource_id"}, 1)
 }
 
@@ -1887,6 +1916,104 @@ func TestPdfDeleteFileWithWireMock(
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestPdfDeleteFileWithWireMock", "DELETE", "/v1.0/pdf/file", map[string]interface{}{"apiKey": "apiKey", "file_id": "file_id"}, 1)
+}
+
+func TestPdfGenerateFromTemplateWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.PdfGenerateFromTemplateRequest{
+		APIKey:     "apiKey",
+		TemplateID: "template_id",
+		Body: map[string]any{
+			"candidate_name":    "Ava Thompson",
+			"candidate_title":   "Senior Operations Analyst",
+			"certification_1":   "Certified Business Analysis Professional (CBAP)",
+			"certification_2":   "Six Sigma Green Belt",
+			"city":              "Austin, TX",
+			"company_name":      "Northwind Logistics",
+			"degree":            "B.S. in Information Systems",
+			"email":             "ava.thompson@example.com",
+			"employment_period": "2021 - Present",
+			"graduation_year":   "2018",
+			"institution":       "University of Texas",
+			"job_achievement_1": "Led weekly KPI reporting for finance, fulfillment, and customer success stakeholders across three business units.",
+			"job_achievement_2": "Reduced manual reconciliation work by 35% through workflow redesign and documentation automation.",
+			"job_achievement_3": "Spearheaded a cross-team initiative that improved on-time delivery metrics by 18% within six months.",
+			"job_title":         "Operations Analyst",
+			"languages":         "English (Native), Spanish (Professional)",
+			"phone":             "+1 (555) 381-2048",
+			"portfolio_url":     "portfolio.example.com",
+			"profile_summary":   "Analytical operations professional with 8+ years of experience improving reporting pipelines, streamlining process documentation, and coordinating cross-functional delivery for distributed teams across multiple time zones.",
+			"skills": []any{
+				map[string]any{
+					"level": "Advanced",
+					"skill": "Process Improvement",
+					"years": "7",
+				},
+				map[string]any{
+					"level": "Expert",
+					"skill": "Stakeholder Reporting",
+					"years": "8",
+				},
+				map[string]any{
+					"level": "Advanced",
+					"skill": "Cross-functional Coordination",
+					"years": "5",
+				},
+				map[string]any{
+					"level": "Advanced",
+					"skill": "Workflow Documentation",
+					"years": "6",
+				},
+			},
+		},
+	}
+	_, invocationErr := client.PdfGenerateFromTemplate(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestPdfGenerateFromTemplateWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestPdfGenerateFromTemplateWithWireMock", "POST", "/v1.0/pdf/template/generate", map[string]interface{}{"apiKey": "apiKey", "template_id": "template_id"}, 1)
+}
+
+func TestBulkPdfGenerateFromTemplateWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.BulkPdfGenerateFromTemplateRequest{
+		APIKey:     "apiKey",
+		TemplateID: "template_id",
+		File: strings.NewReader(
+			"",
+		),
+	}
+	_, invocationErr := client.BulkPdfGenerateFromTemplate(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestBulkPdfGenerateFromTemplateWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestBulkPdfGenerateFromTemplateWithWireMock", "POST", "/v1.0/pdf/template/generate/bulk", map[string]interface{}{"apiKey": "apiKey", "template_id": "template_id"}, 1)
 }
 
 func TestScreenshotCaptureWithWireMock(
@@ -2685,7 +2812,6 @@ func TestZipcodeSearchByRegionWithWireMock(
 	request := &afgosdk.ZipcodeSearchByRegionRequest{
 		APIKey:  "apiKey",
 		Country: "country",
-		Region:  "region",
 	}
 	_, invocationErr := client.ZipcodeSearchByRegion(
 		context.TODO(),
@@ -2696,7 +2822,7 @@ func TestZipcodeSearchByRegionWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestZipcodeSearchByRegionWithWireMock", "GET", "/v1.0/zipcode/search/region", map[string]interface{}{"apiKey": "apiKey", "country": "country", "region": "region"}, 1)
+	VerifyRequestCount(t, "TestZipcodeSearchByRegionWithWireMock", "GET", "/v1.0/zipcode/search/region", map[string]interface{}{"apiKey": "apiKey", "country": "country"}, 1)
 }
 
 func TestZipcodeSearchByRadiusWithWireMock(
@@ -3111,7 +3237,6 @@ func TestGetSubregionsWithWireMock(
 	)
 	request := &afgosdk.GetSubregionsRequest{
 		APIKey: "apiKey",
-		Region: "region",
 	}
 	_, invocationErr := client.GetSubregions(
 		context.TODO(),
@@ -3122,7 +3247,7 @@ func TestGetSubregionsWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestGetSubregionsWithWireMock", "GET", "/v1.0/geo/subregions", map[string]interface{}{"apiKey": "apiKey", "region": "region"}, 1)
+	VerifyRequestCount(t, "TestGetSubregionsWithWireMock", "GET", "/v1.0/geo/subregions", map[string]interface{}{"apiKey": "apiKey"}, 1)
 }
 
 func TestGetAdminLevelsWithWireMock(
@@ -3271,7 +3396,7 @@ func TestGetFlagsWithWireMock(
 		Shape:  afgosdk.GetFlagsRequestShapeFlat,
 		Type:   afgosdk.GetFlagsRequestTypeCountry,
 	}
-	_, invocationErr := client.GetFlags(
+	response, invocationErr := client.WithRawResponse.GetFlags(
 		context.TODO(),
 		request,
 		option.WithHTTPHeader(
@@ -3280,6 +3405,12 @@ func TestGetFlagsWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
+	require.Equal(t, "application/octet-stream", response.Header.Get("Content-Type"), "Response content type should match the served fixture")
+	actualBytes, readErr := io.ReadAll(response.Body)
+	require.NoError(t, readErr, "Response body should be readable to completion")
+	expectedBytes, decodeErr := base64.StdEncoding.DecodeString("JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSA+PgplbmRvYmoKeHJlZgowIDQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDAwNjQgMDAwMDAgbiAKMDAwMDAwMDEyMSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDQgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjE5MgolJUVPRgo=")
+	require.NoError(t, decodeErr, "Fixture bytes should decode")
+	require.Equal(t, expectedBytes, actualBytes, "Response body should match the served fixture bytes")
 	VerifyRequestCount(t, "TestGetFlagsWithWireMock", "GET", "/v1.0/flags", map[string]interface{}{"apiKey": "apiKey", "name": "name", "shape": "flat", "type": "country"}, 1)
 }
 
@@ -3399,6 +3530,9 @@ func TestOcrPredictWithWireMock(
 	request := &afgosdk.OcrPredictRequest{
 		APIKey: "apiKey",
 		Model:  afgosdk.OcrPredictRequestModelMiniOcrV1,
+		File: strings.NewReader(
+			"",
+		),
 	}
 	_, invocationErr := client.OcrPredict(
 		context.TODO(),
@@ -3409,7 +3543,7 @@ func TestOcrPredictWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestOcrPredictWithWireMock", "POST", "/v1.0/ocr/predict", map[string]interface{}{"apiKey": "apiKey"}, 1)
+	VerifyRequestCount(t, "TestOcrPredictWithWireMock", "POST", "/v1.0/ocr/predict", map[string]interface{}{"apiKey": "apiKey", "model": "mini-ocr-v1"}, 1)
 }
 
 func TestGrammarDetectWithWireMock(
@@ -3539,4 +3673,29 @@ func TestAstronomyLookupWithWireMock(
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestAstronomyLookupWithWireMock", "GET", "/v1.0/geolocation/astronomy", map[string]interface{}{"apiKey": "apiKey"}, 1)
+}
+
+func TestGetCreditsUsageWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+	)
+	request := &afgosdk.GetCreditsUsageRequest{
+		APIKey: "apiKey",
+	}
+	_, invocationErr := client.GetCreditsUsage(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestGetCreditsUsageWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestGetCreditsUsageWithWireMock", "GET", "/v1.0/credits/usage/info", map[string]interface{}{"apiKey": "apiKey"}, 1)
 }
