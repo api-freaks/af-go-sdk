@@ -10,11 +10,11 @@ import (
 // Bad Request
 type BadRequestError struct {
 	*core.APIError
-	Body any
+	Body *BadRequestErrorBody
 }
 
 func (b *BadRequestError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *BadRequestErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -31,14 +31,21 @@ func (b *BadRequestError) Unwrap() error {
 	return b.APIError
 }
 
+func (b *BadRequestError) GetBody() *BadRequestErrorBody {
+	if b == nil {
+		return nil
+	}
+	return b.Body
+}
+
 // Payload Too Large
 type ContentTooLargeError struct {
 	*core.APIError
-	Body any
+	Body *ContentTooLargeErrorBody
 }
 
 func (c *ContentTooLargeError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *ContentTooLargeErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -55,14 +62,21 @@ func (c *ContentTooLargeError) Unwrap() error {
 	return c.APIError
 }
 
+func (c *ContentTooLargeError) GetBody() *ContentTooLargeErrorBody {
+	if c == nil {
+		return nil
+	}
+	return c.Body
+}
+
 // Forbidden
 type ForbiddenError struct {
 	*core.APIError
-	Body any
+	Body *ForbiddenErrorBody
 }
 
 func (f *ForbiddenError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *ForbiddenErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -79,14 +93,21 @@ func (f *ForbiddenError) Unwrap() error {
 	return f.APIError
 }
 
+func (f *ForbiddenError) GetBody() *ForbiddenErrorBody {
+	if f == nil {
+		return nil
+	}
+	return f.Body
+}
+
 // Gateway Timeout
 type GatewayTimeoutError struct {
 	*core.APIError
-	Body any
+	Body *GatewayTimeoutErrorBody
 }
 
 func (g *GatewayTimeoutError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *GatewayTimeoutErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -103,14 +124,21 @@ func (g *GatewayTimeoutError) Unwrap() error {
 	return g.APIError
 }
 
+func (g *GatewayTimeoutError) GetBody() *GatewayTimeoutErrorBody {
+	if g == nil {
+		return nil
+	}
+	return g.Body
+}
+
 // Internal Server Error
 type InternalServerError struct {
 	*core.APIError
-	Body any
+	Body *InternalServerErrorBody
 }
 
 func (i *InternalServerError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *InternalServerErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -127,14 +155,21 @@ func (i *InternalServerError) Unwrap() error {
 	return i.APIError
 }
 
+func (i *InternalServerError) GetBody() *InternalServerErrorBody {
+	if i == nil {
+		return nil
+	}
+	return i.Body
+}
+
 // Locked
 type LockedError struct {
 	*core.APIError
-	Body any
+	Body *LockedErrorBody
 }
 
 func (l *LockedError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *LockedErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -149,6 +184,13 @@ func (l *LockedError) MarshalJSON() ([]byte, error) {
 
 func (l *LockedError) Unwrap() error {
 	return l.APIError
+}
+
+func (l *LockedError) GetBody() *LockedErrorBody {
+	if l == nil {
+		return nil
+	}
+	return l.Body
 }
 
 // Wrong HTTP method was used on the endpoint.
@@ -175,6 +217,13 @@ func (m *MethodNotAllowedError) Unwrap() error {
 	return m.APIError
 }
 
+func (m *MethodNotAllowedError) GetBody() *MethodNotAllowedErrorBody {
+	if m == nil {
+		return nil
+	}
+	return m.Body
+}
+
 // Server terminated connection unexpectedly.
 type NoResponseError struct {
 	*core.APIError
@@ -199,14 +248,21 @@ func (n *NoResponseError) Unwrap() error {
 	return n.APIError
 }
 
+func (n *NoResponseError) GetBody() *NoResponseErrorBody {
+	if n == nil {
+		return nil
+	}
+	return n.Body
+}
+
 // Not Acceptable
 type NotAcceptableError struct {
 	*core.APIError
-	Body any
+	Body *NotAcceptableErrorBody
 }
 
 func (n *NotAcceptableError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *NotAcceptableErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -221,6 +277,13 @@ func (n *NotAcceptableError) MarshalJSON() ([]byte, error) {
 
 func (n *NotAcceptableError) Unwrap() error {
 	return n.APIError
+}
+
+func (n *NotAcceptableError) GetBody() *NotAcceptableErrorBody {
+	if n == nil {
+		return nil
+	}
+	return n.Body
 }
 
 // Not Found
@@ -247,14 +310,21 @@ func (n *NotFoundError) Unwrap() error {
 	return n.APIError
 }
 
+func (n *NotFoundError) GetBody() any {
+	if n == nil {
+		return nil
+	}
+	return n.Body
+}
+
 // Payment Required
 type PaymentRequiredError struct {
 	*core.APIError
-	Body any
+	Body *PaymentRequiredErrorBody
 }
 
 func (p *PaymentRequiredError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *PaymentRequiredErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -269,6 +339,13 @@ func (p *PaymentRequiredError) MarshalJSON() ([]byte, error) {
 
 func (p *PaymentRequiredError) Unwrap() error {
 	return p.APIError
+}
+
+func (p *PaymentRequiredError) GetBody() *PaymentRequiredErrorBody {
+	if p == nil {
+		return nil
+	}
+	return p.Body
 }
 
 // Tunnel connection failed.
@@ -295,14 +372,21 @@ func (p *ProxyAuthenticationRequiredError) Unwrap() error {
 	return p.APIError
 }
 
+func (p *ProxyAuthenticationRequiredError) GetBody() *ProxyAuthenticationRequiredErrorBody {
+	if p == nil {
+		return nil
+	}
+	return p.Body
+}
+
 // Request Timeout – WHOIS data could not be fetched
 type RequestTimeoutError struct {
 	*core.APIError
-	Body any
+	Body *RequestTimeoutErrorBody
 }
 
 func (r *RequestTimeoutError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *RequestTimeoutErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -319,14 +403,21 @@ func (r *RequestTimeoutError) Unwrap() error {
 	return r.APIError
 }
 
+func (r *RequestTimeoutError) GetBody() *RequestTimeoutErrorBody {
+	if r == nil {
+		return nil
+	}
+	return r.Body
+}
+
 // Service Unavailable
 type ServiceUnavailableError struct {
 	*core.APIError
-	Body any
+	Body *ServiceUnavailableErrorBody
 }
 
 func (s *ServiceUnavailableError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *ServiceUnavailableErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -343,14 +434,21 @@ func (s *ServiceUnavailableError) Unwrap() error {
 	return s.APIError
 }
 
+func (s *ServiceUnavailableError) GetBody() *ServiceUnavailableErrorBody {
+	if s == nil {
+		return nil
+	}
+	return s.Body
+}
+
 // Too Many Requests
 type TooManyRequestsError struct {
 	*core.APIError
-	Body any
+	Body *TooManyRequestsErrorBody
 }
 
 func (t *TooManyRequestsError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *TooManyRequestsErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -367,14 +465,21 @@ func (t *TooManyRequestsError) Unwrap() error {
 	return t.APIError
 }
 
+func (t *TooManyRequestsError) GetBody() *TooManyRequestsErrorBody {
+	if t == nil {
+		return nil
+	}
+	return t.Body
+}
+
 // Unauthorized
 type UnauthorizedError struct {
 	*core.APIError
-	Body any
+	Body *UnauthorizedErrorBody
 }
 
 func (u *UnauthorizedError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *UnauthorizedErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -391,14 +496,52 @@ func (u *UnauthorizedError) Unwrap() error {
 	return u.APIError
 }
 
+func (u *UnauthorizedError) GetBody() *UnauthorizedErrorBody {
+	if u == nil {
+		return nil
+	}
+	return u.Body
+}
+
+// Unprocessable Entity — The request contains invalid or missing data.
+type UnprocessableEntityError struct {
+	*core.APIError
+	Body *UnprocessableEntityErrorBody
+}
+
+func (u *UnprocessableEntityError) UnmarshalJSON(data []byte) error {
+	var body *UnprocessableEntityErrorBody
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	u.StatusCode = 422
+	u.Body = body
+	return nil
+}
+
+func (u *UnprocessableEntityError) MarshalJSON() ([]byte, error) {
+	return json.Marshal(u.Body)
+}
+
+func (u *UnprocessableEntityError) Unwrap() error {
+	return u.APIError
+}
+
+func (u *UnprocessableEntityError) GetBody() *UnprocessableEntityErrorBody {
+	if u == nil {
+		return nil
+	}
+	return u.Body
+}
+
 // Unsupported File Type
 type UnsupportedMediaTypeError struct {
 	*core.APIError
-	Body any
+	Body *UnsupportedMediaTypeErrorBody
 }
 
 func (u *UnsupportedMediaTypeError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *UnsupportedMediaTypeErrorBody
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -413,4 +556,11 @@ func (u *UnsupportedMediaTypeError) MarshalJSON() ([]byte, error) {
 
 func (u *UnsupportedMediaTypeError) Unwrap() error {
 	return u.APIError
+}
+
+func (u *UnsupportedMediaTypeError) GetBody() *UnsupportedMediaTypeErrorBody {
+	if u == nil {
+		return nil
+	}
+	return u.Body
 }

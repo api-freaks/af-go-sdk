@@ -77,7 +77,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"ip\": \"ip\",\n  \"security\": {\n    \"threat_score\": 1.1,\n    \"is_tor\": true,\n    \"is_proxy\": true,\n    \"proxy_provider_names\": [\n      \"proxy_provider_names\"\n    ],\n    \"proxy_confidence_score\": 1.1,\n    \"proxy_last_seen\": \"proxy_last_seen\",\n    \"is_residential_proxy\": true,\n    \"is_vpn\": true,\n    \"vpn_provider_names\": [\n      \"vpn_provider_names\"\n    ],\n    \"vpn_confidence_score\": 1.1,\n    \"vpn_last_seen\": \"vpn_last_seen\",\n    \"is_relay\": true,\n    \"relay_provider_name\": \"relay_provider_name\",\n    \"is_anonymous\": true,\n    \"is_known_attacker\": true,\n    \"is_bot\": true,\n    \"is_spam\": true,\n    \"is_cloud_provider\": true,\n    \"cloud_provider_name\": \"cloud_provider_name\"\n  }\n}",
+        "body": "{\n  \"ip\": \"ip\",\n  \"security\": {\n    \"threat_score\": 1.1,\n    \"is_tor\": true,\n    \"is_proxy\": true,\n    \"proxy_provider_names\": [\n      \"proxy_provider_names\"\n    ],\n    \"proxy_confidence_score\": 1.1,\n    \"proxy_last_seen\": \"proxy_last_seen\",\n    \"is_residential_proxy\": true,\n    \"is_vpn\": true,\n    \"vpn_provider_names\": [\n      \"vpn_provider_names\"\n    ],\n    \"vpn_confidence_score\": 1.1,\n    \"vpn_last_seen\": \"vpn_last_seen\",\n    \"is_relay\": true,\n    \"relay_provider_name\": \"relay_provider_name\",\n    \"is_anonymous\": true,\n    \"is_known_attacker\": true,\n    \"is_bot\": true,\n    \"is_spam\": true,\n    \"is_cloud_provider\": true,\n    \"cloud_provider_name\": \"cloud_provider_name\",\n    \"bot_confidence_score\": 1.1,\n    \"bot_last_seen\": \"bot_last_seen\",\n    \"bot_operator_name\": \"bot_operator_name\",\n    \"bot_type\": \"bot_type\",\n    \"corporate_gateway_provider_name\": \"corporate_gateway_provider_name\",\n    \"corporate_gateway_type\": \"corporate_gateway_type\",\n    \"is_corporate_gateway\": true,\n    \"is_known_good_bot\": true,\n    \"proxy_days_seen_30d\": 1,\n    \"proxy_days_seen_7d\": 1,\n    \"proxy_provider_count_30d\": 1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -109,7 +109,7 @@
       },
       "response": {
         "status": 200,
-        "body": "[\n  {\n    \"ip\": \"ip\",\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_provider_names\": [\n        \"proxy_provider_names\"\n      ],\n      \"proxy_confidence_score\": 1.1,\n      \"proxy_last_seen\": \"proxy_last_seen\",\n      \"is_residential_proxy\": true,\n      \"is_vpn\": true,\n      \"vpn_provider_names\": [\n        \"vpn_provider_names\"\n      ],\n      \"vpn_confidence_score\": 1.1,\n      \"vpn_last_seen\": \"vpn_last_seen\",\n      \"is_relay\": true,\n      \"relay_provider_name\": \"relay_provider_name\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_bot\": true,\n      \"is_spam\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider_name\": \"cloud_provider_name\"\n    }\n  }\n]",
+        "body": "[\n  {\n    \"ip\": \"ip\",\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_provider_names\": [\n        \"proxy_provider_names\"\n      ],\n      \"proxy_confidence_score\": 1.1,\n      \"proxy_last_seen\": \"proxy_last_seen\",\n      \"is_residential_proxy\": true,\n      \"is_vpn\": true,\n      \"vpn_provider_names\": [\n        \"vpn_provider_names\"\n      ],\n      \"vpn_confidence_score\": 1.1,\n      \"vpn_last_seen\": \"vpn_last_seen\",\n      \"is_relay\": true,\n      \"relay_provider_name\": \"relay_provider_name\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_bot\": true,\n      \"is_spam\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider_name\": \"cloud_provider_name\",\n      \"bot_confidence_score\": 1.1,\n      \"bot_last_seen\": \"bot_last_seen\",\n      \"bot_operator_name\": \"bot_operator_name\",\n      \"bot_type\": \"bot_type\",\n      \"corporate_gateway_provider_name\": \"corporate_gateway_provider_name\",\n      \"corporate_gateway_type\": \"corporate_gateway_type\",\n      \"is_corporate_gateway\": true,\n      \"is_known_good_bot\": true,\n      \"proxy_days_seen_30d\": 1,\n      \"proxy_days_seen_7d\": 1,\n      \"proxy_provider_count_30d\": 1\n    }\n  }\n]",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -216,7 +216,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"status\": true,\n  \"domain_name\": \"domain_name\",\n  \"query_time\": \"query_time\",\n  \"whois_server\": \"whois_server\",\n  \"domain_registered\": \"yes\",\n  \"create_date\": \"2023-01-15\",\n  \"update_date\": \"2023-01-15\",\n  \"expiry_date\": \"2023-01-15\",\n  \"domain_registrar\": {\n    \"iana_id\": \"iana_id\",\n    \"registrar_name\": \"registrar_name\",\n    \"whois_server\": \"whois_server\",\n    \"website_url\": \"website_url\",\n    \"email_address\": \"email_address\",\n    \"phone_number\": \"phone_number\"\n  },\n  \"reseller_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"registrant_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"administrative_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"technical_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"billing_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"name_servers\": [\n    \"name_servers\"\n  ],\n  \"domain_status\": [\n    \"domain_status\"\n  ],\n  \"whois_raw_domain\": \"whois_raw_domain\",\n  \"registry_data\": {\n    \"domain_name\": \"domain_name\",\n    \"query_time\": \"query_time\",\n    \"whois_server\": \"whois_server\",\n    \"domain_registered\": \"yes\",\n    \"create_date\": \"2023-01-15\",\n    \"update_date\": \"2023-01-15\",\n    \"expiry_date\": \"2023-01-15\",\n    \"name_servers\": [\n      \"name_servers\"\n    ],\n    \"domain_status\": [\n      \"domain_status\"\n    ],\n    \"whois_raw_registry\": \"whois_raw_registry\",\n    \"domain_registrar\": {\n      \"iana_id\": \"iana_id\",\n      \"registrar_name\": \"registrar_name\",\n      \"whois_server\": \"whois_server\",\n      \"website_url\": \"website_url\",\n      \"email_address\": \"email_address\",\n      \"phone_number\": \"phone_number\"\n    }\n  }\n}",
+        "body": "{\n  \"status\": true,\n  \"domain_name\": \"domain_name\",\n  \"query_time\": \"query_time\",\n  \"whois_server\": \"whois_server\",\n  \"domain_registered\": \"yes\",\n  \"create_date\": \"2023-01-15\",\n  \"update_date\": \"2023-01-15\",\n  \"expiry_date\": \"2023-01-15\",\n  \"domain_registrar\": {\n    \"iana_id\": \"iana_id\",\n    \"registrar_name\": \"registrar_name\",\n    \"whois_server\": \"whois_server\",\n    \"website_url\": \"website_url\",\n    \"email_address\": \"email_address\",\n    \"phone_number\": \"phone_number\"\n  },\n  \"reseller_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"registrant_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"administrative_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"technical_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"billing_contact\": {\n    \"name\": \"name\",\n    \"company\": \"company\",\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country_name\": \"country_name\",\n    \"country_code\": \"country_code\",\n    \"email_address\": \"email_address\",\n    \"phone\": \"phone\",\n    \"fax\": \"fax\",\n    \"mailing_address\": \"mailing_address\"\n  },\n  \"name_servers\": [\n    \"name_servers\"\n  ],\n  \"domain_status\": [\n    \"domain_status\"\n  ],\n  \"whois_raw_domain\": \"whois_raw_domain\",\n  \"registry_data\": {\n    \"domain_name\": \"domain_name\",\n    \"query_time\": \"query_time\",\n    \"whois_server\": \"whois_server\",\n    \"domain_registered\": \"yes\",\n    \"create_date\": \"2023-01-15\",\n    \"update_date\": \"2023-01-15\",\n    \"expiry_date\": \"2023-01-15\",\n    \"name_servers\": [\n      \"name_servers\"\n    ],\n    \"domain_status\": [\n      \"domain_status\"\n    ],\n    \"whois_raw_registry\": \"whois_raw_registry\",\n    \"whois_raw_registery\": \"whois_raw_registery\",\n    \"domain_registrar\": {\n      \"iana_id\": \"iana_id\",\n      \"registrar_name\": \"registrar_name\",\n      \"whois_server\": \"whois_server\",\n      \"website_url\": \"website_url\",\n      \"email_address\": \"email_address\",\n      \"phone_number\": \"phone_number\"\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -282,7 +282,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"status\": true,\n  \"ip_address\": \"ip_address\",\n  \"query_time\": \"query_time\",\n  \"whois_server\": \"whois_server\",\n  \"inet_nums\": [\n    {\n      \"start_ip\": \"start_ip\",\n      \"end_ip\": \"end_ip\",\n      \"cidr\": [\n        \"cidr\"\n      ],\n      \"net_name\": \"net_name\",\n      \"net_handle\": \"net_handle\",\n      \"description\": [\n        \"description\"\n      ],\n      \"countries\": [\n        \"countries\"\n      ],\n      \"geofeed\": \"geofeed\",\n      \"latitude\": 1.1,\n      \"longitude\": 1.1,\n      \"city\": \"city\",\n      \"languages\": [\n        \"languages\"\n      ],\n      \"status\": \"status\",\n      \"organization\": \"organization\",\n      \"sponsoring_organization\": \"sponsoring_organization\",\n      \"admin_contacts\": [\n        \"admin_contacts\"\n      ],\n      \"tech_contacts\": [\n        \"tech_contacts\"\n      ],\n      \"abuse_contacts\": [\n        \"abuse_contacts\"\n      ],\n      \"remarks\": [\n        \"remarks\"\n      ],\n      \"assignment_size\": \"assignment_size\",\n      \"notify\": [\n        \"notify\"\n      ],\n      \"mnt_by\": [\n        \"mnt_by\"\n      ],\n      \"mnt_lower\": [\n        \"mnt_lower\"\n      ],\n      \"mnt_domains\": [\n        \"mnt_domains\"\n      ],\n      \"mnt_routes\": [\n        \"mnt_routes\"\n      ],\n      \"mnt_irt\": [\n        \"mnt_irt\"\n      ],\n      \"date_created\": \"date_created\",\n      \"date_updated\": \"date_updated\",\n      \"source\": \"source\",\n      \"parents\": [\n        \"parents\"\n      ]\n    }\n  ],\n  \"irt\": {\n    \"handle\": \"handle\",\n    \"address\": [\n      \"address\"\n    ],\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"district\": \"district\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country\": \"country\",\n    \"email\": [\n      \"email\"\n    ],\n    \"abuse_mailbox\": [\n      \"abuse_mailbox\"\n    ],\n    \"phone\": [\n      \"phone\"\n    ],\n    \"fax_no\": [\n      \"fax_no\"\n    ],\n    \"organizations\": [\n      \"organizations\"\n    ],\n    \"admin_contacts\": [\n      \"admin_contacts\"\n    ],\n    \"tech_contacts\": [\n      \"tech_contacts\"\n    ],\n    \"remarks\": [\n      \"remarks\"\n    ],\n    \"signature\": [\n      \"signature\"\n    ],\n    \"encryption\": [\n      \"encryption\"\n    ],\n    \"auth\": [\n      \"auth\"\n    ],\n    \"notify\": [\n      \"notify\"\n    ],\n    \"irt_nfy\": [\n      \"irt_nfy\"\n    ],\n    \"mnt_by\": [\n      \"mnt_by\"\n    ],\n    \"mnt_ref\": [\n      \"mnt_ref\"\n    ],\n    \"date_created\": \"date_created\",\n    \"date_updated\": \"date_updated\",\n    \"source\": \"source\"\n  },\n  \"organization\": {\n    \"handle\": \"handle\",\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"description\": [\n      \"description\"\n    ],\n    \"address\": [\n      \"address\"\n    ],\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"district\": \"district\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country\": [\n      \"country\"\n    ],\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"email\": [\n      \"email\"\n    ],\n    \"abuse_mailbox\": [\n      \"abuse_mailbox\"\n    ],\n    \"phone\": [\n      \"phone\"\n    ],\n    \"fax_no\": [\n      \"fax_no\"\n    ],\n    \"organizations\": [\n      \"organizations\"\n    ],\n    \"admin_contacts\": [\n      \"admin_contacts\"\n    ],\n    \"tech_contacts\": [\n      \"tech_contacts\"\n    ],\n    \"abuse_contacts\": [\n      \"abuse_contacts\"\n    ],\n    \"languages\": [\n      \"languages\"\n    ],\n    \"remarks\": [\n      \"remarks\"\n    ]\n  },\n  \"technical_contacts\": [\n    {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"email\": [\n        \"email\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"source\": \"source\"\n    }\n  ],\n  \"abuse_contacts\": [\n    {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"email\": [\n        \"email\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"source\": \"source\"\n    }\n  ],\n  \"administrative_contacts\": [\n    {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"email\": [\n        \"email\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"source\": \"source\"\n    }\n  ],\n  \"whois_raw_response\": \"whois_raw_response\"\n}",
+        "body": "{\n  \"status\": true,\n  \"ip_address\": \"ip_address\",\n  \"query_time\": \"query_time\",\n  \"whois_server\": \"whois_server\",\n  \"inet_nums\": [\n    {\n      \"start_ip\": \"start_ip\",\n      \"end_ip\": \"end_ip\",\n      \"cidr\": [\n        \"cidr\"\n      ],\n      \"net_name\": \"net_name\",\n      \"net_handle\": \"net_handle\",\n      \"description\": [\n        \"description\"\n      ],\n      \"countries\": [\n        \"countries\"\n      ],\n      \"geofeed\": \"geofeed\",\n      \"latitude\": 1.1,\n      \"longitude\": 1.1,\n      \"city\": \"city\",\n      \"languages\": [\n        \"languages\"\n      ],\n      \"status\": \"status\",\n      \"organization\": \"organization\",\n      \"sponsoring_organization\": \"sponsoring_organization\",\n      \"admin_contacts\": [\n        \"admin_contacts\"\n      ],\n      \"tech_contacts\": [\n        \"tech_contacts\"\n      ],\n      \"abuse_contacts\": [\n        \"abuse_contacts\"\n      ],\n      \"remarks\": [\n        \"remarks\"\n      ],\n      \"assignment_size\": \"assignment_size\",\n      \"notify\": [\n        \"notify\"\n      ],\n      \"mnt_by\": [\n        \"mnt_by\"\n      ],\n      \"mnt_lower\": [\n        \"mnt_lower\"\n      ],\n      \"mnt_domains\": [\n        \"mnt_domains\"\n      ],\n      \"mnt_routes\": [\n        \"mnt_routes\"\n      ],\n      \"mnt_irt\": [\n        \"mnt_irt\"\n      ],\n      \"date_created\": \"date_created\",\n      \"date_updated\": \"date_updated\",\n      \"source\": \"source\",\n      \"parents\": [\n        \"parents\"\n      ]\n    }\n  ],\n  \"irt\": {\n    \"handle\": \"handle\",\n    \"address\": [\n      \"address\"\n    ],\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"district\": \"district\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country\": \"country\",\n    \"email\": [\n      \"email\"\n    ],\n    \"abuse_mailbox\": [\n      \"abuse_mailbox\"\n    ],\n    \"phone\": [\n      \"phone\"\n    ],\n    \"fax_no\": [\n      \"fax_no\"\n    ],\n    \"organizations\": [\n      \"organizations\"\n    ],\n    \"admin_contacts\": [\n      \"admin_contacts\"\n    ],\n    \"tech_contacts\": [\n      \"tech_contacts\"\n    ],\n    \"remarks\": [\n      \"remarks\"\n    ],\n    \"signature\": [\n      \"signature\"\n    ],\n    \"encryption\": [\n      \"encryption\"\n    ],\n    \"auth\": [\n      \"auth\"\n    ],\n    \"notify\": [\n      \"notify\"\n    ],\n    \"irt_nfy\": [\n      \"irt_nfy\"\n    ],\n    \"mnt_by\": [\n      \"mnt_by\"\n    ],\n    \"mnt_ref\": [\n      \"mnt_ref\"\n    ],\n    \"date_created\": \"date_created\",\n    \"date_updated\": \"date_updated\",\n    \"source\": \"source\",\n    \"abuse_contacts\": [\n      {\n        \"handle\": \"handle\",\n        \"source\": \"source\"\n      }\n    ],\n    \"administrative_contacts\": [\n      {\n        \"handle\": \"handle\",\n        \"source\": \"source\"\n      }\n    ],\n    \"organization\": {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"description\": [\n        \"description\"\n      ],\n      \"address\": [\n        \"address\"\n      ],\n      \"street\": \"street\",\n      \"city\": \"city\",\n      \"district\": \"district\",\n      \"state\": \"state\",\n      \"zip_code\": \"zip_code\",\n      \"country\": [\n        \"country\"\n      ],\n      \"latitude\": 1.1,\n      \"longitude\": 1.1,\n      \"email\": [\n        \"email\"\n      ],\n      \"abuse_mailbox\": [\n        \"abuse_mailbox\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"fax_no\": [\n        \"fax_no\"\n      ],\n      \"admin_contacts\": [\n        \"admin_contacts\"\n      ],\n      \"tech_contacts\": [\n        \"tech_contacts\"\n      ],\n      \"abuse_contacts\": [\n        \"abuse_contacts\"\n      ],\n      \"remarks\": [\n        \"remarks\"\n      ],\n      \"notify\": [\n        \"notify\"\n      ],\n      \"ref_nfy\": [\n        \"ref_nfy\"\n      ],\n      \"mnt_by\": [\n        \"mnt_by\"\n      ],\n      \"mnt_ref\": [\n        \"mnt_ref\"\n      ],\n      \"date_created\": \"2023-01-15\",\n      \"date_updated\": \"2023-01-15\",\n      \"source\": \"source\"\n    },\n    \"technical_contacts\": [\n      {\n        \"handle\": \"handle\",\n        \"source\": \"source\"\n      }\n    ]\n  },\n  \"organization\": {\n    \"handle\": \"handle\",\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"description\": [\n      \"description\"\n    ],\n    \"address\": [\n      \"address\"\n    ],\n    \"street\": \"street\",\n    \"city\": \"city\",\n    \"district\": \"district\",\n    \"state\": \"state\",\n    \"zip_code\": \"zip_code\",\n    \"country\": [\n      \"country\"\n    ],\n    \"latitude\": 1.1,\n    \"longitude\": 1.1,\n    \"email\": [\n      \"email\"\n    ],\n    \"abuse_mailbox\": [\n      \"abuse_mailbox\"\n    ],\n    \"phone\": [\n      \"phone\"\n    ],\n    \"fax_no\": [\n      \"fax_no\"\n    ],\n    \"organizations\": [\n      \"organizations\"\n    ],\n    \"admin_contacts\": [\n      \"admin_contacts\"\n    ],\n    \"tech_contacts\": [\n      \"tech_contacts\"\n    ],\n    \"abuse_contacts\": [\n      \"abuse_contacts\"\n    ],\n    \"languages\": [\n      \"languages\"\n    ],\n    \"remarks\": [\n      \"remarks\"\n    ],\n    \"notify\": [\n      \"notify\"\n    ],\n    \"ref_nfy\": [\n      \"ref_nfy\"\n    ],\n    \"mnt_by\": [\n      \"mnt_by\"\n    ],\n    \"mnt_ref\": [\n      \"mnt_ref\"\n    ],\n    \"date_created\": \"2023-01-15\",\n    \"date_updated\": \"2023-01-15\",\n    \"source\": \"source\"\n  },\n  \"technical_contacts\": [\n    {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"email\": [\n        \"email\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"source\": \"source\",\n      \"abuse_mailbox\": [\n        \"abuse_mailbox\"\n      ],\n      \"address\": [\n        \"address\"\n      ],\n      \"admin_contacts\": [\n        \"admin_contacts\"\n      ],\n      \"city\": \"city\",\n      \"country\": \"country\",\n      \"date_created\": \"2023-01-15\",\n      \"date_updated\": \"2023-01-15\",\n      \"district\": \"district\",\n      \"fax_no\": [\n        \"fax_no\"\n      ],\n      \"mnt_by\": [\n        \"mnt_by\"\n      ],\n      \"mnt_ref\": [\n        \"mnt_ref\"\n      ],\n      \"notify\": [\n        \"notify\"\n      ],\n      \"organizations\": [\n        \"organizations\"\n      ],\n      \"remarks\": [\n        \"remarks\"\n      ],\n      \"state\": \"state\",\n      \"street\": \"street\",\n      \"tech_contacts\": [\n        \"tech_contacts\"\n      ],\n      \"zip_code\": \"zip_code\"\n    }\n  ],\n  \"abuse_contacts\": [\n    {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"email\": [\n        \"email\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"source\": \"source\",\n      \"abuse_mailbox\": [\n        \"abuse_mailbox\"\n      ],\n      \"address\": [\n        \"address\"\n      ],\n      \"admin_contacts\": [\n        \"admin_contacts\"\n      ],\n      \"city\": \"city\",\n      \"country\": \"country\",\n      \"date_created\": \"2023-01-15\",\n      \"date_updated\": \"2023-01-15\",\n      \"district\": \"district\",\n      \"fax_no\": [\n        \"fax_no\"\n      ],\n      \"mnt_by\": [\n        \"mnt_by\"\n      ],\n      \"mnt_ref\": [\n        \"mnt_ref\"\n      ],\n      \"notify\": [\n        \"notify\"\n      ],\n      \"organizations\": [\n        \"organizations\"\n      ],\n      \"remarks\": [\n        \"remarks\"\n      ],\n      \"state\": \"state\",\n      \"street\": \"street\",\n      \"tech_contacts\": [\n        \"tech_contacts\"\n      ],\n      \"zip_code\": \"zip_code\"\n    }\n  ],\n  \"administrative_contacts\": [\n    {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"email\": [\n        \"email\"\n      ],\n      \"phone\": [\n        \"phone\"\n      ],\n      \"source\": \"source\",\n      \"abuse_mailbox\": [\n        \"abuse_mailbox\"\n      ],\n      \"address\": [\n        \"address\"\n      ],\n      \"admin_contacts\": [\n        \"admin_contacts\"\n      ],\n      \"city\": \"city\",\n      \"country\": \"country\",\n      \"date_created\": \"2023-01-15\",\n      \"date_updated\": \"2023-01-15\",\n      \"district\": \"district\",\n      \"fax_no\": [\n        \"fax_no\"\n      ],\n      \"mnt_by\": [\n        \"mnt_by\"\n      ],\n      \"mnt_ref\": [\n        \"mnt_ref\"\n      ],\n      \"notify\": [\n        \"notify\"\n      ],\n      \"organizations\": [\n        \"organizations\"\n      ],\n      \"remarks\": [\n        \"remarks\"\n      ],\n      \"state\": \"state\",\n      \"street\": \"street\",\n      \"tech_contacts\": [\n        \"tech_contacts\"\n      ],\n      \"zip_code\": \"zip_code\"\n    }\n  ],\n  \"whois_raw_response\": \"whois_raw_response\",\n  \"routes\": [\n    {\n      \"route\": \"route\",\n      \"origin\": \"origin\",\n      \"description\": [\n        \"description\"\n      ],\n      \"country\": \"country\",\n      \"pingable\": [\n        \"pingable\"\n      ],\n      \"ping_hdl\": [\n        \"ping_hdl\"\n      ],\n      \"holes\": [\n        \"holes\"\n      ],\n      \"member_of\": [\n        \"member_of\"\n      ],\n      \"inject\": [\n        \"inject\"\n      ],\n      \"aggr_mtd\": \"aggr_mtd\",\n      \"aggr_bndry\": \"aggr_bndry\",\n      \"export_comps\": \"export_comps\",\n      \"components\": \"components\",\n      \"organizations\": [\n        \"organizations\"\n      ],\n      \"remarks\": [\n        \"remarks\"\n      ],\n      \"notify\": [\n        \"notify\"\n      ],\n      \"mnt_lower\": [\n        \"mnt_lower\"\n      ],\n      \"mnt_by\": [\n        \"mnt_by\"\n      ],\n      \"date_created\": \"2023-01-15\",\n      \"date_updated\": \"2023-01-15\",\n      \"source\": \"source\"\n    }\n  ],\n  \"r_whois_raw_response\": \"r_whois_raw_response\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -317,7 +317,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"asNumber\": \"asNumber\",\n  \"asName\": \"asName\",\n  \"orgName\": \"orgName\",\n  \"description\": \"description\",\n  \"orgHandle\": \"orgHandle\",\n  \"country\": \"country\",\n  \"domain\": \"domain\",\n  \"website\": \"website\",\n  \"allocationStatus\": \"allocationStatus\",\n  \"numOfIPv4Routes\": \"numOfIPv4Routes\",\n  \"numOfIPv6Routes\": \"numOfIPv6Routes\",\n  \"whoisHost\": \"whoisHost\",\n  \"dateAllocated\": \"2023-01-15\",\n  \"type\": \"type\",\n  \"routeObjects\": [\n    {\n      \"route\": \"route\",\n      \"origin\": \"origin\",\n      \"originName\": \"originName\",\n      \"isp\": \"isp\",\n      \"numberOfIps\": 1\n    }\n  ],\n  \"whoisResponse\": \"whoisResponse\",\n  \"downstreams\": [\n    {\n      \"asNumber\": \"asNumber\",\n      \"description\": \"description\",\n      \"country\": \"country\"\n    }\n  ],\n  \"parsedWhoisResponse\": {\n    \"status\": true,\n    \"whois_server\": \"whois_server\",\n    \"aut_nums\": [\n      {\n        \"aut_num\": \"aut_num\",\n        \"as_handle\": \"as_handle\",\n        \"as_name\": \"as_name\",\n        \"tech_contacts\": [\n          \"tech_contacts\"\n        ],\n        \"abuse_contacts\": [\n          \"abuse_contacts\"\n        ],\n        \"date_created\": \"2023-01-15\",\n        \"date_updated\": \"2023-01-15\",\n        \"source\": \"source\"\n      }\n    ],\n    \"organization\": {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"address\": [\n        \"address\"\n      ],\n      \"street\": \"street\",\n      \"city\": \"city\",\n      \"state\": \"state\",\n      \"zip_code\": \"zip_code\",\n      \"country\": [\n        \"country\"\n      ],\n      \"addressCountry\": \"addressCountry\",\n      \"date_created\": \"2023-01-15\",\n      \"date_updated\": \"2023-01-15\",\n      \"source\": \"source\"\n    },\n    \"technical_contacts\": [\n      {\n        \"handle\": \"handle\",\n        \"name\": \"name\",\n        \"email\": [\n          \"email\"\n        ]\n      }\n    ],\n    \"abuse_contacts\": [\n      {\n        \"handle\": \"handle\",\n        \"name\": \"name\",\n        \"email\": [\n          \"email\"\n        ]\n      }\n    ]\n  },\n  \"upstreams\": [\n    {\n      \"asNumber\": \"asNumber\",\n      \"description\": \"description\",\n      \"country\": \"country\"\n    }\n  ],\n  \"peers\": [\n    {\n      \"asNumber\": \"asNumber\",\n      \"description\": \"description\",\n      \"country\": \"country\"\n    }\n  ],\n  \"contacts\": {\n    \"emailContacts\": [\n      \"emailContacts\"\n    ],\n    \"abuseContacts\": [\n      \"abuseContacts\"\n    ]\n  },\n  \"legacyRoutes\": [\n    \"legacyRoutes\"\n  ],\n  \"whois_raw_response\": \"whois_raw_response\",\n  \"r_whois_raw_response\": \"r_whois_raw_response\",\n  \"query_time\": \"query_time\"\n}",
+        "body": "{\n  \"asNumber\": \"asNumber\",\n  \"asName\": \"asName\",\n  \"orgName\": \"orgName\",\n  \"description\": \"description\",\n  \"orgHandle\": \"orgHandle\",\n  \"country\": \"country\",\n  \"domain\": \"domain\",\n  \"website\": \"website\",\n  \"allocationStatus\": \"allocationStatus\",\n  \"numOfIPv4Routes\": \"numOfIPv4Routes\",\n  \"numOfIPv6Routes\": \"numOfIPv6Routes\",\n  \"whoisHost\": \"whoisHost\",\n  \"dateAllocated\": \"2023-01-15\",\n  \"type\": \"type\",\n  \"routeObjects\": [\n    {\n      \"route\": \"route\",\n      \"origin\": \"origin\",\n      \"originName\": \"originName\",\n      \"isp\": \"isp\",\n      \"numberOfIps\": 1.1\n    }\n  ],\n  \"whoisResponse\": \"whoisResponse\",\n  \"downstreams\": [\n    {\n      \"asNumber\": \"asNumber\",\n      \"description\": \"description\",\n      \"country\": \"country\"\n    }\n  ],\n  \"parsedWhoisResponse\": {\n    \"status\": true,\n    \"whois_server\": \"whois_server\",\n    \"aut_nums\": [\n      {\n        \"aut_num\": \"aut_num\",\n        \"as_handle\": \"as_handle\",\n        \"as_name\": \"as_name\",\n        \"tech_contacts\": [\n          \"tech_contacts\"\n        ],\n        \"abuse_contacts\": [\n          \"abuse_contacts\"\n        ],\n        \"date_created\": \"2023-01-15\",\n        \"date_updated\": \"2023-01-15\",\n        \"source\": \"source\"\n      }\n    ],\n    \"organization\": {\n      \"handle\": \"handle\",\n      \"name\": \"name\",\n      \"address\": [\n        \"address\"\n      ],\n      \"street\": \"street\",\n      \"city\": \"city\",\n      \"state\": \"state\",\n      \"zip_code\": \"zip_code\",\n      \"country\": [\n        \"country\"\n      ],\n      \"addressCountry\": \"addressCountry\",\n      \"date_created\": \"2023-01-15\",\n      \"date_updated\": \"2023-01-15\",\n      \"source\": \"source\"\n    },\n    \"technical_contacts\": [\n      {\n        \"handle\": \"handle\",\n        \"name\": \"name\",\n        \"email\": [\n          \"email\"\n        ]\n      }\n    ],\n    \"abuse_contacts\": [\n      {\n        \"handle\": \"handle\",\n        \"name\": \"name\",\n        \"email\": [\n          \"email\"\n        ]\n      }\n    ],\n    \"query_time\": \"query_time\",\n    \"r_whois_raw_response\": \"r_whois_raw_response\",\n    \"whois_raw_response\": \"whois_raw_response\"\n  },\n  \"upstreams\": [\n    {\n      \"asNumber\": \"asNumber\",\n      \"description\": \"description\",\n      \"country\": \"country\"\n    }\n  ],\n  \"peers\": [\n    {\n      \"asNumber\": \"asNumber\",\n      \"description\": \"description\",\n      \"country\": \"country\"\n    }\n  ],\n  \"contacts\": {\n    \"emailContacts\": [\n      \"emailContacts\"\n    ],\n    \"abuseContacts\": [\n      \"abuseContacts\"\n    ]\n  },\n  \"legacyRoutes\": [\n    \"legacyRoutes\"\n  ],\n  \"whois_raw_response\": \"whois_raw_response\",\n  \"r_whois_raw_response\": \"r_whois_raw_response\",\n  \"query_time\": \"query_time\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -384,7 +384,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"totalResult\": 1,\n  \"totalPages\": 1,\n  \"currentPage\": 1,\n  \"whois_domains_historical\": [\n    {\n      \"num\": 1,\n      \"status\": true,\n      \"domain_name\": \"domain_name\",\n      \"query_time\": \"query_time\",\n      \"whois_server\": \"whois_server\",\n      \"domain_registered\": \"yes\",\n      \"create_date\": \"2023-01-15\",\n      \"update_date\": \"2023-01-15\",\n      \"expiry_date\": \"2023-01-15\",\n      \"name_servers\": [\n        \"name_servers\"\n      ],\n      \"domain_status\": [\n        \"domain_status\"\n      ],\n      \"whois_raw_domain\": \"whois_raw_domain\"\n    }\n  ]\n}",
+        "body": "{\n  \"total_Result\": 1,\n  \"total_Pages\": 1,\n  \"current_Page\": 1,\n  \"whois_domains_historical\": [\n    {\n      \"num\": 1,\n      \"status\": true,\n      \"domain_name\": \"domain_name\",\n      \"query_time\": \"query_time\",\n      \"whois_server\": \"whois_server\",\n      \"domain_registered\": \"yes\",\n      \"create_date\": \"2023-01-15\",\n      \"update_date\": \"2023-01-15\",\n      \"expiry_date\": \"2023-01-15\",\n      \"name_servers\": [\n        \"name_servers\"\n      ],\n      \"domain_status\": [\n        \"domain_status\"\n      ],\n      \"whois_raw_domain\": \"whois_raw_domain\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -423,7 +423,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"status\": true,\n  \"queryTime\": \"queryTime\",\n  \"domainName\": \"domainName\",\n  \"domainRegistered\": true,\n  \"dnsTypes\": {\n    \"A\": 1.1,\n    \"AAAA\": 1.1,\n    \"CNAME\": 1.1,\n    \"MX\": 1.1,\n    \"NS\": 1.1,\n    \"SOA\": 1.1,\n    \"TXT\": 1.1,\n    \"SPF\": 1.1\n  },\n  \"dnsRecords\": [\n    {\n      \"name\": \"name\",\n      \"type\": 1,\n      \"dnsType\": \"A\",\n      \"ttl\": 1,\n      \"rawText\": \"rawText\",\n      \"rRsetType\": 1,\n      \"address\": \"address\"\n    }\n  ]\n}",
+        "body": "{\n  \"status\": true,\n  \"queryTime\": \"queryTime\",\n  \"domainName\": \"domainName\",\n  \"domainRegistered\": true,\n  \"dnsTypes\": {\n    \"A\": 1.1,\n    \"AAAA\": 1.1,\n    \"CNAME\": 1.1,\n    \"MX\": 1.1,\n    \"NS\": 1.1,\n    \"SOA\": 1.1,\n    \"TXT\": 1.1,\n    \"SPF\": 1.1,\n    \"PTR\": 1.1\n  },\n  \"dnsRecords\": [\n    {\n      \"name\": \"name\",\n      \"type\": 1,\n      \"dnsType\": \"A\",\n      \"ttl\": 1,\n      \"rawText\": \"rawText\",\n      \"rRsetType\": 1,\n      \"address\": \"address\"\n    }\n  ],\n  \"ipAddress\": \"ipAddress\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -638,12 +638,74 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"emailResponse\": [\n    {\n      \"success\": true,\n      \"email\": \"email\",\n      \"name\": \"name\",\n      \"reason\": \"reason\",\n      \"validEmail\": \"valid\",\n      \"validSyntax\": true,\n      \"domain\": {\n        \"name\": \"name\",\n        \"disposable\": true,\n        \"spam\": true,\n        \"free\": true,\n        \"catchAll\": true,\n        \"validDomain\": true\n      },\n      \"account\": {\n        \"role\": true\n      },\n      \"dns\": {\n        \"mxRecord\": [\n          \"mxRecord\"\n        ]\n      },\n      \"ip\": \"ip\"\n    }\n  ]\n}",
+        "body": "{\n  \"emailResponse\": [\n    {\n      \"success\": true,\n      \"email\": \"email\",\n      \"name\": \"name\",\n      \"reason\": \"reason\",\n      \"validEmail\": \"valid\",\n      \"validSyntax\": true,\n      \"domain\": {\n        \"name\": \"name\",\n        \"disposable\": true,\n        \"spam\": true,\n        \"free\": true,\n        \"validDomain\": true\n      },\n      \"account\": {\n        \"role\": true\n      },\n      \"dns\": {\n        \"mxRecord\": [\n          \"mxRecord\"\n        ]\n      },\n      \"ip\": \"ip\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
       "uuid": "8ce4c835-135f-4e0b-a3a1-02b104921f53",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "3137d9b2-5b82-496f-a571-c6b6ca3be80e",
+      "name": "Check a single email for disposable/temporary domain - Email only",
+      "request": {
+        "urlPathTemplate": "/v2.0/email/disposable-check",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"email\": \"test@sogetthis.com\",\n  \"validSyntax\": true,\n  \"domain\": {\n    \"name\": \"sogetthis.com\",\n    \"validDomain\": true,\n    \"disposable\": true,\n    \"free\": false,\n    \"spam\": false\n  },\n  \"account\": {\n    \"role\": false\n  },\n  \"dns\": {\n    \"mxRecord\": [\n      \"mail.mailinator.com.\"\n    ],\n    \"aRecord\": [\n      \"aRecord\"\n    ]\n  },\n  \"ip\": \"ip\",\n  \"address\": {\n    \"validIpAddress\": true,\n    \"location\": {\n      \"city\": \"city\",\n      \"district\": \"district\",\n      \"zipcode\": \"zipcode\",\n      \"state_prov\": \"state_prov\",\n      \"country_name\": \"country_name\",\n      \"country_name_official\": \"country_name_official\",\n      \"country_code2\": \"country_code2\",\n      \"country_code3\": \"country_code3\",\n      \"continent_name\": \"continent_name\",\n      \"continent_code\": \"continent_code\",\n      \"accuracy_radius\": \"accuracy_radius\",\n      \"confidence\": \"confidence\",\n      \"is_eu\": true\n    },\n    \"security\": {\n      \"threat_score\": 1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_type\": \"proxy_type\",\n      \"proxy_provider\": \"proxy_provider\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_spam\": true,\n      \"is_bot\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider\": \"cloud_provider\"\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3137d9b2-5b82-496f-a571-c6b6ca3be80e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e000e7d9-4d92-4af7-9f95-6041dbd5f9bb",
+      "name": "Check multiple emails for disposable/temporary domains - Mix of syntactically invalid, clean (with ip), and disposable results",
+      "request": {
+        "urlPathTemplate": "/v2.0/email/disposable-check/bulk",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"disposableEmailResponse\": [\n    {\n      \"email\": \"abc\",\n      \"validSyntax\": false,\n      \"domain\": {\n        \"name\": \"abc\",\n        \"validDomain\": false\n      },\n      \"account\": {\n        \"role\": true\n      },\n      \"ip\": \"ip\"\n    },\n    {\n      \"email\": \"john@microsoft.com\",\n      \"validSyntax\": true,\n      \"domain\": {\n        \"name\": \"microsoft.com\",\n        \"validDomain\": true,\n        \"disposable\": false,\n        \"free\": false,\n        \"spam\": false\n      },\n      \"account\": {\n        \"role\": false\n      },\n      \"dns\": {\n        \"mxRecord\": [\n          \"microsoft-com.mail.protection.outlook.com.\"\n        ]\n      },\n      \"ip\": \"8.8.8.8\",\n      \"address\": {\n        \"validIpAddress\": true,\n        \"location\": {\n          \"city\": \"Mountain View\",\n          \"district\": \"Santa Clara\",\n          \"zipcode\": \"94043-1351\",\n          \"state_prov\": \"California\",\n          \"country_name\": \"United States\",\n          \"country_name_official\": \"United States of America\",\n          \"country_code2\": \"US\",\n          \"country_code3\": \"USA\",\n          \"continent_name\": \"North America\",\n          \"continent_code\": \"NA\",\n          \"is_eu\": false\n        },\n        \"security\": {\n          \"threat_score\": 5,\n          \"is_tor\": false,\n          \"is_proxy\": false,\n          \"is_anonymous\": false,\n          \"is_known_attacker\": false,\n          \"is_spam\": false,\n          \"is_bot\": false,\n          \"is_cloud_provider\": true,\n          \"cloud_provider\": \"Google LLC\"\n        }\n      }\n    },\n    {\n      \"email\": \"test@mailinator.com\",\n      \"validSyntax\": true,\n      \"domain\": {\n        \"name\": \"mailinator.com\",\n        \"validDomain\": true,\n        \"disposable\": true,\n        \"free\": false,\n        \"spam\": false\n      },\n      \"account\": {\n        \"role\": false\n      },\n      \"dns\": {\n        \"mxRecord\": [\n          \"mail.mailinator.com.\",\n          \"mail2.mailinator.com.\"\n        ]\n      },\n      \"ip\": \"ip\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e000e7d9-4d92-4af7-9f95-6041dbd5f9bb",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -700,7 +762,7 @@
       },
       "response": {
         "status": 200,
-        "body": "[\n  {\n    \"raw_input\": {\n      \"number\": \"+14155552671\",\n      \"region\": \"US\",\n      \"dialer_region\": \"dialer_region\"\n    },\n    \"possible\": true,\n    \"valid\": true,\n    \"country_prefix\": 1,\n    \"national_number\": 4155552671,\n    \"country_code\": \"US\",\n    \"carrier\": \"Verizon Communications\",\n    \"location\": \"San Francisco, CA\",\n    \"time_zones\": [\n      \"America/Los_Angeles\"\n    ],\n    \"line_type\": \"MOBILE\",\n    \"formats\": {\n      \"E164\": \"+14155552671\",\n      \"International\": \"+1 415-555-2671\",\n      \"National\": \"(415) 555-2671\",\n      \"RFC3966\": \"tel:+1-415-555-2671\"\n    },\n    \"area_code_length\": 3,\n    \"ndc_length\": 3,\n    \"can_be_internationally_dialled\": true\n  }\n]",
+        "body": "[\n  {\n    \"raw_input\": {\n      \"number\": \"+14155552671\",\n      \"region\": \"US\",\n      \"dialer_region\": \"dialer_region\"\n    },\n    \"possible\": true,\n    \"valid\": true,\n    \"country_prefix\": 1,\n    \"national_number\": 4155552671,\n    \"country_code\": \"US\",\n    \"carrier\": \"Verizon Communications\",\n    \"location\": \"San Francisco, CA\",\n    \"time_zones\": [\n      \"America/Los_Angeles\"\n    ],\n    \"line_type\": \"MOBILE\",\n    \"formats\": {\n      \"E164\": \"+14155552671\",\n      \"International\": \"+1 415-555-2671\",\n      \"National\": \"(415) 555-2671\",\n      \"RFC3966\": \"tel:+1-415-555-2671\"\n    },\n    \"area_code_length\": 3,\n    \"ndc_length\": 3,\n    \"can_be_internationally_dialled\": true,\n    \"error\": \"error\",\n    \"message\": \"message\"\n  }\n]",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -836,7 +898,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"bulk_domain_available_response\": [\n    {\n      \"domain\": \"domain\",\n      \"domainAvailability\": true,\n      \"status\": true\n    }\n  ]\n}",
+        "body": "{\n  \"bulk_domain_availability_response\": [\n    {\n      \"domain\": \"domain\",\n      \"domainAvailability\": true,\n      \"status\": true\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -972,7 +1034,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"input\": {\n    \"domain\": \"domain\"\n  },\n  \"assessed_at\": \"assessed_at\",\n  \"version\": \"version\",\n  \"processing_time_ms\": 1,\n  \"risk_category\": {\n    \"verdict\": \"safe\",\n    \"confidence\": 1.1,\n    \"primary_threat\": \"primary_threat\",\n    \"severity\": \"none\",\n    \"threat_types\": [\n      \"threat_types\"\n    ],\n    \"sources\": [\n      {\n        \"source\": \"source\",\n        \"indicator\": \"indicator\",\n        \"threat_type\": \"threat_type\",\n        \"confidence\": 1.1,\n        \"first_seen\": \"first_seen\",\n        \"last_seen\": \"last_seen\"\n      }\n    ],\n    \"pivot_matches\": [\n      {\n        \"pivot\": \"pivot\",\n        \"pivot_type\": \"pivot_type\",\n        \"total_related_threats\": 1,\n        \"confidence\": 1.1\n      }\n    ]\n  },\n  \"dga_score\": {\n    \"score\": 1.1,\n    \"is_dga\": true,\n    \"model\": \"model\",\n    \"features\": {\n      \"domain_length\": 1,\n      \"vowel_consonant_ratio\": 1.1,\n      \"ngram_perplexity\": 1.1,\n      \"shannon_entropy\": 1.1,\n      \"digit_letter_ratio\": 1.1,\n      \"consonant_streak_max\": 1,\n      \"tld_in_known_dga_set\": true\n    },\n    \"interpretation\": \"interpretation\"\n  },\n  \"trust_signals\": {\n    \"trust_score\": 1,\n    \"trust_band\": \"trust_band\",\n    \"signals\": {\n      \"positive\": [\n        {\n          \"code\": \"code\",\n          \"weight\": 1,\n          \"polarity\": \"positive\",\n          \"category\": \"category\",\n          \"evidence\": \"evidence\",\n          \"confidence\": 1.1\n        }\n      ],\n      \"negative\": [\n        {\n          \"code\": \"code\",\n          \"weight\": 1,\n          \"polarity\": \"positive\",\n          \"category\": \"category\",\n          \"evidence\": \"evidence\",\n          \"confidence\": 1.1\n        }\n      ],\n      \"neutral\": [\n        {\n          \"code\": \"code\",\n          \"weight\": 1,\n          \"polarity\": \"positive\",\n          \"category\": \"category\",\n          \"evidence\": \"evidence\",\n          \"confidence\": 1.1\n        }\n      ]\n    },\n    \"indicators\": {\n      \"is_newly_registered\": true,\n      \"uses_free_extension\": true,\n      \"uses_free_ssl\": true,\n      \"has_privacy_whois\": true,\n      \"ssl_age_days\": 1,\n      \"has_dmarc\": true,\n      \"has_spf\": true,\n      \"redirects_externally\": true,\n      \"javascript_obfuscated\": true,\n      \"domain_age_days\": 1,\n      \"registrar\": \"registrar\"\n    }\n  },\n  \"email_deliverability\": {\n    \"score\": 1,\n    \"grade\": \"grade\",\n    \"can_receive_email\": true,\n    \"authentication\": {\n      \"spf\": {\n        \"present\": true,\n        \"policy\": \"policy\",\n        \"record\": \"record\"\n      },\n      \"dkim\": {\n        \"found\": true,\n        \"selectors_found\": [\n          \"selectors_found\"\n        ],\n        \"providers_detected\": [\n          \"providers_detected\"\n        ],\n        \"note\": \"note\"\n      },\n      \"dmarc\": {\n        \"present\": true,\n        \"policy\": \"policy\",\n        \"reporting_configured\": true\n      }\n    },\n    \"infrastructure\": {\n      \"mx_count\": 1,\n      \"mx_records\": [\n        \"mx_records\"\n      ],\n      \"mx_provider\": \"mx_provider\",\n      \"null_mx\": true\n    },\n    \"reputation\": {\n      \"spam_blacklisted\": true,\n      \"newly_registered\": true,\n      \"domain_age_days\": 1\n    },\n    \"issues\": [\n      {}\n    ]\n  },\n  \"intelligence\": {\n    \"ioc_type\": \"ioc_type\",\n    \"ioc_value\": \"ioc_value\",\n    \"related_iocs\": [\n      {\n        \"type\": \"type\",\n        \"value\": \"value\",\n        \"confidence\": 1.1\n      }\n    ],\n    \"feed_tags\": [\n      \"feed_tags\"\n    ],\n    \"stix_pattern\": \"stix_pattern\",\n    \"recommended_action\": \"allow\",\n    \"first_seen\": \"first_seen\",\n    \"last_seen\": \"last_seen\"\n  },\n  \"evidence_summary\": {\n    \"why_flagged\": [\n      \"why_flagged\"\n    ]\n  },\n  \"errors\": [\n    \"errors\"\n  ]\n}",
+        "body": "{\n  \"input\": {\n    \"domain\": \"domain\"\n  },\n  \"assessed_at\": \"assessed_at\",\n  \"version\": \"version\",\n  \"processing_time_ms\": 1,\n  \"risk_category\": {\n    \"verdict\": \"safe\",\n    \"confidence\": 1.1,\n    \"primary_threat\": \"primary_threat\",\n    \"severity\": \"none\",\n    \"threat_types\": [\n      \"threat_types\"\n    ],\n    \"sources\": [\n      {\n        \"source\": \"source\",\n        \"indicator\": \"indicator\",\n        \"threat_type\": \"threat_type\",\n        \"confidence\": 1.1,\n        \"first_seen\": \"first_seen\",\n        \"last_seen\": \"last_seen\"\n      }\n    ],\n    \"pivot_matches\": [\n      {\n        \"pivot\": \"pivot\",\n        \"pivot_type\": \"pivot_type\",\n        \"total_related_threats\": 1,\n        \"confidence\": 1.1\n      }\n    ]\n  },\n  \"dga_score\": {\n    \"score\": 1.1,\n    \"is_dga\": true,\n    \"model\": \"model\",\n    \"features\": {\n      \"domain_length\": 1,\n      \"vowel_consonant_ratio\": 1.1,\n      \"ngram_perplexity\": 1.1,\n      \"shannon_entropy\": 1.1,\n      \"digit_letter_ratio\": 1.1,\n      \"consonant_streak_max\": 1,\n      \"tld_in_known_dga_set\": true\n    },\n    \"interpretation\": \"interpretation\"\n  },\n  \"trust_signals\": {\n    \"trust_score\": 1,\n    \"trust_band\": \"trust_band\",\n    \"signals\": {\n      \"positive\": [\n        {\n          \"code\": \"code\",\n          \"weight\": 1,\n          \"polarity\": \"positive\",\n          \"category\": \"category\",\n          \"evidence\": \"evidence\",\n          \"confidence\": 1.1\n        }\n      ],\n      \"negative\": [\n        {\n          \"code\": \"code\",\n          \"weight\": 1,\n          \"polarity\": \"positive\",\n          \"category\": \"category\",\n          \"evidence\": \"evidence\",\n          \"confidence\": 1.1\n        }\n      ],\n      \"neutral\": [\n        {\n          \"code\": \"code\",\n          \"weight\": 1,\n          \"polarity\": \"positive\",\n          \"category\": \"category\",\n          \"evidence\": \"evidence\",\n          \"confidence\": 1.1\n        }\n      ]\n    },\n    \"indicators\": {\n      \"is_newly_registered\": true,\n      \"uses_free_extension\": true,\n      \"uses_free_ssl\": true,\n      \"has_privacy_whois\": true,\n      \"ssl_age_days\": 1,\n      \"has_dmarc\": true,\n      \"has_spf\": true,\n      \"redirects_externally\": true,\n      \"javascript_obfuscated\": true,\n      \"domain_age_days\": 1,\n      \"registrar\": \"registrar\"\n    }\n  },\n  \"email_deliverability\": {\n    \"score\": 1,\n    \"grade\": \"grade\",\n    \"can_receive_email\": true,\n    \"authentication\": {\n      \"spf\": {\n        \"present\": true,\n        \"policy\": null,\n        \"record\": null\n      },\n      \"dkim\": {\n        \"found\": true,\n        \"selectors_found\": [\n          \"selectors_found\"\n        ],\n        \"providers_detected\": [\n          \"providers_detected\"\n        ],\n        \"note\": \"note\"\n      },\n      \"dmarc\": {\n        \"present\": true,\n        \"policy\": null,\n        \"reporting_configured\": true\n      }\n    },\n    \"infrastructure\": {\n      \"mx_count\": 1,\n      \"mx_records\": [\n        \"mx_records\"\n      ],\n      \"mx_provider\": \"mx_provider\",\n      \"null_mx\": true\n    },\n    \"reputation\": {\n      \"spam_blacklisted\": true,\n      \"newly_registered\": true,\n      \"domain_age_days\": 1\n    },\n    \"issues\": [\n      {}\n    ]\n  },\n  \"intelligence\": {\n    \"ioc_type\": \"ioc_type\",\n    \"ioc_value\": \"ioc_value\",\n    \"related_iocs\": [\n      {\n        \"type\": \"type\",\n        \"value\": \"value\",\n        \"confidence\": 1.1\n      }\n    ],\n    \"feed_tags\": [\n      \"feed_tags\"\n    ],\n    \"stix_pattern\": \"stix_pattern\",\n    \"recommended_action\": \"allow\",\n    \"first_seen\": \"first_seen\",\n    \"last_seen\": \"last_seen\"\n  },\n  \"evidence_summary\": {\n    \"why_flagged\": [\n      \"why_flagged\"\n    ]\n  },\n  \"errors\": [\n    \"errors\"\n  ],\n  \"backlinks\": {\n    \"found\": true,\n    \"matched_domain\": \"matched_domain\",\n    \"backlink_count\": 1,\n    \"referring_domains\": 1,\n    \"referrer_link_density\": 1.1\n  },\n  \"registration\": {\n    \"status\": \"status\",\n    \"past_registrations\": 1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1068,7 +1130,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"ip\": \"ip\",\n  \"domain\": \"domain\",\n  \"hostname\": \"hostname\",\n  \"location\": {\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name\": \"country_name\",\n    \"country_name_official\": \"country_name_official\",\n    \"country_capital\": \"country_capital\",\n    \"state_prov\": \"state_prov\",\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"city\": \"city\",\n    \"locality\": \"locality\",\n    \"accuracy_radius\": \"accuracy_radius\",\n    \"confidence\": \"confidence\",\n    \"dma_code\": \"dma_code\",\n    \"zipcode\": \"zipcode\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\",\n    \"is_eu\": true,\n    \"country_flag\": \"country_flag\",\n    \"geoname_id\": \"geoname_id\",\n    \"country_emoji\": \"country_emoji\"\n  },\n  \"country_metadata\": {\n    \"calling_code\": \"calling_code\",\n    \"tld\": \"tld\",\n    \"languages\": [\n      \"languages\"\n    ]\n  },\n  \"network\": {\n    \"connection_type\": \"connection_type\",\n    \"route\": \"route\",\n    \"is_anycast\": true\n  },\n  \"asn\": {\n    \"as_number\": \"as_number\",\n    \"organization\": \"organization\",\n    \"country\": \"country\",\n    \"type\": \"type\",\n    \"domain\": \"domain\",\n    \"date_allocated\": \"date_allocated\",\n    \"rir\": \"rir\"\n  },\n  \"company\": {\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"domain\": \"domain\"\n  },\n  \"currency\": {\n    \"code\": \"code\",\n    \"name\": \"name\",\n    \"symbol\": \"symbol\"\n  },\n  \"security\": {\n    \"threat_score\": 1.1,\n    \"is_tor\": true,\n    \"is_proxy\": true,\n    \"proxy_provider_names\": [\n      \"proxy_provider_names\"\n    ],\n    \"proxy_confidence_score\": 1.1,\n    \"proxy_last_seen\": \"proxy_last_seen\",\n    \"is_residential_proxy\": true,\n    \"is_vpn\": true,\n    \"vpn_provider_names\": [\n      \"vpn_provider_names\"\n    ],\n    \"vpn_confidence_score\": 1.1,\n    \"vpn_last_seen\": \"vpn_last_seen\",\n    \"is_relay\": true,\n    \"relay_provider_name\": \"relay_provider_name\",\n    \"is_anonymous\": true,\n    \"is_known_attacker\": true,\n    \"is_bot\": true,\n    \"is_spam\": true,\n    \"is_cloud_provider\": true,\n    \"cloud_provider_name\": \"cloud_provider_name\"\n  },\n  \"abuse\": {\n    \"route\": \"route\",\n    \"country\": \"country\",\n    \"name\": \"name\",\n    \"organization\": \"organization\",\n    \"kind\": \"kind\",\n    \"address\": \"address\",\n    \"emails\": [\n      \"emails\"\n    ],\n    \"phone_numbers\": [\n      \"phone_numbers\"\n    ]\n  },\n  \"time_zone\": {\n    \"name\": \"name\",\n    \"offset\": 1.1,\n    \"offset_with_dst\": 1.1,\n    \"current_time\": \"current_time\",\n    \"current_time_unix\": 1.1,\n    \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n    \"current_tz_full_name\": \"current_tz_full_name\",\n    \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n    \"standard_tz_full_name\": \"standard_tz_full_name\",\n    \"is_dst\": true,\n    \"dst_savings\": 1.1,\n    \"dst_exists\": true,\n    \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n    \"dst_tz_full_name\": \"dst_tz_full_name\",\n    \"dst_start\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    },\n    \"dst_end\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    }\n  },\n  \"user_agent\": {\n    \"user_agent_string\": \"user_agent_string\",\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"version\": \"version\",\n    \"version_major\": \"version_major\",\n    \"device\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"brand\": \"brand\",\n      \"cpu\": \"cpu\"\n    },\n    \"engine\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\"\n    },\n    \"operating_system\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\",\n      \"build\": \"build\"\n    }\n  }\n}",
+        "body": "{\n  \"ip\": \"ip\",\n  \"domain\": \"domain\",\n  \"hostname\": \"hostname\",\n  \"location\": {\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name\": \"country_name\",\n    \"country_name_official\": \"country_name_official\",\n    \"country_capital\": \"country_capital\",\n    \"state_prov\": \"state_prov\",\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"city\": \"city\",\n    \"locality\": \"locality\",\n    \"accuracy_radius\": \"accuracy_radius\",\n    \"confidence\": \"confidence\",\n    \"dma_code\": \"dma_code\",\n    \"zipcode\": \"zipcode\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\",\n    \"is_eu\": true,\n    \"country_flag\": \"country_flag\",\n    \"geoname_id\": \"geoname_id\",\n    \"country_emoji\": \"country_emoji\"\n  },\n  \"country_metadata\": {\n    \"calling_code\": \"calling_code\",\n    \"tld\": \"tld\",\n    \"languages\": [\n      \"languages\"\n    ]\n  },\n  \"network\": {\n    \"connection_type\": \"connection_type\",\n    \"route\": \"route\",\n    \"is_anycast\": true,\n    \"cdn_provider_name\": \"cdn_provider_name\",\n    \"is_cdn\": true\n  },\n  \"asn\": {\n    \"as_number\": \"as_number\",\n    \"organization\": \"organization\",\n    \"country\": \"country\",\n    \"type\": \"type\",\n    \"domain\": \"domain\",\n    \"date_allocated\": \"date_allocated\",\n    \"rir\": \"rir\"\n  },\n  \"company\": {\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"domain\": \"domain\"\n  },\n  \"currency\": {\n    \"code\": \"code\",\n    \"name\": \"name\",\n    \"symbol\": \"symbol\"\n  },\n  \"security\": {\n    \"threat_score\": 1.1,\n    \"is_tor\": true,\n    \"is_proxy\": true,\n    \"proxy_provider_names\": [\n      \"proxy_provider_names\"\n    ],\n    \"proxy_confidence_score\": 1.1,\n    \"proxy_last_seen\": \"proxy_last_seen\",\n    \"proxy_days_seen_30d\": 1,\n    \"proxy_days_seen_7d\": 1,\n    \"proxy_provider_count_30d\": 1,\n    \"is_residential_proxy\": true,\n    \"is_vpn\": true,\n    \"vpn_provider_names\": [\n      \"vpn_provider_names\"\n    ],\n    \"vpn_confidence_score\": 1.1,\n    \"vpn_last_seen\": \"vpn_last_seen\",\n    \"is_relay\": true,\n    \"relay_provider_name\": \"relay_provider_name\",\n    \"is_anonymous\": true,\n    \"is_known_attacker\": true,\n    \"is_bot\": true,\n    \"is_spam\": true,\n    \"is_cloud_provider\": true,\n    \"cloud_provider_name\": \"cloud_provider_name\",\n    \"bot_confidence_score\": 1.1,\n    \"bot_last_seen\": \"bot_last_seen\",\n    \"bot_operator_name\": \"bot_operator_name\",\n    \"bot_type\": \"bot_type\",\n    \"corporate_gateway_provider_name\": \"corporate_gateway_provider_name\",\n    \"corporate_gateway_type\": \"corporate_gateway_type\",\n    \"is_corporate_gateway\": true,\n    \"is_known_good_bot\": true\n  },\n  \"abuse\": {\n    \"route\": \"route\",\n    \"country\": \"country\",\n    \"name\": \"name\",\n    \"organization\": \"organization\",\n    \"kind\": \"kind\",\n    \"address\": \"address\",\n    \"emails\": [\n      \"emails\"\n    ],\n    \"phone_numbers\": [\n      \"phone_numbers\"\n    ]\n  },\n  \"time_zone\": {\n    \"name\": \"name\",\n    \"offset\": 1.1,\n    \"offset_with_dst\": 1.1,\n    \"current_time\": \"current_time\",\n    \"current_time_unix\": 1.1,\n    \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n    \"current_tz_full_name\": \"current_tz_full_name\",\n    \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n    \"standard_tz_full_name\": \"standard_tz_full_name\",\n    \"is_dst\": true,\n    \"dst_savings\": 1.1,\n    \"dst_exists\": true,\n    \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n    \"dst_tz_full_name\": \"dst_tz_full_name\",\n    \"dst_start\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    },\n    \"dst_end\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    }\n  },\n  \"user_agent\": {\n    \"user_agent_string\": \"user_agent_string\",\n    \"name\": \"name\",\n    \"type\": \"type\",\n    \"version\": \"version\",\n    \"version_major\": \"version_major\",\n    \"device\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"brand\": \"brand\",\n      \"cpu\": \"cpu\"\n    },\n    \"engine\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\"\n    },\n    \"operating_system\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\",\n      \"build\": \"build\"\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1100,7 +1162,7 @@
       },
       "response": {
         "status": 200,
-        "body": "[\n  {\n    \"ip\": \"ip\",\n    \"domain\": \"domain\",\n    \"hostname\": \"hostname\",\n    \"location\": {\n      \"continent_code\": \"continent_code\",\n      \"continent_name\": \"continent_name\",\n      \"country_code2\": \"country_code2\",\n      \"country_code3\": \"country_code3\",\n      \"country_name\": \"country_name\",\n      \"country_name_official\": \"country_name_official\",\n      \"country_capital\": \"country_capital\",\n      \"state_prov\": \"state_prov\",\n      \"state_code\": \"state_code\",\n      \"district\": \"district\",\n      \"city\": \"city\",\n      \"locality\": \"locality\",\n      \"accuracy_radius\": \"accuracy_radius\",\n      \"confidence\": \"confidence\",\n      \"dma_code\": \"dma_code\",\n      \"zipcode\": \"zipcode\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"is_eu\": true,\n      \"country_flag\": \"country_flag\",\n      \"geoname_id\": \"geoname_id\",\n      \"country_emoji\": \"country_emoji\"\n    },\n    \"country_metadata\": {\n      \"calling_code\": \"calling_code\",\n      \"tld\": \"tld\",\n      \"languages\": [\n        \"languages\"\n      ]\n    },\n    \"network\": {\n      \"connection_type\": \"connection_type\",\n      \"route\": \"route\",\n      \"is_anycast\": true\n    },\n    \"asn\": {\n      \"as_number\": \"as_number\",\n      \"organization\": \"organization\",\n      \"country\": \"country\",\n      \"type\": \"type\",\n      \"domain\": \"domain\",\n      \"date_allocated\": \"date_allocated\",\n      \"rir\": \"rir\"\n    },\n    \"company\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"domain\": \"domain\"\n    },\n    \"currency\": {\n      \"code\": \"code\",\n      \"name\": \"name\",\n      \"symbol\": \"symbol\"\n    },\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_provider_names\": [\n        \"proxy_provider_names\"\n      ],\n      \"proxy_confidence_score\": 1.1,\n      \"proxy_last_seen\": \"proxy_last_seen\",\n      \"is_residential_proxy\": true,\n      \"is_vpn\": true,\n      \"vpn_provider_names\": [\n        \"vpn_provider_names\"\n      ],\n      \"vpn_confidence_score\": 1.1,\n      \"vpn_last_seen\": \"vpn_last_seen\",\n      \"is_relay\": true,\n      \"relay_provider_name\": \"relay_provider_name\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_bot\": true,\n      \"is_spam\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider_name\": \"cloud_provider_name\"\n    },\n    \"abuse\": {\n      \"route\": \"route\",\n      \"country\": \"country\",\n      \"name\": \"name\",\n      \"organization\": \"organization\",\n      \"kind\": \"kind\",\n      \"address\": \"address\",\n      \"emails\": [\n        \"emails\"\n      ],\n      \"phone_numbers\": [\n        \"phone_numbers\"\n      ]\n    },\n    \"time_zone\": {\n      \"name\": \"name\",\n      \"offset\": 1.1,\n      \"offset_with_dst\": 1.1,\n      \"current_time\": \"current_time\",\n      \"current_time_unix\": 1.1,\n      \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n      \"current_tz_full_name\": \"current_tz_full_name\",\n      \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n      \"standard_tz_full_name\": \"standard_tz_full_name\",\n      \"is_dst\": true,\n      \"dst_savings\": 1.1,\n      \"dst_exists\": true,\n      \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n      \"dst_tz_full_name\": \"dst_tz_full_name\"\n    },\n    \"user_agent\": {\n      \"user_agent_string\": \"user_agent_string\",\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\"\n    }\n  }\n]",
+        "body": "[\n  {\n    \"ip\": \"ip\",\n    \"domain\": \"domain\",\n    \"hostname\": \"hostname\",\n    \"location\": {\n      \"continent_code\": \"continent_code\",\n      \"continent_name\": \"continent_name\",\n      \"country_code2\": \"country_code2\",\n      \"country_code3\": \"country_code3\",\n      \"country_name\": \"country_name\",\n      \"country_name_official\": \"country_name_official\",\n      \"country_capital\": \"country_capital\",\n      \"state_prov\": \"state_prov\",\n      \"state_code\": \"state_code\",\n      \"district\": \"district\",\n      \"city\": \"city\",\n      \"locality\": \"locality\",\n      \"accuracy_radius\": \"accuracy_radius\",\n      \"confidence\": \"confidence\",\n      \"dma_code\": \"dma_code\",\n      \"zipcode\": \"zipcode\",\n      \"latitude\": \"latitude\",\n      \"longitude\": \"longitude\",\n      \"is_eu\": true,\n      \"country_flag\": \"country_flag\",\n      \"geoname_id\": \"geoname_id\",\n      \"country_emoji\": \"country_emoji\"\n    },\n    \"country_metadata\": {\n      \"calling_code\": \"calling_code\",\n      \"tld\": \"tld\",\n      \"languages\": [\n        \"languages\"\n      ]\n    },\n    \"network\": {\n      \"connection_type\": \"connection_type\",\n      \"route\": \"route\",\n      \"is_anycast\": true,\n      \"cdn_provider_name\": \"cdn_provider_name\",\n      \"is_cdn\": true\n    },\n    \"asn\": {\n      \"as_number\": \"as_number\",\n      \"organization\": \"organization\",\n      \"country\": \"country\",\n      \"type\": \"type\",\n      \"domain\": \"domain\",\n      \"date_allocated\": \"date_allocated\",\n      \"rir\": \"rir\"\n    },\n    \"company\": {\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"domain\": \"domain\"\n    },\n    \"currency\": {\n      \"code\": \"code\",\n      \"name\": \"name\",\n      \"symbol\": \"symbol\"\n    },\n    \"security\": {\n      \"threat_score\": 1.1,\n      \"is_tor\": true,\n      \"is_proxy\": true,\n      \"proxy_provider_names\": [\n        \"proxy_provider_names\"\n      ],\n      \"proxy_confidence_score\": 1.1,\n      \"proxy_last_seen\": \"proxy_last_seen\",\n      \"proxy_days_seen_30d\": 1,\n      \"proxy_days_seen_7d\": 1,\n      \"proxy_provider_count_30d\": 1,\n      \"is_residential_proxy\": true,\n      \"is_vpn\": true,\n      \"vpn_provider_names\": [\n        \"vpn_provider_names\"\n      ],\n      \"vpn_confidence_score\": 1.1,\n      \"vpn_last_seen\": \"vpn_last_seen\",\n      \"is_relay\": true,\n      \"relay_provider_name\": \"relay_provider_name\",\n      \"is_anonymous\": true,\n      \"is_known_attacker\": true,\n      \"is_bot\": true,\n      \"is_spam\": true,\n      \"is_cloud_provider\": true,\n      \"cloud_provider_name\": \"cloud_provider_name\",\n      \"bot_confidence_score\": 1.1,\n      \"bot_last_seen\": \"bot_last_seen\",\n      \"bot_operator_name\": \"bot_operator_name\",\n      \"bot_type\": \"bot_type\",\n      \"corporate_gateway_provider_name\": \"corporate_gateway_provider_name\",\n      \"corporate_gateway_type\": \"corporate_gateway_type\",\n      \"is_corporate_gateway\": true,\n      \"is_known_good_bot\": true\n    },\n    \"abuse\": {\n      \"route\": \"route\",\n      \"country\": \"country\",\n      \"name\": \"name\",\n      \"organization\": \"organization\",\n      \"kind\": \"kind\",\n      \"address\": \"address\",\n      \"emails\": [\n        \"emails\"\n      ],\n      \"phone_numbers\": [\n        \"phone_numbers\"\n      ]\n    },\n    \"time_zone\": {\n      \"name\": \"name\",\n      \"offset\": 1.1,\n      \"offset_with_dst\": 1.1,\n      \"current_time\": \"current_time\",\n      \"current_time_unix\": 1.1,\n      \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n      \"current_tz_full_name\": \"current_tz_full_name\",\n      \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n      \"standard_tz_full_name\": \"standard_tz_full_name\",\n      \"is_dst\": true,\n      \"dst_savings\": 1.1,\n      \"dst_exists\": true,\n      \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n      \"dst_tz_full_name\": \"dst_tz_full_name\"\n    },\n    \"user_agent\": {\n      \"user_agent_string\": \"user_agent_string\",\n      \"name\": \"name\",\n      \"type\": \"type\",\n      \"version\": \"version\",\n      \"version_major\": \"version_major\"\n    }\n  }\n]",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1204,7 +1266,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"success\": true,\n  \"timestamp\": 1,\n  \"rates\": {\n    \"key\": 1.1\n  },\n  \"metadata\": {\n    \"key\": {\n      \"unit\": \"unit\",\n      \"quote\": \"quote\"\n    }\n  },\n  \"warning\": \"warning\"\n}",
+        "body": "{\n  \"success\": true,\n  \"timestamp\": 1,\n  \"rates\": {\n    \"key\": 1.1\n  },\n  \"metadata\": {\n    \"key\": {\n      \"unit\": \"unit\",\n      \"quote\": \"quote\"\n    }\n  },\n  \"warning\": \"warning\",\n  \"unresolved\": {\n    \"key\": {\n      \"message\": \"message\",\n      \"suggestions\": [\n        \"suggestions\"\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1246,7 +1308,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"success\": true,\n  \"date\": \"date\",\n  \"rates\": {\n    \"key\": {\n      \"date\": \"date\",\n      \"open\": 1.1,\n      \"high\": 1.1,\n      \"low\": 1.1,\n      \"close\": 1.1\n    }\n  }\n}",
+        "body": "{\n  \"success\": true,\n  \"date\": \"date\",\n  \"rates\": {\n    \"key\": {\n      \"date\": \"date\",\n      \"open\": 1.1,\n      \"high\": 1.1,\n      \"low\": 1.1,\n      \"close\": 1.1\n    }\n  },\n  \"unresolved\": {\n    \"key\": {\n      \"message\": \"message\",\n      \"suggestions\": [\n        \"suggestions\"\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1291,7 +1353,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"success\": true,\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"rates\": {\n    \"key\": {\n      \"startRate\": 1.1,\n      \"endRate\": 1.1,\n      \"change\": 1.1,\n      \"changePercent\": 1.1\n    }\n  }\n}",
+        "body": "{\n  \"success\": true,\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"rates\": {\n    \"key\": {\n      \"startRate\": 1.1,\n      \"endRate\": 1.1,\n      \"change\": 1.1,\n      \"changePercent\": 1.1\n    }\n  },\n  \"unresolved\": {\n    \"key\": {\n      \"message\": \"message\",\n      \"suggestions\": [\n        \"suggestions\"\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1336,7 +1398,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"success\": true,\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"rates\": {\n    \"key\": {\n      \"key\": {\n        \"open\": 1.1,\n        \"high\": 1.1,\n        \"low\": 1.1,\n        \"close\": 1.1\n      }\n    }\n  }\n}",
+        "body": "{\n  \"success\": true,\n  \"startDate\": \"startDate\",\n  \"endDate\": \"endDate\",\n  \"rates\": {\n    \"key\": {\n      \"key\": {\n        \"open\": 1.1,\n        \"high\": 1.1,\n        \"low\": 1.1,\n        \"close\": 1.1\n      }\n    }\n  },\n  \"unresolved\": {\n    \"key\": {\n      \"message\": \"message\",\n      \"suggestions\": [\n        \"suggestions\"\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1368,12 +1430,53 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"success\": true,\n  \"symbols\": [\n    {\n      \"symbol\": \"symbol\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"category\": \"category\",\n      \"status\": \"active\",\n      \"updateInterval\": \"PER_SECOND\",\n      \"exchange\": \"exchange\",\n      \"deprecationDate\": \"2023-01-15\",\n      \"currency\": {\n        \"code\": \"code\",\n        \"name\": \"name\",\n        \"symbol\": \"symbol\"\n      },\n      \"unit\": {\n        \"symbol\": \"symbol\",\n        \"name\": \"name\"\n      }\n    }\n  ]\n}",
+        "body": "{\n  \"success\": true,\n  \"symbols\": [\n    {\n      \"symbol\": \"symbol\",\n      \"name\": \"name\",\n      \"description\": \"description\",\n      \"category\": \"category\",\n      \"status\": \"active\",\n      \"updateInterval\": \"PER_SECOND\",\n      \"exchange\": \"exchange\",\n      \"deprecationDate\": \"2023-01-15\",\n      \"currency\": {\n        \"code\": \"code\",\n        \"name\": \"name\",\n        \"symbol\": \"symbol\"\n      },\n      \"unit\": {\n        \"symbol\": \"symbol\",\n        \"name\": \"name\"\n      },\n      \"contract\": \"contract\",\n      \"deliveryMonth\": \"deliveryMonth\",\n      \"expiresAt\": \"2023-01-15\",\n      \"underlying\": \"underlying\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
       "uuid": "da015a1a-92ce-4b5d-a694-0d455ee7403c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "3362ae91-fe33-4d08-b1e3-1f1af988c5c8",
+      "name": "Get intraday commodity rates - Hourly gold prices from 18:00 UTC",
+      "request": {
+        "urlPathTemplate": "/v2.0/commodity/rates/intraday",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "symbols": {
+            "equalTo": "symbols"
+          },
+          "interval": {
+            "equalTo": "1m"
+          },
+          "date": {
+            "equalTo": "2023-01-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"success\": true,\n  \"symbol\": \"XAU\",\n  \"date\": \"2026-10-14\",\n  \"interval\": \"1h\",\n  \"startTime\": \"18:00\",\n  \"count\": 6,\n  \"nextStartTime\": null,\n  \"rates\": {\n    \"2026-10-14T18:00:00Z\": 4084.75,\n    \"2026-10-14T19:00:00Z\": 4097.03,\n    \"2026-10-14T20:00:00Z\": 4101.92,\n    \"2026-10-14T21:00:00Z\": 4105.72,\n    \"2026-10-14T22:00:00Z\": 4105.72,\n    \"2026-10-14T23:00:00Z\": 4106.41\n  },\n  \"metadata\": {\n    \"XAU\": {\n      \"unit\": \"T.oz\",\n      \"quote\": \"USD\"\n    }\n  },\n  \"unresolved\": {\n    \"key\": {\n      \"message\": \"message\",\n      \"resolvedTo\": \"resolvedTo\",\n      \"suggestions\": [\n        \"suggestions\"\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3362ae91-fe33-4d08-b1e3-1f1af988c5c8",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1736,6 +1839,9 @@
           },
           "file_password": {
             "equalTo": "file_password"
+          },
+          "user_password": {
+            "equalTo": "user_password"
           }
         }
       },
@@ -1961,9 +2067,9 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "base64Body": "JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSA+PgplbmRvYmoKeHJlZgowIDQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDAwNjQgMDAwMDAgbiAKMDAwMDAwMDEyMSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDQgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjE5MgolJUVPRgo=",
         "headers": {
-          "Content-Type": "application/json"
+          "Content-Type": "application/octet-stream"
         }
       },
       "uuid": "61374495-f434-4524-ae28-04d4a3498dec",
@@ -1996,7 +2102,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"taskId\": \"taskId\",\n  \"status\": \"status\",\n  \"createdAt\": \"2024-01-15T09:30:00Z\",\n  \"zipOutputUrl\": \"zipOutputUrl\",\n  \"zipFileId\": \"zipFileId\",\n  \"outputUrls\": [\n    \"outputUrls\"\n  ],\n  \"outputIds\": [\n    \"outputIds\"\n  ],\n  \"inputIds\": [\n    \"inputIds\"\n  ],\n  \"error\": \"error\",\n  \"message\": \"message\",\n  \"expiresAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "body": "{\n  \"taskId\": \"taskId\",\n  \"status\": \"status\",\n  \"createdAt\": \"createdAt\",\n  \"zipFileId\": \"zipFileId\",\n  \"outputUrls\": [\n    \"outputUrls\"\n  ],\n  \"outputIds\": [\n    \"outputIds\"\n  ],\n  \"inputIds\": [\n    \"inputIds\"\n  ],\n  \"error\": \"error\",\n  \"message\": \"message\",\n  \"expiresAt\": \"expiresAt\",\n  \"zipFileUrl\": \"zipFileUrl\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2116,6 +2222,74 @@
       }
     },
     {
+      "id": "a9f60c49-b589-4ff5-9f9d-262fb2ff84b0",
+      "name": "Generate a PDF from a template - Resume template data",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/template/generate",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "template_id": {
+            "equalTo": "template_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"template_id\": \"73691bce-1c58-4370-acc6-64b2dd14f81c\",\n  \"pdf_url\": \"https://s3.eu-central-2.wasabisys.com/w.storage.apifreaks.com/pdf_templates/73691bce-1c58-4370-acc6-64b2dd14f81c/Candidate%20Resume_20260810141214723405.pdf\",\n  \"created_at\": \"2026-08-10T14:12:17Z\",\n  \"expiration_time\": \"2026-11-10T14:12:17Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a9f60c49-b589-4ff5-9f9d-262fb2ff84b0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "10846f68-46c9-4886-859d-7f4a31f132ce",
+      "name": "Generate PDFs in bulk from a CSV - Generated PDFs for two rows",
+      "request": {
+        "urlPathTemplate": "/v1.0/pdf/template/generate/bulk",
+        "method": "POST",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          },
+          "template_id": {
+            "equalTo": "template_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"template_id\": \"73691bce-1c58-4370-acc6-64b2dd14f81c\",\n    \"pdf_url\": \"https://s3.eu-central-2.wasabisys.com/w.storage.apifreaks.com/pdf_templates/73691bce-1c58-4370-acc6-64b2dd14f81c/Candidate%20Resume_20260810141245054106_1.pdf\",\n    \"created_at\": \"2026-08-10T14:12:47Z\",\n    \"expiration_time\": \"2026-11-10T14:12:47Z\"\n  },\n  {\n    \"template_id\": \"73691bce-1c58-4370-acc6-64b2dd14f81c\",\n    \"pdf_url\": \"https://s3.eu-central-2.wasabisys.com/w.storage.apifreaks.com/pdf_templates/73691bce-1c58-4370-acc6-64b2dd14f81c/Candidate%20Resume_20260810141245054154_2.pdf\",\n    \"created_at\": \"2026-08-10T14:12:47Z\",\n    \"expiration_time\": \"2026-11-10T14:12:47Z\"\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "10846f68-46c9-4886-859d-7f4a31f132ce",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "578c429c-9178-49ac-8e21-f8a16086debd",
       "name": "Build screenshots the way real users see the web — not just what fits on the screen. - default",
       "request": {
@@ -2132,7 +2306,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"screenshot\": \"screenshot\",\n  \"url\": \"url\",\n  \"created_at\": \"created_at\",\n  \"format\": \"format\",\n  \"ttl\": \"ttl\",\n  \"file_type\": \"file_type\",\n  \"extracted_html\": \"extracted_html\",\n  \"omit_background\": true,\n  \"destroy_screenshot\": true,\n  \"fail_on_error\": true,\n  \"longitude\": \"longitude\",\n  \"latitude\": \"latitude\",\n  \"proxy\": \"proxy\",\n  \"no_cookie_banners\": true,\n  \"block_ads\": true,\n  \"headers\": \"headers\",\n  \"cookies\": \"cookies\",\n  \"scroll_to_element\": \"scroll_to_element\",\n  \"selector\": \"selector\",\n  \"blur_selector\": \"blur_selector\",\n  \"remove_selector\": \"remove_selector\",\n  \"css\": \"css\",\n  \"css_url\": \"css_url\",\n  \"js\": \"js\",\n  \"js_url\": \"js_url\",\n  \"user_agent\": \"user_agent\",\n  \"accept_languages\": \"accept_languages\",\n  \"delay\": 1.1,\n  \"thumbnail_width\": 1.1,\n  \"output\": \"output\",\n  \"fresh\": true,\n  \"enable_caching\": true,\n  \"lazy_load\": true,\n  \"full_page\": true,\n  \"retina\": true,\n  \"height\": \"height\",\n  \"width\": \"width\",\n  \"custom_html\": \"custom_html\",\n  \"block_chat_widgets\": true,\n  \"block_js\": true,\n  \"block_stylesheets\": true,\n  \"block_images\": true,\n  \"block_media\": true,\n  \"block_font\": true,\n  \"block_text_track\": true,\n  \"block_xhr\": true,\n  \"block_fetch\": true,\n  \"block_event_source\": true,\n  \"block_web_socket\": true,\n  \"block_manifest\": true,\n  \"block_specific_requests\": \"block_specific_requests\",\n  \"adjust_top\": 1.1,\n  \"image_quality\": 1.1,\n  \"extract_html\": true,\n  \"extract_text\": true,\n  \"dark_mode\": true,\n  \"block_tracking\": true,\n  \"wait_for_event\": \"wait_for_event\",\n  \"grayscale\": 1.1,\n  \"result_file_name\": \"result_file_name\",\n  \"enable_incognito\": true,\n  \"timeout\": 1.1,\n  \"scrolling_screenshot\": true,\n  \"multiple_scrolling\": true,\n  \"scroll_speed\": \"scroll_speed\",\n  \"duration\": 1.1,\n  \"scroll_back\": true,\n  \"start_immediately\": true,\n  \"clip\": {\n    \"height\": 1,\n    \"width\": 1,\n    \"x\": 1,\n    \"y\": 1\n  },\n  \"sizes\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"click_recursion\": 1,\n  \"extract_markdown\": true,\n  \"extracted_text\": \"extracted_text\",\n  \"get_image_urls\": true,\n  \"scroll_delay\": 1,\n  \"selector_to_click\": \"selector_to_click\",\n  \"video\": true\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2164,7 +2338,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"status\": \"status\",\n  \"meta_data\": {\n    \"total_urls\": 1,\n    \"successful_urls\": 1,\n    \"failed_urls\": 1\n  },\n  \"results\": [\n    {\n      \"status\": \"status\",\n      \"error_message\": \"error_message\",\n      \"url\": {\n        \"screenshot\": \"screenshot\",\n        \"url\": \"url\",\n        \"created_at\": \"created_at\",\n        \"format\": \"format\",\n        \"ttl\": \"ttl\"\n      }\n    }\n  ]\n}",
+        "body": "{\n  \"status\": \"status\",\n  \"meta_data\": {\n    \"total_urls\": 1,\n    \"successful_urls\": 1,\n    \"failed_urls\": 1\n  },\n  \"results\": [\n    {\n      \"status\": \"status\",\n      \"error_message\": \"error_message\",\n      \"url\": {\n        \"screenshot\": \"screenshot\",\n        \"url\": \"url\",\n        \"created_at\": \"created_at\",\n        \"ttl\": \"ttl\"\n      }\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2719,7 +2893,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"success\": true,\n  \"symbols\": [\n    {\n      \"symbol\": \"symbol\",\n      \"name\": \"name\",\n      \"category\": \"category\",\n      \"status\": \"status\",\n      \"updateInterval\": \"PER_SECOND\",\n      \"currency\": {\n        \"code\": \"code\",\n        \"name\": \"name\",\n        \"symbol\": \"symbol\"\n      },\n      \"unit\": {\n        \"symbol\": \"symbol\",\n        \"name\": \"name\"\n      }\n    }\n  ]\n}",
+        "body": "{\n  \"success\": true,\n  \"symbols\": [\n    {\n      \"symbol\": \"symbol\",\n      \"name\": \"name\",\n      \"category\": \"category\",\n      \"status\": \"status\",\n      \"updateInterval\": \"PER_SECOND\",\n      \"currency\": {\n        \"code\": \"code\",\n        \"name\": \"name\",\n        \"symbol\": \"symbol\"\n      },\n      \"unit\": {\n        \"symbol\": \"symbol\",\n        \"name\": \"name\"\n      },\n      \"description\": \"description\",\n      \"exchange\": \"exchange\",\n      \"deprecationDate\": \"2023-01-15\",\n      \"contract\": \"contract\",\n      \"deliveryMonth\": \"deliveryMonth\",\n      \"expiresAt\": \"2023-01-15\",\n      \"underlying\": \"underlying\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2751,7 +2925,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"VAT_Supported_Countries_And_States\": [\n    {\n      \"code\": \"code\",\n      \"name\": \"name\",\n      \"states\": [\n        \"states\"\n      ]\n    },\n    {\n      \"code\": \"code\",\n      \"name\": \"name\",\n      \"states\": [\n        \"states\"\n      ]\n    },\n    {\n      \"code\": \"code\",\n      \"name\": \"name\",\n      \"states\": [\n        \"states\"\n      ]\n    }\n  ]\n}",
+        "body": "{\n  \"VAT_Supported_Countries_And_States\": [\n    {\n      \"afghanistan\": {\n        \"code\": \"af\"\n      }\n    },\n    {\n      \"albania\": {\n        \"code\": \"al\"\n      }\n    },\n    {\n      \"algeria\": {\n        \"code\": \"dz\"\n      }\n    }\n  ],\n  \"IBAN_Supported_Countries\": [\n    {\n      \"countryCode\": \"AL\",\n      \"name\": \"Albania\"\n    },\n    {\n      \"countryCode\": \"AD\",\n      \"name\": \"Andorra\"\n    },\n    {\n      \"countryCode\": \"AT\",\n      \"name\": \"Austria\"\n    },\n    {\n      \"countryCode\": \"AZ\",\n      \"name\": \"Azerbaijan\"\n    }\n  ],\n  \"SWIFT_Supported_Countries\": [\n    {\n      \"name\": \"Albania\",\n      \"countryCode\": \"AL\"\n    },\n    {\n      \"name\": \"Andorra\",\n      \"countryCode\": \"AD\"\n    },\n    {\n      \"name\": \"Argentina\",\n      \"countryCode\": \"AR\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2783,7 +2957,7 @@
       },
       "response": {
         "status": 200,
-        "body": "[\n  {\n    \"country\": \"DE\",\n    \"type\": \"vat\",\n    \"currency\": \"EUR\",\n    \"standard_rate\": 0.19,\n    \"reduced_rate\": [\n      0.07,\n      0\n    ],\n    \"super_reduced_rate\": [\n      0.021\n    ],\n    \"parking_rate\": 0.19,\n    \"categories\": {\n      \"broadcasting\": 0.19,\n      \"books\": 0.07,\n      \"newspapers\": 0.07,\n      \"periodicals\": 0.07\n    }\n  }\n]",
+        "body": "[\n  {\n    \"country\": \"DE\",\n    \"type\": \"vat\",\n    \"currency\": \"EUR\",\n    \"standard_rate\": 0.19,\n    \"reduced_rate\": [\n      0.07,\n      0\n    ],\n    \"super_reduced_rate\": [\n      0.021\n    ],\n    \"parking_rate\": 0.19,\n    \"categories\": {\n      \"broadcasting\": 0.19,\n      \"books\": 0.07,\n      \"newspapers\": 0.07,\n      \"periodicals\": 0.07\n    },\n    \"state\": \"state\"\n  }\n]",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2850,7 +3024,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"countries\": [\n    {\n      \"country\": \"de\",\n      \"state\": \"New_York\",\n      \"type\": \"vat\",\n      \"currency\": \"EUR\",\n      \"standard_rate\": 0.19,\n      \"reduced_rate\": [\n        0.07,\n        0\n      ],\n      \"super_reduced_rate\": [\n        0.021\n      ],\n      \"parking_rate\": 0.19,\n      \"categories\": {\n        \"broadcasting\": 0.19,\n        \"books\": 0.07,\n        \"newspapers\": 0.07,\n        \"periodicals\": 0.07\n      }\n    },\n    {\n      \"country\": \"United_States\",\n      \"state\": \"New_York\",\n      \"type\": \"vat\",\n      \"currency\": \"USD\",\n      \"standard_rate\": 0.04,\n      \"reduced_rate\": [\n        0.055,\n        0\n      ],\n      \"super_reduced_rate\": [\n        0.021\n      ],\n      \"parking_rate\": 0.19,\n      \"categories\": {\n        \"books\": 0.055,\n        \"newspapers\": 0.021,\n        \"periodicals\": 0.021,\n        \"broadcasting\": 0.1\n      }\n    }\n  ]\n}",
+        "body": "[\n  {\n    \"country\": \"DE\",\n    \"state\": \"New_York\",\n    \"type\": \"vat\",\n    \"currency\": \"EUR\",\n    \"standard_rate\": 0.19,\n    \"reduced_rate\": [\n      0.07,\n      0\n    ],\n    \"super_reduced_rate\": [\n      0.021\n    ],\n    \"parking_rate\": 0.19,\n    \"categories\": {\n      \"books\": 0.07,\n      \"newspapers\": 0.07,\n      \"periodicals\": 0.07,\n      \"broadcasting\": 0.19\n    }\n  },\n  {\n    \"country\": \"USA\",\n    \"state\": \"CA\",\n    \"type\": \"vat\",\n    \"currency\": \"\",\n    \"standard_rate\": 0.0825,\n    \"reduced_rate\": [\n      0.055,\n      0\n    ],\n    \"super_reduced_rate\": [\n      0.021\n    ],\n    \"parking_rate\": 0.19,\n    \"categories\": {\n      \"books\": 0.055,\n      \"newspapers\": 0.021,\n      \"periodicals\": 0.021,\n      \"broadcasting\": 0.1\n    }\n  }\n]",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2919,7 +3093,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"valid\": true,\n  \"iban\": \"GB49NWBK08609000000003\",\n  \"validation\": {\n    \"is_alpha_numeric\": true,\n    \"is_iban_supported_country\": true,\n    \"is_valid_length\": true,\n    \"is_valid_structure\": true,\n    \"is_iban_check_digit_valid\": true,\n    \"bban\": \"valid\"\n  },\n  \"bank_data\": {\n    \"bic\": \"NWBKGB2LBHM\",\n    \"bank\": \"NATIONAL WESTMINSTER BANK PLC\",\n    \"bank_code\": \"NWBK\",\n    \"branch_code\": \"branch_code\",\n    \"country\": \"United Kingdom\",\n    \"country_iso2\": \"GB\",\n    \"city\": \"BIRMINGHAM\",\n    \"address\": \"6 BRINDLEY PLACE\",\n    \"account\": \"00000003\",\n    \"sepa\": true\n  }\n}",
+        "body": "{\n  \"valid\": true,\n  \"iban\": \"GB49NWBK08609000000003\",\n  \"validation\": {\n    \"is_alpha_numeric\": true,\n    \"is_iban_supported_country\": true,\n    \"is_valid_length\": true,\n    \"is_valid_structure\": true,\n    \"is_iban_check_digit_valid\": true,\n    \"bban\": \"valid\"\n  },\n  \"bank_data\": {\n    \"bic\": \"NWBKGB2LBHM\",\n    \"bank\": \"NATIONAL WESTMINSTER BANK PLC\",\n    \"bank_code\": \"NWBK\",\n    \"branch_code\": \"branch_code\",\n    \"country\": \"United Kingdom\",\n    \"country_iso2\": \"GB\",\n    \"city\": \"BIRMINGHAM\",\n    \"address\": \"6 BRINDLEY PLACE\",\n    \"account\": \"00000003\",\n    \"sepa\": true,\n    \"branch_name\": \"branch_name\",\n    \"instit_type\": \"instit_type\",\n    \"postal_code\": \"postal_code\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2986,7 +3160,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"swiftCode\": \"swiftCode\",\n  \"countryCode\": \"countryCode\",\n  \"bankAddress\": \"bankAddress\",\n  \"bankCode\": \"bankCode\",\n  \"bankName\": \"bankName\",\n  \"city\": \"city\",\n  \"country\": \"country\"\n}",
+        "body": "{\n  \"swiftCode\": \"swiftCode\",\n  \"countryCode\": \"countryCode\",\n  \"bankAddress\": \"bankAddress\",\n  \"bankCode\": \"bankCode\",\n  \"bankName\": \"bankName\",\n  \"city\": \"city\",\n  \"country\": \"country\",\n  \"branchName\": \"branchName\",\n  \"institType\": \"institType\",\n  \"postalCode\": \"postalCode\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3120,9 +3294,6 @@
           },
           "country": {
             "equalTo": "country"
-          },
-          "region": {
-            "equalTo": "region"
           }
         }
       },
@@ -3425,7 +3596,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"location\": {\n    \"continent_code\": \"NA\",\n    \"continent_name\": \"North America\",\n    \"country_code2\": \"US\",\n    \"country_code3\": \"USA\",\n    \"country_name\": \"United States\",\n    \"country_name_official\": \"United States of America\",\n    \"is_eu\": false,\n    \"state_prov\": \"California\",\n    \"state_code\": \"US-CA\",\n    \"district\": \"Santa Clara\",\n    \"city\": \"Mountain View\",\n    \"zipcode\": \"94043-1351\",\n    \"latitude\": \"37.42240\",\n    \"longitude\": \"-122.08421\",\n    \"locality\": \"Charleston Terrace\",\n    \"elevation\": \"3\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"timezone_abbreviation\": \"GMT-7\"\n  },\n  \"current\": {\n    \"timestamp\": \"timestamp\",\n    \"wave_height\": 1.1,\n    \"wave_direction\": 1.1,\n    \"wave_period\": 1.1,\n    \"wind_wave_height\": 1.1,\n    \"wind_wave_direction\": 1.1,\n    \"wind_wave_period\": 1.1,\n    \"swell_wave_height\": 1.1,\n    \"swell_wave_direction\": 1.1,\n    \"swell_wave_period\": 1.1,\n    \"sea_level_height_msl\": 1.1,\n    \"sea_surface_temperature\": 1.1,\n    \"ocean_current_velocity\": 1.1,\n    \"ocean_current_direction\": 1.1\n  },\n  \"forecast\": {\n    \"2025-10-01\": {\n      \"daily\": {\n        \"timestamp\": \"2025-10-01\"\n      },\n      \"hourly\": [\n        {}\n      ],\n      \"minutely\": [\n        {}\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"location\": {\n    \"continent_code\": \"NA\",\n    \"continent_name\": \"North America\",\n    \"country_code2\": \"US\",\n    \"country_code3\": \"USA\",\n    \"country_name\": \"United States\",\n    \"country_name_official\": \"United States of America\",\n    \"is_eu\": false,\n    \"state_prov\": \"California\",\n    \"state_code\": \"US-CA\",\n    \"district\": \"Santa Clara\",\n    \"city\": \"Mountain View\",\n    \"zipcode\": \"94043-1351\",\n    \"latitude\": \"37.42240\",\n    \"longitude\": \"-122.08421\",\n    \"locality\": \"Charleston Terrace\",\n    \"elevation\": \"3\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"timezone_abbreviation\": \"GMT-7\"\n  },\n  \"current\": {\n    \"timestamp\": \"timestamp\",\n    \"wave_height\": 1.1,\n    \"wave_direction\": 1.1,\n    \"wave_period\": 1.1,\n    \"wind_wave_height\": 1.1,\n    \"wind_wave_direction\": 1.1,\n    \"wind_wave_period\": 1.1,\n    \"swell_wave_height\": 1.1,\n    \"swell_wave_direction\": 1.1,\n    \"swell_wave_period\": 1.1,\n    \"sea_level_height_msl\": 1.1,\n    \"sea_surface_temperature\": 1.1,\n    \"ocean_current_velocity\": 1.1,\n    \"ocean_current_direction\": 1.1,\n    \"swell_wave_peak_period\": 1.1,\n    \"wind_wave_peak_period\": 1.1\n  },\n  \"forecast\": {\n    \"2025-10-01\": {\n      \"daily\": {\n        \"timestamp\": \"2025-10-01\"\n      },\n      \"hourly\": [\n        {}\n      ],\n      \"minutely\": [\n        {}\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3621,9 +3792,6 @@
         "queryParameters": {
           "apiKey": {
             "equalTo": "apiKey"
-          },
-          "region": {
-            "equalTo": "region"
           }
         }
       },
@@ -3737,7 +3905,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"name\": \"name\",\n  \"admin_code\": \"admin_code\",\n  \"admin_level\": \"admin_level\",\n  \"iso_alpha_2\": \"iso_alpha_2\",\n  \"country_name\": \"country_name\"\n}",
+        "body": "{\n  \"name\": \"Bavaria\",\n  \"admin_code\": \"BY\",\n  \"admin_iso3166_2\": \"DE-BY\",\n  \"admin_level\": \"land\",\n  \"country_iso3166_2\": \"DE\",\n  \"country_name\": \"Germany\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3804,7 +3972,7 @@
       },
       "response": {
         "status": 200,
-        "body": "[\n  {\n    \"name\": \"name\",\n    \"iso2\": \"iso2\",\n    \"iso3\": \"iso3\"\n  }\n]",
+        "body": "{\n  \"supported_countries\": [\n    {\n      \"name\": \"name\",\n      \"iso2\": \"iso2\",\n      \"iso3\": \"iso3\"\n    }\n  ],\n  \"supported_organizations\": [\n    \"supported_organizations\"\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3845,9 +4013,9 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "base64Body": "JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSA+PgplbmRvYmoKeHJlZgowIDQKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDAwNjQgMDAwMDAgbiAKMDAwMDAwMDEyMSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDQgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjE5MgolJUVPRgo=",
         "headers": {
-          "Content-Type": "application/json"
+          "Content-Type": "application/octet-stream"
         }
       },
       "uuid": "948f3128-accb-4f8d-830c-1e9860903471",
@@ -3877,7 +4045,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"ip\": \"ip\",\n  \"location\": {\n    \"location_string\": \"location_string\",\n    \"country_name\": \"country_name\",\n    \"state_prov\": \"state_prov\",\n    \"city\": \"city\",\n    \"locality\": \"locality\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\",\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name_official\": \"country_name_official\",\n    \"is_eu\": true,\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"zipcode\": \"zipcode\"\n  },\n  \"time_zone\": {\n    \"name\": \"name\",\n    \"offset\": 1.1,\n    \"offset_with_dst\": 1.1,\n    \"date\": \"date\",\n    \"date_time\": \"date_time\",\n    \"date_time_txt\": \"date_time_txt\",\n    \"date_time_wti\": \"date_time_wti\",\n    \"date_time_ymd\": \"date_time_ymd\",\n    \"date_time_unix\": 1.1,\n    \"time_24\": \"time_24\",\n    \"time_12\": \"time_12\",\n    \"week\": 1.1,\n    \"month\": 1.1,\n    \"year\": 1.1,\n    \"year_abbr\": \"year_abbr\",\n    \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n    \"current_tz_full_name\": \"current_tz_full_name\",\n    \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n    \"standard_tz_full_name\": \"standard_tz_full_name\",\n    \"is_dst\": true,\n    \"dst_savings\": 1.1,\n    \"dst_exists\": true,\n    \"dst_start\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    },\n    \"dst_end\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    }\n  },\n  \"airport_details\": {\n    \"type\": \"type\",\n    \"name\": \"name\",\n    \"longitude\": \"longitude\",\n    \"latitude\": \"latitude\",\n    \"elevation_ft\": 1.1,\n    \"continent_code\": \"continent_code\",\n    \"country_code\": \"country_code\",\n    \"state_code\": \"state_code\",\n    \"city\": \"city\",\n    \"iata_code\": \"iata_code\",\n    \"icao_code\": \"icao_code\",\n    \"faa_code\": \"faa_code\"\n  },\n  \"lo_code_details\": {\n    \"lo_code\": \"lo_code\",\n    \"city\": \"city\",\n    \"longitude\": \"longitude\",\n    \"latitude\": \"latitude\",\n    \"state_code\": \"state_code\",\n    \"country_code\": \"country_code\",\n    \"country_name\": \"country_name\",\n    \"location_type\": \"location_type\"\n  }\n}",
+        "body": "{\n  \"ip\": \"ip\",\n  \"location\": {\n    \"location_string\": \"location_string\",\n    \"country_name\": \"country_name\",\n    \"state_prov\": \"state_prov\",\n    \"city\": \"city\",\n    \"locality\": \"locality\",\n    \"latitude\": \"latitude\",\n    \"longitude\": \"longitude\",\n    \"continent_code\": \"continent_code\",\n    \"continent_name\": \"continent_name\",\n    \"country_code2\": \"country_code2\",\n    \"country_code3\": \"country_code3\",\n    \"country_name_official\": \"country_name_official\",\n    \"is_eu\": true,\n    \"state_code\": \"state_code\",\n    \"district\": \"district\",\n    \"zipcode\": \"zipcode\"\n  },\n  \"time_zone\": {\n    \"name\": \"name\",\n    \"offset\": 1.1,\n    \"offset_with_dst\": 1.1,\n    \"date\": \"date\",\n    \"date_time\": \"date_time\",\n    \"date_time_txt\": \"date_time_txt\",\n    \"date_time_wti\": \"date_time_wti\",\n    \"date_time_ymd\": \"date_time_ymd\",\n    \"date_time_unix\": 1.1,\n    \"time_24\": \"time_24\",\n    \"time_12\": \"time_12\",\n    \"week\": 1.1,\n    \"month\": 1.1,\n    \"year\": 1.1,\n    \"year_abbr\": \"year_abbr\",\n    \"current_tz_abbreviation\": \"current_tz_abbreviation\",\n    \"current_tz_full_name\": \"current_tz_full_name\",\n    \"standard_tz_abbreviation\": \"standard_tz_abbreviation\",\n    \"standard_tz_full_name\": \"standard_tz_full_name\",\n    \"is_dst\": true,\n    \"dst_savings\": 1.1,\n    \"dst_exists\": true,\n    \"dst_start\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    },\n    \"dst_end\": {\n      \"utc_time\": \"utc_time\",\n      \"duration\": \"duration\",\n      \"gap\": true,\n      \"date_time_after\": \"date_time_after\",\n      \"date_time_before\": \"date_time_before\",\n      \"overlap\": true\n    },\n    \"dst_tz_abbreviation\": \"dst_tz_abbreviation\",\n    \"dst_tz_full_name\": \"dst_tz_full_name\"\n  },\n  \"airport_details\": {\n    \"type\": \"type\",\n    \"name\": \"name\",\n    \"longitude\": \"longitude\",\n    \"latitude\": \"latitude\",\n    \"elevation_ft\": 1.1,\n    \"continent_code\": \"continent_code\",\n    \"country_code\": \"country_code\",\n    \"state_code\": \"state_code\",\n    \"city\": \"city\",\n    \"iata_code\": \"iata_code\",\n    \"icao_code\": \"icao_code\",\n    \"faa_code\": \"faa_code\"\n  },\n  \"lo_code_details\": {\n    \"lo_code\": \"lo_code\",\n    \"city\": \"city\",\n    \"longitude\": \"longitude\",\n    \"latitude\": \"latitude\",\n    \"state_code\": \"state_code\",\n    \"country_code\": \"country_code\",\n    \"country_name\": \"country_name\",\n    \"location_type\": \"location_type\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3999,6 +4167,9 @@
         "queryParameters": {
           "apiKey": {
             "equalTo": "apiKey"
+          },
+          "model": {
+            "equalTo": "mini-ocr-v1"
           }
         }
       },
@@ -4176,9 +4347,41 @@
         }
       },
       "postServeActions": []
+    },
+    {
+      "id": "e9350dd5-e65f-4c56-a6ad-fad3262a1f53",
+      "name": "Get remaining and consumed API credit balances for the organization - Typical response",
+      "request": {
+        "urlPathTemplate": "/v1.0/credits/usage/info",
+        "method": "GET",
+        "queryParameters": {
+          "apiKey": {
+            "equalTo": "apiKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"apiKey\": \"demo\",\n  \"userStatus\": \"active\",\n  \"subActive\": true,\n  \"subStatus\": \"active\",\n  \"subAllowedCredits\": 10000,\n  \"subUsedCredits\": 2500,\n  \"subSurchargeStatus\": \"none\",\n  \"subSurchargeAllowedCredits\": 0,\n  \"subSurchargeUsedCredits\": 0,\n  \"subSurchargeAllowed\": false,\n  \"oneOffCreditsActive\": true,\n  \"oneOffAllowedCredits\": 5000,\n  \"oneOffUsedCredits\": 1000\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e9350dd5-e65f-4c56-a6ad-fad3262a1f53",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
     }
   ],
   "meta": {
-    "total": 122
+    "total": 128
   }
 }

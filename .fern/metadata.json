@@ -1,13 +1,11 @@
 {
-  "cliVersion": "5.45.0",
+  "cliVersion": "5.223.1",
   "generatorName": "fernapi/fern-go-sdk",
-  "generatorVersion": "1.44.2",
+  "generatorVersion": "1.72.3",
   "generatorConfig": {
     "module": {
       "path": "github.com/api-freaks/af-go-sdk"
     }
   },
-  "originGitCommit": "32dbfddbf9005af23db304ae9876febb6b46603d",
-  "originGitCommitIsDirty": true,
   "invokedBy": "manual"
 }

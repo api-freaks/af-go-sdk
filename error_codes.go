@@ -83,6 +83,11 @@ var ErrorCodes internal.ErrorCodes = internal.ErrorCodes{
 			APIError: apiError,
 		}
 	},
+	422: func(apiError *core.APIError) error {
+		return &UnprocessableEntityError{
+			APIError: apiError,
+		}
+	},
 	407: func(apiError *core.APIError) error {
 		return &ProxyAuthenticationRequiredError{
 			APIError: apiError,
