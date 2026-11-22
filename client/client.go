@@ -6,10 +6,10 @@ import (
 	context "context"
 	io "io"
 
-	afgosdk "github.com/api-freaks/af-go-sdk"
-	core "github.com/api-freaks/af-go-sdk/core"
-	internal "github.com/api-freaks/af-go-sdk/internal"
-	option "github.com/api-freaks/af-go-sdk/option"
+	v2 "github.com/api-freaks/af-go-sdk/v2"
+	core "github.com/api-freaks/af-go-sdk/v2/core"
+	internal "github.com/api-freaks/af-go-sdk/v2/internal"
+	option "github.com/api-freaks/af-go-sdk/v2/option"
 )
 
 type Client struct {
@@ -40,7 +40,7 @@ func NewClient(opts ...option.RequestOption) *Client {
 //
 // Example:
 //
-//	request := &afgosdk.GeolocationLookupRequest{
+//	request := &v2.GeolocationLookupRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.GeolocationLookup(
@@ -49,9 +49,9 @@ func NewClient(opts ...option.RequestOption) *Client {
 //	)
 func (c *Client) GeolocationLookup(
 	ctx context.Context,
-	request *afgosdk.GeolocationLookupRequest,
+	request *v2.GeolocationLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GeolocationLookupResponse, error) {
+) (*v2.GeolocationLookupResponse, error) {
 	response, err := c.WithRawResponse.GeolocationLookup(
 		ctx,
 		request,
@@ -68,7 +68,7 @@ func (c *Client) GeolocationLookup(
 //
 // Example:
 //
-//	request := &afgosdk.BulkGeolocationLookupRequest{
+//	request := &v2.BulkGeolocationLookupRequest{
 //	    APIKey: "apiKey",
 //	    Ips: []string{
 //	        "ips",
@@ -80,9 +80,9 @@ func (c *Client) GeolocationLookup(
 //	)
 func (c *Client) BulkGeolocationLookup(
 	ctx context.Context,
-	request *afgosdk.BulkGeolocationLookupRequest,
+	request *v2.BulkGeolocationLookupRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.BulkGeolocationLookupResponseItem, error) {
+) ([]*v2.BulkGeolocationLookupResponseItem, error) {
 	response, err := c.WithRawResponse.BulkGeolocationLookup(
 		ctx,
 		request,
@@ -98,7 +98,7 @@ func (c *Client) BulkGeolocationLookup(
 //
 // Example:
 //
-//	request := &afgosdk.IPSecurityLookupRequest{
+//	request := &v2.IPSecurityLookupRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.IPSecurityLookup(
@@ -107,9 +107,9 @@ func (c *Client) BulkGeolocationLookup(
 //	)
 func (c *Client) IPSecurityLookup(
 	ctx context.Context,
-	request *afgosdk.IPSecurityLookupRequest,
+	request *v2.IPSecurityLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.IPSecurityLookupResponse, error) {
+) (*v2.IPSecurityLookupResponse, error) {
 	response, err := c.WithRawResponse.IPSecurityLookup(
 		ctx,
 		request,
@@ -125,7 +125,7 @@ func (c *Client) IPSecurityLookup(
 //
 // Example:
 //
-//	request := &afgosdk.BulkIPSecurityLookupRequest{
+//	request := &v2.BulkIPSecurityLookupRequest{
 //	    APIKey: "apiKey",
 //	    Ips: []string{
 //	        "ips",
@@ -137,9 +137,9 @@ func (c *Client) IPSecurityLookup(
 //	)
 func (c *Client) BulkIPSecurityLookup(
 	ctx context.Context,
-	request *afgosdk.BulkIPSecurityLookupRequest,
+	request *v2.BulkIPSecurityLookupRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.BulkIPSecurityLookupResponseItem, error) {
+) ([]*v2.BulkIPSecurityLookupResponseItem, error) {
 	response, err := c.WithRawResponse.BulkIPSecurityLookup(
 		ctx,
 		request,
@@ -155,7 +155,7 @@ func (c *Client) BulkIPSecurityLookup(
 //
 // Example:
 //
-//	request := &afgosdk.GeocoderSearchRequest{
+//	request := &v2.GeocoderSearchRequest{
 //	    APIKey: "apiKey",
 //	    Query: "query",
 //	}
@@ -165,9 +165,9 @@ func (c *Client) BulkIPSecurityLookup(
 //	)
 func (c *Client) GeocoderSearch(
 	ctx context.Context,
-	request *afgosdk.GeocoderSearchRequest,
+	request *v2.GeocoderSearchRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.GeocoderSearchResponseItem, error) {
+) ([]*v2.GeocoderSearchResponseItem, error) {
 	response, err := c.WithRawResponse.GeocoderSearch(
 		ctx,
 		request,
@@ -183,7 +183,7 @@ func (c *Client) GeocoderSearch(
 //
 // Example:
 //
-//	request := &afgosdk.GeocoderReverseRequest{
+//	request := &v2.GeocoderReverseRequest{
 //	    APIKey: "apiKey",
 //	    Lat: 1.1,
 //	    Lon: 1.1,
@@ -194,9 +194,9 @@ func (c *Client) GeocoderSearch(
 //	)
 func (c *Client) GeocoderReverse(
 	ctx context.Context,
-	request *afgosdk.GeocoderReverseRequest,
+	request *v2.GeocoderReverseRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GeocoderReverseResponse, error) {
+) (*v2.GeocoderReverseResponse, error) {
 	response, err := c.WithRawResponse.GeocoderReverse(
 		ctx,
 		request,
@@ -214,7 +214,7 @@ func (c *Client) GeocoderReverse(
 //
 // Example:
 //
-//	request := &afgosdk.DomainWhoisLookupRequest{
+//	request := &v2.DomainWhoisLookupRequest{
 //	    APIKey: "apiKey",
 //	    DomainName: "domainName",
 //	}
@@ -224,9 +224,9 @@ func (c *Client) GeocoderReverse(
 //	)
 func (c *Client) DomainWhoisLookup(
 	ctx context.Context,
-	request *afgosdk.DomainWhoisLookupRequest,
+	request *v2.DomainWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainWhoisLookupResponse, error) {
+) (*v2.DomainWhoisLookupResponse, error) {
 	response, err := c.WithRawResponse.DomainWhoisLookup(
 		ctx,
 		request,
@@ -242,7 +242,7 @@ func (c *Client) DomainWhoisLookup(
 //
 // Example:
 //
-//	request := &afgosdk.BulkDomainWhoisLookupRequest{
+//	request := &v2.BulkDomainWhoisLookupRequest{
 //	    APIKey: "apiKey",
 //	    DomainNames: []string{
 //	        "domainNames",
@@ -254,9 +254,9 @@ func (c *Client) DomainWhoisLookup(
 //	)
 func (c *Client) BulkDomainWhoisLookup(
 	ctx context.Context,
-	request *afgosdk.BulkDomainWhoisLookupRequest,
+	request *v2.BulkDomainWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkDomainWhoisLookupResponse, error) {
+) (*v2.BulkDomainWhoisLookupResponse, error) {
 	response, err := c.WithRawResponse.BulkDomainWhoisLookup(
 		ctx,
 		request,
@@ -272,7 +272,7 @@ func (c *Client) BulkDomainWhoisLookup(
 //
 // Example:
 //
-//	request := &afgosdk.IPWhoisLookupRequest{
+//	request := &v2.IPWhoisLookupRequest{
 //	    APIKey: "apiKey",
 //	    IP: "ip",
 //	}
@@ -282,9 +282,9 @@ func (c *Client) BulkDomainWhoisLookup(
 //	)
 func (c *Client) IPWhoisLookup(
 	ctx context.Context,
-	request *afgosdk.IPWhoisLookupRequest,
+	request *v2.IPWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.IPWhoisLookupResponse, error) {
+) (*v2.IPWhoisLookupResponse, error) {
 	response, err := c.WithRawResponse.IPWhoisLookup(
 		ctx,
 		request,
@@ -300,7 +300,7 @@ func (c *Client) IPWhoisLookup(
 //
 // Example:
 //
-//	request := &afgosdk.AsnWhoisLookupRequest{
+//	request := &v2.AsnWhoisLookupRequest{
 //	    APIKey: "apiKey",
 //	    Asn: "asn",
 //	}
@@ -310,9 +310,9 @@ func (c *Client) IPWhoisLookup(
 //	)
 func (c *Client) AsnWhoisLookup(
 	ctx context.Context,
-	request *afgosdk.AsnWhoisLookupRequest,
+	request *v2.AsnWhoisLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.AsnWhoisLookupResponse, error) {
+) (*v2.AsnWhoisLookupResponse, error) {
 	response, err := c.WithRawResponse.AsnWhoisLookup(
 		ctx,
 		request,
@@ -329,7 +329,7 @@ func (c *Client) AsnWhoisLookup(
 //
 // Example:
 //
-//	request := &afgosdk.DomainWhoisHistoryRequest{
+//	request := &v2.DomainWhoisHistoryRequest{
 //	    APIKey: "apiKey",
 //	    DomainName: "domainName",
 //	}
@@ -339,9 +339,9 @@ func (c *Client) AsnWhoisLookup(
 //	)
 func (c *Client) DomainWhoisHistory(
 	ctx context.Context,
-	request *afgosdk.DomainWhoisHistoryRequest,
+	request *v2.DomainWhoisHistoryRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainWhoisHistoryResponse, error) {
+) (*v2.DomainWhoisHistoryResponse, error) {
 	response, err := c.WithRawResponse.DomainWhoisHistory(
 		ctx,
 		request,
@@ -357,7 +357,7 @@ func (c *Client) DomainWhoisHistory(
 //
 // Example:
 //
-//	request := &afgosdk.DomainWhoisReverseRequest{
+//	request := &v2.DomainWhoisReverseRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.DomainWhoisReverse(
@@ -366,9 +366,9 @@ func (c *Client) DomainWhoisHistory(
 //	)
 func (c *Client) DomainWhoisReverse(
 	ctx context.Context,
-	request *afgosdk.DomainWhoisReverseRequest,
+	request *v2.DomainWhoisReverseRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainWhoisReverseResponse, error) {
+) (*v2.DomainWhoisReverseResponse, error) {
 	response, err := c.WithRawResponse.DomainWhoisReverse(
 		ctx,
 		request,
@@ -384,10 +384,10 @@ func (c *Client) DomainWhoisReverse(
 //
 // Example:
 //
-//	request := &afgosdk.DomainDNSLookupRequest{
+//	request := &v2.DomainDNSLookupRequest{
 //	    APIKey: "apiKey",
 //	    Type: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "type",
 //	        ),
 //	    },
@@ -398,9 +398,9 @@ func (c *Client) DomainWhoisReverse(
 //	)
 func (c *Client) DomainDNSLookup(
 	ctx context.Context,
-	request *afgosdk.DomainDNSLookupRequest,
+	request *v2.DomainDNSLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainDNSLookupResponse, error) {
+) (*v2.DomainDNSLookupResponse, error) {
 	response, err := c.WithRawResponse.DomainDNSLookup(
 		ctx,
 		request,
@@ -417,10 +417,10 @@ func (c *Client) DomainDNSLookup(
 //
 // Example:
 //
-//	request := &afgosdk.BulkDomainDNSLookupRequest{
+//	request := &v2.BulkDomainDNSLookupRequest{
 //	    APIKey: "apiKey",
 //	    Type: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "type",
 //	        ),
 //	    },
@@ -434,9 +434,9 @@ func (c *Client) DomainDNSLookup(
 //	)
 func (c *Client) BulkDomainDNSLookup(
 	ctx context.Context,
-	request *afgosdk.BulkDomainDNSLookupRequest,
+	request *v2.BulkDomainDNSLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkDomainDNSLookupResponse, error) {
+) (*v2.BulkDomainDNSLookupResponse, error) {
 	response, err := c.WithRawResponse.BulkDomainDNSLookup(
 		ctx,
 		request,
@@ -453,11 +453,11 @@ func (c *Client) BulkDomainDNSLookup(
 //
 // Example:
 //
-//	request := &afgosdk.DomainDNSHistoryRequest{
+//	request := &v2.DomainDNSHistoryRequest{
 //	    APIKey: "apiKey",
 //	    HostName: "host-name",
 //	    Type: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "type",
 //	        ),
 //	    },
@@ -468,9 +468,9 @@ func (c *Client) BulkDomainDNSLookup(
 //	)
 func (c *Client) DomainDNSHistory(
 	ctx context.Context,
-	request *afgosdk.DomainDNSHistoryRequest,
+	request *v2.DomainDNSHistoryRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainDNSHistoryResponse, error) {
+) (*v2.DomainDNSHistoryResponse, error) {
 	response, err := c.WithRawResponse.DomainDNSHistory(
 		ctx,
 		request,
@@ -486,9 +486,9 @@ func (c *Client) DomainDNSHistory(
 //
 // Example:
 //
-//	request := &afgosdk.DomainDNSReverseRequest{
+//	request := &v2.DomainDNSReverseRequest{
 //	    APIKey: "apiKey",
-//	    Type: afgosdk.DomainDNSReverseRequestTypeA,
+//	    Type: v2.DomainDNSReverseRequestTypeA,
 //	    Value: "value",
 //	}
 //	_, err := client.DomainDNSReverse(
@@ -497,9 +497,9 @@ func (c *Client) DomainDNSHistory(
 //	)
 func (c *Client) DomainDNSReverse(
 	ctx context.Context,
-	request *afgosdk.DomainDNSReverseRequest,
+	request *v2.DomainDNSReverseRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainDNSReverseResponse, error) {
+) (*v2.DomainDNSReverseResponse, error) {
 	response, err := c.WithRawResponse.DomainDNSReverse(
 		ctx,
 		request,
@@ -516,25 +516,25 @@ func (c *Client) DomainDNSReverse(
 //
 // Example:
 //
-//	request := &afgosdk.WebScrapeRequest{
+//	request := &v2.WebScrapeRequest{
 //	    APIKey: "apiKey",
 //	    URL: "https://example.com",
-//	    Body: &afgosdk.WebScrapeRequestBody{
-//	        WebScrapeRequestBodyBlockURL: &afgosdk.WebScrapeRequestBodyBlockURL{
-//	            Instructions: []*afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
-//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
-//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
-//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
-//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
-//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{
+//	    Body: &v2.WebScrapeRequestBody{
+//	        WebScrapeRequestBodyBlockURL: &v2.WebScrapeRequestBodyBlockURL{
+//	            Instructions: []*v2.WebScrapeRequestBodyBlockURLInstructionsItem{
+//	                &v2.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &v2.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &v2.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &v2.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &v2.WebScrapeRequestBodyBlockURLInstructionsItem{
 //	                    Extract: map[string]string{
 //	                        "profile": "#profile",
 //	                        "userInfo": "#user-info",
 //	                        "welcomeMessage": "#welcome-message",
 //	                    },
 //	                },
-//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
-//	                &afgosdk.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &v2.WebScrapeRequestBodyBlockURLInstructionsItem{},
+//	                &v2.WebScrapeRequestBodyBlockURLInstructionsItem{},
 //	            },
 //	        },
 //	    },
@@ -545,9 +545,9 @@ func (c *Client) DomainDNSReverse(
 //	)
 func (c *Client) WebScrape(
 	ctx context.Context,
-	request *afgosdk.WebScrapeRequest,
+	request *v2.WebScrapeRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.WebScrapeResponse, error) {
+) (*v2.WebScrapeResponse, error) {
 	response, err := c.WithRawResponse.WebScrape(
 		ctx,
 		request,
@@ -563,7 +563,7 @@ func (c *Client) WebScrape(
 //
 // Example:
 //
-//	request := &afgosdk.EmailValidateRequest{
+//	request := &v2.EmailValidateRequest{
 //	    APIKey: "apiKey",
 //	    Email: "email",
 //	}
@@ -573,9 +573,9 @@ func (c *Client) WebScrape(
 //	)
 func (c *Client) EmailValidate(
 	ctx context.Context,
-	request *afgosdk.EmailValidateRequest,
+	request *v2.EmailValidateRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.EmailValidateResponse, error) {
+) (*v2.EmailValidateResponse, error) {
 	response, err := c.WithRawResponse.EmailValidate(
 		ctx,
 		request,
@@ -591,10 +591,10 @@ func (c *Client) EmailValidate(
 //
 // Example:
 //
-//	request := &afgosdk.BulkEmailValidateRequest{
+//	request := &v2.BulkEmailValidateRequest{
 //	    APIKey: "apiKey",
-//	    EmailData: []*afgosdk.BulkEmailValidateRequestEmailDataItem{
-//	        &afgosdk.BulkEmailValidateRequestEmailDataItem{
+//	    EmailData: []*v2.BulkEmailValidateRequestEmailDataItem{
+//	        &v2.BulkEmailValidateRequestEmailDataItem{
 //	            Email: "email",
 //	        },
 //	    },
@@ -605,9 +605,9 @@ func (c *Client) EmailValidate(
 //	)
 func (c *Client) BulkEmailValidate(
 	ctx context.Context,
-	request *afgosdk.BulkEmailValidateRequest,
+	request *v2.BulkEmailValidateRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkEmailValidateResponse, error) {
+) (*v2.BulkEmailValidateResponse, error) {
 	response, err := c.WithRawResponse.BulkEmailValidate(
 		ctx,
 		request,
@@ -623,7 +623,7 @@ func (c *Client) BulkEmailValidate(
 //
 // Example:
 //
-//	request := &afgosdk.DisposableEmailCheckV2Request{
+//	request := &v2.DisposableEmailCheckV2Request{
 //	    APIKey: "apiKey",
 //	    Email: "test@sogetthis.com",
 //	}
@@ -633,9 +633,9 @@ func (c *Client) BulkEmailValidate(
 //	)
 func (c *Client) DisposableEmailCheckV2(
 	ctx context.Context,
-	request *afgosdk.DisposableEmailCheckV2Request,
+	request *v2.DisposableEmailCheckV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.DisposableEmailCheckV2Response, error) {
+) (*v2.DisposableEmailCheckV2Response, error) {
 	response, err := c.WithRawResponse.DisposableEmailCheckV2(
 		ctx,
 		request,
@@ -651,19 +651,19 @@ func (c *Client) DisposableEmailCheckV2(
 //
 // Example:
 //
-//	request := &afgosdk.BulkDisposableEmailCheckV2Request{
+//	request := &v2.BulkDisposableEmailCheckV2Request{
 //	    APIKey: "apiKey",
-//	    EmailData: []*afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
-//	        &afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+//	    EmailData: []*v2.BulkDisposableEmailCheckV2RequestEmailDataItem{
+//	        &v2.BulkDisposableEmailCheckV2RequestEmailDataItem{
 //	            Email: "abc",
 //	        },
-//	        &afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+//	        &v2.BulkDisposableEmailCheckV2RequestEmailDataItem{
 //	            Email: "john@microsoft.com",
-//	            IP: afgosdk.String(
+//	            IP: v2.String(
 //	                "8.8.8.8",
 //	            ),
 //	        },
-//	        &afgosdk.BulkDisposableEmailCheckV2RequestEmailDataItem{
+//	        &v2.BulkDisposableEmailCheckV2RequestEmailDataItem{
 //	            Email: "test@mailinator.com",
 //	        },
 //	    },
@@ -674,9 +674,9 @@ func (c *Client) DisposableEmailCheckV2(
 //	)
 func (c *Client) BulkDisposableEmailCheckV2(
 	ctx context.Context,
-	request *afgosdk.BulkDisposableEmailCheckV2Request,
+	request *v2.BulkDisposableEmailCheckV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkDisposableEmailCheckV2Response, error) {
+) (*v2.BulkDisposableEmailCheckV2Response, error) {
 	response, err := c.WithRawResponse.BulkDisposableEmailCheckV2(
 		ctx,
 		request,
@@ -692,7 +692,7 @@ func (c *Client) BulkDisposableEmailCheckV2(
 //
 // Example:
 //
-//	request := &afgosdk.PhoneValidateRequest{
+//	request := &v2.PhoneValidateRequest{
 //	    APIKey: "apiKey",
 //	    Number: "+14155552671",
 //	}
@@ -702,9 +702,9 @@ func (c *Client) BulkDisposableEmailCheckV2(
 //	)
 func (c *Client) PhoneValidate(
 	ctx context.Context,
-	request *afgosdk.PhoneValidateRequest,
+	request *v2.PhoneValidateRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PhoneValidateResponse, error) {
+) (*v2.PhoneValidateResponse, error) {
 	response, err := c.WithRawResponse.PhoneValidate(
 		ctx,
 		request,
@@ -720,16 +720,16 @@ func (c *Client) PhoneValidate(
 //
 // Example:
 //
-//	request := &afgosdk.BulkPhoneValidateRequest{
+//	request := &v2.BulkPhoneValidateRequest{
 //	    APIKey: "apiKey",
-//	    Numbers: []*afgosdk.BulkPhoneValidateRequestNumbersItem{
-//	        &afgosdk.BulkPhoneValidateRequestNumbersItem{
+//	    Numbers: []*v2.BulkPhoneValidateRequestNumbersItem{
+//	        &v2.BulkPhoneValidateRequestNumbersItem{
 //	            Number: "+14155552671",
 //	        },
-//	        &afgosdk.BulkPhoneValidateRequestNumbersItem{
+//	        &v2.BulkPhoneValidateRequestNumbersItem{
 //	            Number: "+447911123456",
 //	        },
-//	        &afgosdk.BulkPhoneValidateRequestNumbersItem{
+//	        &v2.BulkPhoneValidateRequestNumbersItem{
 //	            Number: "+919876543210",
 //	        },
 //	    },
@@ -740,9 +740,9 @@ func (c *Client) PhoneValidate(
 //	)
 func (c *Client) BulkPhoneValidate(
 	ctx context.Context,
-	request *afgosdk.BulkPhoneValidateRequest,
+	request *v2.BulkPhoneValidateRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.BulkPhoneValidateResponseItem, error) {
+) ([]*v2.BulkPhoneValidateResponseItem, error) {
 	response, err := c.WithRawResponse.BulkPhoneValidate(
 		ctx,
 		request,
@@ -759,7 +759,7 @@ func (c *Client) BulkPhoneValidate(
 //
 // Example:
 //
-//	request := &afgosdk.DomainSslLookupRequest{
+//	request := &v2.DomainSslLookupRequest{
 //	    APIKey: "apiKey",
 //	    DomainName: "domainName",
 //	}
@@ -769,9 +769,9 @@ func (c *Client) BulkPhoneValidate(
 //	)
 func (c *Client) DomainSslLookup(
 	ctx context.Context,
-	request *afgosdk.DomainSslLookupRequest,
+	request *v2.DomainSslLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainSslLookupResponse, error) {
+) (*v2.DomainSslLookupResponse, error) {
 	response, err := c.WithRawResponse.DomainSslLookup(
 		ctx,
 		request,
@@ -788,7 +788,7 @@ func (c *Client) DomainSslLookup(
 //
 // Example:
 //
-//	request := &afgosdk.DomainSslChainLookupRequest{
+//	request := &v2.DomainSslChainLookupRequest{
 //	    APIKey: "apiKey",
 //	    DomainName: "domainName",
 //	}
@@ -798,9 +798,9 @@ func (c *Client) DomainSslLookup(
 //	)
 func (c *Client) DomainSslChainLookup(
 	ctx context.Context,
-	request *afgosdk.DomainSslChainLookupRequest,
+	request *v2.DomainSslChainLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainSslChainLookupResponse, error) {
+) (*v2.DomainSslChainLookupResponse, error) {
 	response, err := c.WithRawResponse.DomainSslChainLookup(
 		ctx,
 		request,
@@ -816,7 +816,7 @@ func (c *Client) DomainSslChainLookup(
 //
 // Example:
 //
-//	request := &afgosdk.DomainAvailabilityCheckRequest{
+//	request := &v2.DomainAvailabilityCheckRequest{
 //	    APIKey: "apiKey",
 //	    Domain: "domain",
 //	}
@@ -826,9 +826,9 @@ func (c *Client) DomainSslChainLookup(
 //	)
 func (c *Client) DomainAvailabilityCheck(
 	ctx context.Context,
-	request *afgosdk.DomainAvailabilityCheckRequest,
+	request *v2.DomainAvailabilityCheckRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainAvailabilityCheckResponse, error) {
+) (*v2.DomainAvailabilityCheckResponse, error) {
 	response, err := c.WithRawResponse.DomainAvailabilityCheck(
 		ctx,
 		request,
@@ -844,7 +844,7 @@ func (c *Client) DomainAvailabilityCheck(
 //
 // Example:
 //
-//	request := &afgosdk.BulkDomainAvailabilityCheckRequest{
+//	request := &v2.BulkDomainAvailabilityCheckRequest{
 //	    APIKey: "apiKey",
 //	    DomainNames: []string{
 //	        "domainNames",
@@ -856,9 +856,9 @@ func (c *Client) DomainAvailabilityCheck(
 //	)
 func (c *Client) BulkDomainAvailabilityCheck(
 	ctx context.Context,
-	request *afgosdk.BulkDomainAvailabilityCheckRequest,
+	request *v2.BulkDomainAvailabilityCheckRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkDomainAvailabilityCheckResponse, error) {
+) (*v2.BulkDomainAvailabilityCheckResponse, error) {
 	response, err := c.WithRawResponse.BulkDomainAvailabilityCheck(
 		ctx,
 		request,
@@ -874,7 +874,7 @@ func (c *Client) BulkDomainAvailabilityCheck(
 //
 // Example:
 //
-//	request := &afgosdk.DomainAvailabilitySuggestionsRequest{
+//	request := &v2.DomainAvailabilitySuggestionsRequest{
 //	    APIKey: "apiKey",
 //	    Domain: "domain",
 //	}
@@ -884,9 +884,9 @@ func (c *Client) BulkDomainAvailabilityCheck(
 //	)
 func (c *Client) DomainAvailabilitySuggestions(
 	ctx context.Context,
-	request *afgosdk.DomainAvailabilitySuggestionsRequest,
+	request *v2.DomainAvailabilitySuggestionsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainAvailabilitySuggestionsResponse, error) {
+) (*v2.DomainAvailabilitySuggestionsResponse, error) {
 	response, err := c.WithRawResponse.DomainAvailabilitySuggestions(
 		ctx,
 		request,
@@ -902,7 +902,7 @@ func (c *Client) DomainAvailabilitySuggestions(
 //
 // Example:
 //
-//	request := &afgosdk.SubdomainsLookupRequest{
+//	request := &v2.SubdomainsLookupRequest{
 //	    APIKey: "apiKey",
 //	    Domain: "domain",
 //	}
@@ -912,9 +912,9 @@ func (c *Client) DomainAvailabilitySuggestions(
 //	)
 func (c *Client) SubdomainsLookup(
 	ctx context.Context,
-	request *afgosdk.SubdomainsLookupRequest,
+	request *v2.SubdomainsLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.SubdomainsLookupResponse, error) {
+) (*v2.SubdomainsLookupResponse, error) {
 	response, err := c.WithRawResponse.SubdomainsLookup(
 		ctx,
 		request,
@@ -930,7 +930,7 @@ func (c *Client) SubdomainsLookup(
 //
 // Example:
 //
-//	request := &afgosdk.DomainTyposquattingRequest{
+//	request := &v2.DomainTyposquattingRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.DomainTyposquatting(
@@ -939,9 +939,9 @@ func (c *Client) SubdomainsLookup(
 //	)
 func (c *Client) DomainTyposquatting(
 	ctx context.Context,
-	request *afgosdk.DomainTyposquattingRequest,
+	request *v2.DomainTyposquattingRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainTyposquattingResponse, error) {
+) (*v2.DomainTyposquattingResponse, error) {
 	response, err := c.WithRawResponse.DomainTyposquatting(
 		ctx,
 		request,
@@ -957,7 +957,7 @@ func (c *Client) DomainTyposquatting(
 //
 // Example:
 //
-//	request := &afgosdk.DomainReputationRequest{
+//	request := &v2.DomainReputationRequest{
 //	    APIKey: "apiKey",
 //	    DomainName: "domainName",
 //	}
@@ -967,9 +967,9 @@ func (c *Client) DomainTyposquatting(
 //	)
 func (c *Client) DomainReputation(
 	ctx context.Context,
-	request *afgosdk.DomainReputationRequest,
+	request *v2.DomainReputationRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainReputationResponse, error) {
+) (*v2.DomainReputationResponse, error) {
 	response, err := c.WithRawResponse.DomainReputation(
 		ctx,
 		request,
@@ -985,7 +985,7 @@ func (c *Client) DomainReputation(
 //
 // Example:
 //
-//	request := &afgosdk.AstronomyLookupV2Request{
+//	request := &v2.AstronomyLookupV2Request{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.AstronomyLookupV2(
@@ -994,9 +994,9 @@ func (c *Client) DomainReputation(
 //	)
 func (c *Client) AstronomyLookupV2(
 	ctx context.Context,
-	request *afgosdk.AstronomyLookupV2Request,
+	request *v2.AstronomyLookupV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.AstronomyLookupV2Response, error) {
+) (*v2.AstronomyLookupV2Response, error) {
 	response, err := c.WithRawResponse.AstronomyLookupV2(
 		ctx,
 		request,
@@ -1012,7 +1012,7 @@ func (c *Client) AstronomyLookupV2(
 //
 // Example:
 //
-//	request := &afgosdk.TimezoneLookupV2Request{
+//	request := &v2.TimezoneLookupV2Request{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.TimezoneLookupV2(
@@ -1021,9 +1021,9 @@ func (c *Client) AstronomyLookupV2(
 //	)
 func (c *Client) TimezoneLookupV2(
 	ctx context.Context,
-	request *afgosdk.TimezoneLookupV2Request,
+	request *v2.TimezoneLookupV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.TimezoneLookupV2Response, error) {
+) (*v2.TimezoneLookupV2Response, error) {
 	response, err := c.WithRawResponse.TimezoneLookupV2(
 		ctx,
 		request,
@@ -1039,7 +1039,7 @@ func (c *Client) TimezoneLookupV2(
 //
 // Example:
 //
-//	request := &afgosdk.GeolocationLookupV2Request{
+//	request := &v2.GeolocationLookupV2Request{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.GeolocationLookupV2(
@@ -1048,9 +1048,9 @@ func (c *Client) TimezoneLookupV2(
 //	)
 func (c *Client) GeolocationLookupV2(
 	ctx context.Context,
-	request *afgosdk.GeolocationLookupV2Request,
+	request *v2.GeolocationLookupV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.GeolocationLookupV2Response, error) {
+) (*v2.GeolocationLookupV2Response, error) {
 	response, err := c.WithRawResponse.GeolocationLookupV2(
 		ctx,
 		request,
@@ -1066,7 +1066,7 @@ func (c *Client) GeolocationLookupV2(
 //
 // Example:
 //
-//	request := &afgosdk.BulkGeolocationLookupV2Request{
+//	request := &v2.BulkGeolocationLookupV2Request{
 //	    APIKey: "apiKey",
 //	    Ips: []string{
 //	        "ips",
@@ -1078,9 +1078,9 @@ func (c *Client) GeolocationLookupV2(
 //	)
 func (c *Client) BulkGeolocationLookupV2(
 	ctx context.Context,
-	request *afgosdk.BulkGeolocationLookupV2Request,
+	request *v2.BulkGeolocationLookupV2Request,
 	opts ...option.RequestOption,
-) ([]*afgosdk.BulkGeolocationLookupV2ResponseItem, error) {
+) ([]*v2.BulkGeolocationLookupV2ResponseItem, error) {
 	response, err := c.WithRawResponse.BulkGeolocationLookupV2(
 		ctx,
 		request,
@@ -1096,7 +1096,7 @@ func (c *Client) BulkGeolocationLookupV2(
 //
 // Example:
 //
-//	request := &afgosdk.DomainWhoisLookupV2Request{
+//	request := &v2.DomainWhoisLookupV2Request{
 //	    APIKey: "apiKey",
 //	    DomainName: "domainName",
 //	}
@@ -1106,9 +1106,9 @@ func (c *Client) BulkGeolocationLookupV2(
 //	)
 func (c *Client) DomainWhoisLookupV2(
 	ctx context.Context,
-	request *afgosdk.DomainWhoisLookupV2Request,
+	request *v2.DomainWhoisLookupV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.DomainWhoisLookupV2Response, error) {
+) (*v2.DomainWhoisLookupV2Response, error) {
 	response, err := c.WithRawResponse.DomainWhoisLookupV2(
 		ctx,
 		request,
@@ -1124,7 +1124,7 @@ func (c *Client) DomainWhoisLookupV2(
 //
 // Example:
 //
-//	request := &afgosdk.BulkDomainWhoisLookupV2Request{
+//	request := &v2.BulkDomainWhoisLookupV2Request{
 //	    APIKey: "apiKey",
 //	    DomainNames: []string{
 //	        "domainNames",
@@ -1136,9 +1136,9 @@ func (c *Client) DomainWhoisLookupV2(
 //	)
 func (c *Client) BulkDomainWhoisLookupV2(
 	ctx context.Context,
-	request *afgosdk.BulkDomainWhoisLookupV2Request,
+	request *v2.BulkDomainWhoisLookupV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkDomainWhoisLookupV2Response, error) {
+) (*v2.BulkDomainWhoisLookupV2Response, error) {
 	response, err := c.WithRawResponse.BulkDomainWhoisLookupV2(
 		ctx,
 		request,
@@ -1154,10 +1154,10 @@ func (c *Client) BulkDomainWhoisLookupV2(
 //
 // Example:
 //
-//	request := &afgosdk.CommodityLatestRatesV2Request{
+//	request := &v2.CommodityLatestRatesV2Request{
 //	    APIKey: "apiKey",
 //	    Symbols: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "symbols",
 //	        ),
 //	    },
@@ -1168,9 +1168,9 @@ func (c *Client) BulkDomainWhoisLookupV2(
 //	)
 func (c *Client) CommodityLatestRatesV2(
 	ctx context.Context,
-	request *afgosdk.CommodityLatestRatesV2Request,
+	request *v2.CommodityLatestRatesV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.CommodityLatestRatesV2Response, error) {
+) (*v2.CommodityLatestRatesV2Response, error) {
 	response, err := c.WithRawResponse.CommodityLatestRatesV2(
 		ctx,
 		request,
@@ -1186,14 +1186,14 @@ func (c *Client) CommodityLatestRatesV2(
 //
 // Example:
 //
-//	request := &afgosdk.CommodityHistoricalRatesV2Request{
+//	request := &v2.CommodityHistoricalRatesV2Request{
 //	    APIKey: "apiKey",
 //	    Symbols: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "symbols",
 //	        ),
 //	    },
-//	    Date: afgosdk.MustParseDate(
+//	    Date: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -1203,9 +1203,9 @@ func (c *Client) CommodityLatestRatesV2(
 //	)
 func (c *Client) CommodityHistoricalRatesV2(
 	ctx context.Context,
-	request *afgosdk.CommodityHistoricalRatesV2Request,
+	request *v2.CommodityHistoricalRatesV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.CommodityHistoricalRatesV2Response, error) {
+) (*v2.CommodityHistoricalRatesV2Response, error) {
 	response, err := c.WithRawResponse.CommodityHistoricalRatesV2(
 		ctx,
 		request,
@@ -1221,17 +1221,17 @@ func (c *Client) CommodityHistoricalRatesV2(
 //
 // Example:
 //
-//	request := &afgosdk.CommodityFluctuationV2Request{
+//	request := &v2.CommodityFluctuationV2Request{
 //	    APIKey: "apiKey",
 //	    Symbols: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "symbols",
 //	        ),
 //	    },
-//	    StartDate: afgosdk.MustParseDate(
+//	    StartDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
-//	    EndDate: afgosdk.MustParseDate(
+//	    EndDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -1241,9 +1241,9 @@ func (c *Client) CommodityHistoricalRatesV2(
 //	)
 func (c *Client) CommodityFluctuationV2(
 	ctx context.Context,
-	request *afgosdk.CommodityFluctuationV2Request,
+	request *v2.CommodityFluctuationV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.CommodityFluctuationV2Response, error) {
+) (*v2.CommodityFluctuationV2Response, error) {
 	response, err := c.WithRawResponse.CommodityFluctuationV2(
 		ctx,
 		request,
@@ -1259,17 +1259,17 @@ func (c *Client) CommodityFluctuationV2(
 //
 // Example:
 //
-//	request := &afgosdk.CommodityTimeSeriesV2Request{
+//	request := &v2.CommodityTimeSeriesV2Request{
 //	    APIKey: "apiKey",
 //	    Symbols: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "symbols",
 //	        ),
 //	    },
-//	    StartDate: afgosdk.MustParseDate(
+//	    StartDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
-//	    EndDate: afgosdk.MustParseDate(
+//	    EndDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -1279,9 +1279,9 @@ func (c *Client) CommodityFluctuationV2(
 //	)
 func (c *Client) CommodityTimeSeriesV2(
 	ctx context.Context,
-	request *afgosdk.CommodityTimeSeriesV2Request,
+	request *v2.CommodityTimeSeriesV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.CommodityTimeSeriesV2Response, error) {
+) (*v2.CommodityTimeSeriesV2Response, error) {
 	response, err := c.WithRawResponse.CommodityTimeSeriesV2(
 		ctx,
 		request,
@@ -1297,7 +1297,7 @@ func (c *Client) CommodityTimeSeriesV2(
 //
 // Example:
 //
-//	request := &afgosdk.CommoditySymbolsV2Request{
+//	request := &v2.CommoditySymbolsV2Request{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.CommoditySymbolsV2(
@@ -1306,9 +1306,9 @@ func (c *Client) CommodityTimeSeriesV2(
 //	)
 func (c *Client) CommoditySymbolsV2(
 	ctx context.Context,
-	request *afgosdk.CommoditySymbolsV2Request,
+	request *v2.CommoditySymbolsV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.CommoditySymbolsV2Response, error) {
+) (*v2.CommoditySymbolsV2Response, error) {
 	response, err := c.WithRawResponse.CommoditySymbolsV2(
 		ctx,
 		request,
@@ -1324,11 +1324,11 @@ func (c *Client) CommoditySymbolsV2(
 //
 // Example:
 //
-//	request := &afgosdk.CommodityIntradayRatesV2Request{
+//	request := &v2.CommodityIntradayRatesV2Request{
 //	    APIKey: "apiKey",
 //	    Symbols: "symbols",
-//	    Interval: afgosdk.CommodityIntradayRatesV2RequestIntervalOneM,
-//	    Date: afgosdk.MustParseDate(
+//	    Interval: v2.CommodityIntradayRatesV2RequestIntervalOneM,
+//	    Date: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -1338,9 +1338,9 @@ func (c *Client) CommoditySymbolsV2(
 //	)
 func (c *Client) CommodityIntradayRatesV2(
 	ctx context.Context,
-	request *afgosdk.CommodityIntradayRatesV2Request,
+	request *v2.CommodityIntradayRatesV2Request,
 	opts ...option.RequestOption,
-) (*afgosdk.CommodityIntradayRatesV2Response, error) {
+) (*v2.CommodityIntradayRatesV2Response, error) {
 	response, err := c.WithRawResponse.CommodityIntradayRatesV2(
 		ctx,
 		request,
@@ -1356,7 +1356,7 @@ func (c *Client) CommodityIntradayRatesV2(
 //
 // Example:
 //
-//	request := &afgosdk.PdfMergeRequest{
+//	request := &v2.PdfMergeRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.PdfMerge(
@@ -1365,9 +1365,9 @@ func (c *Client) CommodityIntradayRatesV2(
 //	)
 func (c *Client) PdfMerge(
 	ctx context.Context,
-	request *afgosdk.PdfMergeRequest,
+	request *v2.PdfMergeRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfMergeResponse, error) {
+) (*v2.PdfMergeResponse, error) {
 	response, err := c.WithRawResponse.PdfMerge(
 		ctx,
 		request,
@@ -1383,7 +1383,7 @@ func (c *Client) PdfMerge(
 //
 // Example:
 //
-//	request := &afgosdk.PdfRemovePagesRequest{
+//	request := &v2.PdfRemovePagesRequest{
 //	    APIKey: "apiKey",
 //	    Pages: "pages",
 //	    File: strings.NewReader(
@@ -1396,9 +1396,9 @@ func (c *Client) PdfMerge(
 //	)
 func (c *Client) PdfRemovePages(
 	ctx context.Context,
-	request *afgosdk.PdfRemovePagesRequest,
+	request *v2.PdfRemovePagesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfRemovePagesResponse, error) {
+) (*v2.PdfRemovePagesResponse, error) {
 	response, err := c.WithRawResponse.PdfRemovePages(
 		ctx,
 		request,
@@ -1414,7 +1414,7 @@ func (c *Client) PdfRemovePages(
 //
 // Example:
 //
-//	request := &afgosdk.PdfSplitRequest{
+//	request := &v2.PdfSplitRequest{
 //	    APIKey: "apiKey",
 //	    File: strings.NewReader(
 //	        "",
@@ -1426,9 +1426,9 @@ func (c *Client) PdfRemovePages(
 //	)
 func (c *Client) PdfSplit(
 	ctx context.Context,
-	request *afgosdk.PdfSplitRequest,
+	request *v2.PdfSplitRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfSplitResponse, error) {
+) (*v2.PdfSplitResponse, error) {
 	response, err := c.WithRawResponse.PdfSplit(
 		ctx,
 		request,
@@ -1444,7 +1444,7 @@ func (c *Client) PdfSplit(
 //
 // Example:
 //
-//	request := &afgosdk.PdfRotateRequest{
+//	request := &v2.PdfRotateRequest{
 //	    APIKey: "apiKey",
 //	    Rotate: 1,
 //	    File: strings.NewReader(
@@ -1457,9 +1457,9 @@ func (c *Client) PdfSplit(
 //	)
 func (c *Client) PdfRotate(
 	ctx context.Context,
-	request *afgosdk.PdfRotateRequest,
+	request *v2.PdfRotateRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfRotateResponse, error) {
+) (*v2.PdfRotateResponse, error) {
 	response, err := c.WithRawResponse.PdfRotate(
 		ctx,
 		request,
@@ -1475,9 +1475,9 @@ func (c *Client) PdfRotate(
 //
 // Example:
 //
-//	request := &afgosdk.PdfCompressRequest{
+//	request := &v2.PdfCompressRequest{
 //	    APIKey: "apiKey",
-//	    CompressionLevel: afgosdk.PdfCompressRequestCompressionLevelLow,
+//	    CompressionLevel: v2.PdfCompressRequestCompressionLevelLow,
 //	    File: strings.NewReader(
 //	        "",
 //	    ),
@@ -1488,9 +1488,9 @@ func (c *Client) PdfRotate(
 //	)
 func (c *Client) PdfCompress(
 	ctx context.Context,
-	request *afgosdk.PdfCompressRequest,
+	request *v2.PdfCompressRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfCompressResponse, error) {
+) (*v2.PdfCompressResponse, error) {
 	response, err := c.WithRawResponse.PdfCompress(
 		ctx,
 		request,
@@ -1506,7 +1506,7 @@ func (c *Client) PdfCompress(
 //
 // Example:
 //
-//	request := &afgosdk.PdfExtractPagesRequest{
+//	request := &v2.PdfExtractPagesRequest{
 //	    APIKey: "apiKey",
 //	    Pages: "pages",
 //	    File: strings.NewReader(
@@ -1519,9 +1519,9 @@ func (c *Client) PdfCompress(
 //	)
 func (c *Client) PdfExtractPages(
 	ctx context.Context,
-	request *afgosdk.PdfExtractPagesRequest,
+	request *v2.PdfExtractPagesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfExtractPagesResponse, error) {
+) (*v2.PdfExtractPagesResponse, error) {
 	response, err := c.WithRawResponse.PdfExtractPages(
 		ctx,
 		request,
@@ -1537,7 +1537,7 @@ func (c *Client) PdfExtractPages(
 //
 // Example:
 //
-//	request := &afgosdk.PdfLinearizeRequest{
+//	request := &v2.PdfLinearizeRequest{
 //	    APIKey: "apiKey",
 //	    File: strings.NewReader(
 //	        "",
@@ -1549,9 +1549,9 @@ func (c *Client) PdfExtractPages(
 //	)
 func (c *Client) PdfLinearize(
 	ctx context.Context,
-	request *afgosdk.PdfLinearizeRequest,
+	request *v2.PdfLinearizeRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfLinearizeResponse, error) {
+) (*v2.PdfLinearizeResponse, error) {
 	response, err := c.WithRawResponse.PdfLinearize(
 		ctx,
 		request,
@@ -1567,7 +1567,7 @@ func (c *Client) PdfLinearize(
 //
 // Example:
 //
-//	request := &afgosdk.PdfEncryptRequest{
+//	request := &v2.PdfEncryptRequest{
 //	    APIKey: "apiKey",
 //	    UserPassword: "user_password",
 //	    File: strings.NewReader(
@@ -1580,9 +1580,9 @@ func (c *Client) PdfLinearize(
 //	)
 func (c *Client) PdfEncrypt(
 	ctx context.Context,
-	request *afgosdk.PdfEncryptRequest,
+	request *v2.PdfEncryptRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfEncryptResponse, error) {
+) (*v2.PdfEncryptResponse, error) {
 	response, err := c.WithRawResponse.PdfEncrypt(
 		ctx,
 		request,
@@ -1598,7 +1598,7 @@ func (c *Client) PdfEncrypt(
 //
 // Example:
 //
-//	request := &afgosdk.PdfDecryptRequest{
+//	request := &v2.PdfDecryptRequest{
 //	    APIKey: "apiKey",
 //	    FilePassword: "file_password",
 //	    File: strings.NewReader(
@@ -1611,9 +1611,9 @@ func (c *Client) PdfEncrypt(
 //	)
 func (c *Client) PdfDecrypt(
 	ctx context.Context,
-	request *afgosdk.PdfDecryptRequest,
+	request *v2.PdfDecryptRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfDecryptResponse, error) {
+) (*v2.PdfDecryptResponse, error) {
 	response, err := c.WithRawResponse.PdfDecrypt(
 		ctx,
 		request,
@@ -1629,11 +1629,11 @@ func (c *Client) PdfDecrypt(
 //
 // Example:
 //
-//	request := &afgosdk.PdfRestrictRequest{
+//	request := &v2.PdfRestrictRequest{
 //	    APIKey: "apiKey",
 //	    UserPassword: "user_password",
-//	    Restrictions: []*afgosdk.PdfRestrictRequestRestrictionsItem{
-//	        afgosdk.PdfRestrictRequestRestrictionsItemPrintHigh.Ptr(),
+//	    Restrictions: []*v2.PdfRestrictRequestRestrictionsItem{
+//	        v2.PdfRestrictRequestRestrictionsItemPrintHigh.Ptr(),
 //	    },
 //	    File: strings.NewReader(
 //	        "",
@@ -1645,9 +1645,9 @@ func (c *Client) PdfDecrypt(
 //	)
 func (c *Client) PdfRestrict(
 	ctx context.Context,
-	request *afgosdk.PdfRestrictRequest,
+	request *v2.PdfRestrictRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfRestrictResponse, error) {
+) (*v2.PdfRestrictResponse, error) {
 	response, err := c.WithRawResponse.PdfRestrict(
 		ctx,
 		request,
@@ -1663,7 +1663,7 @@ func (c *Client) PdfRestrict(
 //
 // Example:
 //
-//	request := &afgosdk.PdfUnrestrictRequest{
+//	request := &v2.PdfUnrestrictRequest{
 //	    APIKey: "apiKey",
 //	    FilePassword: "file_password",
 //	    UserPassword: "user_password",
@@ -1677,9 +1677,9 @@ func (c *Client) PdfRestrict(
 //	)
 func (c *Client) PdfUnrestrict(
 	ctx context.Context,
-	request *afgosdk.PdfUnrestrictRequest,
+	request *v2.PdfUnrestrictRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfUnrestrictResponse, error) {
+) (*v2.PdfUnrestrictResponse, error) {
 	response, err := c.WithRawResponse.PdfUnrestrict(
 		ctx,
 		request,
@@ -1695,7 +1695,7 @@ func (c *Client) PdfUnrestrict(
 //
 // Example:
 //
-//	request := &afgosdk.PdfConvertToPngRequest{
+//	request := &v2.PdfConvertToPngRequest{
 //	    APIKey: "apiKey",
 //	    File: strings.NewReader(
 //	        "",
@@ -1707,9 +1707,9 @@ func (c *Client) PdfUnrestrict(
 //	)
 func (c *Client) PdfConvertToPng(
 	ctx context.Context,
-	request *afgosdk.PdfConvertToPngRequest,
+	request *v2.PdfConvertToPngRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfConvertToPngResponse, error) {
+) (*v2.PdfConvertToPngResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToPng(
 		ctx,
 		request,
@@ -1725,7 +1725,7 @@ func (c *Client) PdfConvertToPng(
 //
 // Example:
 //
-//	request := &afgosdk.PdfConvertToJpgRequest{
+//	request := &v2.PdfConvertToJpgRequest{
 //	    APIKey: "apiKey",
 //	    File: strings.NewReader(
 //	        "",
@@ -1737,9 +1737,9 @@ func (c *Client) PdfConvertToPng(
 //	)
 func (c *Client) PdfConvertToJpg(
 	ctx context.Context,
-	request *afgosdk.PdfConvertToJpgRequest,
+	request *v2.PdfConvertToJpgRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfConvertToJpgResponse, error) {
+) (*v2.PdfConvertToJpgResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToJpg(
 		ctx,
 		request,
@@ -1755,7 +1755,7 @@ func (c *Client) PdfConvertToJpg(
 //
 // Example:
 //
-//	request := &afgosdk.PdfConvertToTiffRequest{
+//	request := &v2.PdfConvertToTiffRequest{
 //	    APIKey: "apiKey",
 //	    File: strings.NewReader(
 //	        "",
@@ -1767,9 +1767,9 @@ func (c *Client) PdfConvertToJpg(
 //	)
 func (c *Client) PdfConvertToTiff(
 	ctx context.Context,
-	request *afgosdk.PdfConvertToTiffRequest,
+	request *v2.PdfConvertToTiffRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfConvertToTiffResponse, error) {
+) (*v2.PdfConvertToTiffResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToTiff(
 		ctx,
 		request,
@@ -1785,7 +1785,7 @@ func (c *Client) PdfConvertToTiff(
 //
 // Example:
 //
-//	request := &afgosdk.PdfConvertToBmpRequest{
+//	request := &v2.PdfConvertToBmpRequest{
 //	    APIKey: "apiKey",
 //	    File: strings.NewReader(
 //	        "",
@@ -1797,9 +1797,9 @@ func (c *Client) PdfConvertToTiff(
 //	)
 func (c *Client) PdfConvertToBmp(
 	ctx context.Context,
-	request *afgosdk.PdfConvertToBmpRequest,
+	request *v2.PdfConvertToBmpRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfConvertToBmpResponse, error) {
+) (*v2.PdfConvertToBmpResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToBmp(
 		ctx,
 		request,
@@ -1815,7 +1815,7 @@ func (c *Client) PdfConvertToBmp(
 //
 // Example:
 //
-//	request := &afgosdk.PdfConvertToGifRequest{
+//	request := &v2.PdfConvertToGifRequest{
 //	    APIKey: "apiKey",
 //	    File: strings.NewReader(
 //	        "",
@@ -1827,9 +1827,9 @@ func (c *Client) PdfConvertToBmp(
 //	)
 func (c *Client) PdfConvertToGif(
 	ctx context.Context,
-	request *afgosdk.PdfConvertToGifRequest,
+	request *v2.PdfConvertToGifRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfConvertToGifResponse, error) {
+) (*v2.PdfConvertToGifResponse, error) {
 	response, err := c.WithRawResponse.PdfConvertToGif(
 		ctx,
 		request,
@@ -1845,7 +1845,7 @@ func (c *Client) PdfConvertToGif(
 //
 // Example:
 //
-//	request := &afgosdk.PdfUploadResourcesRequest{
+//	request := &v2.PdfUploadResourcesRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.PdfUploadResources(
@@ -1854,9 +1854,9 @@ func (c *Client) PdfConvertToGif(
 //	)
 func (c *Client) PdfUploadResources(
 	ctx context.Context,
-	request *afgosdk.PdfUploadResourcesRequest,
+	request *v2.PdfUploadResourcesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfUploadResourcesResponse, error) {
+) (*v2.PdfUploadResourcesResponse, error) {
 	response, err := c.WithRawResponse.PdfUploadResources(
 		ctx,
 		request,
@@ -1871,9 +1871,9 @@ func (c *Client) PdfUploadResources(
 // This API uploads PDF files to the API Freaks server in binary format.
 func (c *Client) PdfUploadBinary(
 	ctx context.Context,
-	request *afgosdk.PdfUploadBinaryRequest,
+	request *v2.PdfUploadBinaryRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfUploadBinaryResponse, error) {
+) (*v2.PdfUploadBinaryResponse, error) {
 	response, err := c.WithRawResponse.PdfUploadBinary(
 		ctx,
 		request,
@@ -1889,7 +1889,7 @@ func (c *Client) PdfUploadBinary(
 //
 // Example:
 //
-//	request := &afgosdk.PdfDownloadResourceRequest{
+//	request := &v2.PdfDownloadResourceRequest{
 //	    APIKey: "apiKey",
 //	    ResourceID: "resource_id",
 //	}
@@ -1899,7 +1899,7 @@ func (c *Client) PdfUploadBinary(
 //	)
 func (c *Client) PdfDownloadResource(
 	ctx context.Context,
-	request *afgosdk.PdfDownloadResourceRequest,
+	request *v2.PdfDownloadResourceRequest,
 	opts ...option.RequestOption,
 ) (io.Reader, error) {
 	response, err := c.WithRawResponse.PdfDownloadResource(
@@ -1917,7 +1917,7 @@ func (c *Client) PdfDownloadResource(
 //
 // Example:
 //
-//	request := &afgosdk.PdfGetTaskStatusRequest{
+//	request := &v2.PdfGetTaskStatusRequest{
 //	    APIKey: "apiKey",
 //	    TaskID: "task_id",
 //	}
@@ -1927,9 +1927,9 @@ func (c *Client) PdfDownloadResource(
 //	)
 func (c *Client) PdfGetTaskStatus(
 	ctx context.Context,
-	request *afgosdk.PdfGetTaskStatusRequest,
+	request *v2.PdfGetTaskStatusRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfGetTaskStatusResponse, error) {
+) (*v2.PdfGetTaskStatusResponse, error) {
 	response, err := c.WithRawResponse.PdfGetTaskStatus(
 		ctx,
 		request,
@@ -1945,7 +1945,7 @@ func (c *Client) PdfGetTaskStatus(
 //
 // Example:
 //
-//	request := &afgosdk.PdfGetFileStatusRequest{
+//	request := &v2.PdfGetFileStatusRequest{
 //	    APIKey: "apiKey",
 //	    FileID: "file_id",
 //	}
@@ -1955,9 +1955,9 @@ func (c *Client) PdfGetTaskStatus(
 //	)
 func (c *Client) PdfGetFileStatus(
 	ctx context.Context,
-	request *afgosdk.PdfGetFileStatusRequest,
+	request *v2.PdfGetFileStatusRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfGetFileStatusResponse, error) {
+) (*v2.PdfGetFileStatusResponse, error) {
 	response, err := c.WithRawResponse.PdfGetFileStatus(
 		ctx,
 		request,
@@ -1973,7 +1973,7 @@ func (c *Client) PdfGetFileStatus(
 //
 // Example:
 //
-//	request := &afgosdk.PdfListFilesRequest{
+//	request := &v2.PdfListFilesRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.PdfListFiles(
@@ -1982,9 +1982,9 @@ func (c *Client) PdfGetFileStatus(
 //	)
 func (c *Client) PdfListFiles(
 	ctx context.Context,
-	request *afgosdk.PdfListFilesRequest,
+	request *v2.PdfListFilesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfListFilesResponse, error) {
+) (*v2.PdfListFilesResponse, error) {
 	response, err := c.WithRawResponse.PdfListFiles(
 		ctx,
 		request,
@@ -2000,7 +2000,7 @@ func (c *Client) PdfListFiles(
 //
 // Example:
 //
-//	request := &afgosdk.PdfDeleteFileRequest{
+//	request := &v2.PdfDeleteFileRequest{
 //	    APIKey: "apiKey",
 //	    FileID: "file_id",
 //	}
@@ -2010,9 +2010,9 @@ func (c *Client) PdfListFiles(
 //	)
 func (c *Client) PdfDeleteFile(
 	ctx context.Context,
-	request *afgosdk.PdfDeleteFileRequest,
+	request *v2.PdfDeleteFileRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfDeleteFileResponse, error) {
+) (*v2.PdfDeleteFileResponse, error) {
 	response, err := c.WithRawResponse.PdfDeleteFile(
 		ctx,
 		request,
@@ -2028,7 +2028,7 @@ func (c *Client) PdfDeleteFile(
 //
 // Example:
 //
-//	request := &afgosdk.PdfGenerateFromTemplateRequest{
+//	request := &v2.PdfGenerateFromTemplateRequest{
 //	    APIKey: "apiKey",
 //	    TemplateID: "template_id",
 //	    Body: map[string]any{
@@ -2081,9 +2081,9 @@ func (c *Client) PdfDeleteFile(
 //	)
 func (c *Client) PdfGenerateFromTemplate(
 	ctx context.Context,
-	request *afgosdk.PdfGenerateFromTemplateRequest,
+	request *v2.PdfGenerateFromTemplateRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.PdfGenerateFromTemplateResponse, error) {
+) (*v2.PdfGenerateFromTemplateResponse, error) {
 	response, err := c.WithRawResponse.PdfGenerateFromTemplate(
 		ctx,
 		request,
@@ -2099,7 +2099,7 @@ func (c *Client) PdfGenerateFromTemplate(
 //
 // Example:
 //
-//	request := &afgosdk.BulkPdfGenerateFromTemplateRequest{
+//	request := &v2.BulkPdfGenerateFromTemplateRequest{
 //	    APIKey: "apiKey",
 //	    TemplateID: "template_id",
 //	    File: strings.NewReader(
@@ -2112,9 +2112,9 @@ func (c *Client) PdfGenerateFromTemplate(
 //	)
 func (c *Client) BulkPdfGenerateFromTemplate(
 	ctx context.Context,
-	request *afgosdk.BulkPdfGenerateFromTemplateRequest,
+	request *v2.BulkPdfGenerateFromTemplateRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.BulkPdfGenerateFromTemplateResponseItem, error) {
+) ([]*v2.BulkPdfGenerateFromTemplateResponseItem, error) {
 	response, err := c.WithRawResponse.BulkPdfGenerateFromTemplate(
 		ctx,
 		request,
@@ -2131,7 +2131,7 @@ func (c *Client) BulkPdfGenerateFromTemplate(
 //
 // Example:
 //
-//	request := &afgosdk.ScreenshotCaptureRequest{
+//	request := &v2.ScreenshotCaptureRequest{
 //	    APIKey: "apiKey",
 //	    URL: "url",
 //	}
@@ -2141,9 +2141,9 @@ func (c *Client) BulkPdfGenerateFromTemplate(
 //	)
 func (c *Client) ScreenshotCapture(
 	ctx context.Context,
-	request *afgosdk.ScreenshotCaptureRequest,
+	request *v2.ScreenshotCaptureRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.ScreenshotCaptureResponse, error) {
+) (*v2.ScreenshotCaptureResponse, error) {
 	response, err := c.WithRawResponse.ScreenshotCapture(
 		ctx,
 		request,
@@ -2161,10 +2161,10 @@ func (c *Client) ScreenshotCapture(
 //
 // Example:
 //
-//	request := &afgosdk.BulkScreenshotCaptureRequest{
+//	request := &v2.BulkScreenshotCaptureRequest{
 //	    APIKey: "apiKey",
-//	    URLs: []*afgosdk.BulkScreenshotCaptureRequestURLsItem{
-//	        &afgosdk.BulkScreenshotCaptureRequestURLsItem{
+//	    URLs: []*v2.BulkScreenshotCaptureRequestURLsItem{
+//	        &v2.BulkScreenshotCaptureRequestURLsItem{
 //	            URL: "url",
 //	        },
 //	    },
@@ -2175,9 +2175,9 @@ func (c *Client) ScreenshotCapture(
 //	)
 func (c *Client) BulkScreenshotCapture(
 	ctx context.Context,
-	request *afgosdk.BulkScreenshotCaptureRequest,
+	request *v2.BulkScreenshotCaptureRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkScreenshotCaptureResponse, error) {
+) (*v2.BulkScreenshotCaptureResponse, error) {
 	response, err := c.WithRawResponse.BulkScreenshotCapture(
 		ctx,
 		request,
@@ -2193,7 +2193,7 @@ func (c *Client) BulkScreenshotCapture(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencyLatestRatesRequest{
+//	request := &v2.CurrencyLatestRatesRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.CurrencyLatestRates(
@@ -2202,9 +2202,9 @@ func (c *Client) BulkScreenshotCapture(
 //	)
 func (c *Client) CurrencyLatestRates(
 	ctx context.Context,
-	request *afgosdk.CurrencyLatestRatesRequest,
+	request *v2.CurrencyLatestRatesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencyLatestRatesResponse, error) {
+) (*v2.CurrencyLatestRatesResponse, error) {
 	response, err := c.WithRawResponse.CurrencyLatestRates(
 		ctx,
 		request,
@@ -2220,9 +2220,9 @@ func (c *Client) CurrencyLatestRates(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencyHistoricalRatesRequest{
+//	request := &v2.CurrencyHistoricalRatesRequest{
 //	    APIKey: "apiKey",
-//	    Date: afgosdk.MustParseDate(
+//	    Date: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -2232,9 +2232,9 @@ func (c *Client) CurrencyLatestRates(
 //	)
 func (c *Client) CurrencyHistoricalRates(
 	ctx context.Context,
-	request *afgosdk.CurrencyHistoricalRatesRequest,
+	request *v2.CurrencyHistoricalRatesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencyHistoricalRatesResponse, error) {
+) (*v2.CurrencyHistoricalRatesResponse, error) {
 	response, err := c.WithRawResponse.CurrencyHistoricalRates(
 		ctx,
 		request,
@@ -2250,7 +2250,7 @@ func (c *Client) CurrencyHistoricalRates(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencyConvertLatestRequest{
+//	request := &v2.CurrencyConvertLatestRequest{
 //	    APIKey: "apiKey",
 //	    From: "from",
 //	    To: "to",
@@ -2261,9 +2261,9 @@ func (c *Client) CurrencyHistoricalRates(
 //	)
 func (c *Client) CurrencyConvertLatest(
 	ctx context.Context,
-	request *afgosdk.CurrencyConvertLatestRequest,
+	request *v2.CurrencyConvertLatestRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencyConvertLatestResponse, error) {
+) (*v2.CurrencyConvertLatestResponse, error) {
 	response, err := c.WithRawResponse.CurrencyConvertLatest(
 		ctx,
 		request,
@@ -2279,11 +2279,11 @@ func (c *Client) CurrencyConvertLatest(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencyConvertHistoricalRequest{
+//	request := &v2.CurrencyConvertHistoricalRequest{
 //	    APIKey: "apiKey",
 //	    From: "from",
 //	    To: "to",
-//	    Date: afgosdk.MustParseDate(
+//	    Date: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -2293,9 +2293,9 @@ func (c *Client) CurrencyConvertLatest(
 //	)
 func (c *Client) CurrencyConvertHistorical(
 	ctx context.Context,
-	request *afgosdk.CurrencyConvertHistoricalRequest,
+	request *v2.CurrencyConvertHistoricalRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencyConvertHistoricalResponse, error) {
+) (*v2.CurrencyConvertHistoricalResponse, error) {
 	response, err := c.WithRawResponse.CurrencyConvertHistorical(
 		ctx,
 		request,
@@ -2311,9 +2311,9 @@ func (c *Client) CurrencyConvertHistorical(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencyTimeSeriesRequest{
+//	request := &v2.CurrencyTimeSeriesRequest{
 //	    APIKey: "apiKey",
-//	    StartDate: afgosdk.MustParseDate(
+//	    StartDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -2323,9 +2323,9 @@ func (c *Client) CurrencyConvertHistorical(
 //	)
 func (c *Client) CurrencyTimeSeries(
 	ctx context.Context,
-	request *afgosdk.CurrencyTimeSeriesRequest,
+	request *v2.CurrencyTimeSeriesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencyTimeSeriesResponse, error) {
+) (*v2.CurrencyTimeSeriesResponse, error) {
 	response, err := c.WithRawResponse.CurrencyTimeSeries(
 		ctx,
 		request,
@@ -2341,12 +2341,12 @@ func (c *Client) CurrencyTimeSeries(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencyFluctuationRequest{
+//	request := &v2.CurrencyFluctuationRequest{
 //	    APIKey: "apiKey",
-//	    StartDate: afgosdk.MustParseDate(
+//	    StartDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
-//	    Base: afgosdk.String(
+//	    Base: v2.String(
 //	        "USD",
 //	    ),
 //	}
@@ -2356,9 +2356,9 @@ func (c *Client) CurrencyTimeSeries(
 //	)
 func (c *Client) CurrencyFluctuation(
 	ctx context.Context,
-	request *afgosdk.CurrencyFluctuationRequest,
+	request *v2.CurrencyFluctuationRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencyFluctuationResponse, error) {
+) (*v2.CurrencyFluctuationResponse, error) {
 	response, err := c.WithRawResponse.CurrencyFluctuation(
 		ctx,
 		request,
@@ -2374,7 +2374,7 @@ func (c *Client) CurrencyFluctuation(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencyConvertByIPRequest{
+//	request := &v2.CurrencyConvertByIPRequest{
 //	    APIKey: "apiKey",
 //	    From: "from",
 //	}
@@ -2384,9 +2384,9 @@ func (c *Client) CurrencyFluctuation(
 //	)
 func (c *Client) CurrencyConvertByIP(
 	ctx context.Context,
-	request *afgosdk.CurrencyConvertByIPRequest,
+	request *v2.CurrencyConvertByIPRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencyConvertByIPResponse, error) {
+) (*v2.CurrencyConvertByIPResponse, error) {
 	response, err := c.WithRawResponse.CurrencyConvertByIP(
 		ctx,
 		request,
@@ -2402,7 +2402,7 @@ func (c *Client) CurrencyConvertByIP(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencySupportedRequest{
+//	request := &v2.CurrencySupportedRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.CurrencySupported(
@@ -2411,9 +2411,9 @@ func (c *Client) CurrencyConvertByIP(
 //	)
 func (c *Client) CurrencySupported(
 	ctx context.Context,
-	request *afgosdk.CurrencySupportedRequest,
+	request *v2.CurrencySupportedRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencySupportedResponse, error) {
+) (*v2.CurrencySupportedResponse, error) {
 	response, err := c.WithRawResponse.CurrencySupported(
 		ctx,
 		request,
@@ -2429,7 +2429,7 @@ func (c *Client) CurrencySupported(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencySymbolsRequest{
+//	request := &v2.CurrencySymbolsRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.CurrencySymbols(
@@ -2438,9 +2438,9 @@ func (c *Client) CurrencySupported(
 //	)
 func (c *Client) CurrencySymbols(
 	ctx context.Context,
-	request *afgosdk.CurrencySymbolsRequest,
+	request *v2.CurrencySymbolsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencySymbolsResponse, error) {
+) (*v2.CurrencySymbolsResponse, error) {
 	response, err := c.WithRawResponse.CurrencySymbols(
 		ctx,
 		request,
@@ -2456,7 +2456,7 @@ func (c *Client) CurrencySymbols(
 //
 // Example:
 //
-//	request := &afgosdk.CurrencyHistoricalLimitsRequest{
+//	request := &v2.CurrencyHistoricalLimitsRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.CurrencyHistoricalLimits(
@@ -2465,9 +2465,9 @@ func (c *Client) CurrencySymbols(
 //	)
 func (c *Client) CurrencyHistoricalLimits(
 	ctx context.Context,
-	request *afgosdk.CurrencyHistoricalLimitsRequest,
+	request *v2.CurrencyHistoricalLimitsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrencyHistoricalLimitsResponse, error) {
+) (*v2.CurrencyHistoricalLimitsResponse, error) {
 	response, err := c.WithRawResponse.CurrencyHistoricalLimits(
 		ctx,
 		request,
@@ -2483,14 +2483,14 @@ func (c *Client) CurrencyHistoricalLimits(
 //
 // Example:
 //
-//	request := &afgosdk.CommodityLatestRatesRequest{
+//	request := &v2.CommodityLatestRatesRequest{
 //	    APIKey: "apiKey",
 //	    Symbols: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "symbols",
 //	        ),
 //	    },
-//	    Updates: afgosdk.CommodityLatestRatesRequestUpdatesTenM,
+//	    Updates: v2.CommodityLatestRatesRequestUpdatesTenM,
 //	}
 //	_, err := client.CommodityLatestRates(
 //	    context.TODO(),
@@ -2498,9 +2498,9 @@ func (c *Client) CurrencyHistoricalLimits(
 //	)
 func (c *Client) CommodityLatestRates(
 	ctx context.Context,
-	request *afgosdk.CommodityLatestRatesRequest,
+	request *v2.CommodityLatestRatesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CommodityLatestRatesResponse, error) {
+) (*v2.CommodityLatestRatesResponse, error) {
 	response, err := c.WithRawResponse.CommodityLatestRates(
 		ctx,
 		request,
@@ -2516,13 +2516,13 @@ func (c *Client) CommodityLatestRates(
 //
 // Example:
 //
-//	request := &afgosdk.CommodityHistoricalRatesRequest{
+//	request := &v2.CommodityHistoricalRatesRequest{
 //	    APIKey: "apiKey",
-//	    Date: afgosdk.MustParseDate(
+//	    Date: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	    Symbols: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "symbols",
 //	        ),
 //	    },
@@ -2533,9 +2533,9 @@ func (c *Client) CommodityLatestRates(
 //	)
 func (c *Client) CommodityHistoricalRates(
 	ctx context.Context,
-	request *afgosdk.CommodityHistoricalRatesRequest,
+	request *v2.CommodityHistoricalRatesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CommodityHistoricalRatesResponse, error) {
+) (*v2.CommodityHistoricalRatesResponse, error) {
 	response, err := c.WithRawResponse.CommodityHistoricalRates(
 		ctx,
 		request,
@@ -2551,17 +2551,17 @@ func (c *Client) CommodityHistoricalRates(
 //
 // Example:
 //
-//	request := &afgosdk.CommodityFluctuationRequest{
+//	request := &v2.CommodityFluctuationRequest{
 //	    APIKey: "apiKey",
 //	    Symbols: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "symbols",
 //	        ),
 //	    },
-//	    StartDate: afgosdk.MustParseDate(
+//	    StartDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
-//	    EndDate: afgosdk.MustParseDate(
+//	    EndDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -2571,9 +2571,9 @@ func (c *Client) CommodityHistoricalRates(
 //	)
 func (c *Client) CommodityFluctuation(
 	ctx context.Context,
-	request *afgosdk.CommodityFluctuationRequest,
+	request *v2.CommodityFluctuationRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CommodityFluctuationResponse, error) {
+) (*v2.CommodityFluctuationResponse, error) {
 	response, err := c.WithRawResponse.CommodityFluctuation(
 		ctx,
 		request,
@@ -2589,17 +2589,17 @@ func (c *Client) CommodityFluctuation(
 //
 // Example:
 //
-//	request := &afgosdk.CommodityTimeSeriesRequest{
+//	request := &v2.CommodityTimeSeriesRequest{
 //	    APIKey: "apiKey",
 //	    Symbols: []*string{
-//	        afgosdk.String(
+//	        v2.String(
 //	            "symbols",
 //	        ),
 //	    },
-//	    StartDate: afgosdk.MustParseDate(
+//	    StartDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
-//	    EndDate: afgosdk.MustParseDate(
+//	    EndDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -2609,9 +2609,9 @@ func (c *Client) CommodityFluctuation(
 //	)
 func (c *Client) CommodityTimeSeries(
 	ctx context.Context,
-	request *afgosdk.CommodityTimeSeriesRequest,
+	request *v2.CommodityTimeSeriesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CommodityTimeSeriesResponse, error) {
+) (*v2.CommodityTimeSeriesResponse, error) {
 	response, err := c.WithRawResponse.CommodityTimeSeries(
 		ctx,
 		request,
@@ -2627,7 +2627,7 @@ func (c *Client) CommodityTimeSeries(
 //
 // Example:
 //
-//	request := &afgosdk.CommoditySymbolsRequest{
+//	request := &v2.CommoditySymbolsRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.CommoditySymbols(
@@ -2636,9 +2636,9 @@ func (c *Client) CommodityTimeSeries(
 //	)
 func (c *Client) CommoditySymbols(
 	ctx context.Context,
-	request *afgosdk.CommoditySymbolsRequest,
+	request *v2.CommoditySymbolsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CommoditySymbolsResponse, error) {
+) (*v2.CommoditySymbolsResponse, error) {
 	response, err := c.WithRawResponse.CommoditySymbols(
 		ctx,
 		request,
@@ -2654,7 +2654,7 @@ func (c *Client) CommoditySymbols(
 //
 // Example:
 //
-//	request := &afgosdk.VatSupportedCountriesRequest{
+//	request := &v2.VatSupportedCountriesRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.VatSupportedCountries(
@@ -2663,9 +2663,9 @@ func (c *Client) CommoditySymbols(
 //	)
 func (c *Client) VatSupportedCountries(
 	ctx context.Context,
-	request *afgosdk.VatSupportedCountriesRequest,
+	request *v2.VatSupportedCountriesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.VatSupportedCountriesResponse, error) {
+) (*v2.VatSupportedCountriesResponse, error) {
 	response, err := c.WithRawResponse.VatSupportedCountries(
 		ctx,
 		request,
@@ -2681,7 +2681,7 @@ func (c *Client) VatSupportedCountries(
 //
 // Example:
 //
-//	request := &afgosdk.VatRateByIPRequest{
+//	request := &v2.VatRateByIPRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.VatRateByIP(
@@ -2690,9 +2690,9 @@ func (c *Client) VatSupportedCountries(
 //	)
 func (c *Client) VatRateByIP(
 	ctx context.Context,
-	request *afgosdk.VatRateByIPRequest,
+	request *v2.VatRateByIPRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.VatRateByIPResponseItem, error) {
+) ([]*v2.VatRateByIPResponseItem, error) {
 	response, err := c.WithRawResponse.VatRateByIP(
 		ctx,
 		request,
@@ -2708,7 +2708,7 @@ func (c *Client) VatRateByIP(
 //
 // Example:
 //
-//	request := &afgosdk.VatRateByCountryRequest{
+//	request := &v2.VatRateByCountryRequest{
 //	    APIKey: "apiKey",
 //	    Country: "country",
 //	}
@@ -2718,9 +2718,9 @@ func (c *Client) VatRateByIP(
 //	)
 func (c *Client) VatRateByCountry(
 	ctx context.Context,
-	request *afgosdk.VatRateByCountryRequest,
+	request *v2.VatRateByCountryRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.VatRateByCountryResponseItem, error) {
+) ([]*v2.VatRateByCountryResponseItem, error) {
 	response, err := c.WithRawResponse.VatRateByCountry(
 		ctx,
 		request,
@@ -2736,15 +2736,15 @@ func (c *Client) VatRateByCountry(
 //
 // Example:
 //
-//	request := &afgosdk.BulkVatRateByCountryRequest{
+//	request := &v2.BulkVatRateByCountryRequest{
 //	    APIKey: "apiKey",
-//	    Countries: []*afgosdk.BulkVatRateByCountryRequestCountriesItem{
-//	        &afgosdk.BulkVatRateByCountryRequestCountriesItem{
+//	    Countries: []*v2.BulkVatRateByCountryRequestCountriesItem{
+//	        &v2.BulkVatRateByCountryRequestCountriesItem{
 //	            Country: "PAK",
 //	        },
-//	        &afgosdk.BulkVatRateByCountryRequestCountriesItem{
+//	        &v2.BulkVatRateByCountryRequestCountriesItem{
 //	            Country: "United_States",
-//	            State: afgosdk.String(
+//	            State: v2.String(
 //	                "New_York",
 //	            ),
 //	        },
@@ -2756,9 +2756,9 @@ func (c *Client) VatRateByCountry(
 //	)
 func (c *Client) BulkVatRateByCountry(
 	ctx context.Context,
-	request *afgosdk.BulkVatRateByCountryRequest,
+	request *v2.BulkVatRateByCountryRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.BulkVatRateByCountryResponseItem, error) {
+) ([]*v2.BulkVatRateByCountryResponseItem, error) {
 	response, err := c.WithRawResponse.BulkVatRateByCountry(
 		ctx,
 		request,
@@ -2774,7 +2774,7 @@ func (c *Client) BulkVatRateByCountry(
 //
 // Example:
 //
-//	request := &afgosdk.VatValidateRequest{
+//	request := &v2.VatValidateRequest{
 //	    APIKey: "apiKey",
 //	    VatNumber: "vatNumber",
 //	}
@@ -2784,9 +2784,9 @@ func (c *Client) BulkVatRateByCountry(
 //	)
 func (c *Client) VatValidate(
 	ctx context.Context,
-	request *afgosdk.VatValidateRequest,
+	request *v2.VatValidateRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.VatValidateResponse, error) {
+) (*v2.VatValidateResponse, error) {
 	response, err := c.WithRawResponse.VatValidate(
 		ctx,
 		request,
@@ -2802,7 +2802,7 @@ func (c *Client) VatValidate(
 //
 // Example:
 //
-//	request := &afgosdk.IbanValidateRequest{
+//	request := &v2.IbanValidateRequest{
 //	    APIKey: "apiKey",
 //	    Iban: "iban",
 //	}
@@ -2812,9 +2812,9 @@ func (c *Client) VatValidate(
 //	)
 func (c *Client) IbanValidate(
 	ctx context.Context,
-	request *afgosdk.IbanValidateRequest,
+	request *v2.IbanValidateRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.IbanValidateResponse, error) {
+) (*v2.IbanValidateResponse, error) {
 	response, err := c.WithRawResponse.IbanValidate(
 		ctx,
 		request,
@@ -2830,7 +2830,7 @@ func (c *Client) IbanValidate(
 //
 // Example:
 //
-//	request := &afgosdk.SwiftCodeFindRequest{
+//	request := &v2.SwiftCodeFindRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.SwiftCodeFind(
@@ -2839,7 +2839,7 @@ func (c *Client) IbanValidate(
 //	)
 func (c *Client) SwiftCodeFind(
 	ctx context.Context,
-	request *afgosdk.SwiftCodeFindRequest,
+	request *v2.SwiftCodeFindRequest,
 	opts ...option.RequestOption,
 ) ([]string, error) {
 	response, err := c.WithRawResponse.SwiftCodeFind(
@@ -2857,7 +2857,7 @@ func (c *Client) SwiftCodeFind(
 //
 // Example:
 //
-//	request := &afgosdk.SwiftCodeLookupRequest{
+//	request := &v2.SwiftCodeLookupRequest{
 //	    APIKey: "apiKey",
 //	    SwiftCode: "swiftCode",
 //	}
@@ -2867,9 +2867,9 @@ func (c *Client) SwiftCodeFind(
 //	)
 func (c *Client) SwiftCodeLookup(
 	ctx context.Context,
-	request *afgosdk.SwiftCodeLookupRequest,
+	request *v2.SwiftCodeLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.SwiftCodeLookupResponse, error) {
+) (*v2.SwiftCodeLookupResponse, error) {
 	response, err := c.WithRawResponse.SwiftCodeLookup(
 		ctx,
 		request,
@@ -2883,7 +2883,7 @@ func (c *Client) SwiftCodeLookup(
 
 // Example:
 //
-//	request := &afgosdk.ZipcodeLookupRequest{
+//	request := &v2.ZipcodeLookupRequest{
 //	    APIKey: "apiKey",
 //	    Code: "code",
 //	}
@@ -2893,9 +2893,9 @@ func (c *Client) SwiftCodeLookup(
 //	)
 func (c *Client) ZipcodeLookup(
 	ctx context.Context,
-	request *afgosdk.ZipcodeLookupRequest,
+	request *v2.ZipcodeLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.ZipcodeLookupResponse, error) {
+) (*v2.ZipcodeLookupResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeLookup(
 		ctx,
 		request,
@@ -2911,7 +2911,7 @@ func (c *Client) ZipcodeLookup(
 //
 // Example:
 //
-//	request := &afgosdk.BulkZipcodeLookupRequest{
+//	request := &v2.BulkZipcodeLookupRequest{
 //	    APIKey: "apiKey",
 //	    Codes: []string{
 //	        "codes",
@@ -2923,9 +2923,9 @@ func (c *Client) ZipcodeLookup(
 //	)
 func (c *Client) BulkZipcodeLookup(
 	ctx context.Context,
-	request *afgosdk.BulkZipcodeLookupRequest,
+	request *v2.BulkZipcodeLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkZipcodeLookupResponse, error) {
+) (*v2.BulkZipcodeLookupResponse, error) {
 	response, err := c.WithRawResponse.BulkZipcodeLookup(
 		ctx,
 		request,
@@ -2939,7 +2939,7 @@ func (c *Client) BulkZipcodeLookup(
 
 // Example:
 //
-//	request := &afgosdk.ZipcodeSearchByCityRequest{
+//	request := &v2.ZipcodeSearchByCityRequest{
 //	    APIKey: "apiKey",
 //	    City: "city",
 //	    Country: "country",
@@ -2950,9 +2950,9 @@ func (c *Client) BulkZipcodeLookup(
 //	)
 func (c *Client) ZipcodeSearchByCity(
 	ctx context.Context,
-	request *afgosdk.ZipcodeSearchByCityRequest,
+	request *v2.ZipcodeSearchByCityRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.ZipcodeSearchByCityResponse, error) {
+) (*v2.ZipcodeSearchByCityResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeSearchByCity(
 		ctx,
 		request,
@@ -2966,7 +2966,7 @@ func (c *Client) ZipcodeSearchByCity(
 
 // Example:
 //
-//	request := &afgosdk.ZipcodeSearchByRegionRequest{
+//	request := &v2.ZipcodeSearchByRegionRequest{
 //	    APIKey: "apiKey",
 //	    Country: "country",
 //	}
@@ -2976,9 +2976,9 @@ func (c *Client) ZipcodeSearchByCity(
 //	)
 func (c *Client) ZipcodeSearchByRegion(
 	ctx context.Context,
-	request *afgosdk.ZipcodeSearchByRegionRequest,
+	request *v2.ZipcodeSearchByRegionRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.ZipcodeSearchByRegionResponse, error) {
+) (*v2.ZipcodeSearchByRegionResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeSearchByRegion(
 		ctx,
 		request,
@@ -2992,7 +2992,7 @@ func (c *Client) ZipcodeSearchByRegion(
 
 // Example:
 //
-//	request := &afgosdk.ZipcodeSearchByRadiusRequest{
+//	request := &v2.ZipcodeSearchByRadiusRequest{
 //	    APIKey: "apiKey",
 //	    Radius: 1.1,
 //	}
@@ -3002,9 +3002,9 @@ func (c *Client) ZipcodeSearchByRegion(
 //	)
 func (c *Client) ZipcodeSearchByRadius(
 	ctx context.Context,
-	request *afgosdk.ZipcodeSearchByRadiusRequest,
+	request *v2.ZipcodeSearchByRadiusRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.ZipcodeSearchByRadiusResponse, error) {
+) (*v2.ZipcodeSearchByRadiusResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeSearchByRadius(
 		ctx,
 		request,
@@ -3020,7 +3020,7 @@ func (c *Client) ZipcodeSearchByRadius(
 //
 // Example:
 //
-//	request := &afgosdk.ZipcodeDistanceRequest{
+//	request := &v2.ZipcodeDistanceRequest{
 //	    APIKey: "apiKey",
 //	    Compare: []string{
 //	        "compare",
@@ -3033,9 +3033,9 @@ func (c *Client) ZipcodeSearchByRadius(
 //	)
 func (c *Client) ZipcodeDistance(
 	ctx context.Context,
-	request *afgosdk.ZipcodeDistanceRequest,
+	request *v2.ZipcodeDistanceRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.ZipcodeDistanceResponse, error) {
+) (*v2.ZipcodeDistanceResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeDistance(
 		ctx,
 		request,
@@ -3051,7 +3051,7 @@ func (c *Client) ZipcodeDistance(
 //
 // Example:
 //
-//	request := &afgosdk.ZipcodeDistanceMatchRequest{
+//	request := &v2.ZipcodeDistanceMatchRequest{
 //	    APIKey: "apiKey",
 //	    Codes: []string{
 //	        "codes",
@@ -3064,9 +3064,9 @@ func (c *Client) ZipcodeDistance(
 //	)
 func (c *Client) ZipcodeDistanceMatch(
 	ctx context.Context,
-	request *afgosdk.ZipcodeDistanceMatchRequest,
+	request *v2.ZipcodeDistanceMatchRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.ZipcodeDistanceMatchResponse, error) {
+) (*v2.ZipcodeDistanceMatchResponse, error) {
 	response, err := c.WithRawResponse.ZipcodeDistanceMatch(
 		ctx,
 		request,
@@ -3082,7 +3082,7 @@ func (c *Client) ZipcodeDistanceMatch(
 //
 // Example:
 //
-//	request := &afgosdk.CurrentWeatherRequest{
+//	request := &v2.CurrentWeatherRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.CurrentWeather(
@@ -3091,9 +3091,9 @@ func (c *Client) ZipcodeDistanceMatch(
 //	)
 func (c *Client) CurrentWeather(
 	ctx context.Context,
-	request *afgosdk.CurrentWeatherRequest,
+	request *v2.CurrentWeatherRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.CurrentWeatherResponse, error) {
+) (*v2.CurrentWeatherResponse, error) {
 	response, err := c.WithRawResponse.CurrentWeather(
 		ctx,
 		request,
@@ -3109,29 +3109,29 @@ func (c *Client) CurrentWeather(
 //
 // Example:
 //
-//	request := &afgosdk.BulkCurrentWeatherRequest{
+//	request := &v2.BulkCurrentWeatherRequest{
 //	    APIKey: "apiKey",
-//	    Locations: []*afgosdk.BulkCurrentWeatherRequestLocationsItem{
-//	        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-//	            Location: afgosdk.String(
+//	    Locations: []*v2.BulkCurrentWeatherRequestLocationsItem{
+//	        &v2.BulkCurrentWeatherRequestLocationsItem{
+//	            Location: v2.String(
 //	                "lahore",
 //	            ),
 //	        },
-//	        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-//	            Lat: afgosdk.Float64(
+//	        &v2.BulkCurrentWeatherRequestLocationsItem{
+//	            Lat: v2.Float64(
 //	                32.5,
 //	            ),
-//	            Long: afgosdk.Float64(
+//	            Long: v2.Float64(
 //	                74.5,
 //	            ),
 //	        },
-//	        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-//	            IP: afgosdk.String(
+//	        &v2.BulkCurrentWeatherRequestLocationsItem{
+//	            IP: v2.String(
 //	                "8.8.8.8",
 //	            ),
 //	        },
-//	        &afgosdk.BulkCurrentWeatherRequestLocationsItem{
-//	            Location: afgosdk.String(
+//	        &v2.BulkCurrentWeatherRequestLocationsItem{
+//	            Location: v2.String(
 //	                "seoul",
 //	            ),
 //	        },
@@ -3143,9 +3143,9 @@ func (c *Client) CurrentWeather(
 //	)
 func (c *Client) BulkCurrentWeather(
 	ctx context.Context,
-	request *afgosdk.BulkCurrentWeatherRequest,
+	request *v2.BulkCurrentWeatherRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.BulkCurrentWeatherResponse, error) {
+) (*v2.BulkCurrentWeatherResponse, error) {
 	response, err := c.WithRawResponse.BulkCurrentWeather(
 		ctx,
 		request,
@@ -3161,7 +3161,7 @@ func (c *Client) BulkCurrentWeather(
 //
 // Example:
 //
-//	request := &afgosdk.WeatherForecastRequest{
+//	request := &v2.WeatherForecastRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.WeatherForecast(
@@ -3170,9 +3170,9 @@ func (c *Client) BulkCurrentWeather(
 //	)
 func (c *Client) WeatherForecast(
 	ctx context.Context,
-	request *afgosdk.WeatherForecastRequest,
+	request *v2.WeatherForecastRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.WeatherForecastResponse, error) {
+) (*v2.WeatherForecastResponse, error) {
 	response, err := c.WithRawResponse.WeatherForecast(
 		ctx,
 		request,
@@ -3188,9 +3188,9 @@ func (c *Client) WeatherForecast(
 //
 // Example:
 //
-//	request := &afgosdk.HistoricalWeatherRequest{
+//	request := &v2.HistoricalWeatherRequest{
 //	    APIKey: "apiKey",
-//	    Date: afgosdk.MustParseDate(
+//	    Date: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -3200,9 +3200,9 @@ func (c *Client) WeatherForecast(
 //	)
 func (c *Client) HistoricalWeather(
 	ctx context.Context,
-	request *afgosdk.HistoricalWeatherRequest,
+	request *v2.HistoricalWeatherRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.HistoricalWeatherResponse, error) {
+) (*v2.HistoricalWeatherResponse, error) {
 	response, err := c.WithRawResponse.HistoricalWeather(
 		ctx,
 		request,
@@ -3218,12 +3218,12 @@ func (c *Client) HistoricalWeather(
 //
 // Example:
 //
-//	request := &afgosdk.WeatherTimeSeriesRequest{
+//	request := &v2.WeatherTimeSeriesRequest{
 //	    APIKey: "apiKey",
-//	    StartDate: afgosdk.MustParseDate(
+//	    StartDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
-//	    EndDate: afgosdk.MustParseDate(
+//	    EndDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -3233,9 +3233,9 @@ func (c *Client) HistoricalWeather(
 //	)
 func (c *Client) WeatherTimeSeries(
 	ctx context.Context,
-	request *afgosdk.WeatherTimeSeriesRequest,
+	request *v2.WeatherTimeSeriesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.WeatherTimeSeriesResponse, error) {
+) (*v2.WeatherTimeSeriesResponse, error) {
 	response, err := c.WithRawResponse.WeatherTimeSeries(
 		ctx,
 		request,
@@ -3251,7 +3251,7 @@ func (c *Client) WeatherTimeSeries(
 //
 // Example:
 //
-//	request := &afgosdk.MarineWeatherRequest{
+//	request := &v2.MarineWeatherRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.MarineWeather(
@@ -3260,9 +3260,9 @@ func (c *Client) WeatherTimeSeries(
 //	)
 func (c *Client) MarineWeather(
 	ctx context.Context,
-	request *afgosdk.MarineWeatherRequest,
+	request *v2.MarineWeatherRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.MarineWeatherResponse, error) {
+) (*v2.MarineWeatherResponse, error) {
 	response, err := c.WithRawResponse.MarineWeather(
 		ctx,
 		request,
@@ -3278,7 +3278,7 @@ func (c *Client) MarineWeather(
 //
 // Example:
 //
-//	request := &afgosdk.AirQualityRequest{
+//	request := &v2.AirQualityRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.AirQuality(
@@ -3287,9 +3287,9 @@ func (c *Client) MarineWeather(
 //	)
 func (c *Client) AirQuality(
 	ctx context.Context,
-	request *afgosdk.AirQualityRequest,
+	request *v2.AirQualityRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.AirQualityResponse, error) {
+) (*v2.AirQualityResponse, error) {
 	response, err := c.WithRawResponse.AirQuality(
 		ctx,
 		request,
@@ -3305,12 +3305,12 @@ func (c *Client) AirQuality(
 //
 // Example:
 //
-//	request := &afgosdk.FloodForecastRequest{
+//	request := &v2.FloodForecastRequest{
 //	    APIKey: "apiKey",
-//	    StartDate: afgosdk.MustParseDate(
+//	    StartDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
-//	    EndDate: afgosdk.MustParseDate(
+//	    EndDate: v2.MustParseDate(
 //	        "2023-01-15",
 //	    ),
 //	}
@@ -3320,9 +3320,9 @@ func (c *Client) AirQuality(
 //	)
 func (c *Client) FloodForecast(
 	ctx context.Context,
-	request *afgosdk.FloodForecastRequest,
+	request *v2.FloodForecastRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.FloodForecastResponse, error) {
+) (*v2.FloodForecastResponse, error) {
 	response, err := c.WithRawResponse.FloodForecast(
 		ctx,
 		request,
@@ -3338,7 +3338,7 @@ func (c *Client) FloodForecast(
 //
 // Example:
 //
-//	request := &afgosdk.GetCountriesRequest{
+//	request := &v2.GetCountriesRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.GetCountries(
@@ -3347,9 +3347,9 @@ func (c *Client) FloodForecast(
 //	)
 func (c *Client) GetCountries(
 	ctx context.Context,
-	request *afgosdk.GetCountriesRequest,
+	request *v2.GetCountriesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetCountriesResponse, error) {
+) (*v2.GetCountriesResponse, error) {
 	response, err := c.WithRawResponse.GetCountries(
 		ctx,
 		request,
@@ -3363,7 +3363,7 @@ func (c *Client) GetCountries(
 
 // Example:
 //
-//	request := &afgosdk.GetCountryDetailsRequest{
+//	request := &v2.GetCountryDetailsRequest{
 //	    APIKey: "apiKey",
 //	    Country: "country",
 //	}
@@ -3373,9 +3373,9 @@ func (c *Client) GetCountries(
 //	)
 func (c *Client) GetCountryDetails(
 	ctx context.Context,
-	request *afgosdk.GetCountryDetailsRequest,
+	request *v2.GetCountryDetailsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetCountryDetailsResponse, error) {
+) (*v2.GetCountryDetailsResponse, error) {
 	response, err := c.WithRawResponse.GetCountryDetails(
 		ctx,
 		request,
@@ -3389,7 +3389,7 @@ func (c *Client) GetCountryDetails(
 
 // Example:
 //
-//	request := &afgosdk.GetRegionsRequest{
+//	request := &v2.GetRegionsRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.GetRegions(
@@ -3398,9 +3398,9 @@ func (c *Client) GetCountryDetails(
 //	)
 func (c *Client) GetRegions(
 	ctx context.Context,
-	request *afgosdk.GetRegionsRequest,
+	request *v2.GetRegionsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetRegionsResponse, error) {
+) (*v2.GetRegionsResponse, error) {
 	response, err := c.WithRawResponse.GetRegions(
 		ctx,
 		request,
@@ -3414,7 +3414,7 @@ func (c *Client) GetRegions(
 
 // Example:
 //
-//	request := &afgosdk.GetSubregionsRequest{
+//	request := &v2.GetSubregionsRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.GetSubregions(
@@ -3423,9 +3423,9 @@ func (c *Client) GetRegions(
 //	)
 func (c *Client) GetSubregions(
 	ctx context.Context,
-	request *afgosdk.GetSubregionsRequest,
+	request *v2.GetSubregionsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetSubregionsResponse, error) {
+) (*v2.GetSubregionsResponse, error) {
 	response, err := c.WithRawResponse.GetSubregions(
 		ctx,
 		request,
@@ -3441,7 +3441,7 @@ func (c *Client) GetSubregions(
 //
 // Example:
 //
-//	request := &afgosdk.GetAdminLevelsRequest{
+//	request := &v2.GetAdminLevelsRequest{
 //	    APIKey: "apiKey",
 //	    Country: "country",
 //	}
@@ -3451,9 +3451,9 @@ func (c *Client) GetSubregions(
 //	)
 func (c *Client) GetAdminLevels(
 	ctx context.Context,
-	request *afgosdk.GetAdminLevelsRequest,
+	request *v2.GetAdminLevelsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetAdminLevelsResponse, error) {
+) (*v2.GetAdminLevelsResponse, error) {
 	response, err := c.WithRawResponse.GetAdminLevels(
 		ctx,
 		request,
@@ -3469,7 +3469,7 @@ func (c *Client) GetAdminLevels(
 //
 // Example:
 //
-//	request := &afgosdk.GetAdminUnitsRequest{
+//	request := &v2.GetAdminUnitsRequest{
 //	    APIKey: "apiKey",
 //	    Country: "country",
 //	}
@@ -3479,9 +3479,9 @@ func (c *Client) GetAdminLevels(
 //	)
 func (c *Client) GetAdminUnits(
 	ctx context.Context,
-	request *afgosdk.GetAdminUnitsRequest,
+	request *v2.GetAdminUnitsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetAdminUnitsResponse, error) {
+) (*v2.GetAdminUnitsResponse, error) {
 	response, err := c.WithRawResponse.GetAdminUnits(
 		ctx,
 		request,
@@ -3497,7 +3497,7 @@ func (c *Client) GetAdminUnits(
 //
 // Example:
 //
-//	request := &afgosdk.GetAdminUnitDetailsRequest{
+//	request := &v2.GetAdminUnitDetailsRequest{
 //	    APIKey: "apiKey",
 //	    Country: "country",
 //	    AdminUnit: "admin_unit",
@@ -3508,9 +3508,9 @@ func (c *Client) GetAdminUnits(
 //	)
 func (c *Client) GetAdminUnitDetails(
 	ctx context.Context,
-	request *afgosdk.GetAdminUnitDetailsRequest,
+	request *v2.GetAdminUnitDetailsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetAdminUnitDetailsResponse, error) {
+) (*v2.GetAdminUnitDetailsResponse, error) {
 	response, err := c.WithRawResponse.GetAdminUnitDetails(
 		ctx,
 		request,
@@ -3526,7 +3526,7 @@ func (c *Client) GetAdminUnitDetails(
 //
 // Example:
 //
-//	request := &afgosdk.GetCitiesRequest{
+//	request := &v2.GetCitiesRequest{
 //	    APIKey: "apiKey",
 //	    Country: "country",
 //	}
@@ -3536,9 +3536,9 @@ func (c *Client) GetAdminUnitDetails(
 //	)
 func (c *Client) GetCities(
 	ctx context.Context,
-	request *afgosdk.GetCitiesRequest,
+	request *v2.GetCitiesRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetCitiesResponse, error) {
+) (*v2.GetCitiesResponse, error) {
 	response, err := c.WithRawResponse.GetCities(
 		ctx,
 		request,
@@ -3554,7 +3554,7 @@ func (c *Client) GetCities(
 //
 // Example:
 //
-//	request := &afgosdk.GetSupportedFlagsRequest{
+//	request := &v2.GetSupportedFlagsRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.GetSupportedFlags(
@@ -3563,9 +3563,9 @@ func (c *Client) GetCities(
 //	)
 func (c *Client) GetSupportedFlags(
 	ctx context.Context,
-	request *afgosdk.GetSupportedFlagsRequest,
+	request *v2.GetSupportedFlagsRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetSupportedFlagsResponse, error) {
+) (*v2.GetSupportedFlagsResponse, error) {
 	response, err := c.WithRawResponse.GetSupportedFlags(
 		ctx,
 		request,
@@ -3581,11 +3581,11 @@ func (c *Client) GetSupportedFlags(
 //
 // Example:
 //
-//	request := &afgosdk.GetFlagsRequest{
+//	request := &v2.GetFlagsRequest{
 //	    APIKey: "apiKey",
 //	    Name: "name",
-//	    Shape: afgosdk.GetFlagsRequestShapeFlat,
-//	    Type: afgosdk.GetFlagsRequestTypeCountry,
+//	    Shape: v2.GetFlagsRequestShapeFlat,
+//	    Type: v2.GetFlagsRequestTypeCountry,
 //	}
 //	_, err := client.GetFlags(
 //	    context.TODO(),
@@ -3593,7 +3593,7 @@ func (c *Client) GetSupportedFlags(
 //	)
 func (c *Client) GetFlags(
 	ctx context.Context,
-	request *afgosdk.GetFlagsRequest,
+	request *v2.GetFlagsRequest,
 	opts ...option.RequestOption,
 ) (io.Reader, error) {
 	response, err := c.WithRawResponse.GetFlags(
@@ -3611,7 +3611,7 @@ func (c *Client) GetFlags(
 //
 // Example:
 //
-//	request := &afgosdk.TimezoneLookupRequest{
+//	request := &v2.TimezoneLookupRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.TimezoneLookup(
@@ -3620,9 +3620,9 @@ func (c *Client) GetFlags(
 //	)
 func (c *Client) TimezoneLookup(
 	ctx context.Context,
-	request *afgosdk.TimezoneLookupRequest,
+	request *v2.TimezoneLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.TimezoneLookupResponse, error) {
+) (*v2.TimezoneLookupResponse, error) {
 	response, err := c.WithRawResponse.TimezoneLookup(
 		ctx,
 		request,
@@ -3638,7 +3638,7 @@ func (c *Client) TimezoneLookup(
 //
 // Example:
 //
-//	request := &afgosdk.TimezoneConvertRequest{
+//	request := &v2.TimezoneConvertRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.TimezoneConvert(
@@ -3647,9 +3647,9 @@ func (c *Client) TimezoneLookup(
 //	)
 func (c *Client) TimezoneConvert(
 	ctx context.Context,
-	request *afgosdk.TimezoneConvertRequest,
+	request *v2.TimezoneConvertRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.TimezoneConvertResponse, error) {
+) (*v2.TimezoneConvertResponse, error) {
 	response, err := c.WithRawResponse.TimezoneConvert(
 		ctx,
 		request,
@@ -3665,7 +3665,7 @@ func (c *Client) TimezoneConvert(
 //
 // Example:
 //
-//	request := &afgosdk.UserAgentLookupRequest{
+//	request := &v2.UserAgentLookupRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.UserAgentLookup(
@@ -3674,9 +3674,9 @@ func (c *Client) TimezoneConvert(
 //	)
 func (c *Client) UserAgentLookup(
 	ctx context.Context,
-	request *afgosdk.UserAgentLookupRequest,
+	request *v2.UserAgentLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.UserAgentLookupResponse, error) {
+) (*v2.UserAgentLookupResponse, error) {
 	response, err := c.WithRawResponse.UserAgentLookup(
 		ctx,
 		request,
@@ -3692,7 +3692,7 @@ func (c *Client) UserAgentLookup(
 //
 // Example:
 //
-//	request := &afgosdk.BulkUserAgentLookupRequest{
+//	request := &v2.BulkUserAgentLookupRequest{
 //	    APIKey: "apiKey",
 //	    UaStrings: []string{
 //	        "uaStrings",
@@ -3704,49 +3704,10 @@ func (c *Client) UserAgentLookup(
 //	)
 func (c *Client) BulkUserAgentLookup(
 	ctx context.Context,
-	request *afgosdk.BulkUserAgentLookupRequest,
+	request *v2.BulkUserAgentLookupRequest,
 	opts ...option.RequestOption,
-) ([]*afgosdk.BulkUserAgentLookupResponseItem, error) {
+) ([]*v2.BulkUserAgentLookupResponseItem, error) {
 	response, err := c.WithRawResponse.BulkUserAgentLookup(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Perform Optical Character Recognition (OCR) on images, PDFs, or ZIP archives. Supports two models: `mini-ocr-v1` for CAPTCHA-optimized OCR and `ocr-v1` for general-purpose document text extraction. Supports zonal OCR to extract text from specific regions of an image.
-//
-// **Notes:**
-// - The `zone` query parameter cannot be given with .pdf and .zip types as it can only be applied to single image query.
-// - The `page_range` query parameter cannot be given in any other type except .pdf types.
-// - PDFs containing images in them are allowed only for processing.
-// - The `mini-ocr-v1` model doesn’t support the following query parameters:
-//   - `page_range` (.pdf types)
-//   - `zone`
-//
-// Example:
-//
-//	request := &afgosdk.OcrPredictRequest{
-//	    APIKey: "apiKey",
-//	    Model: afgosdk.OcrPredictRequestModelMiniOcrV1,
-//	    File: strings.NewReader(
-//	        "",
-//	    ),
-//	}
-//	_, err := client.OcrPredict(
-//	    context.TODO(),
-//	    request,
-//	)
-func (c *Client) OcrPredict(
-	ctx context.Context,
-	request *afgosdk.OcrPredictRequest,
-	opts ...option.RequestOption,
-) (*afgosdk.OcrPredictResponse, error) {
-	response, err := c.WithRawResponse.OcrPredict(
 		ctx,
 		request,
 		opts...,
@@ -3761,7 +3722,7 @@ func (c *Client) OcrPredict(
 //
 // Example:
 //
-//	request := &afgosdk.GrammarDetectRequest{
+//	request := &v2.GrammarDetectRequest{
 //	    APIKey: "apiKey",
 //	    Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
 //	}
@@ -3771,9 +3732,9 @@ func (c *Client) OcrPredict(
 //	)
 func (c *Client) GrammarDetect(
 	ctx context.Context,
-	request *afgosdk.GrammarDetectRequest,
+	request *v2.GrammarDetectRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GrammarDetectResponse, error) {
+) (*v2.GrammarDetectResponse, error) {
 	response, err := c.WithRawResponse.GrammarDetect(
 		ctx,
 		request,
@@ -3789,7 +3750,7 @@ func (c *Client) GrammarDetect(
 //
 // Example:
 //
-//	request := &afgosdk.GrammarCorrectRequest{
+//	request := &v2.GrammarCorrectRequest{
 //	    APIKey: "apiKey",
 //	    Text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.",
 //	}
@@ -3799,9 +3760,9 @@ func (c *Client) GrammarDetect(
 //	)
 func (c *Client) GrammarCorrect(
 	ctx context.Context,
-	request *afgosdk.GrammarCorrectRequest,
+	request *v2.GrammarCorrectRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GrammarCorrectResponse, error) {
+) (*v2.GrammarCorrectResponse, error) {
 	response, err := c.WithRawResponse.GrammarCorrect(
 		ctx,
 		request,
@@ -3817,7 +3778,7 @@ func (c *Client) GrammarCorrect(
 //
 // Example:
 //
-//	request := &afgosdk.WeakWordsDetectRequest{
+//	request := &v2.WeakWordsDetectRequest{
 //	    APIKey: "apiKey",
 //	    Text: "Many people cannot get the support they need to handle their conditions well.",
 //	}
@@ -3827,9 +3788,9 @@ func (c *Client) GrammarCorrect(
 //	)
 func (c *Client) WeakWordsDetect(
 	ctx context.Context,
-	request *afgosdk.WeakWordsDetectRequest,
+	request *v2.WeakWordsDetectRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.WeakWordsDetectResponse, error) {
+) (*v2.WeakWordsDetectResponse, error) {
 	response, err := c.WithRawResponse.WeakWordsDetect(
 		ctx,
 		request,
@@ -3845,7 +3806,7 @@ func (c *Client) WeakWordsDetect(
 //
 // Example:
 //
-//	request := &afgosdk.ReadabilityScoreRequest{
+//	request := &v2.ReadabilityScoreRequest{
 //	    APIKey: "apiKey",
 //	    Text: "The global mental is health crisis is now a serious and compelex problem. It needs quick and ongoing action from policymakers, healthcare workers, and the whole society.",
 //	}
@@ -3855,9 +3816,9 @@ func (c *Client) WeakWordsDetect(
 //	)
 func (c *Client) ReadabilityScore(
 	ctx context.Context,
-	request *afgosdk.ReadabilityScoreRequest,
+	request *v2.ReadabilityScoreRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.ReadabilityScoreResponse, error) {
+) (*v2.ReadabilityScoreResponse, error) {
 	response, err := c.WithRawResponse.ReadabilityScore(
 		ctx,
 		request,
@@ -3873,7 +3834,7 @@ func (c *Client) ReadabilityScore(
 //
 // Example:
 //
-//	request := &afgosdk.AstronomyLookupRequest{
+//	request := &v2.AstronomyLookupRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.AstronomyLookup(
@@ -3882,9 +3843,9 @@ func (c *Client) ReadabilityScore(
 //	)
 func (c *Client) AstronomyLookup(
 	ctx context.Context,
-	request *afgosdk.AstronomyLookupRequest,
+	request *v2.AstronomyLookupRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.AstronomyLookupResponse, error) {
+) (*v2.AstronomyLookupResponse, error) {
 	response, err := c.WithRawResponse.AstronomyLookup(
 		ctx,
 		request,
@@ -3900,7 +3861,7 @@ func (c *Client) AstronomyLookup(
 //
 // Example:
 //
-//	request := &afgosdk.GetCreditsUsageRequest{
+//	request := &v2.GetCreditsUsageRequest{
 //	    APIKey: "apiKey",
 //	}
 //	_, err := client.GetCreditsUsage(
@@ -3909,9 +3870,9 @@ func (c *Client) AstronomyLookup(
 //	)
 func (c *Client) GetCreditsUsage(
 	ctx context.Context,
-	request *afgosdk.GetCreditsUsageRequest,
+	request *v2.GetCreditsUsageRequest,
 	opts ...option.RequestOption,
-) (*afgosdk.GetCreditsUsageResponse, error) {
+) (*v2.GetCreditsUsageResponse, error) {
 	response, err := c.WithRawResponse.GetCreditsUsage(
 		ctx,
 		request,

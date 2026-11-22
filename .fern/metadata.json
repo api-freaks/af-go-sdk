@@ -4,8 +4,10 @@
   "generatorVersion": "1.72.3",
   "generatorConfig": {
     "module": {
-      "path": "github.com/api-freaks/af-go-sdk"
+      "path": "github.com/api-freaks/af-go-sdk/v2"
     }
   },
+  "originGitCommit": "17b1295eea8398e99ee74fe332833478acbb849f",
+  "originGitCommitIsDirty": true,
   "invokedBy": "manual"
 }
