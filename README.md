@@ -1,7 +1,7 @@
 # Apifreaks Go SDK
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Apifreaks%2FGo)
-[![Go Reference](https://pkg.go.dev/badge/github.com/api-freaks/af-go-sdk.svg)](https://pkg.go.dev/github.com/api-freaks/af-go-sdk)
+[![Go Reference](https://pkg.go.dev/badge/github.com/api-freaks/af-go-sdk/v2.svg)](https://pkg.go.dev/github.com/api-freaks/af-go-sdk/v2)
 
 The Apifreaks Go library provides convenient access to the Apifreaks APIs from Go.
 
@@ -27,15 +27,15 @@ The Apifreaks Go library provides convenient access to the Apifreaks APIs from G
 Install the SDK with:
 
 ```sh
-go get github.com/api-freaks/af-go-sdk
+go get github.com/api-freaks/af-go-sdk/v2
 ```
 
 Then import the SDK in your Go code:
 
 ```go
 import (
-    sdk "github.com/api-freaks/af-go-sdk"
-    "github.com/api-freaks/af-go-sdk/client"
+    sdk "github.com/api-freaks/af-go-sdk/v2"
+    "github.com/api-freaks/af-go-sdk/v2/client"
 )
 ```
 
@@ -57,8 +57,8 @@ import (
     "fmt"
     "log"
 
-    sdk "github.com/api-freaks/af-go-sdk"
-    "github.com/api-freaks/af-go-sdk/client"
+    sdk "github.com/api-freaks/af-go-sdk/v2"
+    "github.com/api-freaks/af-go-sdk/v2/client"
 )
 
 func main() {
@@ -89,8 +89,8 @@ import (
     "fmt"
     "log"
 
-    sdk "github.com/api-freaks/af-go-sdk"
-    "github.com/api-freaks/af-go-sdk/client"
+    sdk "github.com/api-freaks/af-go-sdk/v2"
+    "github.com/api-freaks/af-go-sdk/v2/client"
 )
 
 func main() {
@@ -121,8 +121,8 @@ import (
     "fmt"
     "log"
 
-    sdk "github.com/api-freaks/af-go-sdk"
-    "github.com/api-freaks/af-go-sdk/client"
+    sdk "github.com/api-freaks/af-go-sdk/v2"
+    "github.com/api-freaks/af-go-sdk/v2/client"
 )
 
 func main() {
@@ -154,9 +154,9 @@ This SDK allows you to configure different environments for API requests.
 package main
 
 import (
-    sdk "github.com/api-freaks/af-go-sdk"
-    "github.com/api-freaks/af-go-sdk/client"
-    "github.com/api-freaks/af-go-sdk/option"
+    sdk "github.com/api-freaks/af-go-sdk/v2"
+    "github.com/api-freaks/af-go-sdk/v2/client"
+    "github.com/api-freaks/af-go-sdk/v2/option"
 )
 
 func main() {
@@ -181,9 +181,9 @@ import (
     "fmt"
     "log"
 
-    sdk "github.com/api-freaks/af-go-sdk"
-    "github.com/api-freaks/af-go-sdk/client"
-    "github.com/api-freaks/af-go-sdk/core"
+    sdk "github.com/api-freaks/af-go-sdk/v2"
+    "github.com/api-freaks/af-go-sdk/v2/client"
+    "github.com/api-freaks/af-go-sdk/v2/core"
 )
 
 func main() {
@@ -228,7 +228,7 @@ If a successful (2xx) response body can't be decoded into the expected response 
 The SDK exports all request types as Go structs from the root package. Import the root package and pass request structs into the client methods.
 
 ```go
-import sdk "github.com/api-freaks/af-go-sdk"
+import sdk "github.com/api-freaks/af-go-sdk/v2"
 
 request := &sdk.GeolocationLookupRequest{
     APIKey: "your_api_key",
@@ -308,8 +308,8 @@ import (
     "net/http"
     "time"
 
-    "github.com/api-freaks/af-go-sdk/client"
-    "github.com/api-freaks/af-go-sdk/option"
+    "github.com/api-freaks/af-go-sdk/v2/client"
+    "github.com/api-freaks/af-go-sdk/v2/option"
 )
 
 func main() {

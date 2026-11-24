@@ -14,7 +14,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/api-freaks/af-go-sdk/core"
+	"github.com/api-freaks/af-go-sdk/v2/core"
 )
 
 const (

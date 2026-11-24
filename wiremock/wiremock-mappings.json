@@ -4159,40 +4159,6 @@
       }
     },
     {
-      "id": "322207ef-2600-4205-b45e-f39c2b116a1b",
-      "name": "Extract text from images, PDFs, or ZIP archives using OCR - Single file, new_line=0",
-      "request": {
-        "urlPathTemplate": "/v1.0/ocr/predict",
-        "method": "POST",
-        "queryParameters": {
-          "apiKey": {
-            "equalTo": "apiKey"
-          },
-          "model": {
-            "equalTo": "mini-ocr-v1"
-          }
-        }
-      },
-      "response": {
-        "status": 200,
-        "body": "{\n  \"OCRText\": [\n    \"Extracted text from the image or document\"\n  ]\n}",
-        "headers": {
-          "Content-Type": "application/json"
-        }
-      },
-      "uuid": "322207ef-2600-4205-b45e-f39c2b116a1b",
-      "persistent": true,
-      "priority": 3,
-      "metadata": {
-        "mocklab": {
-          "created": {
-            "at": "2020-01-01T00:00:00.000Z",
-            "via": "SYSTEM"
-          }
-        }
-      }
-    },
-    {
       "id": "62235911-2f7e-4bc9-9d4d-7ad231a72236",
       "name": "Detect grammar errors and return flagged words with positions. - Grammar errors detected",
       "request": {
@@ -4382,6 +4348,6 @@
     }
   ],
   "meta": {
-    "total": 128
+    "total": 127
   }
 }
